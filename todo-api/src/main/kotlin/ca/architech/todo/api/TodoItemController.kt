@@ -25,9 +25,11 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
     fun getTodoItem(@PathVariable id: String, response: HttpServletResponse) : TodoItem? =
             repository.findById(id) ?: notFound(response)
 
+    @GetMapping(value="/{priority}")
     fun getTodoItemsForPriority(@PathVariable priority: Priority, response: HttpServletResponse) : List<TodoItem>? =
             repository.findByPriority(priority) ?: notFound(response)
 
+    @GetMapping(value="/{dueDate}")
     fun getTodoItemsByDueDate(@PathVariable dueDate: Calendar, response: HttpServletResponse) : List<TodoItem>? {
         return repository.findAll().sortedBy { it.dueDate }
     }
