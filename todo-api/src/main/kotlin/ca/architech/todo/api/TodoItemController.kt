@@ -35,7 +35,7 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
     }
 
     fun getTodoItemsByTag(@PathVariable tags: List<String>, response: HttpServletResponse) : List<TodoItem>? {
-        return repository.findByTags(tags);
+        return repository.findByTags(tags)
     }
 
     @PostMapping()

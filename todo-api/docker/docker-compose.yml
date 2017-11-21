@@ -1,0 +1,16 @@
+mongodb:
+    image: mongo
+    ports:
+        - "27017:27017"
+
+mongo-seed:
+    build: ./mongo-seed
+    links:
+        - mongodb
+
+todo-api:
+    image: todo-api
+    ports:
+        - "80:8080"
+    links:
+        - mongo-seed
