@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletResponse
 
 @RestController
 @RequestMapping("/api/todos")
-class TodoController(@Autowired val repository: TodoItemRepository) {
+class TodoItemController(@Autowired val repository: TodoItemRepository) {
 
     //the !! is how we tell the compiler that we know this function will not return null
     //and if it does, we accept the consequences.  Kotlin forces us to make our intention
     //clear
-    val logger = LogFactory.getLog(TodoController::class.java)!!
+    val logger = LogFactory.getLog(TodoItemController::class.java)!!
 
     @GetMapping()
     fun getTodoItems() : List<TodoItem> = repository.findAll()
