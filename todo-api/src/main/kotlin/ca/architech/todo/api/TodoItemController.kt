@@ -34,6 +34,10 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
         return repository.findAll().sortedBy { it.dueDate }
     }
 
+    fun getTodoItemsByTag(@PathVariable tags: List<String>, response: HttpServletResponse) : List<TodoItem>? {
+        return repository.findByTags(tags);
+    }
+
     @PostMapping()
     fun createTodoItem(@RequestBody todoItem: TodoItem): ResponseEntity<HttpStatus> {
         val newPost = repository.insert(todoItem)
