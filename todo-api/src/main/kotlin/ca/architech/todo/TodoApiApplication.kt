@@ -1,4 +1,4 @@
-package ca.architech.todo.api
+package ca.architech.todo
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
