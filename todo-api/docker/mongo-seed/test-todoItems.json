@@ -1,3 +1,38 @@
 {
-  "_comment": "test data to seed mongo"
+  "todos": [
+    {
+      "_id": "123456789",
+      "owner": "jk@architech.ca",
+      "description": "Finish reading policies by Friday.",
+      "dueDate": "2017/11/25",
+      "tags": [
+        "work",
+        "legal",
+        "hr"
+      ]
+    },
+    {
+      "_id": "234567890",
+      "owner": "jk@architech.ca",
+      "description": "Finish the Todo API",
+      "dueDate": "2017/12/25",
+      "tags": [
+        "demo"
+      ]
+    },
+    {
+      "_id": "345678901",
+      "owner": "jk@architech.ca",
+      "description": "Create a multi-stage build for the Todo API image.",
+      "dueDate": "2017/12/30",
+      "tags": [
+        "demo",
+        "K8S demo",
+        "docker"
+      ]
+    }
+  ]
 }
+
+
+
