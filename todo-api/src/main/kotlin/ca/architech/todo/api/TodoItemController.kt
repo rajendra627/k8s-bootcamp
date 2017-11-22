@@ -71,7 +71,7 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
                 }
             }
 
-    private fun <T> unableToProcessRequest(statusCode: int, response: HttpServletResponse): T? {
+    private fun <T> unableToProcessRequest(statusCode: Int, response: HttpServletResponse): T? {
         response.status = statusCode
         return null
     }
