@@ -1,38 +1,16 @@
-{
-  "todos" : [
-    {
-      "_id": "123456789",
-      "owner": "123456789",
+
+    {"_id": "123456789", "owner": "123456789",
       "description": "Finish reading policies by Friday.",
-      "dueDate": "2017/11/25",
-      "tags": [
-        "work",
-        "legal",
-        "hr"
-      ]
-    },
-    {
-      "_id": "234567890",
-      "owner": "234567890",
+      "dueDate": "2018-04-23T18:25:43.511Z",
+      "tags": ["work","legal","hr"]}
+    {"_id": "234567890","owner": "234567890",
       "description": "Finish the Todo API",
-      "dueDate": "2017/12/25",
-      "tags": [
-        "demo"
-      ]
-    },
-    {
-      "_id": "345678901",
-      "owner": "345678901",
+      "dueDate": "2018-04-23T18:25:43.511Z",
+      "tags": ["demo"]}
+    {"_id": "345678901","owner": "345678901",
       "description": "Create a multi-stage build for the Todo API image.",
-      "dueDate": "2017/12/30",
-      "tags": [
-        "demo",
-        "K8S demo",
-        "docker"
-      ]
-    }
-  ]
-}
+      "dueDate": "2018-04-23T18:25:43.511Z",
+      "tags": ["demo","K8S demo","docker"]}
 
 
 
