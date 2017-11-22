@@ -1,8 +1,8 @@
 {
-  "todos": [
+  "todos" : [
     {
       "_id": "123456789",
-      "owner": "jk@architech.ca",
+      "owner": "123456789",
       "description": "Finish reading policies by Friday.",
       "dueDate": "2017/11/25",
       "tags": [
@@ -13,7 +13,7 @@
     },
     {
       "_id": "234567890",
-      "owner": "jk@architech.ca",
+      "owner": "234567890",
       "description": "Finish the Todo API",
       "dueDate": "2017/12/25",
       "tags": [
@@ -22,7 +22,7 @@
     },
     {
       "_id": "345678901",
-      "owner": "jk@architech.ca",
+      "owner": "345678901",
       "description": "Create a multi-stage build for the Todo API image.",
       "dueDate": "2017/12/30",
       "tags": [
