@@ -1,6 +1,7 @@
 package ca.architech.todo.api
 
 import org.apache.commons.logging.LogFactory
+import org.json.HTTP
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -23,11 +24,11 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
 
     @GetMapping(value="/{id}")
     fun getTodoItem(@PathVariable id: String, response: HttpServletResponse) : TodoItem? =
-            repository.findById(id) ?: notFound(response)
+            repository.findById(id) ?: unableToProcessRequest(404, response)
 
     @GetMapping(value="/{priority}")
     fun getTodoItemsForPriority(@PathVariable priority: Priority, response: HttpServletResponse) : List<TodoItem>? =
-            repository.findByPriority(priority) ?: notFound(response)
+            repository.findByPriority(priority) ?: unableToProcessRequest(404, response)
 
     @GetMapping(value="/{dueDate}")
     fun getTodoItemsByDueDate(@PathVariable dueDate: Calendar, response: HttpServletResponse) : List<TodoItem>? {
@@ -35,8 +36,12 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
     }
 
     fun getTodoItemsByTag(@PathVariable tags: List<String>, response: HttpServletResponse) : List<TodoItem>? {
+        if(tags.isEmpty())
+            return unableToProcessRequest(400, response)
+
         return repository.findByTags(tags)
     }
+
 
     @PostMapping()
     fun createTodoItem(@RequestBody todoItem: TodoItem): ResponseEntity<HttpStatus> {
@@ -66,10 +71,8 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
                 }
             }
 
-
-    // Generic function that updates response to 'Not Found' and returns a null object based on caller's type
-    private fun <T> notFound(response: HttpServletResponse): T? {
-        response.status = 404
+    private fun <T> unableToProcessRequest(statusCode: int, response: HttpServletResponse): T? {
+        response.status = statusCode
         return null
     }
 }
