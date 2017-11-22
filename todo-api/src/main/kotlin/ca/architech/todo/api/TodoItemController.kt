@@ -1,7 +1,6 @@
 package ca.architech.todo.api
 
 import org.apache.commons.logging.LogFactory
-import org.json.HTTP
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -71,8 +70,8 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
                 }
             }
 
-    private fun <T> unableToProcessRequest(statusCode: Int, response: HttpServletResponse): T? {
-        response.status = statusCode
+    private fun <T> unableToProcessRequest(httpStatusCode: Int, response: HttpServletResponse): T? {
+        response.status = httpStatusCode
         return null
     }
 }
