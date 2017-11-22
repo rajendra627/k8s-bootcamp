@@ -1,4 +1,6 @@
 FROM mongo
 
-COPY test-data.json /test-data.json
-CMD mongoimport --host mongodb --db reach-engine --collection todos --type json --file /test-data.json --jsonArray
+WORKDIR /data
+COPY *.json .
+COPY import_data.sh .
+CMD chmod +x import_data.sh && ./import_data.sh
