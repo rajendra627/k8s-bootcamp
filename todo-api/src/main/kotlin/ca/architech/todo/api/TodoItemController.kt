@@ -35,26 +35,27 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
 
     }
 
-    @GetMapping(value="/{priority}")
+    @GetMapping(value="/priority/{priority}")
     fun getTodoItemsForPriority(@PathVariable priority: Priority, response: HttpServletResponse) : List<TodoItem>? {
 
         return repository.findByPriority(priority) ?: unableToProcessRequest(404, response)
     }
 
 
-    @GetMapping(value="/{dueDate}")
+    @GetMapping(value="/duedate/{dueDate}")
     fun getTodoItemsByDueDate(@PathVariable dueDate: Calendar, response: HttpServletResponse) : List<TodoItem>? {
         return repository.findAll().sortedBy { it.dueDate }
     }
 
-    fun getTodoItemsByTag(@PathVariable tags: List<String>, response: HttpServletResponse) : List<TodoItem>? {
-        if(tags.isEmpty()) {
+    @GetMapping(value="/tags/{tag}")
+    fun getTodoItemsByTag(@PathVariable tag: String, response: HttpServletResponse) : List<TodoItem>? {
+        if(tag.isEmpty()) {
             logger.info("get todo items by tag but tag list was empty")
             return unableToProcessRequest(400, response)
         }
 
-        logger.info("get todo items by tags: $tags")
-        return repository.findByTags(tags)
+        logger.info("get todo items by tag: $tag")
+        return repository.findByTag(tag)
     }
 
     @PatchMapping(value="/{id}/{tag}")
@@ -67,6 +68,22 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
             return ResponseEntity(HttpStatus.OK)
         } catch (e: Exception) {
             logger.error("Failed add tag to item", e)
+            return ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
+        }
+    }
+
+    @PutMapping()
+    fun updateTodoItem(@RequestBody todoItem: TodoItem) : ResponseEntity<HttpStatus> {
+        logger.info("updating todo item: $todoItem")
+
+        try {
+            var existingItem: TodoItem? = repository.findById(todoItem.id!!) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
+
+            repository.save(todoItem)
+
+            return ResponseEntity(HttpStatus.OK)
+        } catch (e : Exception) {
+            logger.error("Failed to updated TodoItem: $todoItem", e)
             return ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }

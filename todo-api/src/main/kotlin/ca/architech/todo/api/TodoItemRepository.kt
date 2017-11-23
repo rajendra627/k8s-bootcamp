@@ -5,5 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository
 interface TodoItemRepository : MongoRepository<TodoItem, String> {
     fun findById(id: String) : TodoItem?
     fun findByPriority(priority: Priority) : List<TodoItem>?
-    fun findByTags(tags: List<String>) : List<TodoItem>?
+    fun findByTag(tag: String) : List<TodoItem>?
 }
