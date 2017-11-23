@@ -1,9 +1,10 @@
 package ca.architech.todo.api
 
+import org.springframework.data.annotation.Id
 import java.util.*
 
 
-class TodoItem(val id: String? = null,
+class TodoItem(@Id val id: String,
                val description: String,
                val priority: Priority,
                val dueDate: Calendar?,

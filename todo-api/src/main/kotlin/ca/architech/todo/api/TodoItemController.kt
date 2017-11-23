@@ -77,8 +77,7 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
         logger.info("updating todo item: $todoItem")
 
         try {
-            var existingItem: TodoItem? = repository.findById(todoItem.id!!) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
-
+            repository.findById(todoItem.id) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
             repository.save(todoItem)
 
             return ResponseEntity(HttpStatus.OK)
@@ -92,7 +91,7 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
     @PostMapping()
     fun createTodoItem(@RequestBody todoItem: TodoItem): ResponseEntity<HttpStatus> {
         logger.info("creating new todo item: $todoItem")
-        var newItem : TodoItem? = null
+        var newItem : TodoItem?
 
         try {
             newItem = repository.insert(todoItem)
