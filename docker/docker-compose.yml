@@ -9,7 +9,7 @@ services:
     mongo-seed:
         build: ./mongo-seed
         image: mongo-seed
-        links:
+        depends_on:
             - mongodb
 
     todo-api:
@@ -17,5 +17,5 @@ services:
         image: todo-api
         ports:
             - "80:8080"
-        links:
+        depends_on:
             - mongo-seed

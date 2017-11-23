@@ -1,6 +1,6 @@
 FROM mongo
 
-WORKDIR /data
 COPY *.json /data/
-COPY import_data.sh .
-CMD chmod +x import_data.sh && ./import_data.sh
+COPY import_data.sh /data/
+WORKDIR /data
+CMD chmod u+x import_data.sh && ./import_data.sh
