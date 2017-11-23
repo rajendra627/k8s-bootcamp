@@ -1,16 +1,9 @@
 version: "3.1"
 services:
     mongodb:
-        image: mongo
+        image: diverdown/mongo-test:v1 
         ports:
             - "27017:27017"
-
-    #The image to see the mongodb with test data
-    mongo-seed:
-        build: ./mongo-seed
-        image: mongo-seed
-        depends_on:
-            - mongodb
 
     todo-api:
         build: ./todo-api     
