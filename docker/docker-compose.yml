@@ -1,20 +1,21 @@
 version: "3.1"
-mongodb:
-    image: mongo
-    ports:
-        - "27017:27017"
+services:
+    mongodb:
+        image: mongo
+        ports:
+            - "27017:27017"
 
-#The image to see the mongodb with test data
-mongo-seed:
-    build: ./mongo-seed
-    image: mongo-seed
-    links:
-        - mongodb
+    #The image to see the mongodb with test data
+    mongo-seed:
+        build: ./mongo-seed
+        image: mongo-seed
+        links:
+            - mongodb
 
-todo-api:
-    build: ./todo-api
-    image: todo-api
-    ports:
-        - "80:8080"
-    links:
-        - mongo-seed
+    todo-api:
+        build: ./todo-api     
+        image: todo-api
+        ports:
+            - "80:8080"
+        links:
+            - mongo-seed
