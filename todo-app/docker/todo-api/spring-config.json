@@ -5,17 +5,13 @@
 	"spring": {
 		"data": {
 			"mongodb": {
-				"uri": [
-					"mongodb://localhost:27017"
-				],
+				"uri": "mongodb://localhost:27017",
 				"database": "todo-app"
 			}
 		}
 	},
 	"AzureAD": {
-		"appId": [
-			"add application id from azure ad here"
-		],
+		"appId": "add application id from azure ad here",
 		"identityMetaData": "https://login.microsoftonline.com/architech.onmicrosoft.com/v2.0/.well-known/openid-configuration"
 	},
 	"logging": {
