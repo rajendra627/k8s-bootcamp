@@ -3,14 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.17.1",
+    "express": "^4.16.2",
+    "lodash": "^4.17.4",
+    "passport": "^0.4.0",
+    "passport-azure-ad": "^3.0.8",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-scripts": "1.0.17"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start && DEBUG=express:* && nodemon api-src/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1",
+    "rimraf": "^2.6.2"
+  },
+  "proxy": "localhost:8080"
 }
