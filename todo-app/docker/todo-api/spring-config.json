@@ -6,7 +6,7 @@
 		"data": {
 			"mongodb": {
 				"uri": [
-					"add connection string to mongo here"
+					"mongodb://localhost:27017"
 				],
 				"database": "todo-app"
 			}
