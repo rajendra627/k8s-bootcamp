@@ -3,10 +3,10 @@ server:
 spring:
   data:
     mongodb:
-      uri: [add connection string to mongo here]
-      database: todoitems
+      uri: mongodb://localhost:27017
+      database: todo-app
 AzureAD:
-  appId: [add application id from azure ad here]
+  appId: "add application id from azure ad here"
   identityMetaData: https://login.microsoftonline.com/architech.onmicrosoft.com/v2.0/.well-known/openid-configuration
 logging:
   level:

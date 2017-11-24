@@ -55,7 +55,7 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
         }
 
         logger.info("get todo items by tag: $tag")
-        return repository.findByTag(tag)
+        return repository.findByTags(listOf(tag))
     }
 
     @PatchMapping(value="/{id}/{tag}")
