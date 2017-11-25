@@ -91,7 +91,7 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
     @PostMapping()
     fun createTodoItem(@RequestBody todoItem: TodoItem): ResponseEntity<HttpStatus> {
         logger.info("creating new todo item: $todoItem")
-        var newItem : TodoItem?
+        val newItem : TodoItem?
 
         try {
             newItem = repository.insert(todoItem)
