@@ -5,6 +5,7 @@ import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
@@ -22,8 +23,8 @@ class TodoApiApplicationTests {
 
 	@Test
 	fun addTodoItem() {
-		val now = Date();
-		val tomorrow = LocalDateTime.from(now.toInstant().atZone(ZoneId.of("UTC"))).plusDays(1)
+		val now = LocalDate.now();
+		val tomorrow = now.plusDays(1);
 		val item = TodoItem(id = "123456789",
                 owner = "123456789",
                 description = "Test Item",
