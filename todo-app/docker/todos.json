@@ -1,6 +1,2 @@
-[{"_id": "123456789","owner": "123456789","description": "Finish reading policies by Friday.","tags": ["work","legal","hr"]},
-{"_id": "234567890","owner": "234567890","description": "Finish the Todo API","tags": ["demo"]},
-{"_id": "345678901","owner": "345678901","description": "Create a multi-stage build for the Todo API image.","tags": ["demo","K8S demo","docker"]}
-]
-
+[{"id":"123456789","owner":"123456789","description":"Test Item","priority":"HIGH","dueDate":{"dayOfYear":330,"dayOfWeek":"SUNDAY","month":"NOVEMBER","dayOfMonth":26,"hour":1,"minute":53,"second":3,"nano":418000000,"year":2017,"monthValue":11,"chronology":{"calendarType":"iso8601","id":"ISO"}},"tags":["test"]},{"id":"234567890","owner":"234567890","description":"Read policies by end of week.","priority":"HIGH","dueDate":{"dayOfYear":330,"dayOfWeek":"SUNDAY","month":"NOVEMBER","dayOfMonth":26,"hour":1,"minute":53,"second":3,"nano":418000000,"year":2017,"monthValue":11,"chronology":{"calendarType":"iso8601","id":"ISO"}},"tags":["policy, HR"]},{"id":"345678901","owner":"345678901","description":"Finish K8S bootcamp outline.","priority":"HIGH","dueDate":{"dayOfYear":330,"dayOfWeek":"SUNDAY","month":"NOVEMBER","dayOfMonth":26,"hour":1,"minute":53,"second":3,"nano":418000000,"year":2017,"monthValue":11,"chronology":{"calendarType":"iso8601","id":"ISO"}},"tags":["K8S","training"]}]
 
