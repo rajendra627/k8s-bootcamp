@@ -44,18 +44,18 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
 
     @GetMapping(value="/duedate/{dueDate}")
     fun getTodoItemsByDueDate(@PathVariable dueDate: Calendar, response: HttpServletResponse) : List<TodoItem>? {
-        return repository.findAll().sortedBy { it.dueDate }
+        return repository.findAllByOrderByDueDateDesc()
     }
 
     @GetMapping(value="/tags/{tag}")
     fun getTodoItemsByTag(@PathVariable tag: String, response: HttpServletResponse) : List<TodoItem>? {
         if(tag.isEmpty()) {
-            logger.info("get todo items by tag but tag list was empty")
+            logger.error("invalid tag was submitted.")
             return unableToProcessRequest(400, response)
         }
 
         logger.info("get todo items by tag: $tag")
-        return repository.findByTags(listOf(tag))
+        return repository.findByTag(tag)
     }
 
     @PatchMapping(value="/{id}/{tag}")

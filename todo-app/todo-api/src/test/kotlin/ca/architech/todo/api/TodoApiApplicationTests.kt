@@ -1,5 +1,7 @@
 package ca.architech.todo.api
 
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -14,15 +16,11 @@ class TodoApiApplicationTests {
     @Autowired
     lateinit var repository: TodoItemRepository
 
-	@Test
-	fun contextLoads() {
-	}
+    @Before
+    fun setUp() {
+        val now = LocalDate.now();
 
-	@Test
-	fun addTodoItem() {
-		val now = LocalDate.now();
-
-		val item = TodoItem(id = "123456789",
+        val item = TodoItem(id = "123456789",
                 owner = "123456789",
                 description = "Test Item",
                 priority = Priority.HIGH,
@@ -44,10 +42,28 @@ class TodoApiApplicationTests {
                 tags = mutableListOf("K8S", "training"))
 
         repository.save(mutableListOf(item, item2, item3))
+    }
+
+	@Test
+	fun findById() {
         assert(!repository.findAll().isEmpty())
 
-        val retrievedItem = repository.findById(item.id!!)
-        assert(retrievedItem?.id!! == item.id!!)
+        val id = "123456789"
+
+        val item = repository.findById(id)
+
+        assertThat(item?.id).isEqualTo(id)
 	}
+
+    @Test
+    fun findByTag() {
+        assert(!repository.findAll().isEmpty())
+
+        val tag = "training"
+
+        val items = repository.findByTag(tag)
+
+        assertThat(items).hasSize(1)
+    }
 
 }
