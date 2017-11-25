@@ -49,7 +49,6 @@ class TodoApiApplicationTests {
         assert(!repository.findAll().isEmpty())
 
         val id = "123456789"
-
         val item = repository.findById(id)
 
         assertThat(item?.id).isEqualTo(id)
@@ -60,7 +59,6 @@ class TodoApiApplicationTests {
         assert(!repository.findAll().isEmpty())
 
         val tag = "training"
-
         val items = repository.findByTag(tag)
 
         assertThat(items).hasSize(1)
