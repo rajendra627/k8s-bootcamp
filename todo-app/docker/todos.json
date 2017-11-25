@@ -1,6 +1,6 @@
-[{"_id": "123456789","owner": "123456789","description": "Finish reading policies by Friday.","dueDate": "2018-04-23T18:25:43.511Z","tags": ["work","legal","hr"]},
-{"_id": "234567890","owner": "234567890","description": "Finish the Todo API","dueDate": "2018-04-23T18:25:43.511Z","tags": ["demo"]},
-{"_id": "345678901","owner": "345678901","description": "Create a multi-stage build for the Todo API image.","dueDate": "2018-04-23T18:25:43.511Z","tags": ["demo","K8S demo","docker"]}
+[{"_id": "123456789","owner": "123456789","description": "Finish reading policies by Friday.","tags": ["work","legal","hr"]},
+{"_id": "234567890","owner": "234567890","description": "Finish the Todo API","tags": ["demo"]},
+{"_id": "345678901","owner": "345678901","description": "Create a multi-stage build for the Todo API image.","tags": ["demo","K8S demo","docker"]}
 ]
 
 

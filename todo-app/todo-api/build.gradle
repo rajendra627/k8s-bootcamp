@@ -39,8 +39,8 @@ ext {
 }
 
 dependencies {
-	compile('com.microsoft.azure:azure-active-directory-spring-boot-starter')
-	compile('org.springframework.cloud:spring-cloud-starter-oauth2')
+	//compile('com.microsoft.azure:azure-active-directory-spring-boot-starter')
+	//compile('org.springframework.cloud:spring-cloud-starter-oauth2')
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 	compile('org.springframework.boot:spring-boot-starter-data-rest')
 	compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")

@@ -36,7 +36,7 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
     }
 
     @GetMapping(value="/priority/{priority}")
-    fun getTodoItemsForPriority(@PathVariable priority: Priority, response: HttpServletResponse) : List<TodoItem>? {
+    fun getTodoItemsForPriority(@PathVariable priority: Int, response: HttpServletResponse) : List<TodoItem>? {
 
         return repository.findByPriority(priority) ?: unableToProcessRequest(404, response)
     }
