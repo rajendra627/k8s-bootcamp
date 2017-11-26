@@ -8,7 +8,7 @@ import java.time.LocalDate
 
 @Document(collection = "todos")
 class TodoItem(@Id var id: String?,
-               var owner: String?,
+               @Indexed var owner: String?,
                val description: String,
                @Indexed var priority: Priority,
                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) var dueDate: LocalDate?,
