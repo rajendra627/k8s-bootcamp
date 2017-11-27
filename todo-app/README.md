@@ -20,6 +20,8 @@ The order of these tasks matter!!
 
 3) Open up Postman and send a request to http://localhost:8080/api/todos and you should see the list of todos returned.
 
+To access the Swagger API docs go to http://localhost:8080/swagger-ui.html.
+
 
 
 
