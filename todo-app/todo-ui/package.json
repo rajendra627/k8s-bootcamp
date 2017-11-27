@@ -6,9 +6,12 @@
     "axios": "^0.17.1",
     "express": "^4.16.2",
     "lodash": "^4.17.4",
+    "moment": "^2.19.2",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
-    "react-scripts": "1.0.17"
+    "react-redux": "^5.0.6",
+    "react-scripts": "1.0.17",
+    "redux": "^3.7.2"
   },
   "scripts": {
     "start": "react-scripts start && DEBUG=express:* && nodemon api-src/server.js",
