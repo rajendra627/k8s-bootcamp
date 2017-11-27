@@ -16,6 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
 class TodoApiApplication
 
 fun main(args: Array<String>) {
+    System.out.println("MONGODB_URL was set to:" + System.getenv("MONGODB_URL"))
     SpringApplication.run(TodoApiApplication::class.java, *args)
 }
 

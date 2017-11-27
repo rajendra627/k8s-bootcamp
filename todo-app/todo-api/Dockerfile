@@ -4,7 +4,6 @@ WORKDIR /app
 
 COPY ./build/libs/*.jar todo-api.jar
 
-ENV SPRING_APPLICATION_JSON \
-    '{"server": {"port": 8080},"spring": { "data": { "mongodb": { "uri": "mongodb://localhost:27017","database": "todo-app"}}}, "AzureAD": {"appId": "add application id from azure ad here", "identityMetaData": "https://login.microsoftonline.com/architech.onmicrosoft.com/v2.0/.well-known/openid-configuration"}, "logging": { "level": { "root": "WARN", "org.springframework.web": "DEBUG", "ca.architech": "DEBUG"}}}'
+ENV MONGODB_URL "mongodb:27017"
 
 ENTRYPOINT ["/usr/bin/java", "-jar", "todo-api.jar"]

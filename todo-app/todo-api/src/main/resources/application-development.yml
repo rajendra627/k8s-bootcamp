@@ -3,7 +3,7 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017
+      uri: mongodb://${MONGODB_URL}
       database: todo-app
 AzureAD:
   appId: "add application id from azure ad here"
@@ -11,5 +11,5 @@ AzureAD:
 logging:
   level:
     root: WARN
-    org.springframework.web: DEBUG
-    ca.architech: DEBUG
+    org.springframework.web: INFO
+    ca.architech: INFO
