@@ -56,10 +56,12 @@ dependencyManagement {
 	}
 }
 
+/*
 task export(dependsOn: 'bootRepackage', type: Copy) {
 	from('build/libs/') {
 		include '*.jar'
 	}
 	into "$rootProject.projectDir/../docker/todo-api/"
 }
+*/
 

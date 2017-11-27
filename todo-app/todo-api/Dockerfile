@@ -2,7 +2,7 @@ FROM openjdk:8-jre-alpine
 
 WORKDIR /app
 
-COPY *.jar todo-api.jar
+COPY ./build/libs/*.jar todo-api.jar
 ENV SPRING_APPLICATION_JSON \
     '{"server": {"port": 8080}, \
 	"spring": { "data": { "mongodb": \
@@ -12,4 +12,4 @@ ENV SPRING_APPLICATION_JSON \
 	"logging": { "level": { "root": "WARN", "org.springframework.web": "DEBUG", \
 	"ca.architech": "DEBUG"}}}'
 
-CMD ["/usr/bin/java", "-jar", "todo-api.jar"]
+ENTRYPOINT ["/usr/bin/java", "-jar", "todo-api.jar"]
