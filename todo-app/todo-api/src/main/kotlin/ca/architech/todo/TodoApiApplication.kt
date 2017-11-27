@@ -1,5 +1,7 @@
 package ca.architech.todo
 
+import com.google.common.base.Predicate
+import com.google.common.base.Predicates
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
@@ -21,7 +23,8 @@ fun main(args: Array<String>) {
 fun api() : Docket {
     return Docket(DocumentationType.SWAGGER_2)
             .select()
-            .apis(RequestHandlerSelectors.any())
+            .apis(RequestHandlerSelectors.basePackage("ca.architech.todo.api"))
+            .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
             .paths(PathSelectors.any())
             .build()
 }
