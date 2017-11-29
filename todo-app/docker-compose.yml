@@ -5,7 +5,8 @@ services:
         ports:
             - "27017:27017"
         volumes:
-            - "todo-app-db:/data/db"
+            - "todo-app-data:/data/db"
+            - "todo-app-config-data:/data/config"
 
     todo-api:
         build: ./todo-api     
@@ -21,4 +22,7 @@ services:
             - mongodb
 
 volumes:
-    todo-app-db:
+    todo-app-data:
+        external: true
+    todo-app-config-data:
+        external: true
