@@ -1,25 +1,30 @@
 package ca.architech.todo.api
 
-import org.springframework.data.annotation.Id
-import org.springframework.data.mongodb.core.index.Indexed
+import com.fasterxml.jackson.annotation.JsonFormat
 import org.springframework.data.mongodb.core.mapping.Document
-import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDate
 
 @Document(collection = "todos")
-class TodoItem(@Id var id: String?,
-               @Indexed var owner: String?,
-               var description: String,
-               @Indexed var priority: Priority,
-               var done: Boolean,
-               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) var dueDate: LocalDate?,
-               @Indexed var tags: MutableList<String>?) {
+data class TodoItem(var id: String,
+                    var owner: String,
+                    var done: Boolean = false,
+                    var description: String,
+                    var priority: Priority,
+                    @JsonFormat(pattern = "yyyy-MM-dd")
+                    var dueDate: LocalDate,
+                    var tags: MutableList<String>) {
 
-    init {
-        if (tags == null) tags = mutableListOf<String>()
-    }
+    constructor() : this(
+            id = "",
+            owner = "",
+            description = "",
+            priority = Priority.NONE,
+            dueDate = LocalDate.now(),
+            done = false,
+            tags = mutableListOf<String>()
+    )
 
     fun addTag(tag: String) {
-        tags?.add(tag)
+        tags.add(tag)
     }
 }
