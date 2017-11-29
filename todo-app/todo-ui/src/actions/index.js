@@ -3,7 +3,6 @@ import actionTypes from './actionTypes';
 let nextTodoId = 0;
 
 export const addTodo = (description, priority, dueDate) => {
-  console.log(description, priority, dueDate);
   return {
     type: actionTypes.ADD_TODO,
     id: nextTodoId++,

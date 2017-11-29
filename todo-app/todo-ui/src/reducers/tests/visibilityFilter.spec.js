@@ -1,9 +1,10 @@
 import visibilityFilter from '../visibilityFilter';
 import actionTypes from '../../actions/actionTypes';
+import filter from '../../constants/filter';
 
 describe('Visibilty Reducer', () => {
   it('Should handle undefined initial state', () => {
-    const finalState = 'SHOW_ALL';
+    const finalState = filter.SHOW_ALL;
     const initialState = undefined;
     const action = {
       type: 'INIT',
@@ -14,11 +15,11 @@ describe('Visibilty Reducer', () => {
   });
 
   it('Should handle showing all', ()=>{
-    const finalState = 'SHOW_ALL';
+    const finalState = filter.SHOW_ALL;
     const initialState = undefined;
     const action = {
       type: actionTypes.SET_VISIBILITY_FILTER,
-      filter: 'SHOW_ALL'
+      filter: filter.SHOW_ALL
     };
 
     const actualState = visibilityFilter(initialState, action);
@@ -27,11 +28,11 @@ describe('Visibilty Reducer', () => {
   });
 
   it('Should handle filtering by active state', ()=>{
-    const finalState = 'SHOW_ACTIVE';
+    const finalState = filter.SHOW_ACTIVE;
     const initialState = undefined;
     const action = {
       type: actionTypes.SET_VISIBILITY_FILTER,
-      filter: 'SHOW_ACTIVE'
+      filter: filter.SHOW_ACTIVE
     };
 
     const actualState = visibilityFilter(initialState, action);
@@ -40,11 +41,11 @@ describe('Visibilty Reducer', () => {
   });
 
   it('Should handle filtering by completed state', ()=>{
-    const finalState = 'SHOW_COMPLETED';
+    const finalState = filter.SHOW_COMPLETED;
     const initialState = undefined;
     const action = {
       type: actionTypes.SET_VISIBILITY_FILTER,
-      filter: 'SHOW_COMPLETED'
+      filter: filter.SHOW_COMPLETED
     };
 
     const actualState = visibilityFilter(initialState, action);

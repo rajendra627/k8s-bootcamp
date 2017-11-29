@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addTodo } from '../actions';
 import * as moment from 'moment';
+import priority from '../constants/priority';
 
 export class AddTodo extends Component{
   constructor(props) {
     super(props);
     this.state = {
       description: '',
-      priority: 'LOW',
+      priority: priority.LOW,
       dueDate: moment().format("YYYY-MM-DD"),
       tags: [],
     };
@@ -21,7 +22,7 @@ export class AddTodo extends Component{
   resetState() {
     return {
       description: '',
-      priority: 'LOW',
+      priority: priority.LOW,
       dueDate: moment().format("YYYY-MM-DD"),
       tags: [],
     };
@@ -49,9 +50,9 @@ export class AddTodo extends Component{
           <select
             value={this.state.priority}
             onChange={(event) => {this.setState({priority: event.target.value})}}>
-            <option value='LOW'>LOW</option>
-            <option value='MEDIUM'>MEDIUM</option>
-            <option value='HIGH'>HIGH</option>
+            <option value={priority.LOW}>LOW</option>
+            <option value={priority.MEDIUM}>MEDIUM</option>
+            <option value={priority.HIGH}>HIGH</option>
           </select>
           <input
             value={this.state.dueDate}

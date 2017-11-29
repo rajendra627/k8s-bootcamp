@@ -1,19 +1,20 @@
 import * as actions from '../index';
 import actionTypes from '../actionTypes';
+import priority from '../../constants/priority';
 
 describe('actions', () => {
   it('should create an action to add a todo', () => {
     const description = 'Finish docs';
-    const priority = 'LOW';
+    const toDopriority = priority.LOW;
     const dueDate = '2017-10-2';
     const expectedAction = {
       id: 0,
       type: actionTypes.ADD_TODO,
       description: description,
-      priority: priority,
+      priority: toDopriority,
       dueDate: dueDate
     };
-    expect(actions.addTodo(description, priority, dueDate)).toEqual(expectedAction)
+    expect(actions.addTodo(description, toDopriority, dueDate)).toEqual(expectedAction)
   });
 
   it('should create an action to toggle a todo', () => {

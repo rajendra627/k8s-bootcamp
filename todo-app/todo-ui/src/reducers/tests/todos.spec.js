@@ -1,5 +1,6 @@
 import todos from '../todos';
 import actionTypes from '../../actions/actionTypes';
+import priority from '../../constants/priority';
 describe('Todos Reducer', ()=>{
   it('Should handle undefined initial state', () => {
     const finalState = [];
@@ -17,7 +18,7 @@ describe('Todos Reducer', ()=>{
     const todo = {
       id: 1,
       description: 'todo',
-      priority: 'HIGH',
+      priority: priority.HIGH,
       dueDate: '2017-12-10',
       completed: false
     };
@@ -35,14 +36,14 @@ describe('Todos Reducer', ()=>{
     const initalTodo = {
       id: 1,
       description: 'todo',
-      priority: 'HIGH',
+      priority: priority.HIGH,
       dueDate: '2017-12-10',
       completed: false
     };
     const completedTodo = {
       id: 1,
       description: 'todo',
-      priority: 'HIGH',
+      priority: priority.HIGH,
       dueDate: '2017-12-10',
       completed: true
     };
