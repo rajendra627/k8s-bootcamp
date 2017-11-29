@@ -19,10 +19,6 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
     //clear
     val logger = LogFactory.getLog(TodoItemController::class.java)!!
 
-    init {
-        logger.info(System.getenv("SPRING_APPLICATION_JSON"))
-    }
-
     @GetMapping(value="/healthcheck")
     fun healthCheck() : ResponseEntity<HttpStatus> {
         logger.info("Received a health-check request from K8S.")
