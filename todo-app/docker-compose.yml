@@ -4,11 +4,19 @@ services:
         image: mongo 
         ports:
             - "27017:27017"
+        volumes:
+            - "todo-app-db:/data/db"
 
     todo-api:
         build: ./todo-api     
         image: todo-api
         ports:
             - "80:8080"
+        environment:
+            MONGODB_URL: mongodb:27017
+
         depends_on:
             - mongodb
+
+volumes:
+    todo-app-db:
