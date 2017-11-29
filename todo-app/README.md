@@ -19,14 +19,25 @@ cd todo-api
 
 2) In the todo-app directory, start up the application.
 
-With logging to the console: ``docker-compose up``
-Without logging to the console: ``docker-compose up -d``
+With logging to the console:
+
+```
+docker-compose up
+```
+
+Without logging to the console:
+
+```
+docker-compose up -d
+```
 
 To access the Swagger API docs go to http://localhost:8080/swagger-ui.html.
 
 To shut down all the services including the database run the following command.
 
-``docker-compose down``
+```
+docker-compose down
+```
 
 
 
