@@ -9,8 +9,9 @@ import java.time.LocalDate
 @Document(collection = "todos")
 class TodoItem(@Id var id: String?,
                @Indexed var owner: String?,
-               val description: String,
+               var description: String,
                @Indexed var priority: Priority,
+               var done: Boolean,
                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) var dueDate: LocalDate?,
                @Indexed var tags: MutableList<String>?) {
 
