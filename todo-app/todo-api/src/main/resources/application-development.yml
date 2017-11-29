@@ -3,13 +3,13 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017
+      uri: mongodb://${MONGODB_URL}
       database: todo-app
 AzureAD:
-  appId: "add application id from azure ad here"
+  appId: ${AZURE_APP_ID}
   identityMetaData: https://login.microsoftonline.com/architech.onmicrosoft.com/v2.0/.well-known/openid-configuration
 logging:
   level:
     root: WARN
-    org.springframework.web: DEBUG
-    ca.architech: DEBUG
+    org.springframework.web: ${SPRING_LOG_LEVEL}
+    ca.architech: ${APP_LOG_LEVEL}
