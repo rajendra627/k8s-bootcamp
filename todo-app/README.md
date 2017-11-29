@@ -13,7 +13,7 @@ This is only for initial set up which loads the MongoDB instance with test data.
 1) initialize the mongodb database.  This will start up mongodb container and initialize it with test data.  
 
 ```
-cd todo-api
+cd todo-api-java
 ./init_db.sh
 ```
 
