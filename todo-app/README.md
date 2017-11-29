@@ -2,9 +2,9 @@
 
 The Todo application is a simple microservice based application comprised of a ReactJS UI, a node Users API and the TodoItem API implemented in Kotlin (JVM).  For a database, mongodb is leveraged.
 
-## To start up the database and todo-api ##
+## Initial Set Up ##
 
-The order of these tasks matter!!
+This is only for initial set up which loads the MongoDB instance with test data. The data will be persisted across startup/shutdown as I use a named docker volume. 
 
 1) start up mongodb:
 
@@ -18,9 +18,20 @@ The order of these tasks matter!!
 
 ``./todo-api/gradle bootRun``
 
-3) Open up Postman and send a request to http://localhost:8080/api/todos and you should see the list of todos returned.
+4) Open up Postman and send a request to http://localhost:8080/api/todos and you should see the list of todos returned.
 
 To access the Swagger API docs go to http://localhost:8080/swagger-ui.html.
+
+## After Initial Set Up ##
+
+After initial setup, you can use docker-compose to start up the full application stack including UI, APIs and database with the following command.
+
+``docker-compose up -d``  If you do not want to see the log messages printed to the consols.
+``docker-compose up`` If you do want to see the log message printed to the console.
+
+To shut down all the services including the database run the following command.
+
+``docker-compose down``
 
 
 
