@@ -25,6 +25,7 @@ class TodoApiApplicationTests {
                 description = "Test Item",
                 priority = Priority.HIGH,
                 dueDate = now.plusDays(7),
+                done = false,
                 tags = mutableListOf("test"))
 
         val item2 = TodoItem(id = "234567890",
@@ -32,6 +33,7 @@ class TodoApiApplicationTests {
                 description = "Read policies by end of week.",
                 priority = Priority.HIGH,
                 dueDate = now.plusWeeks(4),
+                done = false,
                 tags = mutableListOf("policy, HR"))
 
         val item3 = TodoItem(id= "345678901",
@@ -39,14 +41,18 @@ class TodoApiApplicationTests {
                 description = "Finish K8S bootcamp outline.",
                 priority = Priority.HIGH,
                 dueDate = now.plusDays(5),
+                done = true,
                 tags = mutableListOf("K8S", "training"))
 
         repository.save(mutableListOf(item, item2, item3))
+
     }
 
 	@Test
 	fun findById() {
-        assert(!repository.findAll().isEmpty())
+
+        val items = repository.findAll()
+        assert(!items.isEmpty())
 
         val id = "123456789"
         val item = repository.findById(id)
@@ -64,4 +70,15 @@ class TodoApiApplicationTests {
         assertThat(items).hasSize(1)
     }
 
+    @Test
+    fun findDone() {
+        val done = repository.findDone()
+        assertThat(done).size().isEqualTo(1)
+    }
+
+    @Test
+    fun findNotDone() {
+        val notDone = repository.findNotDone()
+        assertThat(notDone).size().isEqualTo(2)
+    }
 }

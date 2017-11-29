@@ -2,36 +2,44 @@
 
 The Todo application is a simple microservice based application comprised of a ReactJS UI, a node Users API and the TodoItem API implemented in Kotlin (JVM).  For a database, mongodb is leveraged.
 
-## Initial Set Up ##
+## Environment Set Up ##
+
+Install docker for your OS.  The installation process differs depending on the OS.  In the end, you will need docker, docker-compose and docker-machine.  After installation verify that docker and docker-compose is on your PATH.
+
+## Initial Application Set Up ##
 
 This is only for initial set up which loads the MongoDB instance with test data. The data will be persisted across startup/shutdown as I use a named docker volume. 
 
-1) start up mongodb:
+1) initialize the mongodb database.  This will start up mongodb container and initialize it with test data.  
 
-``docker run -d -p 27017:27017 --name mongo --mount source=todo-app-data,target=/data/db mongo``
+```
+cd todo-api
+./init_db.sh
+```
 
-2) Build the todo-api.  This will also load the database with test data.
+2) In the todo-app directory, start up the application.
 
-``./todo-api/gradle build``
+With logging to the console:
 
-3) Start the todo-api.
+```
+docker-compose up
+```
 
-``./todo-api/gradle bootRun``
+Without logging to the console:
 
-4) Open up Postman and send a request to http://localhost:8080/api/todos and you should see the list of todos returned.
+```
+docker-compose up -d
+```
 
 To access the Swagger API docs go to http://localhost:8080/swagger-ui.html.
 
-## After Initial Set Up ##
-
-After initial setup, you can use docker-compose to start up the full application stack including UI, APIs and database with the following command.
-
-``docker-compose up -d``  If you do not want to see the log messages printed to the consols.
-``docker-compose up`` If you do want to see the log message printed to the console.
-
 To shut down all the services including the database run the following command.
 
-``docker-compose down``
+```
+docker-compose down
+```
+
+
 
 
 

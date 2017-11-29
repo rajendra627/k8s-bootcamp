@@ -10,4 +10,11 @@ interface TodoItemRepository : MongoRepository<TodoItem, String> {
 
     @Query(value="{ 'tags' : ?0 }")
     fun findByTag(tag: String) : List<TodoItem>?
+
+    @Query(value="{ 'done': true }")
+    fun findDone() : List<TodoItem>?
+
+    @Query(value="{ 'done': false }")
+    fun findNotDone() : List<TodoItem>?
+
 }

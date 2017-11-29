@@ -117,7 +117,8 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
                 }
                 else -> {
                     repository.delete(id)
-                    logger.info("Todo item with id: $id deleted.")
+                    logger.info("Todo itls" +
+                            "em with id: $id deleted.")
                     ResponseEntity(HttpStatus.ACCEPTED)
                 }
             }
