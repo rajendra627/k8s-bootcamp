@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { addTodo } from '../actions';
 import * as moment from 'moment';
 import priority from '../constants/priority';
+import { createTodo } from '../actions/index';
 
 export class AddTodo extends Component{
   constructor(props) {
@@ -19,7 +20,7 @@ export class AddTodo extends Component{
 
   }
 
-  resetState() {
+  resetInput() {
     return {
       description: '',
       priority: priority.LOW,
@@ -33,8 +34,12 @@ export class AddTodo extends Component{
     if (!this.state.description.trim()) {
       return
     }
-    this.props.addTodo(this.state.description, this.state.priority, this.state.dueDate);
-    this.setState(this.resetState());
+    this.props.createTodo({
+      description: this.state.description,
+      priority: this.state.priority,
+      dueDate: this.state.dueDate
+    });
+    this.setState(this.resetInput());
   }
 
   render() {
@@ -69,7 +74,7 @@ export class AddTodo extends Component{
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators( { addTodo }, dispatch );
+  return bindActionCreators( { createTodo }, dispatch );
 }
 
 export default connect(null, mapDispatchToProps)(AddTodo);
