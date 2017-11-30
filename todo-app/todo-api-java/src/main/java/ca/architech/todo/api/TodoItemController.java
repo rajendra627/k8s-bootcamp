@@ -86,6 +86,7 @@ public class TodoItemController {
         return repository.findByTag(tag);
     }
 
+    @CrossOrigin
     @PatchMapping(value = "/{id}/{tag}")
     public ResponseEntity<HttpStatus> addTagToItem(@PathVariable String id, @PathVariable String tag) {
         logger.info(String.format("Adding %s to item with id=%s", tag, id));
@@ -100,6 +101,7 @@ public class TodoItemController {
         }
     }
 
+    @CrossOrigin
     @PutMapping()
     public ResponseEntity<HttpStatus> updateTodoItem(@RequestBody TodoItem todoItem) {
         logger.info(String.format("updating todo item: %s", todoItem));
@@ -119,7 +121,7 @@ public class TodoItemController {
         }
     }
 
-
+    @CrossOrigin
     @PostMapping()
     public ResponseEntity<HttpStatus> createTodoItem(@RequestBody TodoItem todoItem) {
         logger.info(String.format("creating new todo item: %s", todoItem));
@@ -136,6 +138,7 @@ public class TodoItemController {
         return ResponseEntity.created(getUriForItem(newItem)).build();
     }
 
+    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deletePost(@PathVariable String id) {
         //when is like the Java switch but more powerful
