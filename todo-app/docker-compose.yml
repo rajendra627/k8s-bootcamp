@@ -9,7 +9,7 @@ services:
             - "todo-app-config-data:/data/config"
 
     todo-api:
-        build: ./todo-api     
+        build: ./todo-api-java     
         image: todo-api
         ports:
             - "8080:8080"
