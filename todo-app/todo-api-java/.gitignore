@@ -1,2 +1,9 @@
-/build
-.iml
+build/
+*.iml
+.idea
+.settings
+bin/
+out/
+.classpath
+.project
+.gradle/
