@@ -1,0 +1,7 @@
+---
+- hosts: build-server
+  roles:
+    - common
+    - nginx
+    - jenkins
+    - sonarqube

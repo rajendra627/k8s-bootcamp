@@ -1,1 +1,4 @@
 *.jar
+
+!platform/azure-build-server/keys/README.md
+platform/azure-build-server/keys/*
