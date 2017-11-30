@@ -7,9 +7,9 @@ import filter from '../constants/filter';
 const getVisibleTodos = (todos, selectedFilter) => {
   switch (selectedFilter) {
     case filter.SHOW_COMPLETED:
-      return todos.filter(todo => todo.completed);
+      return todos.filter(todo => todo.done);
     case filter.SHOW_ACTIVE:
-      return todos.filter(todo => !todo.completed);
+      return todos.filter(todo => !todo.done);
     case filter.SHOW_ALL:
     default:
       return todos
@@ -24,9 +24,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onTodoClick: id => {
-      dispatch(toggleTodo(id))
-    }
+    onTodoClick: (id) => { dispatch(toggleTodo(id)) },
   }
 };
 

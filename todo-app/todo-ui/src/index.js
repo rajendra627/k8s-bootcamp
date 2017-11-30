@@ -1,16 +1,23 @@
 import React from 'react';
 import { render } from 'react-dom'
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import './index.css';
 import App from './components/App';
 import todoApp from './reducers';
 
 import registerServiceWorker from './registerServiceWorker';
+import { fetchTodos } from './actions/index';
 
-// ReactDOM.render(<App />, document.getElementById('root'));
+let store = createStore(
+  todoApp,
+  applyMiddleware(thunk)
+);
 
-let store = createStore(todoApp);
+store
+  .dispatch(fetchTodos())
+  .then(() => console.log(store.getState()));
 
 render(
   <Provider store={store}>
@@ -18,5 +25,6 @@ render(
   </Provider>,
   document.getElementById('root')
 );
+
 
 registerServiceWorker();

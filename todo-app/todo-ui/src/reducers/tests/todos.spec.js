@@ -20,7 +20,7 @@ describe('Todos Reducer', ()=>{
       description: 'todo',
       priority: priority.HIGH,
       dueDate: '2017-12-10',
-      completed: false
+      done: false
     };
     const finalState = [todo];
     const action ={
@@ -38,17 +38,17 @@ describe('Todos Reducer', ()=>{
       description: 'todo',
       priority: priority.HIGH,
       dueDate: '2017-12-10',
-      completed: false
+      done: false
     };
-    const completedTodo = {
+    const doneTodo = {
       id: 1,
       description: 'todo',
       priority: priority.HIGH,
       dueDate: '2017-12-10',
-      completed: true
+      done: true
     };
     const initialState = [initalTodo];
-    const finalState = [completedTodo];
+    const finalState = [doneTodo];
     const action ={
       type: actionTypes.TOGGLE_TODO,
       id: 1

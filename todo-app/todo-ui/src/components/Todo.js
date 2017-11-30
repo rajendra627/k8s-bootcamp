@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Todo = ({ onClick, completed, description, priority, dueDate }) => (
+const Todo = ({ onClick, done, description, priority, dueDate }) => (
   <li
     onClick={onClick}
-    style={ {
-      textDecoration: completed ? 'line-through' : 'none'
+    style={{
+      textDecoration: done ? 'line-through' : 'none'
     }}
   >
     {description} [{priority} - {dueDate}]
@@ -14,7 +14,7 @@ const Todo = ({ onClick, completed, description, priority, dueDate }) => (
 
 Todo.propTypes = {
   onClick: PropTypes.func.isRequired,
-  completed: PropTypes.bool.isRequired,
+  done: PropTypes.bool.isRequired,
   description: PropTypes.string.isRequired,
   priority: PropTypes.string.isRequired,
   dueDate: PropTypes.string.isRequired

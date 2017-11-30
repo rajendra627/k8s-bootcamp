@@ -1,5 +1,7 @@
 import actionTypes from '../actions/actionTypes';
 
+
+
 const todos = (state = [], action) => {
   switch (action.type) {
     case actionTypes.ADD_TODO:
@@ -10,15 +12,18 @@ const todos = (state = [], action) => {
           description: action.description,
           priority: action.priority,
           dueDate: action.dueDate,
-          completed: false
+          done: false
         }
       ];
     case actionTypes.TOGGLE_TODO:
       return state.map(todo =>
         (todo.id === action.id)
-          ? {...todo, completed: !todo.completed}
+          ? {...todo, done: !todo.done}
           : todo
       );
+    case actionTypes.RECEIVE_TODOS:
+      state = action.todos;
+      return state;
     default:
       return state
   }
