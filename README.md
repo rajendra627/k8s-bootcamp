@@ -33,7 +33,7 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - [Monitoring and log aggregation](/monitoring/README.md)
 - [Helm - packaging and deploying your application to K8S](./helm/README.md)
 
-Day 1 Outline:
+### Day 1 Outline: ###
 - [Setting up your environment](./day1/set-up.md)
 - The Todo list microservices application overview
     - Deploying the application to K8S
@@ -54,5 +54,5 @@ Day 1 Outline:
     - Using load-balancers and NodePorts to expose your pods to clients outside your cluster
     - Services to access services external to your cluster
 
-Day 2 Outline:
+### Day 2 Outline: ###
 - 
