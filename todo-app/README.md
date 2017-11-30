@@ -4,6 +4,8 @@ The Todo application is a simple microservice based application comprised of a R
 
 TODO: ADD Architecture diagram here.
 
+We will use this application to learn about many of the core K8S concepts.
+
 ## Environment Set Up ##
 
 Install docker for your OS.  The installation process differs depending on the OS.  In the end, you will need docker, docker-compose and docker-machine.  After installation verify that docker and docker-compose is on your PATH.
