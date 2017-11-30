@@ -72,13 +72,11 @@ class TodoApiApplicationTests {
 
     @Test
     fun findDone() {
-        val done = repository.findDone()
-        assertThat(done).size().isEqualTo(1)
+        assertThat(repository.findDone()).size().isEqualTo(1)
     }
 
     @Test
     fun findNotDone() {
-        val notDone = repository.findNotDone()
-        assertThat(notDone).size().isEqualTo(2)
+        assertThat(repository.findNotDone()).size().isEqualTo(2)
     }
 }

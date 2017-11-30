@@ -77,7 +77,7 @@ class TodoItemController(@Autowired val repository: TodoItemRepository) {
         logger.info("updating todo item: $todoItem")
 
         try {
-            repository.findById(todoItem.id!!) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
+            repository.findById(todoItem.id) ?: return ResponseEntity(HttpStatus.NOT_FOUND)
             repository.save(todoItem)
 
             return ResponseEntity(HttpStatus.OK)
