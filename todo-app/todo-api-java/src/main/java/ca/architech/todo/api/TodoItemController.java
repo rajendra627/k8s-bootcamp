@@ -14,10 +14,10 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/api/todos")
 public class TodoItemController {
+
     @Autowired
     TodoItemRepository repository;
     private static final Log logger;
@@ -29,7 +29,7 @@ public class TodoItemController {
     @GetMapping(value = "/healthcheck")
     public ResponseEntity<HttpStatus> healthCheck() {
         logger.info("Received a health-check request from K8S.");
-        return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping()
@@ -86,7 +86,6 @@ public class TodoItemController {
         return repository.findByTag(tag);
     }
 
-    @CrossOrigin
     @PatchMapping(value = "/{id}/{tag}")
     public ResponseEntity<HttpStatus> addTagToItem(@PathVariable String id, @PathVariable String tag) {
         logger.info(String.format("Adding %s to item with id=%s", tag, id));
@@ -94,14 +93,13 @@ public class TodoItemController {
             TodoItem item = repository.findById(id);
             item.addTag(tag);
             repository.save(item);
-            return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             logger.error("Failed to add tag to item", e);
-            return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @CrossOrigin
     @PutMapping()
     public ResponseEntity<HttpStatus> updateTodoItem(@RequestBody TodoItem todoItem) {
         logger.info(String.format("updating todo item: %s", todoItem));
@@ -121,7 +119,6 @@ public class TodoItemController {
         }
     }
 
-    @CrossOrigin
     @PostMapping()
     public ResponseEntity<HttpStatus> createTodoItem(@RequestBody TodoItem todoItem) {
         logger.info(String.format("creating new todo item: %s", todoItem));
@@ -132,13 +129,12 @@ public class TodoItemController {
             logger.info("New todo item created with id: $newItem.id");
         } catch (Exception e) {
             logger.error("Failed to create new item: ${todoItem.id}", e);
-            return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         return ResponseEntity.created(getUriForItem(newItem)).build();
     }
 
-    @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deletePost(@PathVariable String id) {
         //when is like the Java switch but more powerful
@@ -149,14 +145,13 @@ public class TodoItemController {
 
         if (item == null) {
             logger.info(String.format("Todo item not found for id: %s", id));
-            return new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             repository.delete(id);
             logger.info(String.format("TodoItem with id: %s deleted.", id));
-            return new ResponseEntity<HttpStatus>(HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }
     }
-
 
     private URI getUriForItem(TodoItem item) {
         return ServletUriComponentsBuilder
