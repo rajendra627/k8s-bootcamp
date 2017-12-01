@@ -20,22 +20,22 @@ We will also actually deploy a microservice based [application](./todo-app) to K
 
 By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 
-- [Pods - the unit of deployment on K8S](./pods/README.md) 
-- [Services - how service discovery works in K8S](./services/README.md)
-- [Deployments - doing rolling updates, rollbacks, scaling out](./deployments/README.md)
-- [Persistence - managing durable state](./persistence/README.md)
-- [Secrets - externalizing secrets and passwords](./secrets/README.md)
-- [ConfigMaps - externalizing configuration from your applications](./configmaps/README.md)
-- [Statefulsets - how to deploy stateful applications](./statefulsets/README.md)
+- [Pods - the unit of deployment on K8S](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) 
+- [Services - how service discovery works in K8S](https://kubernetes.io/docs/concepts/services-networking/service/)
+- [Deployments - doing rolling updates, rollbacks, scaling out](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+- [Persistence - managing durable state](https://kubernetes.io/docs/concepts/storage/volumes/)
+- [Secrets - externalizing secrets and passwords](https://kubernetes.io/docs/concepts/configuration/secret/)
+- [ConfigMaps - externalizing configuration from your applications](https://kubernetes.io/docs/tasks/configure-pod-container/configmap/)
+- [Statefulsets - how to deploy stateful applications](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
 - Jobs
 - Daemonsets
-- [Ingress and Ingress Controllers - key to controlling how requests originating from outside the cluster is routed to your services](./ingress/README.md)
-- [RBAC - locking down your K8S environment](./rback/README.md)
+- [Ingress and Ingress Controllers - key to controlling how requests originating from outside the cluster is routed to your services](https://kubernetes.io/docs/concepts/services-networking/ingress/)
+- [RBAC - locking down your K8S environment](https://kubernetes.io/docs/admin/authorization/rbac/)
 - [Monitoring and log aggregation](/monitoring/README.md)
-- [Helm - packaging and deploying your application to K8S](./helm/README.md)
+- [Helm - packaging and deploying your application to K8S](https://docs.helm.sh/)
 
 ### Day 1 Outline: ###
-- [Setting up your environment](./day1/set-up.md)
+- [Setting up your environment](./bootcamp/day1/set-up.md)
 - The Todo list microservices application overview
     - Deploying the application to K8S
     - Making a change and doing a rolling-update
