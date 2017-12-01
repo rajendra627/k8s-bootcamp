@@ -18,6 +18,8 @@ services:
             SPRING_LOG_LEVEL: INFO
             APP_LOG_LEVEL: DEBUG
             ALLOWED_ORIGINS: '*'
+            AZURE_APP_ID: 'ADD APP ID HERE'
+            AD_IDENTITY_META_DATA_URL: https://login.microsoftonline.com/architech.onmicrosoft.com/v2.0/.well-known/openid-configuration
 
         depends_on:
             - mongodb
