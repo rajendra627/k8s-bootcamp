@@ -21,7 +21,7 @@ public class TodoApiApplication extends WebMvcConfigurerAdapter {
 
 	public static void main(String[] args) {
         String mongodb_url = System.getenv("MONGODB_URL");
-        logger.info(String.format("MONGODB_URL was set to: %s"));
+        logger.info(String.format("MONGODB_URL was set to: %s", mongodb_url));
 		SpringApplication.run(TodoApiApplication.class, args);
 	}
 
