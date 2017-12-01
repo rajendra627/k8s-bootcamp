@@ -1,6 +1,13 @@
-const express = require('express');
+var express = require('express');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 
-const app = express();
+
+var app = express();
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended: true}));
+
+require('./auth')(app);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`Listening to port ${PORT}`));
