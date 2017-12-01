@@ -14,7 +14,6 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost", maxAge = 3600)
 @RestController
 @RequestMapping("/api/todos")
 public class TodoItemController {
