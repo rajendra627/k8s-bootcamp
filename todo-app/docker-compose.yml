@@ -17,7 +17,7 @@ services:
             MONGODB_URL: mongodb:27017
             SPRING_LOG_LEVEL: INFO
             APP_LOG_LEVEL: DEBUG
-            ALLOWED_ORIGINS: http://localhost
+            ALLOWED_ORIGINS: '*'
 
         depends_on:
             - mongodb
