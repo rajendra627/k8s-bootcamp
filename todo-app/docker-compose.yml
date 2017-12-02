@@ -1,4 +1,4 @@
-version: "3.1"
+version: "3"
 services:
     mongodb:
         image: mongo 
@@ -9,7 +9,8 @@ services:
             - "todo-app-config-data:/data/config"
 
     todo-api:
-        build: ./todo-api-java     
+        build:
+            context: ./todo-api-java    
         image: todo-api
         ports:
             - "8080:8080"
