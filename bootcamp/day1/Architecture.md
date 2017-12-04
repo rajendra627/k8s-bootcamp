@@ -1,6 +1,6 @@
 # K8S Architecture #
 
-Kubernetes is a platform for deploying, scaling and managing container based applications in a secure, resilient manner.  It enables you to abstract away the underlying infrastructure to dynamically scale and deploy your containerized applications.  The key word here is "dynamic".  Through specifying your "desired state" (within manifests), the K8S control plane works behind the scenes to ensure the current state of your application meets the desired state.  It does so even in the event of your application crashing or if there is a hardware failure. 
+Kubernetes is a platform for deploying, scaling and managing container based applications in a secure, resilient manner.  It enables you to abstract away the underlying infrastructure to dynamically scale and deploy your containerized applications. Through specifying your "desired state" (within manifests), the K8S control plane works behind the scenes to ensure the current state of your application meets the desired state.  It does so even in the event of your application crashing or if there is a hardware failure. 
 
 ![K8S Architecture](./images/k8s-architecture.png "K8S Architecture")
 
@@ -11,14 +11,14 @@ A K8S cluster is made up of two primary nodes:
 For HA, you should have multiple (odd number) of Masters.  You have as many worker nodes as need for your system(s).
 
 The master node has the following components:
-- API Server (K8S is fundamentally API driven).  All cluster management capabilities are accessed through the API server.
-- Controller Manager (manages multiple controllers that ensures the current state of resources match the configured desired state).
-- The Scheduler that is responsible for scheduling pods (your containerized application components) onto the worker nodes.
-- The cluster state store which stores all durable state required by the K8S control plane.  State required for service discovery and cluster management is stored in this store. [etcd](https://coreos.com/etcd/) by CoreOS is an example of a highly available distributed state store that is widely used in K8S, another is [Consul](https://www.consul.io/) by Hashicorp.
+- [API Server](https://kubernetes.io/docs/reference/generated/kube-apiserver/) (K8S is fundamentally API driven).  All cluster management capabilities are accessed through the API server.
+- [Controller Manager](https://kubernetes.io/docs/reference/generated/kube-controller-manager/) (manages multiple controllers that ensures the current state of resources match the configured desired state).
+- The [Scheduler](https://kubernetes.io/docs/reference/generated/kube-scheduler/)  that is responsible for scheduling pods (your containerized application components) onto the worker nodes.
+- The cluster state store which stores all durable state required by the K8S control plane.  State required for service discovery and cluster management is stored in this store. [etcd](https://coreos.com/etcd/) by CoreOS is an example of a highly available distributed state store that is widely used in K8S, another is [Consul](https://www.consul.io/) by Hashicorp.  NOTE: It is common to deploy the state store on a separate physical node for HA and security reasons. 
 
 The worker nodes has the following components:
-- kubelet - an agent that communicates with the K8S control plane to carry out actions on behalf of the contoller managers.  It is the kubelet that deploys your containers (within pods) onto the worker nodes.  The kubelet is also responsible for controlling the lifecycle of your pods.
-- kubeproxy - a component that routes requests to services to the correct pods. This service plays a key role in service discovery.  It programs local ```iptable``` rules to capture requests to service IPs and routes to the proper pods.  The service IPs are looked through a DNS service that is deployed on the cluster. 
+- [kubelet](https://kubernetes.io/docs/reference/generated/kubelet/) - an agent that communicates with the K8S control plane to carry out actions on behalf of the contoller managers.  It is the kubelet that deploys your containers (within pods) onto the worker nodes.  The kubelet is also responsible for controlling the lifecycle of your pods.
+- [kubeproxy](https://kubernetes.io/docs/reference/generated/kube-proxy/) - a component that routes requests to services to the correct pods. This service plays a key role in service discovery.  It programs local ```iptable``` rules to capture requests to service IPs and routes to the proper pods.  The service IPs are looked through a DNS service that is deployed on the cluster. 
 - Container runtime - docker or rkt required to deploy your containers.
 
 ## References ##

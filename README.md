@@ -35,13 +35,13 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - [Helm - packaging and deploying your application to K8S](./helm/README.md)
 
 ### Day 1 Outline: ###
-- [Setting up your environment](./day1/README.md)
+- [Setting up your environment](./bootcamp/day1/README.md)
 - The Todo list microservices application overview
     - Deploying the application to K8S
     - Making a change and doing a rolling-update
     - Let's do some A/B testing!!
     - Scaling out the application to deal with increased traffic
-- [Kubernetes Architecture](./day1/Architecture.md)
+- [Kubernetes Architecture](./bootcamp/day1/Architecture.md)
     - Key components and what role they serve
     - Key K8S resources and their purpose
     - Quick overview of Kubernetes networking
