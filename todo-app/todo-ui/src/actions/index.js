@@ -23,23 +23,24 @@ export function createTodo(todo) {
     return fetch('http://localhost:8080/api/todos', {
       method: 'post',
       headers: {
-        'Accept': 'application/json, text/plain, */*',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        "id": "3294786239486723498742634",
-        "owner": "23123123123",
-        "description": "sdfsdfsfsfs",
-        "done": false,
-        "priority": "HIGH",
-        "dueDate": "2017-11-30",
-        "tags": [
-          "sdfsdfsdf"
-        ]
-      })
+      body: JSON.stringify(
+        {
+          "id": Math.floor(Math.random()*90000) + 10000,
+          "owner": "87897",
+          "description": todo.description,
+          "done": false,
+          "priority": todo.priority,
+          "dueDate": todo.dueDate,
+          "tags": [
+            "string"
+          ]
+        }
+      )
     })
-      .then(response => response.json())
-      .then(response => {
+      .then(() => console.info('adding todo: ', todo))
+      .then(() => {
         dispatch(addedTodo());
         dispatch(fetchTodos());
       })
