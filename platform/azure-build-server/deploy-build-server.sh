@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ###################################################################################################
-# Script Name: deploy-jenkins.sh
+# Script Name: deploy-build-server.sh
 # Author: Igor Ljaskevic
 # Description: Validates then deploys an ARM template.  It will look for an azureDeploy.json and
 # azureDeploy.parameters.json then validate it and if valid, deploy it.
@@ -9,70 +9,67 @@
 # Options:
 #
 # -g <resourceGroup>
-# -n <deploymentName>
 # -s <storageAccount>
+# -u <azureVmUsername>
 # -v if provided will only validate not deploy
 #
 #######################################################################################################
 SECONDS=0
 
 resourceGroup=''
-deploymentName=''
 storageAccount=''
 ## Currently, AKS is only available in 'eastus,westeurope,centralus' regions
 resourceGroupLocation='eastus'
 template='arm/azureDeploy.json'
 parameters='arm/azureDeploy.parameters.json'
 tempParameters='arm/temp.parameters.json'
+azureVmUsername='architech'
 justValidate=false
 
 function log {
-    echo "deploy-jenkins.sh --> $*"
+    echo "deploy-build-server.sh --> $*"
 }
 
 function usage {
-    log "To validate and deploy:  ./deploy-jenkins.sh -g <resourceGroup> -n <deploymentName> -s <storageAccountName>"
+    log "To validate and deploy:  ./deploy-build-server.sh -g <resourceGroup> -s <storageAccountName> -u <azureVmUsername>"
     log "To just validate: add the ARM template -v switch"
 }
 
 function check_resource_group {
-    rgExists="$(azure group list | grep ${resourceGroup})"
+    rgExists="$(az group list | grep ${resourceGroup})"
     if [[ !  -z  $rgExists  ]]
     then
         log "Resource group '${resourceGroup}' already exists"
-        azure group show "${resourceGroup}"
+        az group show -g "${resourceGroup}"
         read -r -p "Do you wish to deploy to this resource group? [y/N] " response
         if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
         then
             log "Deploying to '${resourceGroup}' resource group"
+            resourceGroupLocation="$(az group show -g ${resourceGroup} -o tsv | awk '{print $2}')"
         else
             exit 1
         fi
     else
         log "Resource group '${resourceGroup}' not found"
         log "Creating new resource group called '${resourceGroup}' in 'East US' region"
-        azure group create "${resourceGroup}" "${resourceGroupLocation}"
+        az group create -n "${resourceGroup}" -l "${resourceGroupLocation}"
     fi
 }
 
-function prepare_storage {
-    create_storage_account
-    create_storage_containers
-}
 function create_storage_account {
     log "Getting location of Resource Group - ${resourceGroup}"
-    resourceGroupLocation="$(azure group show -n ${resourceGroup} | awk ' /'Location'/ {print $3} ' | head -n1 )"
+    resourceGroupLocation="$(az group show -g ${resourceGroup} -o tsv | awk '{print $2}')"
     log "Found resource group location = ${resourceGroupLocation}"
 
     log "Checking if storage account already (${storageAccount}) exists..."
-    azure storage account list | grep 'Storage' | awk '{ print $2;}' | grep -q "^${storageAccount}$";
+    az storage account list | grep 'Storage' | awk '{ print $2;}' | grep -q "^${storageAccount}$";
     grepReturn=$? # Needs to be called right after the command whose return code we want to capture
     log "...done!"
 
     if [[ $grepReturn -eq 0 ]]
     then
         log "Storage account '${storageAccount}' already exists!"
-        azure storage account show "${storageAccount}" -g "${resourceGroup}"
+        az storage account show -n "${storageAccount}" -g "${resourceGroup}"
         read -r -p "Do you wish to deploy to this storage account? [y/N] " response
         if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
         then
@@ -83,7 +80,7 @@ function create_storage_account {
     else
         log "No existing storage account called ${storageAccount}"
         log "Creating storage account and getting storage connectionString and accessKey"
-        azure storage account create --sku-name "LRS" --kind "Storage" -l "${resourceGroupLocation}" -g "${resourceGroup}" "${storageAccount}" || exit 1
+        az storage account create --sku "Standard_LRS" -l "${resourceGroupLocation}" -g "${resourceGroup}" -n "${storageAccount}" || exit 1
     fi
 
     log "Replacing placeholders in .parameters.json file with new storage account info"
@@ -97,6 +94,7 @@ function create_storage_account {
 
     log "Replacing placeholders in ARM template parameters file"
     sed -i "s~STORAGE_ACCOUNT_NAME~${storageAccount}~g" "${tempParameters}" || exit 1
+    sed -i "s~AZURE_VM_USERNAME~${azureVmUsername}~g" "${tempParameters}" || exit 1
 
     read -r -p "Enter DNS prefix for build server (must be globally unique): " buildServerDnsPrefix
     sed -i "s~BUILD_SERVER_UNIQUE_DNS_PREFIX~${buildServerDnsPrefix}~g" "${tempParameters}" || exit 1
@@ -119,17 +117,12 @@ function create_storage_account {
     sed -i "s~PUBLIC_SSH_KEY~${publicSshKey}~g" "${tempParameters}" || exit 1
 }
 
-function create_storage_containers {
-    log "Creating containers for vhds, access keys, and scripts"
-    #azure storage container create -a "${storageAccount}" -k "${storageAccessKey}" "buildservervhds" || exit 1
-}
-
 function validate_template {
     log "start validating template..."
 
     check_resource_group
 
-    #azure group template validate -g "${resourceGroup}" -f "$template" -e "${parameters}"
+    az group deployment validate -g "${resourceGroup}" --template-file "${template}" --parameters "${parameters}"
 
     if [ $? -ne 0 ]; then
         log "Template validation failed.  See error."
@@ -143,8 +136,15 @@ function deploy_template {
     if ! $justValidate
     then
         log "start deploying template..."
-        azure group deployment create -f "${template}" -e "${tempParameters}" -g "${resourceGroup}" -n "${deploymentName}"
+        az group deployment create -g "${resourceGroup}" --template-file "${template}" --parameters "${tempParameters}"
     fi
+}
+
+function generate_ansible_hosts_file {
+    log "Generating hosts.ini file for ansible..."
+    echo "${buildServerDnsPrefix}.${resourceGroupLocation}.cloudapp.azure.com ansible_connection=ssh ansible_user=${azureVmUsername}" > ansible/hosts.ini || exit 1
+    log "Finished generating hosts.ini file with the following entry:"
+    log "${buildServerDnsPrefix}.${resourceGroupLocation}.cloudapp.azure.com ansible_connection=ssh ansible_user=${azureVmUsername}"
 }
 
 function cleaup_parameters_file {
@@ -157,19 +157,19 @@ function cleaup_parameters_file {
     fi
 }
 
-while getopts g:n:s:v opt; do
+while getopts g:s:u:v opt; do
     case $opt in
         g)
             resourceGroup=${OPTARG}
             log "resourceGroup --> $resourceGroup"
             ;;
-        n)
-            deploymentName=${OPTARG}
-            log "deploymentName --> $deploymentName"
-            ;;
         s)
             storageAccount=${OPTARG}
             log "storageAccount --> $storageAccount"
+            ;;
+        u)
+            azureVmUsername=${OPTARG}
+            log "azureVmUsername --> $azureVmUsername"
             ;;
         v) #if true just validate and don't deploy'
             justValidate=true;
@@ -189,11 +189,11 @@ then
     exit 0
 fi
 if [ -z "$resourceGroup" ] ;then echo "-g must be provided"; exit 1; fi
-if [ -z "$deploymentName" ] ;then echo "-n must be provided"; exit 1; fi
-if [ -z "$deploymentName" ] ;then echo "-n must be provided"; exit 1; fi
+if [ -z "$storageAccount" ] ;then echo "-s must be provided"; exit 1; fi
 
-prepare_storage
+create_storage_account
 deploy_template
+generate_ansible_hosts_file
 cleaup_parameters_file
 duration=$SECONDS
 echo "***** $(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed."

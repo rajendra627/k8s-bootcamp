@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
       "adminUserName": {
-          "value": "architech"
+          "value": "AZURE_VM_USERNAME"
       },
       "publicSshKey": {
           "value": "PUBLIC_SSH_KEY"
