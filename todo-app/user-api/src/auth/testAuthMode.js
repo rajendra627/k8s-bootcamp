@@ -11,6 +11,6 @@ module.exports = (req, res, next) => {
     }
 
     const userData = utf8.decode(base64.decode(token));
-    req.user = userData;
+    req.user = JSON.parse(userData);
     next();
 };

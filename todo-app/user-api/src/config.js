@@ -1,3 +1,4 @@
 module.exports = {
-    isTestMode: process.env.IS_TEST_MODE || true
+    isTestMode: process.env.IS_TEST_MODE,
+    mongoDbUrl: process.env.MONGODB_URL
 };
