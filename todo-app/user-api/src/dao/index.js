@@ -1,10 +1,15 @@
 const mongoose = require('mongoose');
 
-const config = require('../config');
+const {mongoDbUrl} = require('../config');
+const logger = require('../logger');
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect(config.mongoDbUrl, {useMongoClient: true});
+mongoose.connect(mongoDbUrl, {useMongoClient: true});
+
+const connection = mongoose.connection;
+connection.once('open', () => logger.info(`Connected successfully - ${mongoDbUrl}`));
+connection.on('error', () => logger.error(`Error connecting - ${mongoDbUrl}`));
 
 const User = require('./models/user')();
 
