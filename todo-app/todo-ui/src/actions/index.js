@@ -2,8 +2,6 @@ import fetch from 'cross-fetch';
 import actionTypes from './actionTypes';
 import BASE_API_URL from '../constants/api';
 
-let nextTodoId = 0;
-
 export const addTodo = () => {
   return {
     type: actionTypes.ADD_TODO,
@@ -17,7 +15,7 @@ export const addedTodo = todo => {
   }
 };
 
-export function createTodo(todo) {
+export const createTodo = (todo) => {
   return function (dispatch) {
     dispatch(addTodo());
     return fetch(BASE_API_URL, {
@@ -44,10 +42,10 @@ export function createTodo(todo) {
   }
 }
 
-export const setVisibilityFilter = filter => {
+export const toggledTodo = id => {
   return {
-    type: actionTypes.SET_VISIBILITY_FILTER,
-    filter
+    type: actionTypes.TOGGLED_TODO,
+    id
   }
 };
 
@@ -65,31 +63,31 @@ export const toggleTodo = todo => {
   }
 };
 
-export const toggledTodo = id => {
+export const setVisibilityFilter = filter => {
   return {
-    type: actionTypes.TOGGLED_TODO,
-    id
+    type: actionTypes.SET_VISIBILITY_FILTER,
+    filter
   }
 };
 
-export function requestTodos() {
+export const requestTodos = () => {
   return {
     type: actionTypes.REQUEST_TODOS
   }
-}
+};
 
-export function receiveTodos(todos) {
+export const receiveTodos = (todos) => {
   return {
     type: actionTypes.RECEIVE_TODOS,
     todos: todos
   }
-}
+};
 
-export function fetchTodos() {
+export const fetchTodos = () => {
   return function (dispatch) {
     dispatch(requestTodos());
     return fetch(BASE_API_URL)
       .then(response => response.json())
       .then(response => dispatch(receiveTodos(response)))
   }
-}
+};
