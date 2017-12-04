@@ -20,22 +20,22 @@ We will also actually deploy a microservice based [application](./todo-app) to K
 
 By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 
-- [Pods - the unit of deployment on K8S](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) 
-- [Services - how service discovery works in K8S](https://kubernetes.io/docs/concepts/services-networking/service/)
-- [Deployments - doing rolling updates, rollbacks, scaling out](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
-- [Persistence - managing durable state](https://kubernetes.io/docs/concepts/storage/volumes/)
-- [Secrets - externalizing secrets and passwords](https://kubernetes.io/docs/concepts/configuration/secret/)
-- [ConfigMaps - externalizing configuration from your applications](https://kubernetes.io/docs/tasks/configure-pod-container/configmap/)
-- [Statefulsets - how to deploy stateful applications](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
+- [Pods - the unit of deployment on K8S](./pods/README.md) 
+- [Services - how service discovery works in K8S](./services/README.md)
+- [Deployments - doing rolling updates, rollbacks, scaling out](./deployments/README.md)
+- [Persistence - managing durable state](./persistence/README.md)
+- [Secrets - externalizing secrets and passwords](./secrets/README.md)
+- [ConfigMaps - externalizing configuration from your applications](./configmaps/README.md)
+- [Statefulsets - how to deploy stateful applications](./statefulsets/README.md)
 - Jobs
 - Daemonsets
-- [Ingress and Ingress Controllers - key to controlling how requests originating from outside the cluster is routed to your services](https://kubernetes.io/docs/concepts/services-networking/ingress/)
-- [RBAC - locking down your K8S environment](https://kubernetes.io/docs/admin/authorization/rbac/)
+- [Ingress and Ingress Controllers - key to controlling how requests originating from outside the cluster is routed to your services](./ingress/README.md)
+- [RBAC - locking down your K8S environment](./rback/README.md)
 - [Monitoring and log aggregation](/monitoring/README.md)
-- [Helm - packaging and deploying your application to K8S](https://docs.helm.sh/)
+- [Helm - packaging and deploying your application to K8S](./helm/README.md)
 
 ### Day 1 Outline: ###
-- [Setting up your environment](./bootcamp/day1/set-up.md)
+- [Setting up your environment](./day1/set-up.md)
 - The Todo list microservices application overview
     - Deploying the application to K8S
     - Making a change and doing a rolling-update
@@ -54,6 +54,30 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
     - Exposing your pods as services
     - Using load-balancers and NodePorts to expose your pods to clients outside your cluster
     - Services to access services external to your cluster
+- [ReplicaSets](./replicasets/README.md) - How do you scale your services?
+- [Deployments](./deployments/README.md) - Deployments enable you to perform rolling upgrades, rollback, and scale up/scale down your services.
 
 ### Day 2 Outline: ###
-- 
+- [Persistence](./persistence/README.md) - Volumes, Persistence Volume Claims, Storage Classes.  
+- [Statefulsets](./statefulsets/README.md) - Using statefulsets to deploy services that require long-lasting, durable state (e.g. databases)
+- [Jobs]()
+- [Daemonsets](./daemonsets/README.md) - Running pods that need to run on all or some nodes continuously e.g. for log aggregation.
+- [Ingress](./ingress/README.md) - Customizing the routing your published services.
+    - Deploying the nginx ingress controller
+    - Configuring routing to different version of your services
+- [RBAC - Role Based Access Control](./rbac/README.md) - Controlling access to your K8S cluster.
+    - K8S authn/authr model
+    - Roles and Role bindings
+    - Integrating Azure AD for authn/authr
+    - Creating custom roles and role bindings to only allow access to a specific namespace (e.g. qa or dev)
+- [Monitoring and Log Aggregation](./) - Deploying EFK (Elasticsearch, Fluentd, Kibana) for log aggregation, Prometheus and Grafana for monitoring
+- [Introduction to Helm](./helm/README.md) - Package manager for K8S deployments.
+    - What is it and why you need it
+    - Deploying the Todo list application using Helm
+    - Charts and templates
+    - Sharing your charts
+- Other K8S tools and projects you should know about:
+    - [Istio](https://istio.io/docs/) - A microservices service mesh that can be deployed to K8S.  Provides fine-grained service to service authn/authr, intelligent load-balancing (via ingress and ingress controllers), telemetry and more!
+    - [kubetoken](https://github.com/atlassian/kubetoken) - a tool to simplify authentication with K8S via temporary certificates.
+    - [Kompose](http://kompose.io/) - converts you docker compose yaml files to K8S manifests.  Very helpful if you start with docker compose.
+    - [kubespray](https://github.com/kubernetes-incubator/kubespray) - Deploying K8S using ansible. Can be used to deploy on bare metal, on-premises VMs, various cloud providers.
