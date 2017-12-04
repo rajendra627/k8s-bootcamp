@@ -14,7 +14,7 @@ describe('Todos Reducer', ()=>{
   });
 
   it('Should handle adding a todo', () => {
-    const initialState = undefined;
+    const initialState = [];
     const todo = {
       id: 1,
       description: 'todo',
@@ -23,9 +23,10 @@ describe('Todos Reducer', ()=>{
       done: false
     };
     const finalState = [todo];
+
     const action ={
-      type: actionTypes.ADD_TODO,
-      ...todo
+      type: actionTypes.ADDED_TODO,
+      todo
     };
     const actualState = todos(initialState, action);
 
@@ -50,7 +51,7 @@ describe('Todos Reducer', ()=>{
     const initialState = [initalTodo];
     const finalState = [doneTodo];
     const action ={
-      type: actionTypes.TOGGLE_TODO,
+      type: actionTypes.TOGGLED_TODO,
       id: 1
     };
     const actualState = todos(initialState, action);

@@ -4,26 +4,25 @@ import priority from '../../constants/priority';
 
 describe('actions', () => {
   it('should create an action to add a todo', () => {
-    const description = 'Finish docs';
-    const toDopriority = priority.LOW;
-    const dueDate = '2017-10-2';
-    const expectedAction = {
-      id: 0,
-      type: actionTypes.ADD_TODO,
-      description: description,
-      priority: toDopriority,
-      dueDate: dueDate
+    const newTodo = {
+      description: 'Finish docs',
+      priority: priority.LOW,
+      dueDate: '2017-10-2'
     };
-    expect(actions.addTodo(description, toDopriority, dueDate)).toEqual(expectedAction)
+    const expectedAction = {
+      type: actionTypes.ADDED_TODO,
+      todo: newTodo
+    };
+    expect(actions.addedTodo(newTodo)).toEqual(expectedAction)
   });
 
   it('should create an action to toggle a todo', () => {
     const id = 0;
     const expectedAction = {
       id: 0,
-      type: actionTypes.TOGGLE_TODO,
+      type: actionTypes.TOGGLED_TODO,
     };
-    expect(actions.toggleTodo(id)).toEqual(expectedAction)
+    expect(actions.toggledTodo(id)).toEqual(expectedAction)
   });
 
   it('should create an action to set the visibility filter', () => {
