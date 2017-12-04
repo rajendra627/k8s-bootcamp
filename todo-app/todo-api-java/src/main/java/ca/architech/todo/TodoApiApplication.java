@@ -33,7 +33,7 @@ public class TodoApiApplication extends WebMvcConfigurerAdapter {
 
         registry.addMapping("/api/todos/**")
 				.allowedOrigins(allowed_origins)
-				.allowedMethods("PUT", "DELETE", "PATCH", "POST")
+				.allowedMethods("GET", "PUT", "DELETE", "PATCH", "POST")
 				.allowCredentials(false).maxAge(3600);
 	}
 }
