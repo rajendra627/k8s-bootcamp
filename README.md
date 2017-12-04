@@ -35,7 +35,7 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - [Helm - packaging and deploying your application to K8S](./helm/README.md)
 
 ### Day 1 Outline: ###
-- [Setting up your environment](./day1/set-up.md)
+- [Setting up your environment](./day1/README.md)
 - The Todo list microservices application overview
     - Deploying the application to K8S
     - Making a change and doing a rolling-update
