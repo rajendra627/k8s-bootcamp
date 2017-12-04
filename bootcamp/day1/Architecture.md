@@ -1,5 +1,7 @@
 # K8S Architecture #
 
+Kubernetes is a platform for deploying, scaling and managing container based applications in a secure, resilient manner.  It enables you to abstract away the underlying infrastructure to dynamically scale and deploy your containerized applications.  The key word here is "dynamic".  Through specifying your "desired state" (within manifests), the K8S control plane works behind the scenes to ensure the current state of your application meets the desired state.  It does so even in the event of your application crashing or if there is a hardware failure. 
+
 ![K8S Architecture](./images/k8s-architecture.png "K8S Architecture")
 
 A K8S cluster is made up of two primary nodes:
