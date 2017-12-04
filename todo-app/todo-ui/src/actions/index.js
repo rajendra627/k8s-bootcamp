@@ -10,7 +10,6 @@ export const addTodo = () => {
 };
 
 export const addedTodo = todo => {
-  console.log("added todo ", todo);
   return {
     type: actionTypes.ADDED_TODO,
     todo
@@ -39,10 +38,9 @@ export function createTodo(todo) {
         }
       )
     })
-      .then(() => console.info('adding todo: ', todo))
+      .then()
       .then(() => {
-        dispatch(addedTodo());
-        dispatch(fetchTodos());
+        dispatch(addedTodo(todo));
       })
   }
 }
@@ -53,6 +51,13 @@ export const setVisibilityFilter = filter => {
   return {
     type: actionTypes.SET_VISIBILITY_FILTER,
     filter
+  }
+};
+
+export const toggleTodo = id => {
+  return {
+    type: actionTypes.TOGGLE_TODO,
+    id
   }
 };
 
