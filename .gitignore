@@ -1,2 +1,5 @@
+#ignore hidden directories
+.*/
+
 *.jar
 .idea

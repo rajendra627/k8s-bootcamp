@@ -1,0 +1,21 @@
+# Day 1 Outline #
+
+- [Setting up your environment](./set-up.md)
+- The Todo list microservices application overview
+    - Deploying the application to K8S
+    - Making a change and doing a rolling-update
+    - Let's do some A/B testing!!
+    - Scaling out the application to deal with increased traffic
+- [Kubernetes Architecture](./k8s-architecture.md)
+    - Key components and what role they serve
+    - Key K8S resources and their purpose
+    - Quick overview of Kubernetes networking
+    - K8S as a dynamic platform and what that means
+- [Pods](./pods.md) - the unit of deployment in K8S
+    - Defining the manifest
+    - What to consider when decomposing your application into pods
+    - Health checks and CPU, Memory requests and limits
+- [Services](./services.md) - How do pods find each other?
+    - Exposing your pods as services
+    - Using load-balancers and NodePorts to expose your pods to clients outside your cluster
+    - Services to access services external to your cluster

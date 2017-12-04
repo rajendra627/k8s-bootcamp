@@ -11,7 +11,7 @@ spring:
 
 AzureAD:
   appId: ${AZURE_APP_ID}
-  identityMetaData: https://login.microsoftonline.com/architech.onmicrosoft.com/v2.0/.well-known/openid-configuration
+  identityMetaData: ${AD_IDENTITY_META_DATA_URL}
 logging:
   level:
     root: WARN
