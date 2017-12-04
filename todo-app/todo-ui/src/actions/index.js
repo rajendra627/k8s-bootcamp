@@ -1,5 +1,6 @@
 import fetch from 'cross-fetch';
 import actionTypes from './actionTypes';
+import BASE_API_URL from '../constants/api';
 
 let nextTodoId = 0;
 
@@ -19,7 +20,7 @@ export const addedTodo = todo => {
 export function createTodo(todo) {
   return function (dispatch) {
     dispatch(addTodo());
-    return fetch('http://localhost:8080/api/todos', {
+    return fetch(BASE_API_URL, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -39,13 +40,9 @@ export function createTodo(todo) {
       )
     })
       .then()
-      .then(() => {
-        dispatch(addedTodo(todo));
-      })
+      .then(dispatch(addedTodo(todo)))
   }
 }
-
-
 
 export const setVisibilityFilter = filter => {
   return {
@@ -54,16 +51,23 @@ export const setVisibilityFilter = filter => {
   }
 };
 
-export const toggleTodo = id => {
-  return {
-    type: actionTypes.TOGGLE_TODO,
-    id
+export const toggleTodo = todo => {
+  return function (dispatch) {
+    const newToggledTodo = {...todo, done: !todo.done};
+    return fetch(BASE_API_URL, {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newToggledTodo)
+    }).then()
+      .then(dispatch(toggledTodo(todo.id)))
   }
 };
 
-export const toggleTodo = id => {
+export const toggledTodo = id => {
   return {
-    type: actionTypes.TOGGLE_TODO,
+    type: actionTypes.TOGGLED_TODO,
     id
   }
 };
@@ -84,7 +88,7 @@ export function receiveTodos(todos) {
 export function fetchTodos() {
   return function (dispatch) {
     dispatch(requestTodos());
-    return fetch('http://localhost:8080/api/todos')
+    return fetch(BASE_API_URL)
       .then(response => response.json())
       .then(response => dispatch(receiveTodos(response)))
   }

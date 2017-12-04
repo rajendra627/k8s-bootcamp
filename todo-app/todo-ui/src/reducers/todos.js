@@ -1,7 +1,5 @@
 import actionTypes from '../actions/actionTypes';
 
-
-
 const todos = (state = [], action) => {
   switch (action.type) {
     case actionTypes.ADDED_TODO:
@@ -9,7 +7,8 @@ const todos = (state = [], action) => {
         ...state,
         action.todo
       ];
-    case actionTypes.TOGGLE_TODO:
+    case actionTypes.TOGGLED_TODO:
+
       return state.map(todo =>
         (todo.id === action.id)
           ? {...todo, done: !todo.done}
