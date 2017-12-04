@@ -41,7 +41,7 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
     - Making a change and doing a rolling-update
     - Let's do some A/B testing!!
     - Scaling out the application to deal with increased traffic
-- [Kubernetes Architecture](./day1/k8s-architecture.md)
+- [Kubernetes Architecture](./day1/Architecture.md)
     - Key components and what role they serve
     - Key K8S resources and their purpose
     - Quick overview of Kubernetes networking
