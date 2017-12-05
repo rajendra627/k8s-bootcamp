@@ -1,4 +1,5 @@
 const testAuthMode = require('./testAuthMode');
+const azureADAuthMode = require('./azureADAuthMode');
 
 const logger = require('../logger');
 
@@ -9,6 +10,6 @@ module.exports = (testMode) => {
         return testAuthMode;
     } else {
         logger.info(`Using Azure AD authentication mode - testMode = ${testMode}`);
-        console.log("UNEXPECTED");
+        return azureADAuthMode;
     }
 };
