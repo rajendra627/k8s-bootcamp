@@ -7,11 +7,10 @@ In this bootcamp, we will cover all the essential concepts in Kubernetes. We wil
 - The Application Engineer that engineers the software solutions deployed to K8S.
 - The Platform Engineer that provisions, configures and operates the platform (including cloud services, K8S, CI/CD, databases, message queues, caches, authentication providers, etc) that the Application engineers depends on to bring product to market.
 
-We will also actually deploy a microservice based [application](./todo-app) to K8S.  Using this reference application, we will learn K8S concepts in a more meaningful way - as if you were using K8S to deploy and manage a real application.  We will cover scenarios such as:
+We will also actually deploy a microservice based [application](./todo-app/README.md) to K8S.  Using this reference application, we will learn K8S concepts in a more meaningful way - as if you were using K8S to deploy and manage a real application.  We will cover scenarios such as:
 
 - Continuous Integration/Continuous Deployment 
 - Blue/Green deployments
-- Canary deployments
 - Deploying multiple versions of your application to perform A/B testing
 - Auto-scaling your application to deal with peak traffic demand
 - Developing/testing/deploying your application - from your laptop to K8S - with focus on developer productivity

@@ -5,6 +5,7 @@ You will need the following tools installed:
 - docker
 - Helm
 - kubectl
+- Visual Studio Code
 
 ## Installing Azure CLI ##
 
@@ -24,6 +25,19 @@ az --version
 docker version
 docker-compose version
 ```
+
+## Install Visual Studio Code ##
+
+Download and install VS Code for your OS.  [https://code.visualstudio.com/](https://code.visualstudio.com/)
+
+Install the following extensions (search in the extensions tab):
+- Kubernetes Support 
+- vs-kubernetes
+- vscode-helm
+- Docker
+
+The above extensions provide syntax highlighting, code snippets and more for working with Docker, Kubernetes and Helm artefacts.
+
 ## Verify your Azure subscription ##
 Make sure all the required resource providers are registered in your Azure subscription.  As you will be creating network, compute and storage resources on Azure, and you will be using Azure Container Service and Azure Container Service, you need to ensure you have the following providers registered in your Azure subscription:
 - Microsoft.Network
