@@ -1,0 +1,23 @@
+form{
+    padding: 35px 0 35px 0;
+}
+
+form .form-inline .form-group label{
+    color: #898989;
+}
+
+form .add-todo-actions{
+    margin-top: 35px;
+}
+
+@media screen and (min-width: 480px) {
+    form .form-inline .form-group .form-control{
+        width: 80%;
+    }
+    form .form-inline .form-group label{
+        margin-right: 5px;
+    }
+    form .add-todo-actions button.btn{
+        width: 100px;
+    }
+}

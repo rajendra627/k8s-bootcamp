@@ -1,0 +1,18 @@
+.todo-item{
+    border: 1px #ccc solid;
+    padding: 15px 0 15px 0;
+    margin-bottom: -1px;
+    cursor: pointer;
+}
+
+.description{
+    margin-left: 15px;
+}
+
+.done{
+    color: #aaa;
+}
+
+.done .description{
+    text-decoration: line-through;
+}

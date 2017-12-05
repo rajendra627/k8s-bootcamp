@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import { toggleTodo } from '../actions';
-import TodoList from '../components/TodoList';
+import TodoList from '../components/todoList/TodoList';
 import filter from '../constants/filter';
+import * as moment from 'moment'
 
 
 const getVisibleTodos = (todos, selectedFilter) => {
@@ -16,9 +17,23 @@ const getVisibleTodos = (todos, selectedFilter) => {
   }
 };
 
+const filterPastDueTodos = (todos) => {
+  return todos.filter( todo => moment(todo.dueDate).format("YYYY-MM-DD") > moment().format("YYYY-MM-DD") )
+};
+
+const filterUpcomingTodos = (todos) => {
+  return todos.filter( todo => moment(todo.dueDate).format("YYYY-MM-DD") < moment().format("YYYY-MM-DD") )
+};
+
+const filterTodayTodos = (todos) => {
+  return todos.filter( todo => moment(todo.dueDate).format("YYYY-MM-DD") === moment().format("YYYY-MM-DD") )
+};
+
 const mapStateToProps = state => {
   return {
-    todos: getVisibleTodos(state.todos, state.visibilityFilter)
+    pastDueTodos: filterPastDueTodos(state.todos),
+    upcomingTodos: filterUpcomingTodos(state.todos),
+    todayTodos: filterTodayTodos(state.todos)
   }
 };
 
