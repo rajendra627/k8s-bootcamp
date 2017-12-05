@@ -25,7 +25,6 @@ export const createTodo = (todo) => {
       },
       body: JSON.stringify(
         {
-          "id": Math.floor(Math.random()*90000) + 10000,
           "owner": "87897",
           "description": todo.description,
           "done": false,
@@ -37,8 +36,8 @@ export const createTodo = (todo) => {
         }
       )
     })
-      .then()
-      .then(dispatch(addedTodo(todo)))
+      .then(response => response.json())
+      .then(newTodo => dispatch(addedTodo(newTodo)))
   }
 }
 
