@@ -24,8 +24,21 @@ services:
         depends_on:
             - mongodb
 
+    nginx:
+        image: nginx:1.13.7
+        ports:
+            - "80:80"
+        volumes:
+            - ./todo-ui/nginx.conf:/etc/nginx/conf.d/default.conf
+#        networks:
+#            hostnet: {}
 volumes:
     todo-app-data:
         external: true
     todo-app-config-data:
         external: true
+
+#networks:
+#    hostnet:
+#        external:
+#            name: host
