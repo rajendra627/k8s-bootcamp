@@ -1,8 +1,14 @@
+FROM openjdk:8-jdk-alpine as BUILD
+
+COPY . .
+
+RUN ./gradlew clean build -x test
+
 FROM openjdk:8-jre-alpine
 
 WORKDIR /app
 
-COPY ./build/libs/*.jar todo-api.jar
+COPY --from=BUILD ./build/libs/*.jar todo-api.jar
 
 ENV MONGODB_URL "localhost:27017"
 
