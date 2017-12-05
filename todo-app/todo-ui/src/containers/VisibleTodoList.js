@@ -4,19 +4,6 @@ import TodoList from '../components/todoList/TodoList';
 import filter from '../constants/filter';
 import * as moment from 'moment'
 
-
-const getVisibleTodos = (todos, selectedFilter) => {
-  switch (selectedFilter) {
-    case filter.SHOW_COMPLETED:
-      return todos.filter(todo => todo.done);
-    case filter.SHOW_ACTIVE:
-      return todos.filter(todo => !todo.done);
-    case filter.SHOW_ALL:
-    default:
-      return todos
-  }
-};
-
 const filterPastDueTodos = (todos) => {
   return todos.filter( todo => moment(todo.dueDate).format("YYYY-MM-DD") > moment().format("YYYY-MM-DD") )
 };

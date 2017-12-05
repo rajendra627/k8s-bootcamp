@@ -16,6 +16,7 @@ export const addedTodo = todo => {
 };
 
 export const createTodo = (todo) => {
+  console.log(todo);
   return function (dispatch) {
     dispatch(addTodo());
     return fetch(BASE_API_URL, {
@@ -30,9 +31,7 @@ export const createTodo = (todo) => {
           "done": false,
           "priority": todo.priority,
           "dueDate": todo.dueDate,
-          "tags": [
-            "string"
-          ]
+          "tags": todo.tags
         }
       )
     })

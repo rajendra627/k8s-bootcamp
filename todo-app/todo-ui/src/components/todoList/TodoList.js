@@ -50,7 +50,8 @@ TodoList.propTypes = {
       done: PropTypes.bool.isRequired,
       description: PropTypes.string.isRequired,
       priority: PropTypes.string.isRequired,
-      dueDate: PropTypes.string.isRequired
+      dueDate: PropTypes.string.isRequired,
+      tags: PropTypes.array
     }).isRequired
   ).isRequired,
 
@@ -60,7 +61,8 @@ TodoList.propTypes = {
       done: PropTypes.bool.isRequired,
       description: PropTypes.string.isRequired,
       priority: PropTypes.string.isRequired,
-      dueDate: PropTypes.string.isRequired
+      dueDate: PropTypes.string.isRequired,
+      tags: PropTypes.array
     }).isRequired
   ).isRequired,
 
@@ -70,7 +72,8 @@ TodoList.propTypes = {
       done: PropTypes.bool.isRequired,
       description: PropTypes.string.isRequired,
       priority: PropTypes.string.isRequired,
-      dueDate: PropTypes.string.isRequired
+      dueDate: PropTypes.string.isRequired,
+      tags: PropTypes.array
     }).isRequired
   ).isRequired,
 

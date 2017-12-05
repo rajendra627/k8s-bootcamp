@@ -4,7 +4,11 @@ import { bindActionCreators } from 'redux';
 import * as moment from 'moment';
 import priority from '../../constants/priority';
 import { createTodo } from '../../actions/index';
+import TAG_OPTIONS from '../../constants/tagOptions';
+import Select from 'react-select';
 import './addTodo.css';
+import 'react-select/dist/react-select.css';
+
 
 export class AddTodo extends Component{
   constructor(props) {
@@ -17,8 +21,14 @@ export class AddTodo extends Component{
     };
 
     this.onFormSubmit  = this.onFormSubmit.bind(this);
-
+    this.handleTagInputChange = this.handleTagInputChange.bind(this);
+    this.handleCancel  = this.handleCancel.bind(this);
   }
+
+  handleTagInputChange(tags){
+    this.setState({ tags });
+  }
+
 
   resetInput() {
     return {
@@ -37,8 +47,13 @@ export class AddTodo extends Component{
     this.props.createTodo({
       description: this.state.description,
       priority: this.state.priority,
-      dueDate: this.state.dueDate
+      dueDate: this.state.dueDate,
+      tags: this.state.tags.split(",")
     });
+    this.setState(this.resetInput());
+  }
+
+  handleCancel() {
     this.setState(this.resetInput());
   }
 
@@ -60,14 +75,16 @@ export class AddTodo extends Component{
             </div>
             <div className="form-group col-md-4">
               <label>Tags:</label>
-              <select
-                className="form-control"
-                value={this.state.priority}
-                onChange={(event) => {this.setState({priority: event.target.value})}}>
-                <option value={priority.LOW}>LOW</option>
-                <option value={priority.MEDIUM}>MEDIUM</option>
-                <option value={priority.HIGH}>HIGH</option>
-              </select>
+
+              <Select
+                closeOnSelect={false}
+                multi
+                onChange={this.handleTagInputChange}
+                options={TAG_OPTIONS}
+                removeSelected={true}
+                simpleValue
+                value={this.state.tags}
+              />
             </div>
             <div className="form-group col-md-3">
               <label>Due:</label>
@@ -83,7 +100,7 @@ export class AddTodo extends Component{
               <button className="btn btn-primary" type="submit">
                 Done
               </button>
-              <button className="btn btn-default" type="button">
+              <button className="btn btn-default" type="button" onClick={this.handleCancel}>
                 Cancel
               </button>
             </div>

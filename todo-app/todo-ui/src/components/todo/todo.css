@@ -16,3 +16,8 @@
 .done .description{
     text-decoration: line-through;
 }
+
+.label{
+    margin-right: 5px;
+}
+
