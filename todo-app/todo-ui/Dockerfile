@@ -10,7 +10,7 @@ WORKDIR /root/todo-app
 # Set tini as entrypoint
 ENTRYPOINT ["/sbin/tini", "--"]
 # copy project file
-COPY ../../todo-app/package.json .
+COPY ./package.json .
  
 #
 # ---- Dependencies ----
@@ -36,7 +36,7 @@ FROM base AS release
 # copy production node_modules
 COPY --from=dependencies /root/todo-app/prod_node_modules ./node_modules
 # copy app sources
-COPY ../../todo-app/build .
+COPY ./build .
 # expose port and define CMD
 EXPOSE 5000
 CMD npm run start
