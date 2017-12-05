@@ -14,9 +14,9 @@ Install the latest version of azure cli for your operating system from [here](ht
 ## Install Docker ##
 
 Install docker for your operating system.  
-    1. For [Windows](https://docs.docker.com/docker-for-windows/install/)
-    2. For [macOS](https://docs.docker.com/docker-for-mac/install/)
-    3. For [Ubuntu](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#docker-ee-customers)
+- For [Windows](https://docs.docker.com/docker-for-windows/install/)
+- For [macOS](https://docs.docker.com/docker-for-mac/install/)
+- For [Ubuntu](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#docker-ee-customers)
 
 After you have installed docker and the azure cli, run the following commands to ensure they have been installed.
 
