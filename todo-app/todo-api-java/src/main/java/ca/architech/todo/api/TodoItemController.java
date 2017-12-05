@@ -120,19 +120,19 @@ public class TodoItemController {
     }
 
     @PostMapping()
-    public ResponseEntity<HttpStatus> createTodoItem(@RequestBody TodoItem todoItem) {
+    public TodoItem createTodoItem(@RequestBody TodoItem todoItem, HttpServletResponse response) {
         logger.info(String.format("creating new todo item: %s", todoItem));
         TodoItem newItem;
 
         try {
             newItem = repository.insert(todoItem);
             logger.info("New todo item created with id: $newItem.id");
+            return newItem;
         } catch (Exception e) {
             logger.error("Failed to create new item: ${todoItem.id}", e);
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            return null;
         }
-
-        return ResponseEntity.created(getUriForItem(newItem)).build();
     }
 
     @DeleteMapping("/{id}")
@@ -151,14 +151,6 @@ public class TodoItemController {
             logger.info(String.format("TodoItem with id: %s deleted.", id));
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }
-    }
-
-    private URI getUriForItem(TodoItem item) {
-        return ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(item.getId())
-                .toUri();
     }
 }
 
