@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "base-64": "^0.1.0",
+    "cors": "^2.8.4",
     "express": "^4.16.2",
     "mongoose": "^4.13.6",
     "passport": "^0.4.0",

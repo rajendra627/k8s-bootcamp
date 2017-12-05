@@ -13,8 +13,8 @@ const strategy = new BearerStrategy(
         isB2C: false,
         allowMultipleAudiencesInToken: false
     },
-    (req, {email, firstName, lastName}, done) => {
-        done(null, {email, firstName, lastName});
+    (req, {upn, given_name, family_name}, done) => {
+        done(null, {email: upn, firstName: given_name, lastName: family_name});
     }
 );
 
