@@ -5,39 +5,34 @@ import './todoList.css';
 
 const TodoList = ({ upcomingTodos, pastDueTodos, todayTodos, onTodoClick, onDelete }) => (
   <div className="row">
-    <div className="col-sm-12">
-      <h1 href="#today-todo" data-toggle="collapse">Today <small>({todayTodos.length})</small></h1>
-      <div id="today-todo" className="collapse in">
+    <div className="col-xs-12">
+      <h1>Today <small>({todayTodos.length})</small></h1>
           {
             todayTodos
               .map(todo =>
                 (<Todo key={todo.id} {...todo} onClick={() => onTodoClick(todo)} onDelete={() => onDelete(todo.id)}/>)
               )
           }
-      </div>
     </div>
-    <div className="col-sm-12">
-      <h1 href="#past-due" data-toggle="collapse">Past Due <small>({pastDueTodos.length})</small></h1>
-      <div id="past-due" className="collapse in">
+    <div className="col-xs-12">
+      <h1>Past Due <small>({pastDueTodos.length})</small></h1>
+
         {
           pastDueTodos
             .map(todo =>
               (<Todo key={todo.id} {...todo} onClick={() => onTodoClick(todo)} onDelete={() => onDelete(todo.id)}/>)
             )
         }
-      </div>
     </div>
 
-    <div className="col-sm-12">
-      <h1 href="#upcoming" data-toggle="collapse">Upcoming <small>({upcomingTodos.length})</small></h1>
-      <div id="upcoming" className="collapse in">
+    <div className="col-xs-12">
+      <h1 >Upcoming <small>({upcomingTodos.length})</small></h1>
         {
           upcomingTodos
             .map(todo =>
               (<Todo key={todo.id} {...todo} onClick={() => onTodoClick(todo)} onDelete={() => onDelete(todo.id)}/>)
             )
         }
-      </div>
     </div>
   </div>
 );

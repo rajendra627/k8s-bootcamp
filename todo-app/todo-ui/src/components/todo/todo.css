@@ -25,14 +25,26 @@
 }
 
 .todo-action{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 50px;
+    position: absolute;
+    top: 10px;
+    transition-delay: .5s;
+    right: -45px;
+    opacity: 0;
+}
+
+.todo-container:hover .todo-action{
+    transition: all .1s ease-out;
+    right: -45px;
+    opacity: 1;
 }
 
 .todo-delete{
     margin: auto;
+}
+
+.date-container,
+.tag-container{
+    text-align: right;
 }
 
 button.todo-delete{
@@ -44,3 +56,30 @@ button.todo-delete{
     padding: 2px 8px;
 }
 
+@media screen and (max-width: 767px) {
+    .todo-action{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        height: 70px;
+        right: 0;
+        top: 0;
+        transition-delay: 0s;
+        opacity: 1;
+    }
+    .todo-container:hover .todo-action{
+        transition: none;
+        right: 0;
+    }
+    .date-container,
+    .tag-container{
+        text-align: left;
+    }
+    .date-container{
+        padding-top: 15px;
+    }
+    .todo-item{
+        overflow-x: scroll;
+    }
+}
