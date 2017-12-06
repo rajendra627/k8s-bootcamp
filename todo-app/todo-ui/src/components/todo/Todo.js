@@ -12,7 +12,7 @@ const Todo = ({ onClick, onDelete, done, description, priority, dueDate, tags })
       {description}
     </span>
       </div>
-      <div className="col-xs-4">
+      <div className="col-xs-4 text-right">
         {
           tags.length ?
             tags.map(tag =>  <TagLabel key={tags.indexOf(tag)} tag={tag}/>)

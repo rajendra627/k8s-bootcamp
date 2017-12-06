@@ -19,6 +19,9 @@
 
 .label{
     margin-right: 5px;
+    padding: 0.5em .8em .5em;
+    font-size: 90%;
+    font-weight: 500;
 }
 
 .todo-action{
