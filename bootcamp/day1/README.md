@@ -115,6 +115,11 @@ az group delete -n k8s-example
 
 Go to [deploying the Todo List application](../../helm/README.md)
 
+## References ##
+
+- [Kubectl Cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+- [Kubernetes on Azure](https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-intro-kubernetes)
+
 
 
 
