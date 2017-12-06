@@ -19,19 +19,19 @@ We will also actually deploy a microservice based [application](./todo-app/READM
 
 By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 
-- [Pods - the unit of deployment on K8S](./pods/README.md) 
-- [Services - how service discovery works in K8S](./services/README.md)
-- [Deployments - doing rolling updates, rollbacks, scaling out](./deployments/README.md)
-- [Persistence - managing durable state](./persistence/README.md)
-- [Secrets - externalizing secrets and passwords](./secrets/README.md)
-- [ConfigMaps - externalizing configuration from your applications](./configmaps/README.md)
-- [Statefulsets - how to deploy stateful applications](./statefulsets/README.md)
-- Jobs
-- Daemonsets
-- [Ingress and Ingress Controllers - key to controlling how requests originating from outside the cluster is routed to your services](./ingress/README.md)
-- [RBAC - locking down your K8S environment](./rbac/README.md)
+- [Pods - the unit of deployment on K8S](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) 
+- [Services - how service discovery works in K8S](https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/)
+- [Deployments - doing rolling updates, rollbacks, scaling out](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+- [Persistence - managing durable state with volumes and persistent volume claims](https://kubernetes.io/docs/concepts/storage/volumes/)
+- [Secrets - externalizing secrets and passwords](https://kubernetes.io/docs/concepts/configuration/secret/)
+- [ConfigMaps - externalizing configuration from your applications](https://kubernetes.io/docs/tasks/configure-pod-container/configmap/)
+- [Statefulsets - how to deploy stateful applications](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
+- [Jobs](https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/)
+- [Daemon Sets](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/)
+- [Ingress and Ingress Controllers - key to controlling how requests originating from outside the cluster is routed to your services](https://kubernetes.io/docs/concepts/services-networking/ingress/)
+- [RBAC - locking down your K8S environment](https://kubernetes.io/docs/admin/authorization/rbac/)
 - [Monitoring and log aggregation](/monitoring/README.md)
-- [Helm - packaging and deploying your application to K8S](./helm/README.md)
+- [Helm - packaging and deploying your application to K8S](https://docs.helm.sh/)
 
 ### Day 1 Outline: ###
 - [Setting up your environment](./bootcamp/day1/README.md)
@@ -77,6 +77,5 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
     - Sharing your charts
 - Other K8S tools and projects you should know about:
     - [Istio](https://istio.io/docs/) - A microservices service mesh that can be deployed to K8S.  Provides fine-grained service to service authn/authr, intelligent load-balancing (via ingress and ingress controllers), telemetry and more!
-    - [kubetoken](https://github.com/atlassian/kubetoken) - a tool to simplify authentication with K8S via temporary certificates.
     - [Kompose](http://kompose.io/) - converts you docker compose yaml files to K8S manifests.  Very helpful if you start with docker compose.
     - [kubespray](https://github.com/kubernetes-incubator/kubespray) - Deploying K8S using ansible. Can be used to deploy on bare metal, on-premises VMs, various cloud providers.
