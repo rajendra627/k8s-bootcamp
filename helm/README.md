@@ -31,11 +31,13 @@ helm fetch incubator/istio --devel
 
 Unarchive the chart archive e.g. istio-x.x.x-chart.tgz and you will see an 'istio' directory.  This is the helm chart for istio.
 
-To deploy the chart.
+To deploy the chart.   
 
 ```
 helm install istio --set rbacEnabled=false
 ```
+
+Note, you may need to update the istio.release value int the istio/value.yml file.  The release number must correspond to the latest tag value of the docker images [here](https://hub.docker.com/r/istio/grafana/tags/) 
 
 Helm will deploy the chart to K8S then state the release was deployed but that CustomResourceDefinitions were required to be installed prior to installing the services.  CustomResourceDefinitions have been deployed, you need upgrade the service to run the services.  Run the following command, replacing <release_name> with the name istio provides.
 
