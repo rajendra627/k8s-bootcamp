@@ -34,6 +34,8 @@ COPY --from=build /root/todo-app/build .
 
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
+STOPSIGNAL SIGTERM
+
 # run nginx
 CMD ["nginx", "-g", "daemon off;"]
 
