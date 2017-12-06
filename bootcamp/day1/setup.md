@@ -102,11 +102,15 @@ kubectl get nodes
 
 ## Install Helm ##
 
-To install helm follow the instruction [here](https://github.com/kubernetes/helm/blob/master/docs/install.md).  Note that to install the server side of Helm (tiller), you need the K8S cluster running.
+To install helm follow the instruction [here](https://github.com/kubernetes/helm/blob/master/docs/install.md).  Note that to install the server side of Helm (tiller), you need the K8S cluster running.  In ACS tiller is installed but you need to upgrade by running:
+
+```
+helm init --upgrade 
+```
 
 ## Bringing down you cluster ##
 
-In order to not incur Azure costs, you should tear down your cluster when not in use.  To do so, just delete the resource group.
+In order to not incur Azure costs, you should tear down your cluster when not in use.  At the end of each day just delete the resource group. 
 
 ```
 az group delete -n k8s-example
