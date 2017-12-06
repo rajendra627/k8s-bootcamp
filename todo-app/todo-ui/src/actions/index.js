@@ -16,7 +16,6 @@ export const addedTodo = todo => {
 };
 
 export const createTodo = (todo) => {
-  console.log(todo);
   return function (dispatch) {
     dispatch(addTodo());
     return fetch(BASE_API_URL, {
@@ -38,7 +37,7 @@ export const createTodo = (todo) => {
       .then(response => response.json())
       .then(newTodo => dispatch(addedTodo(newTodo)))
   }
-}
+};
 
 export const toggledTodo = id => {
   return {
@@ -49,16 +48,34 @@ export const toggledTodo = id => {
 
 export const toggleTodo = todo => {
   return function (dispatch) {
-    const newToggledTodo = {...todo, done: !todo.done};
     return fetch(BASE_API_URL, {
       method: 'put',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(newToggledTodo)
+      body: JSON.stringify({...todo, done: !todo.done})
     }).then()
       .then(dispatch(toggledTodo(todo.id)))
   }
+};
+
+export const deletedTodo = id => {
+  return {
+    type: actionTypes.DELETED_TODO,
+    id
+  }
+};
+
+export const deleteTodo = id => {
+  return function (dispatch) {
+    return fetch(BASE_API_URL + '/' + id, {
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then()
+      .then(dispatch(deletedTodo(id)))
+  };
 };
 
 export const setVisibilityFilter = filter => {

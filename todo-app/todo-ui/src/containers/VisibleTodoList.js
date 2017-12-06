@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
-import { toggleTodo } from '../actions';
+import { toggleTodo, deleteTodo } from '../actions';
 import TodoList from '../components/todoList/TodoList';
-import filter from '../constants/filter';
 import * as moment from 'moment'
 
 const filterPastDueTodos = (todos) => {
@@ -27,6 +26,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onTodoClick: (todo) => { dispatch(toggleTodo(todo)) },
+    onDelete : (id) => { dispatch(deleteTodo(id)) }
   }
 };
 

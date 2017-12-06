@@ -48,7 +48,7 @@ export class AddTodo extends Component{
       description: this.state.description,
       priority: this.state.priority,
       dueDate: this.state.dueDate,
-      tags: this.state.tags.split(",")
+      tags: this.state.tags.length ? this.state.tags.split(",") : []
     });
     this.setState(this.resetInput());
   }

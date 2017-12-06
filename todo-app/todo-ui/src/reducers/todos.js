@@ -8,7 +8,6 @@ const todos = (state = [], action) => {
         action.todo
       ];
     case actionTypes.TOGGLED_TODO:
-
       return state.map(todo =>
         (todo.id === action.id)
           ? {...todo, done: !todo.done}
@@ -17,6 +16,13 @@ const todos = (state = [], action) => {
     case actionTypes.RECEIVE_TODOS:
       state = action.todos;
       return state;
+    case actionTypes.DELETED_TODO:
+      const newState = Object.assign([], state);
+      const todoDelete = state.findIndex(state => {
+        return state.id === action.id;
+      });
+      newState.splice(todoDelete, 1);
+      return newState;
     default:
       return state
   }

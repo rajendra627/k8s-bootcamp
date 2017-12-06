@@ -3,41 +3,40 @@ import PropTypes from 'prop-types';
 import Todo from '../todo/Todo';
 import './todoList.css';
 
-const TodoList = ({ upcomingTodos, pastDueTodos, todayTodos, onTodoClick }) => (
+const TodoList = ({ upcomingTodos, pastDueTodos, todayTodos, onTodoClick, onDelete }) => (
   <div>
     <div className="row">
       <h1 href="#today-todo" data-toggle="collapse">Today <small>({todayTodos.length})</small></h1>
-      <div id="today-todo" className="collapse in row">
-        <div className="col-md-12">
+      <div id="today-todo" className="collapse in">
           {
             todayTodos
-              .map(todo => (<Todo key={todo.id} {...todo} onClick={() => onTodoClick(todo)} />))
+              .map(todo =>
+                (<Todo key={todo.id} {...todo} onClick={() => onTodoClick(todo)} onDelete={() => onDelete(todo.id)}/>)
+              )
           }
-        </div>
       </div>
     </div>
-
     <div className="row">
       <h1 href="#past-due" data-toggle="collapse">Past Due <small>({pastDueTodos.length})</small></h1>
-      <div id="past-due" className="collapse in row">
-        <div className="col-md-12">
-          {
-            pastDueTodos
-              .map(todo => (<Todo key={todo.id} {...todo} onClick={() => onTodoClick(todo)} />))
-          }
-        </div>
+      <div id="past-due" className="collapse in">
+        {
+          pastDueTodos
+            .map(todo =>
+              (<Todo key={todo.id} {...todo} onClick={() => onTodoClick(todo)} onDelete={() => onDelete(todo.id)}/>)
+            )
+        }
       </div>
     </div>
 
     <div className="row">
       <h1 href="#upcoming" data-toggle="collapse">Upcoming <small>({upcomingTodos.length})</small></h1>
-      <div id="upcoming" className="collapse in row">
-        <div className="col-md-12">
-          {
-            upcomingTodos
-              .map(todo => (<Todo key={todo.id} {...todo} onClick={() => onTodoClick(todo)} />))
-          }
-        </div>
+      <div id="upcoming" className="collapse in">
+        {
+          upcomingTodos
+            .map(todo =>
+              (<Todo key={todo.id} {...todo} onClick={() => onTodoClick(todo)} onDelete={() => onDelete(todo.id)}/>)
+            )
+        }
       </div>
     </div>
   </div>
@@ -78,6 +77,7 @@ TodoList.propTypes = {
   ).isRequired,
 
   onTodoClick: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
 };
 
 export default TodoList;
