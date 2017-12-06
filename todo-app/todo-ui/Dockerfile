@@ -2,42 +2,39 @@
 #https://codefresh.io/blog/node_docker_multistage/
 
 # ---- Base Node ----
-FROM alpine:3.5 AS base
-# install node
-RUN apk add --no-cache nodejs-current tini
+FROM node:8.9.1-alpine AS base
 # set working directory
 WORKDIR /root/todo-app
 # Set tini as entrypoint
 ENTRYPOINT ["/sbin/tini", "--"]
 # copy project file
 COPY ./package.json .
+COPY ./yarn.lock .
  
 #
 # ---- Dependencies ----
 FROM base AS dependencies
-# install node packages
-RUN npm set progress=false && npm config set depth 0
-RUN npm install --only=production 
-# copy production node_modules aside
-RUN cp -R node_modules prod_node_modules
-# install ALL node_modules, including 'devDependencies'
-RUN npm install
+# install yarn and dependencies
+RUN npm i -g yarn@1.3.2 && yarn install
+
  
 #
-# ---- Test ----
+# ---- Test and Build----
 # run linters, setup and tests
-FROM dependencies AS test
+FROM dependencies AS build
 COPY . .
-RUN  npm run lint && npm run setup && npm run test
- 
+RUN  CI=true yarn test && yarn build
+
 #
 # ---- Release ----
-FROM base AS release
-# copy production node_modules
-COPY --from=dependencies /root/todo-app/prod_node_modules ./node_modules
-# copy app sources
-COPY ./build .
-# expose port and define CMD
-EXPOSE 5000
-CMD npm run start
+FROM nginx:1.13.7 AS release
+WORKDIR /app
+# copy production build output
+COPY --from=build /root/todo-app/build .
+
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+
+# run nginx
+CMD ["nginx", "-g", "daemon off;"]
+
 
