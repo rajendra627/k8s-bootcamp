@@ -29,7 +29,7 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - Jobs
 - Daemonsets
 - [Ingress and Ingress Controllers - key to controlling how requests originating from outside the cluster is routed to your services](./ingress/README.md)
-- [RBAC - locking down your K8S environment](./rback/README.md)
+- [RBAC - locking down your K8S environment](./rbac/README.md)
 - [Monitoring and log aggregation](/monitoring/README.md)
 - [Helm - packaging and deploying your application to K8S](./helm/README.md)
 
