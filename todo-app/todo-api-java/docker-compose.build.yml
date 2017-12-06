@@ -1,16 +1,11 @@
+# Merge this file with docker-compose to be build and run the todo-api container
+# `docker-compose -f docker-compose.yml -f docker-compose.build.yml build --no-cache`
+# `docker-compose -f docker-compose.yml -f docker-compose.build.yml up`
 version: "3"
 services:
-    mongodb:
-        image: mongo 
-        ports:
-            - "27017:27017"
-        volumes:
-            - "todo-app-data:/data/db"
-            - "todo-app-config-data:/data/config"
-
     todo-api:
         build:
-            context: ./todo-api-java    
+            context: .
         image: todo-api
         ports:
             - "8080:8080"
@@ -23,9 +18,3 @@ services:
             AD_IDENTITY_META_DATA_URL: https://login.microsoftonline.com/architech.onmicrosoft.com/v2.0/.well-known/openid-configuration=
         depends_on:
             - mongodb
-
-volumes:
-    todo-app-data:
-        external: true
-    todo-app-config-data:
-        external: true

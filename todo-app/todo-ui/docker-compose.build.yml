@@ -1,0 +1,10 @@
+version: "3"
+services:
+  todo-ui:
+    build:
+      context: .
+    image: todo-ui
+    ports:
+      - "3000:3000"
+    depends_on:
+      - todo-api
