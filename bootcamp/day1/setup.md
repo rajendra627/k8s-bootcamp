@@ -113,7 +113,7 @@ az group delete -n k8s-example
 ```
 ## Next... ##
 
-Go to [deploying the Todo List application](../../helm/README.md)
+Go to [Exercise 1](./exercise1.md)
 
 ## References ##
 
