@@ -46,7 +46,7 @@ Make sure all the required resource providers are registered in your Azure subsc
 - Microsoft.ContainerService 
 - Microsoft.ContainerRegistry
 
-To find you what providers are registered run this command:
+To determine which providers are registered run this command:
 
 ```
 #login to your Azure subscription
