@@ -21,3 +21,23 @@
     margin-right: 5px;
 }
 
+.todo-action{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+}
+
+.todo-delete{
+    margin: auto;
+}
+
+button.todo-delete{
+    border-radius: 25px;
+    background-color: #9B9B9B;
+    color: #FFFFFF;
+    border-color: transparent;
+    font-size: 18px;
+    padding: 2px 8px;
+}
+

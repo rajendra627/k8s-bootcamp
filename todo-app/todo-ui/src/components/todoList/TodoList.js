@@ -4,8 +4,8 @@ import Todo from '../todo/Todo';
 import './todoList.css';
 
 const TodoList = ({ upcomingTodos, pastDueTodos, todayTodos, onTodoClick, onDelete }) => (
-  <div>
-    <div className="row">
+  <div className="row">
+    <div className="col-sm-12">
       <h1 href="#today-todo" data-toggle="collapse">Today <small>({todayTodos.length})</small></h1>
       <div id="today-todo" className="collapse in">
           {
@@ -16,7 +16,7 @@ const TodoList = ({ upcomingTodos, pastDueTodos, todayTodos, onTodoClick, onDele
           }
       </div>
     </div>
-    <div className="row">
+    <div className="col-sm-12">
       <h1 href="#past-due" data-toggle="collapse">Past Due <small>({pastDueTodos.length})</small></h1>
       <div id="past-due" className="collapse in">
         {
@@ -28,7 +28,7 @@ const TodoList = ({ upcomingTodos, pastDueTodos, todayTodos, onTodoClick, onDele
       </div>
     </div>
 
-    <div className="row">
+    <div className="col-sm-12">
       <h1 href="#upcoming" data-toggle="collapse">Upcoming <small>({upcomingTodos.length})</small></h1>
       <div id="upcoming" className="collapse in">
         {

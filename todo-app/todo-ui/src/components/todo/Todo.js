@@ -4,8 +4,8 @@ import './todo.css';
 import TagLabel from '../TagLabel';
 
 const Todo = ({ onClick, onDelete, done, description, priority, dueDate, tags }) => (
-  <div className="row">
-    <div className={"col-xs-11 todo-item " + (done ? 'done' : 'not-done') } onClick={onClick}>
+  <div className="col-xs-12">
+    <div className={"col-sm-11 col-xs-10 todo-item " + (done ? 'done' : 'not-done') } onClick={onClick}>
       <div className="col-xs-5">
         <i className={"fa " + (done ? 'fa-check-square-o fa-lg' : 'fa-square-o fa-lg')}/>
         <span className="description">
@@ -23,9 +23,9 @@ const Todo = ({ onClick, onDelete, done, description, priority, dueDate, tags })
         <span>{dueDate}</span>
       </div>
     </div>
-    <div className="col-xs-1">
-      <button className="btn btn-default" type="button" onClick={onDelete}>
-        <i className="fa fa-trash-o" aria-hidden="true"></i>
+    <div className="col-sm-1 col-xs-2 text-right todo-action">
+      <button className="btn btn-default todo-delete" type="button" onClick={onDelete}>
+        <i class="fa fa-trash-o" aria-hidden="true"/>
       </button>
     </div>
   </div>
