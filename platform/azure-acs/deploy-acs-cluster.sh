@@ -21,6 +21,7 @@ clientId=''
 clientSecret=''
 ## Currently, AKS is only available in 'eastus,westeurope,centralus' regions
 resourceGroupLocation='eastus'
+generatedAzureAcsKubeCredentials='acsGenerated.config'
 
 function log {
     echo "deploy-cluster.sh --> $*"
@@ -56,18 +57,26 @@ function check_resource_group {
 }
 
 function create_cluster {
-  az acs create -g "${resourceGroup}" -n "${clusterName}" -t "Kubernetes" -l "${resourceGroupLocation}" --service-principal "${clientId}" --client-secret "${clientSecret}" --generate-ssh-keys
+  az acs create -g "${resourceGroup}" -n "${clusterName}" -t "Kubernetes" -l "${resourceGroupLocation}" --generate-ssh-keys
+  # az acs create -g "${resourceGroup}" -n "${clusterName}" -t "Kubernetes" -l "${resourceGroupLocation}" --service-principal "${clientId}" --client-secret "${clientSecret}" --generate-ssh-keys
 }
 
 function get_cluster_credentials {
     subscriptionId="$(az account show --verbose -o tsv | awk '{print $2}')"
     echo "subId: ${subscriptionId}"
-    appIdAndPassword="$(az ad sp create-for-rbac --role='Contributor' --scopes='/subscriptions/'${subscriptionId} --verbose -o tsv | awk '{print $1"\t"$4}')"
+    # appIdAndPassword="$(az ad sp create-for-rbac -n ${clusterName}SP --role='Contributor' --scopes='/subscriptions/'${subscriptionId} --verbose -o tsv | awk '{print $1"\t"$4}')"
+    appIdAndPassword="$(az ad sp create-for-rbac -n ${clusterName}SP --role Contributor  --scopes /subscriptions/${subscriptionId}/resourceGroups/${resourceGroup}  --verbose -o tsv | awk '{print $1"\t"$4}')"
     echo "appIdAndPassword: ${appIdAndPassword}"
     clientId="$(echo ${appIdAndPassword} | awk '{print $1}')"
     clientSecret="$(echo ${appIdAndPassword} | awk '{print $2}')"
     echo "Client ID:\t${clientId}"
     echo "Client Secret:\t${clientSecret}"
+}
+
+function get_kubernetes_credentials {
+    log "Getting ACS Kubernetes credentials -> ~/.kube/${generatedAzureAcsKubeCredentials}"
+    az acs kubernetes get-credentials -f ~/.kube/${generatedAzureAcsKubeCredentials} -n "${clusterName}" -g "${resourceGroup}"
+    log "Finished getting ACS Kubernetes credentials"
 }
 
 while getopts g:c:n:v opt; do
@@ -97,8 +106,9 @@ if [ -z "$clusterName" ] ;then echo "-c (Cluster Name) must be provided"; exit 1
 ## if [ -z "$nodeNumber" ] ;then echo "-n (Node Number) must be provided"; exit 1; fi
 
 check_resource_group
-get_cluster_credentials
+# get_cluster_credentials
 create_cluster
+get_kubernetes_credentials
 
 duration=$SECONDS
 echo "***** $(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed."
