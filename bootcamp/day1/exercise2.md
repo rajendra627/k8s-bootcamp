@@ -26,6 +26,8 @@ Use the busybox image from [DockerHub](https://hub.docker.com/_/busybox/).
 * Configure the probe to restart the pod after 3 failures
 * Configure the pod to have the Burstable QoS
 
+### Next... ###
 
+[Exercise 3](./exercise3.md)
 
 
