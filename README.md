@@ -74,7 +74,7 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
     - Deploying the Todo list application using Helm
     - Charts and templates
     - Sharing your charts
-- Other K8S tools and projects you should know about:
+- Brief overview of other K8S tools and projects you should know about:
     - [Istio](https://istio.io/docs/) - A microservices service mesh that can be deployed to K8S.  Provides fine-grained service to service authn/authr, intelligent load-balancing (via ingress and ingress controllers), telemetry and more!
     - [Kompose](http://kompose.io/) - converts you docker compose yaml files to K8S manifests.  Very helpful if you start with docker compose.
     - [kubespray](https://github.com/kubernetes-incubator/kubespray) - Deploying K8S using ansible. Can be used to deploy on bare metal, on-premises VMs, various cloud providers.
