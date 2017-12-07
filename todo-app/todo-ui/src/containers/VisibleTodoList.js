@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import { toggleTodo, deleteTodo } from '../actions';
 import TodoList from '../components/todoList/TodoList';
 import * as moment from 'moment'
+import TODO_SECTION from '../constants/todoSections';
 
 const getVisibleTodos = (todos, filter) => {
-  console.log(filter);
   switch (filter) {
     case 'SHOW_COMPLETED':
       return todos.filter(t => t.done);
@@ -17,23 +17,28 @@ const getVisibleTodos = (todos, filter) => {
   }
 };
 
-const filterPastDueTodos = (todos) => {
-  return todos.filter( todo => moment(todo.dueDate).format("YYYY-MM-DD") > moment().format("YYYY-MM-DD") )
+const filterTodoInSections = (todos, section) => {
+  switch(section) {
+    case TODO_SECTION.UPCOMING:
+      return todos.filter( todo => moment(todo.dueDate).format("YYYY-MM-DD") < moment().format("YYYY-MM-DD") );
+
+    case TODO_SECTION.TODAY:
+      return todos.filter( todo => moment(todo.dueDate).format("YYYY-MM-DD") === moment().format("YYYY-MM-DD") );
+
+    case TODO_SECTION.PAST_DUE:
+      return todos.filter( todo => moment(todo.dueDate).format("YYYY-MM-DD") > moment().format("YYYY-MM-DD") );
+
+    default:
+      return todos
+  }
 };
 
-const filterUpcomingTodos = (todos) => {
-  return todos.filter( todo => moment(todo.dueDate).format("YYYY-MM-DD") < moment().format("YYYY-MM-DD") )
-};
-
-const filterTodayTodos = (todos) => {
-  return todos.filter( todo => moment(todo.dueDate).format("YYYY-MM-DD") === moment().format("YYYY-MM-DD") )
-};
 
 const mapStateToProps = state => {
   return {
-    pastDueTodos: filterPastDueTodos( getVisibleTodos(state.todos, state.visibilityFilter) ),
-    upcomingTodos: filterUpcomingTodos( getVisibleTodos(state.todos, state.visibilityFilter) ),
-    todayTodos: filterTodayTodos( getVisibleTodos(state.todos, state.visibilityFilter) )
+    pastDueTodos: filterTodoInSections( getVisibleTodos(state.todos, state.visibilityFilter), TODO_SECTION.PAST_DUE ) ,
+    upcomingTodos: filterTodoInSections( getVisibleTodos(state.todos, state.visibilityFilter), TODO_SECTION.UPCOMING ),
+    todayTodos: filterTodoInSections( getVisibleTodos(state.todos, state.visibilityFilter), TODO_SECTION.TODAY )
   }
 };
 
