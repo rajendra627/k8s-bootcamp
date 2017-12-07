@@ -19,7 +19,6 @@
   get_url:
     url: http://downloads.sourceforge.net/project/sonar-pkg/rpm/sonar.repo
     dest: /etc/yum.repos.d/sonar.repo
-  #shell: wget -O /etc/yum.repos.d/sonar.repo http://downloads.sourceforge.net/project/sonar-pkg/rpm/sonar.repo
 
 - name: Install latest SonarQube
   become: yes
