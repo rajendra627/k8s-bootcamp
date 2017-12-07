@@ -38,7 +38,7 @@ router.post('/', authMiddleware, async ({user: {email, firstName, lastName}}, re
         const newUser = await dao.createUser({email, firstName, lastName});
 
         logger.info(`POST /user - user created successfully where email = ${email}`);
-        res.send(newUser);
+        res.status(201).send(newUser);
     } catch (e) {
         logger.error(`Error creating user where email = ${email}`);
         res.sendStatus(500);

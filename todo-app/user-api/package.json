@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "base-64": "^0.1.0",
+    "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "mongoose": "^4.13.6",
@@ -23,6 +24,7 @@
     "mocha": "^4.0.1",
     "nodemon": "^1.12.1",
     "proxyquire": "^1.8.0",
-    "sinon": "^4.1.2"
+    "sinon": "^4.1.2",
+    "supertest": "^3.0.0"
   }
 }
