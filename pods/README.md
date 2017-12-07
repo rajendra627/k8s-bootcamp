@@ -30,7 +30,7 @@ The kubelet agent that runs on every worker node, monitors the health and readin
 
 If and when you should define liveness and readiness probes depends on the containers.  If your container requires sometime to start up and you do not want any requests routed to your pod until it is ready, then you should define a readiness probe.  If your container should be restarted if it does not respond after a period of time (because it has an unidentified bug), you should define a liveness probe.  See the excellent docs [here](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) for details.
 
-* [Configuring liveness and readiness probes](./http-liveness.yaml)
+* [Example configuring liveness and readiness probes](./http-liveness.yaml)
 
 ## Note ##
 It is important to note that you will rarely work directly with pods.  You will work with other resources such as Deployments, StatefulSets, DaemonSets, Jobs that control the deployment, scaling, and lifecycle of your pods.  When you define your pod specifications you will do so as 'templates' within the manifests for those resources.
