@@ -4,7 +4,7 @@ Pods are the primary unit of deployment, horizontal scaling and replication in K
 
 The pod model makes K8S very flexible.  It makes it easy for you to containerize and move your exiting n-tiered, monolith apps to K8S easily without major architectural overhaul.  Overtime, as desired (and as it makes sense) you can decompose your application to a micro-service based architecture.
 
-Pods are isolated from other pods from the perspective of network/storage/cpu.  In this manner they achieve the same level of isolation as containers.  In order to communicate with other pods, they do so through the K8S [service discovery](../services/README.md) abstraction. 
+Pods are isolated from other pods from the perspective of network/storage/cpu.  In this manner they achieve the same level of isolation as containers.  In order to communicate with other pods, they do so through the K8S [service discovery](../services/README.md) abstraction - note, within the cluster IP address space, every Pod instance gets a unique IP, however, your applciation services should not be aware of these IPs as pods can be dynamically scheduled and hence the IP can change. [Services](../services/README.md) solves this problem.
 
 Pods are scheduled by K8S onto the worker nodes.  When you deploy a pod, the K8S scheduler will decide where that pod will be deployed.  The scheduler takes into account many factors when it makes this decision.  For example, 
 * How much CPU, memory resources does your pod need?
@@ -14,13 +14,25 @@ Pods are scheduled by K8S onto the worker nodes.  When you deploy a pod, the K8S
 
 Pods are resources within K8S.  Their declarative specification (e.g. what containers are part of the pod, what ports should be open, how much memory/cpu is required, what volumes need to be mapped, QoS, etc) is sent to the kube-apiserver and durably stored in the cluster state store (e.g. etcd).  This specification is read by controller managers, the scheduler, and the kubelet agent to deploy the pod on to a node.  
 
-Pods are specified in a pod manifest (in fact, all the K8S resources you will directly work with are specified in manifests).  These manifests are consumed by K8S to deploy and manage the lifecycle of your application.  You can view these manifests as the declarative specifiation of your system on K8S. If the specification changes, the K8S services deploys that change.  K8S essentially takes the "desired state" that you specify and makes it the "current state".  This is what makes K8S very, very powerful.
+Pods are specified in a pod manifest (in fact, all the K8S resources you will directly work with are specified in manifests).  These manifests are consumed by K8S to deploy and manage the lifecycle of your application.  You can view these manifests as the declarative specification of your system on K8S. If the specification changes, the K8S services deploys that change.  K8S essentially takes the "desired state" that you specify and makes it the "current state", and it does so continuously.  This is what makes K8S very, very powerful.
 
-Examples:
+[simple nginx pod](./nginx.yml).
+[nginx pod that is scheduled to specific nodes](./nginx-scheduling.yml)
 
-* [Simple nginx pod](./pods/nginx.yml)
-* [nginx pod that specifies a QoS](./pods/nginx-qos.yml)
-* [nginx pod that is scheduled to specific nodes](./pods/nginx-scheduling.yml)
+## Resource Requests and Limits ##
+
+Pods are dynamically scheduled onto nodes with other pods.  In order to place nice, you should consider the cpu/memory resources that your pods consume.  Resource requests and limits can be defined within the manifest to tell the kubelet how much cpu/memory you would like, and also the limit to set it to.  How you define resource requests/limits will influence how, when your pods will be scheduled.  For example, K8S supports Guaranteed, Burstable and BestEffort QoS classes.  Given a set of pods waiting to be scheduled they will be scheduled in this order: Guaranteed before Burstable before BestEffort.  See [nginx pod that specifies a QoS](./nginx-qos.yml) for an example.
+
+## Container Probes ##
+
+The kubelet agent that runs on every worker node, monitors the health and readiness of your pods if you configure [container probes](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).  Until a pod is 'ready' no requests will be routed to your pod.  If a pod is deemed unhealthy then the kubelet can bring the pod down.  
+
+If and when you should define liveness and readiness probes depends on the containers.  If your container requires sometime to start up and you do not want any requests routed to your pod until it is ready, then you should define a readiness probe.  If your container should be restarted if it does not respond after a period of time (because it has an unidentified bug), you should define a liveness probe.  See the excellent docs [here](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) for details.
+
+[Configuring liveness and readiness probes](./http-liveness.yml)
+
+## Note ##
+It is important to note that you will rarely work directly with pods.  You will work with other resources such as Deployments, StatefulSets, DaemonSets, Jobs that control the deployment and lifecycle of your pods.  Your pods specifications are in fact defined as 'templates' within the manifests for these resources.
 
 ## Reference ##
 

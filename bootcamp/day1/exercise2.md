@@ -6,9 +6,26 @@ You should have successfully set up your environment as outlined in [Day1](./REA
 
 ## Objective ##
 
-In this exercise you are going to be working with pods.
+In this exercise you are going to be defining pod manifests and configuring the pod with probe, resource limits/requests, and QoS
 
-* Create and deploy pod that contains a single nginx container (use the public nginx image at dockerhub)
-* Add resource requests and limits to the nginx pod
-* Add QoS of BestEffort.  How does that change the manifest?
-* Define liveness and readiness probes for the pod (Follow this [example](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/))
+### Create and deploy pod that contains a single container. ###
+
+Use the busybox image from [DockerHub](https://hub.docker.com/_/busybox/).
+
+* Create a pod definition and deploy the pod using kubectl.
+* Get details of the pod using kubectl
+* Attach to the running pod and run some shell commands
+* Delete the pod using kubectl
+
+### Create and deploy a pod with liveness probes and QoS ###
+
+* Use the nginx image from Dropbox.  
+* The liveness probe path should be '/'.
+* Configure the probe to wait 5 seconds prior to the first probe.
+* Configure the probe to check every 10 seconds
+* Configure the probe to restart the pod after 3 failures
+* Configure the pod to have the Burstable QoS
+
+
+
+
