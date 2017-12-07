@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const HttpStatus = require('http-status-codes');
 
 const config = require('./config');
 const authMiddleware = require('./auth')(config.isTestMode);
@@ -14,14 +15,14 @@ const findUserByEmail = async (email, res) => {
         const user = await dao.findUserByEmail(email);
         if (!user) {
             logger.info(`GET /user - user not found where email = ${email}`);
-            return res.sendStatus(404);
+            return res.sendStatus(HttpStatus.NOT_FOUND);
         }
 
         logger.info(`GET /user - user found where email = ${email}`);
         res.send(user);
     } catch (e) {
         logger.error(`Error getting user where email = ${email}`);
-        res.sendStatus(500);
+        res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 };
 
@@ -40,16 +41,16 @@ router.post('/', authMiddleware, async ({user: {email, firstName, lastName}}, re
         const existingUser = await dao.findUserByEmail(email);
         if (existingUser) {
             logger.info(`POST /user - user already exists where email = ${email}`);
-            return res.sendStatus(400);
+            return res.sendStatus(HttpStatus.BAD_REQUEST);
         }
 
         const newUser = await dao.createUser({email, firstName, lastName});
 
         logger.info(`POST /user - user created successfully where email = ${email}`);
-        res.status(201).send(newUser);
+        res.status(HttpStatus.CREATED).send(newUser);
     } catch (e) {
         logger.error(`Error creating user where email = ${email}`);
-        res.sendStatus(500);
+        res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 });
 
