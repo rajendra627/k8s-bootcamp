@@ -3,3 +3,8 @@
 
 *.jar
 .idea
+
+!platform/azure-build-server/keys/README.md
+platform/azure-build-server/keys/*
+platform/azure-build-server/ansible/hosts.ini
+
