@@ -1,9 +1,11 @@
+# --- Build ---
 FROM openjdk:8-jdk-alpine as BUILD
 
 COPY . .
 
 RUN ./gradlew clean build -x test
 
+# --- Release ---
 FROM openjdk:8-jre-alpine
 
 WORKDIR /app
