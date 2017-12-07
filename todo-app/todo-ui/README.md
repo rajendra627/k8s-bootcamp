@@ -8,6 +8,7 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - [Updating to New Releases](#updating-to-new-releases)
 - [Sending Feedback](#sending-feedback)
 - [Folder Structure](#folder-structure)
+- [Setting up Dependency Services](#setting-up-dependency-services)
 - [Available Scripts](#available-scripts)
   - [npm start](#npm-start)
   - [npm test](#npm-test)
@@ -152,6 +153,16 @@ Read instructions below for using assets from JavaScript and HTML.
 
 You can, however, create more top-level directories.<br>
 They will not be included in the production build so you can use them for things like documentation.
+
+## Setting up Dependency Services
+Prerequisites:
+* Docker
+* Docker Compose
+
+From this application folder, to bring up all of the dependencies required for the project run `docker-compose up`.
+If there are updates to the services they can be rebuilt using `docker-compose build --no-cache`.
+
+Use the scripts below to start the app for development.
 
 ## Available Scripts
 
