@@ -4,7 +4,8 @@
   "description": "API for managing users",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
