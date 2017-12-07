@@ -16,7 +16,11 @@ Pods are resources within K8S.  Their declarative specification (e.g. what conta
 
 Pods are specified in a pod manifest (in fact, all the K8S resources you will directly work with are specified in manifests).  These manifests are consumed by K8S to deploy and manage the lifecycle of your application.  You can view these manifests as the declarative specifiation of your system on K8S. If the specification changes, the K8S services deploys that change.  K8S essentially takes the "desired state" that you specify and makes it the "current state".  This is what makes K8S very, very powerful.
 
-See the pod manifest for the [Todo-Api](./todo-api.yml).
+Examples:
+
+* [Simple nginx pod](./pods/nginx.yml)
+* [nginx pod that specifies a QoS](./pods/nginx-qos.yml)
+* [nginx pod that is scheduled to specific nodes](./pods/nginx-scheduling.yml)
 
 ## Reference ##
 

@@ -8,11 +8,11 @@ You should have successfully set up your environment as outlined in [Day1](./REA
 
 Deploy the Todo Application using helm. We will then do the following:
 
-- list all deployments, services, pods
-- Get details of the todo-api pod
-- Get shell access to the todo-ui pod
-- scale up then scale down the number of todo-api services
-- deploy a different version of the todo-api service and do a rolling update
+* list all deployments, services, pods
+* Get details of the todo-api pod
+* Get shell access to the todo-ui pod
+* scale up then scale down the number of todo-api services
+* deploy a different version of the todo-api service and do a rolling update
 
 ### Deploying the Todo Application ###
 
