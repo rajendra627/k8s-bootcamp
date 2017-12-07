@@ -3,6 +3,20 @@ import { toggleTodo, deleteTodo } from '../actions';
 import TodoList from '../components/todoList/TodoList';
 import * as moment from 'moment'
 
+const getVisibleTodos = (todos, filter) => {
+  console.log(filter);
+  switch (filter) {
+    case 'SHOW_COMPLETED':
+      return todos.filter(t => t.done);
+    case 'SHOW_ACTIVE':
+      console.log('show active');
+      return todos.filter(t => !t.done);
+    case 'SHOW_ALL':
+    default:
+      return todos
+  }
+};
+
 const filterPastDueTodos = (todos) => {
   return todos.filter( todo => moment(todo.dueDate).format("YYYY-MM-DD") > moment().format("YYYY-MM-DD") )
 };
@@ -17,9 +31,9 @@ const filterTodayTodos = (todos) => {
 
 const mapStateToProps = state => {
   return {
-    pastDueTodos: filterPastDueTodos(state.todos),
-    upcomingTodos: filterUpcomingTodos(state.todos),
-    todayTodos: filterTodayTodos(state.todos)
+    pastDueTodos: filterPastDueTodos( getVisibleTodos(state.todos, state.visibilityFilter) ),
+    upcomingTodos: filterUpcomingTodos( getVisibleTodos(state.todos, state.visibilityFilter) ),
+    todayTodos: filterTodayTodos( getVisibleTodos(state.todos, state.visibilityFilter) )
   }
 };
 
