@@ -38,7 +38,6 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - The Todo list microservices application overview
     - Deploying the application to K8S
     - Making a change and doing a rolling-update
-    - Let's do some A/B testing!!
     - Scaling out the application to deal with increased traffic
 - [Kubernetes Architecture](./bootcamp/day1/Architecture.md)
     - Key components and what role they serve
@@ -55,9 +54,9 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
     - Services to access services external to your cluster
 - [ReplicaSets](./replicasets/README.md) - How do you scale your services?
 - [Deployments](./deployments/README.md) - Deployments enable you to perform rolling upgrades, rollback, and scale up/scale down your services.
+- [Persistence](./persistence/README.md) - Volumes, Persistence Volume Claims, Storage Classes. 
 
-### Day 2 Outline: ###
-- [Persistence](./persistence/README.md) - Volumes, Persistence Volume Claims, Storage Classes.  
+### Day 2 Outline: ### 
 - [Statefulsets](./statefulsets/README.md) - Using statefulsets to deploy services that require long-lasting, durable state (e.g. databases)
 - [Jobs]()
 - [Daemonsets](./daemonsets/README.md) - Running pods that need to run on all or some nodes continuously e.g. for log aggregation.
