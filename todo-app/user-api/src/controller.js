@@ -7,7 +7,7 @@ const dao = require('./dao');
 const logger = require('./logger');
 
 
-router.get('/', authMiddleware, async ({user: {email}}, res) => {
+const findUserByEmail = async (email, res) => {
     logger.info(`GET /user - where email = ${email}`);
 
     try {
@@ -23,6 +23,14 @@ router.get('/', authMiddleware, async ({user: {email}}, res) => {
         logger.error(`Error getting user where email = ${email}`);
         res.sendStatus(500);
     }
+};
+
+router.get('/:email', async ({params: {email}}, res) => {
+    findUserByEmail(email, res);
+});
+
+router.get('/', authMiddleware, async ({user: {email}}, res) => {
+    findUserByEmail(email, res);
 });
 
 router.post('/', authMiddleware, async ({user: {email, firstName, lastName}}, res) => {

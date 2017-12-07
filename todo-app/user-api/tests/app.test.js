@@ -1,4 +1,3 @@
-const {expect} = require('chai');
 const request = require('supertest');
 const proxyquire = require('proxyquire').noCallThru();
 
@@ -11,10 +10,15 @@ const controller = proxyquire('../src/controller', {
         return require('../src/auth/testAuthMode');
     },
     './dao': {
-        findUserByEmail: email => MOCK_USERS[email],
+        findUserByEmail: email => {
+            if (email === 'fail') {
+                throw {message: 'forced failure'};
+            }
+            return MOCK_USERS[email]
+        },
         createUser: user => {
             const {email} = user;
-            if(MOCK_USERS[email]) {
+            if (MOCK_USERS[email]) {
                 throw {message: 'email already exists'};
             }
             return MOCK_USERS[email] = user;
@@ -27,7 +31,7 @@ const app = proxyquire('../src/app', {
 });
 
 
-describe('Controller', () => {
+describe('App controller tests', () => {
     describe('get a user using secured token', () => {
         it('should handle existing user', done => {
             request(app)
@@ -51,6 +55,29 @@ describe('Controller', () => {
             request(app)
                 .get('/api/user')
                 .set('TestModeToken', 'e2VtYWlsOmludmFsaWRKc29uQHRlc3QuY29tLGZpcnN0TmFtZTosbGFzdE5hbWU6fQ==')
+                .expect(500)
+                .end((err, res) => done(err || null));
+        });
+    });
+
+    describe('get a user by email without secure token', () => {
+        it('should handle existing user', done => {
+            request(app)
+                .get('/api/user/existingUser@test.com')
+                .expect(200, MOCK_USERS['existingUser@test.com'])
+                .end((err, res) => done(err || null));
+        });
+
+        it('should handle non existing user', done => {
+            request(app)
+                .get('/api/user/others@others.com')
+                .expect(404)
+                .end((err, res) => done(err || null));
+        });
+
+        it('should handle unexpected failure', done => {
+            request(app)
+                .get('/api/user/fail')
                 .expect(500)
                 .end((err, res) => done(err || null));
         });
@@ -84,7 +111,9 @@ describe('Controller', () => {
         it('should handle unexpected failure', done => {
             request(app)
                 .post('/api/user')
-                .set()
+                .set('TestModeToken', 'e2VtYWlsOmludmFsaWRKc29uQHRlc3QuY29tLGZpcnN0TmFtZTosbGFzdE5hbWU6fQ==')
+                .expect(500)
+                .end((err, res) => done(err || null));
         })
     });
 });
