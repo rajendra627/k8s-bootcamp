@@ -1,5 +1,6 @@
 const request = require('supertest');
 const proxyquire = require('proxyquire').noCallThru();
+const HttpStatus = require('http-status-codes');
 
 const MOCK_USERS = {
     'existingUser@test.com': {email: 'existingUser@test.com', firstName: 'test1', lastName: 'test2'}
@@ -38,7 +39,7 @@ describe('App controller tests', () => {
                 .get('/api/user')
                 .set('TestModeToken',
                     'eyJlbWFpbCI6ImV4aXN0aW5nVXNlckB0ZXN0LmNvbSIsImZpcnN0TmFtZSI6IlBhdWwiLCJsYXN0TmFtZSI6Ikdlb3JnZSJ9')
-                .expect(200, MOCK_USERS['existingUser@test.com'])
+                .expect(HttpStatus.OK, MOCK_USERS['existingUser@test.com'])
                 .end((err, res) => done(err || null));
         });
 
@@ -47,7 +48,7 @@ describe('App controller tests', () => {
                 .get('/api/user')
                 .set('TestModeToken',
                     'eyJlbWFpbCI6Im90aGVyc0BvdGhlcnMuY29tIiwiZmlyc3ROYW1lIjoiSmFtZXMiLCJsYXN0TmFtZSI6IlBhcmtlciJ9')
-                .expect(404)
+                .expect(HttpStatus.NOT_FOUND)
                 .end((err, res) => done(err || null));
         });
 
@@ -55,7 +56,7 @@ describe('App controller tests', () => {
             request(app)
                 .get('/api/user')
                 .set('TestModeToken', 'e2VtYWlsOmludmFsaWRKc29uQHRlc3QuY29tLGZpcnN0TmFtZTosbGFzdE5hbWU6fQ==')
-                .expect(500)
+                .expect(HttpStatus.INTERNAL_SERVER_ERROR)
                 .end((err, res) => done(err || null));
         });
     });
@@ -64,21 +65,21 @@ describe('App controller tests', () => {
         it('should handle existing user', done => {
             request(app)
                 .get('/api/user/existingUser@test.com')
-                .expect(200, MOCK_USERS['existingUser@test.com'])
+                .expect(HttpStatus.OK, MOCK_USERS['existingUser@test.com'])
                 .end((err, res) => done(err || null));
         });
 
         it('should handle non existing user', done => {
             request(app)
                 .get('/api/user/others@others.com')
-                .expect(404)
+                .expect(HttpStatus.NOT_FOUND)
                 .end((err, res) => done(err || null));
         });
 
         it('should handle unexpected failure', done => {
             request(app)
                 .get('/api/user/fail')
-                .expect(500)
+                .expect(HttpStatus.INTERNAL_SERVER_ERROR)
                 .end((err, res) => done(err || null));
         });
     });
@@ -95,7 +96,7 @@ describe('App controller tests', () => {
                 .post('/api/user')
                 .set('TestModeToken',
                     'eyJlbWFpbCI6Im90aGVyc0BvdGhlcnMuY29tIiwiZmlyc3ROYW1lIjoiSmFtZXMiLCJsYXN0TmFtZSI6IlBhcmtlciJ9')
-                .expect(201, expectedNewUser)
+                .expect(HttpStatus.CREATED, expectedNewUser)
                 .end((err, res) => done(err || null));
         });
 
@@ -104,7 +105,7 @@ describe('App controller tests', () => {
                 .post('/api/user')
                 .set('TestModeToken',
                     'eyJlbWFpbCI6ImV4aXN0aW5nVXNlckB0ZXN0LmNvbSIsImZpcnN0TmFtZSI6IlBhdWwiLCJsYXN0TmFtZSI6Ikdlb3JnZSJ9')
-                .expect(400)
+                .expect(HttpStatus.BAD_REQUEST)
                 .end((err, res) => done(err || null));
         });
 
@@ -112,7 +113,7 @@ describe('App controller tests', () => {
             request(app)
                 .post('/api/user')
                 .set('TestModeToken', 'e2VtYWlsOmludmFsaWRKc29uQHRlc3QuY29tLGZpcnN0TmFtZTosbGFzdE5hbWU6fQ==')
-                .expect(500)
+                .expect(HttpStatus.INTERNAL_SERVER_ERROR)
                 .end((err, res) => done(err || null));
         })
     });
