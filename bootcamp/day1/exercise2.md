@@ -6,7 +6,7 @@ You should have successfully set up your environment as outlined in [Day1](./REA
 
 ## Objective ##
 
-In this exercise you are going to be defining pod manifests and configuring the pod with probe, resource limits/requests, and QoS
+In this exercise you are going to be defining pod manifests and configuring the pod with probe, resource limits/requests, and QoS.  If you are really stuck, see [solutions](./solutions/exercise2).
 
 ### Create and deploy pod that contains a single container. ###
 
