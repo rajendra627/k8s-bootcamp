@@ -7,6 +7,7 @@ The pod model makes K8S very flexible.  It makes it easy for you to containerize
 Pods are isolated from other pods from the perspective of network/storage/cpu.  In this manner they achieve the same level of isolation as containers.  In order to communicate with other pods, they do so through the K8S [service](../services/README.md) abstraction - note, within the cluster IP address space, every Pod instance gets a unique IP, however, your applciation services should not be aware of these IPs. Pods are ephemeral, dynamically scheduled resources and hence their IP can change. [Services](../services/README.md) and a cluster DNS service solves this problem.
 
 Pods are scheduled by K8S onto the worker nodes.  When you deploy a pod, the K8S scheduler will decide where that pod will be deployed.  The scheduler takes into account many factors when it makes this decision.  For example, 
+
 * How much CPU, memory resources does your pod need?
 * How much resources are available on the existing nodes?
 * Does the pod state that it must be scheduled to a node with specific characteristics?
