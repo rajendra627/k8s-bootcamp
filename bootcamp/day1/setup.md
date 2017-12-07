@@ -1,11 +1,11 @@
 # Setting up your environment #
 
 You will need the following tools installed:
-- Azure cli
-- docker
-- Helm
-- kubectl
-- Visual Studio Code
+* Azure cli
+* docker
+* Helm
+* kubectl
+* Visual Studio Code
 
 ## Installing Azure CLI ##
 
@@ -14,9 +14,9 @@ Install the latest version of azure cli for your operating system from [here](ht
 ## Install Docker ##
 
 Install docker for your operating system.  
-- For [Windows](https://docs.docker.com/docker-for-windows/install/)
-- For [macOS](https://docs.docker.com/docker-for-mac/install/)
-- For [Ubuntu](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#docker-ee-customers)
+* For [Windows](https://docs.docker.com/docker-for-windows/install/)
+* For [macOS](https://docs.docker.com/docker-for-mac/install/)
+* For [Ubuntu](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#docker-ee-customers)
 
 After you have installed docker and the azure cli, run the following commands to ensure they have been installed.
 
@@ -31,10 +31,10 @@ docker-compose version
 Download and install VS Code for your OS.  [https://code.visualstudio.com/](https://code.visualstudio.com/)
 
 Install the following extensions (search in the extensions tab):
-- Kubernetes Support 
-- vs-kubernetes
-- vscode-helm
-- Docker
+* Kubernetes Support 
+* vs-kubernetes
+* vscode-helm
+* Docker
 
 The above extensions provide syntax highlighting, code snippets and more for working with Docker, Kubernetes and Helm artefacts.
 
