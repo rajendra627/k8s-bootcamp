@@ -22,7 +22,9 @@ Pods are specified in a pod manifest (in fact, all the K8S resources you will di
 
 ## Resource Requests and Limits ##
 
-Pods are dynamically scheduled onto nodes with other pods.  In order to play nice, you should consider the cpu/memory resources that your pods consume.  Resource requests and limits can be defined within the manifest to tell the kubelet how much cpu/memory you would like, and also the limit to set it to.  How you define resource requests/limits will influence how, when your pods will be scheduled.  For example, K8S supports Guaranteed, Burstable and BestEffort QoS classes.  Given a set of pods waiting to be scheduled they will be scheduled in this order: Guaranteed before Burstable before BestEffort.  See [nginx pod that specifies a QoS](./nginx-qos.yml) for an example.
+Pods are dynamically scheduled onto nodes with other pods.  In order to play nice, you should consider the cpu/memory resources that your pods consume.  Resource requests and limits can be defined within the manifest to tell the kubelet how much cpu/memory you would like, and also the limit to set it to.  How you define resource requests/limits will influence how, when your pods will be scheduled.  For example, K8S supports Guaranteed, Burstable and BestEffort QoS classes.  Given a set of pods waiting to be scheduled they will be scheduled in this order: Guaranteed before Burstable before BestEffort.  
+
+* See [nginx pod that specifies a QoS](./nginx-qos.yml) for an example.
 
 ## Container Probes ##
 
