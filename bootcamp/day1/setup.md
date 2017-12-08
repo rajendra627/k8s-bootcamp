@@ -100,6 +100,13 @@ az acs kubernetes get-credentials -n test-cluster -g k8s-example
 kubectl get nodes
 ```
 
+6. Start up proxy to tunnel to the Kubernetes Dashboard
+```
+kubectl proxy
+```
+
+Open a brower and navigate to http://127.0.0.1:8001/ui and you will see the dashboard.
+
 ## Install Helm ##
 
 To install helm follow the instruction [here](https://github.com/kubernetes/helm/blob/master/docs/install.md).  Note that to install the server side of Helm (tiller), you need the K8S cluster running.  In ACS tiller is installed but you need to upgrade by running:

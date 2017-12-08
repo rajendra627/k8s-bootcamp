@@ -4,7 +4,7 @@ Pods are ephemeral entities that will be dynamically scheduled by the scheduler.
 
 Services abstracts away access to your pod(s).  A service receives a stable virtual IP, and routes requests to pods that it cares about.  It cares about those pods that have labels that match the label selector defined in the service specification - labels and label selectors play a big role in K8S and contributes to it highly dynamic nature.
 
-* See [pod-details-service](./pod-details-service.yml) that shows a service that routes to 5 instances of a pod
+* See [pod-details-service](./pod-details-service.yml) that shows a service that routes to 5 instances of a pod.
 
 ## Reference ##
 - [Services docs at k8s.io](https://kubernetes.io/docs/concepts/services-networking/service/)
