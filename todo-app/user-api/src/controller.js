@@ -76,6 +76,8 @@ router.get('/:email', async ({params: {email}}, res) => {
  *                 description: The user associated to the token
  *                 schema:
  *                     $ref: '#/definitions/User'
+ *             401:
+ *                 description: Security token is invalid
  *             404:
  *                 description: No user associated to the specified token
  *             500:
@@ -107,6 +109,8 @@ router.get('/', authMiddleware, async ({user: {email}}, res) => {
  *                     $ref: '#/definitions/User'
  *             400:
  *                 description: User already exists
+ *             401:
+ *                 description: Security token is invalid
  *             500:
  *                 description: Unexpected error occurred
  */
