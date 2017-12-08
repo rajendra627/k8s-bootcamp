@@ -34,6 +34,7 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - [Helm - packaging and deploying your application to K8S](https://docs.helm.sh/)
 
 ### Day 1 Outline: ###
+
 - [Setting up your environment](./bootcamp/day1/setup.md)
 - The Todo list microservices application overview
     - Deploying the application to K8S
@@ -55,7 +56,8 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - [Deployments](./deployments/README.md) - Deployments enable you to perform rolling upgrades, rollback, and scale up/scale down your services.
 - [Persistence](./persistence/README.md) - Volumes, Persistence Volume Claims, Storage Classes. 
 
-### Day 2 Outline: ### 
+### Day 2 Outline: ###
+
 - [Statefulsets](./statefulsets/README.md) - Using statefulsets to deploy services that require long-lasting, durable state (e.g. databases)
 - [Jobs]()
 - [Daemonsets](./daemonsets/README.md) - Running pods that need to run on all or some nodes continuously e.g. for log aggregation.
