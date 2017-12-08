@@ -1,0 +1,7 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  random-quote-service
+spec:
+  type:  ExternalName
+  externalName: <url to mongodb here>
