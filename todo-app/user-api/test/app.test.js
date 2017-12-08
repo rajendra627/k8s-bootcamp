@@ -16,8 +16,10 @@ const Users = {
         token: 'eyJlbWFpbCI6Im90aGVyc0BvdGhlcnMuY29tIiwiZmlyc3ROYW1lIjoiSmFtZXMiLCJsYXN0TmFtZSI6IlBhcmtlciJ9'
     },
     INVALID_USER: {
-        email: 'invalidJson@test.com',
-        token: 'e2VtYWlsOmludmFsaWRKc29uQHRlc3QuY29tLGZpcnN0TmFtZTosbGFzdE5hbWU6fQ=='
+        email: 'invalidUser@test.com',
+        firstName: 'invalidUser',
+        lastName: 'invalidUser',
+        token: 'eyJlbWFpbCI6ImludmFsaWRVc2VyQHRlc3QuY29tIiwiZmlyc3ROYW1lIjoiaW52YWxpZFVzZXIiLCJsYXN0TmFtZSI6ImludmFsaWRVc2VyIn0='
     }
 };
 
@@ -30,7 +32,7 @@ const controller = proxyquire('../src/controller', {
     },
     './dao': {
         findUserByEmail: email => {
-            if (email === 'fail') {
+            if (email === Users.INVALID_USER.email) {
                 throw {message: 'forced failure'};
             }
             return MOCK_REPO[email]
@@ -56,7 +58,7 @@ describe('App controller tests', () => {
             const {token, email} = Users.EXISTING_USER;
             request(app)
                 .get('/api/user')
-                .set('TestModeToken', token)
+                .set('Authorization', `Bearer ${token}`)
                 .expect(HttpStatus.OK, MOCK_REPO[email])
                 .end((err, res) => done(err || null));
         });
@@ -64,7 +66,7 @@ describe('App controller tests', () => {
         it('should handle non existing user', done => {
             request(app)
                 .get('/api/user')
-                .set('TestModeToken', Users.NEW_USER.token)
+                .set('Authorization', `Bearer ${Users.NEW_USER.token}`)
                 .expect(HttpStatus.NOT_FOUND)
                 .end((err, res) => done(err || null));
         });
@@ -72,7 +74,7 @@ describe('App controller tests', () => {
         it('should handle unexpected failure', done => {
             request(app)
                 .get('/api/user')
-                .set('TestModeToken', Users.INVALID_USER.token)
+                .set('Authorization', `Bearer ${Users.INVALID_USER.token}`)
                 .expect(HttpStatus.INTERNAL_SERVER_ERROR)
                 .end((err, res) => done(err || null));
         });
@@ -96,7 +98,7 @@ describe('App controller tests', () => {
 
         it('should handle unexpected failure', done => {
             request(app)
-                .get('/api/user/fail')
+                .get(`/api/user/${Users.INVALID_USER.email}`)
                 .expect(HttpStatus.INTERNAL_SERVER_ERROR)
                 .end((err, res) => done(err || null));
         });
@@ -107,7 +109,7 @@ describe('App controller tests', () => {
             const {token, email, firstName, lastName} = Users.NEW_USER;
             request(app)
                 .post('/api/user')
-                .set('TestModeToken', token)
+                .set('Authorization', `Bearer ${token}`)
                 .expect(HttpStatus.CREATED, {email, firstName, lastName})
                 .end((err, res) => done(err || null));
         });
@@ -115,7 +117,7 @@ describe('App controller tests', () => {
         it('should not create a new user if the email exists', done => {
             request(app)
                 .post('/api/user')
-                .set('TestModeToken', Users.EXISTING_USER.token)
+                .set('Authorization', `Bearer ${Users.EXISTING_USER.token}`)
                 .expect(HttpStatus.BAD_REQUEST)
                 .end((err, res) => done(err || null));
         });
@@ -123,7 +125,7 @@ describe('App controller tests', () => {
         it('should handle unexpected failure', done => {
             request(app)
                 .post('/api/user')
-                .set('TestModeToken', Users.INVALID_USER.token)
+                .set('Authorization', `Bearer ${Users.INVALID_USER.token}`)
                 .expect(HttpStatus.INTERNAL_SERVER_ERROR)
                 .end((err, res) => done(err || null));
         })
