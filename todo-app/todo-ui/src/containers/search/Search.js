@@ -19,6 +19,10 @@ export class Search extends Component{
     this.onToggleChange  = this.onToggleChange.bind(this);
   }
 
+  setSearchTerm(){
+    this.props.setSearchFilter({searchTerm: this.state.searchTerm, tags:this.state.tags});
+  }
+
   onUpdateFormFilters(event) {
     event.preventDefault();
     this.props.setSearchFilter({searchTerm: this.state.searchTerm, tags:this.state.tags});
@@ -26,12 +30,12 @@ export class Search extends Component{
 
   onToggleChange(tag){
     if(this.state.tags.indexOf(tag) === -1){
-      this.setState({tags: [...this.state.tags, tag]});
+      this.setState({tags: [...this.state.tags, tag]}, this.setSearchTerm);
     }
     else {
       const tags = this.state.tags;
       const index = this.state.tags.indexOf(tag);
-      this.setState({tags: [ ...tags.slice(0, index), ...tags.slice(index + 1) ]});
+      this.setState({tags: [ ...tags.slice(0, index), ...tags.slice(index + 1) ]}, this.setSearchTerm);
     }
   }
 
