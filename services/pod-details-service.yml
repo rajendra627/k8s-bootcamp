@@ -1,5 +1,5 @@
 # This service will provide access to all pods with the label 'app=pod-details'
-# It will listent on port 8080 and route requests to a named port called 'pod-port'
+# It will listen on port 8080 and route requests to a named port called 'pod-port'
 # That named port is defined in the pod template.
 # This example also has a deployment through which we create 5 replicas of the pod-details pods
 #
@@ -29,6 +29,7 @@ spec:
   # request to that port to any node in the cluster is to the pod-details service
   # and the request will be routed to the service, which in turn routes it to a pod.
   #
+  # You would use a NodePort if you want to provision your own load balancer.
   #  
   # See details here - https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services---service-types
   type:  LoadBalancer 
