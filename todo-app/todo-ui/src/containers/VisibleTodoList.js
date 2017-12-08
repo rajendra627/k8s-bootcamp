@@ -16,7 +16,7 @@ const getVisibleTodos = (todos, filter) => {
   }
 };
 
-const filterTodoInSections = (todos, section, state) => {
+const filterTodoInSections = (todos, section) => {
   switch(section) {
     case TODO_SECTION.UPCOMING:
       return todos.filter( todo => moment(todo.dueDate).format("YYYY-MM-DD") < moment().format("YYYY-MM-DD") );
