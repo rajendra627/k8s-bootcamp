@@ -27,13 +27,13 @@
 .todo-action{
     position: absolute;
     top: 10px;
-    transition-delay: .5s;
-    right: -45px;
+    width: 50px;
+    right: -15px;
     opacity: 0;
 }
 
 .todo-container:hover .todo-action{
-    transition: all .1s ease-out;
+    transition: all .15s ease-out;
     right: -45px;
     opacity: 1;
 }
@@ -65,7 +65,6 @@ button.todo-delete{
         height: 70px;
         right: 0;
         top: 0;
-        transition-delay: 0s;
         opacity: 1;
     }
     .todo-container:hover .todo-action{

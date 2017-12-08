@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setSearchFilter } from '../../actions/index';
 import TAG_LIST from '../../constants/tagList';
-import TagLabel from '../../components/TagLabel';
 import TagToggle from '../../components/tagToggle/TagToggle';
 
 
@@ -22,33 +21,19 @@ export class Search extends Component{
 
   onUpdateFormFilters(event) {
     event.preventDefault();
+    this.props.setSearchFilter({searchTerm: this.state.searchTerm, tags:this.state.tags});
   }
 
   onToggleChange(tag){
     if(this.state.tags.indexOf(tag) === -1){
-      this.setState({tags: [...this.state.tags, tag]}, () => {
-        this.props.setSearchFilter({searchTerm: this.state.searchTerm, tags:this.state.tags});
-      });
+      this.setState({tags: [...this.state.tags, tag]});
     }
-    else{
+    else {
       const tags = this.state.tags;
       const index = this.state.tags.indexOf(tag);
-      this.setState(
-        {tags: [...tags.slice(0,index), ...tags.slice(index+1)]},
-        () => {
-          this.props.setSearchFilter({searchTerm: this.state.searchTerm, tags:this.state.tags})
-        }
-      );
-
-      // this.setState((prevState) => ({
-      //   tags: prevState.tags.filter((_, i) => i !== index)
-      // }), () => this.props.setSearchFilter({searchTerm: this.state.searchTerm, tags:this.state.tags}));
-      // this.setState( {tags: []}, () => {
-      //   this.props.setSearchFilter({searchTerm: this.state.searchTerm, tags:this.state.tags});
-      // } )
+      this.setState({tags: [ ...tags.slice(0, index), ...tags.slice(index + 1) ]});
     }
   }
-
 
   onSearchInputChange(event){
     const searchTerm = event.target.value;
