@@ -52,7 +52,6 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
     - Exposing your pods as services
     - Using load-balancers and NodePorts to expose your pods to clients outside your cluster
     - Accessing services external to your cluster. e.g. Azure CosmosDB service
-- [ReplicaSets](./replicasets/README.md) - How do you scale your services?
 - [Deployments](./deployments/README.md) - Deployments enable you to perform rolling upgrades, rollback, and scale up/scale down your services.
 - [Persistence](./persistence/README.md) - Volumes, Persistence Volume Claims, Storage Classes. 
 
