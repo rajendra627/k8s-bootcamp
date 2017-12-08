@@ -1,4 +1,4 @@
-# This example exposes a mongoDB service that is external to the cluster
+# This example exposes a REST service that is external to the cluster
 # to the pods within the cluster.  The pods would just look up the service
 # just like any service - using the service name. See the source code of the API 
 # in the random-quote-api directory.
