@@ -4,20 +4,34 @@
 # This example also has a deployment through which we create 5 replicas of the pod-details pods
 #
 # Deploy using 'kubectl create -f pod-details-service.yml'
-# Get the 
+# Get the service 'kubectl get service/pod-details'
+# You will see that the external IP is 'pending'.  
+# Wait until the external IP and port is provided.  
+# run curl http://ip:port and you will see details of the pod that fulfilled the request.
+
 kind: Service
 apiVersion: v1
 metadata:
   name:  pod-details
 spec:
   selector:
-    app: pod-details #used to select the pods to route requests
-  #here we are exposing the service through a NodePort.
-  #If the value was ClusterIP, this service would only be accessible within
-  #the cluster.  However, in our case, we want to expose to clients external to
-  #the cluster. We can use NodePort or LoadBalancer.
-  #See details here - https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services---service-types
-  type:  NodePort 
+  # used to select the pods to route requests
+    app: pod-details
+  #
+  # Here we are exposing the service through a LoadBalancer.
+  #
+  # If the value was ClusterIP, this service would only be accessible within
+  # the cluster.  However, in our case, we want to expose to clients external to
+  # the cluster. We can use NodePort or LoadBalancer.
+  #
+  # With LoadBalancer, the cloud provider will provision a load balancer and route traffic
+  # to the nodes to a specific node and port (e.g. NodePort).  K8S knows that any
+  # request to that port to any node in the cluster is to the pod-details service
+  # and the request will be routed to the service, which in turn routes it to a pod.
+  #
+  #  
+  # See details here - https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services---service-types
+  type:  LoadBalancer 
   ports:
   - name:  http
     port:  8080
