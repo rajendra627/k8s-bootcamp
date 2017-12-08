@@ -4,6 +4,8 @@ Pods are ephemeral entities that will be dynamically scheduled by the scheduler.
 
 Services abstracts away access to your pod(s).  A service receives a stable virtual IP, and routes requests to pods that it cares about.  It cares about those **pods that have labels that match the label selector defined in the service specification** - labels and label selectors play a big role in K8S and contributes to it highly dynamic nature.
 
+See an excellent overview of how service discovery is implemented as well as the role kube-proxy plays [here](https://kubernetes.io/docs/concepts/services-networking/service/#the-gory-details-of-virtual-ips). 
+
 * See [pod-details-service](./pod-details-service.yml) that shows a service that routes to 5 instances of a pod.
 
 When you use services, you need to decide if they need to be exposed only internal to your K8S cluster or externally to clients outside your cluster (e.g. mobile apps).  In general, you should only publish services that need to be published to reduce the security exposure.  How you define the way your services are exposed is through the service type.

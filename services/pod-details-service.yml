@@ -60,6 +60,7 @@ spec:
       - image:  architechbootcamp/pod-details:1.0.0
         name:  pod-details
         imagePullPolicy: Always
+        restartPolicy: Always
         resources:
           requests:
             cpu: "20m"
