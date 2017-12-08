@@ -1,25 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TAG_OPTIONS from '../constants/tagOptions';
+import TAG_LIST from '../constants/tagList';
 
-const TagLabel = ({tag}) => {
+const TagLabel = ({tag, onSelect}) => {
     switch (tag){
-      case TAG_OPTIONS[0].value:
-        return <span className="label label-primary">{tag}</span>;
+      case TAG_LIST.PERSONAL:
+        return <span className="label label-primary" onClick={onSelect}>{tag}</span>;
 
-      case TAG_OPTIONS[1].value:
+      case TAG_LIST.KIDS:
         return <span className="label label-success">{tag}</span>;
 
-      case TAG_OPTIONS[2].value:
+      case TAG_LIST.FRIENDS:
         return <span className="label label-info">{tag}</span>;
 
-      case TAG_OPTIONS[3].value:
+      case TAG_LIST.FAMILY:
         return <span className="label label-warning">{tag}</span>;
 
-      case TAG_OPTIONS[4].value:
+      case TAG_LIST.WORK:
         return <span className="label label-danger">{tag}</span>;
 
-      case TAG_OPTIONS[5].value:
+      case TAG_LIST.HOME:
         return <span className="label label-info">{tag}</span>;
 
       default:
@@ -28,7 +28,8 @@ const TagLabel = ({tag}) => {
 };
 
 TagLabel.propTypes = {
-  tag: PropTypes.string.isRequired
+  tag: PropTypes.string.isRequired,
+  onSelect: PropTypes.func
 };
 
 export default TagLabel;

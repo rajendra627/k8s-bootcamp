@@ -85,6 +85,17 @@ export const setVisibilityFilter = filter => {
   }
 };
 
+export const setSearchFilter = ({searchTerm, tags}) => {
+  console.log(tags)
+  return {
+    type: actionTypes.SET_SEARCH_FILTER,
+    filter: {
+      searchTerm,
+      tags
+    }
+  }
+};
+
 export const requestTodos = () => {
   return {
     type: actionTypes.REQUEST_TODOS

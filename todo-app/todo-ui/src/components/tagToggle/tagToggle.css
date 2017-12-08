@@ -1,0 +1,9 @@
+.btn i.fa.tag-cancel{
+    display: none;
+}
+.btn.active i.fa.tag-cancel{
+    display: inline;
+    position: relative;
+    left: 5px;
+    top: -5px;
+}
