@@ -25,7 +25,6 @@ export class Search extends Component{
 
   onUpdateFormFilters(event) {
     event.preventDefault();
-    this.props.setSearchFilter({searchTerm: this.state.searchTerm, tags:this.state.tags});
   }
 
   onToggleChange(tag){
@@ -50,17 +49,7 @@ export class Search extends Component{
       <div className="container-fluid">
         <div className="row">
           <div className="col-xs-6">
-            <form onSubmit={this.onUpdateFormFilters}>
-              <div data-toggle="buttons">
-                {
-                  Object.keys(TAG_LIST)
-                    .map(tag => <TagToggle key={tag} onToggleChange={() => {this.onToggleChange(TAG_LIST[tag])} } tag={TAG_LIST[tag]}/>)
-                }
-              </div>
-              <button className="btn btn-default" type="submit">
-                Update Filters
-              </button>
-            </form>
+
           </div>
           <div className="col-xs-6">
             <div className="input-group">
@@ -69,17 +58,25 @@ export class Search extends Component{
                 <i className="fa fa-search" aria-hidden="true"/>
               </span>
             </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-xs-12 text-right">
             <div className="dropdown">
-              <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                Dropdown
+              <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Filters
                 <span className="caret"/>
               </button>
-              <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li><div>Action</div></li>
-                <li><div>Another action</div></li>
-                <li><div>Something else here</div></li>
-                <li><div>Separated link</div></li>
-              </ul>
+              <div className="col-xs-12 dropdown-menu">
+                <form>
+                  <div data-toggle="buttons">
+                    {
+                      Object.keys(TAG_LIST)
+                        .map(tag => <TagToggle key={tag} onToggleChange={() => {this.onToggleChange(TAG_LIST[tag])} } tag={TAG_LIST[tag]}/>)
+                    }
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
