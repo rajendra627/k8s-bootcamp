@@ -24,7 +24,7 @@ Now you can get your credentials by issuing the command
 > az acr credential show --name _**repository-name**_
 
 Your output should look something like this
-```javascript
+```json
 {
   "passwords": [
     {
