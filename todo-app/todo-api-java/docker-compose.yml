@@ -1,0 +1,15 @@
+version: "3"
+services:
+    mongodb:
+        image: mongo 
+        ports:
+            - "27017:27017"
+        volumes:
+            - "todo-app-data:/data/db"
+            - "todo-app-config-data:/data/config"
+volumes:
+    todo-app-data:
+        external: true
+    todo-app-config-data:
+        external: true
+
