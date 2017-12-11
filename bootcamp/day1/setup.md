@@ -122,6 +122,40 @@ In order to not incur Azure costs, you should tear down your cluster when not in
 ```
 az group delete -n k8s-example
 ```
+## Setting up Minikube ##
+
+This part is only for the RBAC portion of the exercises.  Unfortunately, ACS currently does not support RBAC.  To enable RBAC on Azure, you will need to leverage [ACS Engine](https://github.com/Azure/acs-engine), however, that is an advanced topic so we will be using Minikube to demonstrate RBAC concepts.
+
+See the installation instructions for your OS [here](https://github.com/kubernetes/minikube).  Note for Windows, you need to make a decision if you are going to use Hyper-V or Virtualbox for virtualization.  If you have installed Docker with Hyper-V then you have to choose Hyper-V for Minikube also to support both.
+
+Once installed, run the following command to start up Minikube.  This will download the latest release of K8S and start a single node cluster locally.
+
+```
+minikube start
+```
+
+To stop minikube and bring down the cluster:
+
+```
+minikube stop
+```
+
+Some useful minikube commands:
+
+```
+#to get the IP to your minikube master
+minikube ip
+
+#to get the URL of a service deployed to minikube
+minikube service <service-name>
+
+#to ssh into a pod
+minikube ssh <pod-name>
+
+#to delete the local K8S VM
+minikube delete
+```
+
 ## Next... ##
 
 Go to [Exercise 1](./exercise1.md)
