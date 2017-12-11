@@ -1,0 +1,89 @@
+/*
+ Required Plugins:
+  - Environment Injector Plugin
+   -- Add `GIT_BRANCH=some/branch` when testing pipeline script directly in Jenkins
+ Required Credentials:
+  - `docker-hub-credentials` : Username and password for docker hub
+  - `scm-credentials` : SSH username (git) and private key to access git. Used when testing pipeline script directly in Jenkins
+ Required Jobs:
+  - `QA-Tests` : Job to execute tests on all components in a QA environment.
+*/
+
+node {
+    final PROJECT_VERSION = '1.0.0'
+    final PROJECT_IMAGE_NAME = 'architechbootcamp/todo-api'
+    final PROJECT_PATH = 'todo-app/todo-api-java'
+
+    def buildEnv;
+
+    stage('Checkout') { // for display purposes
+        // Checkout source from the same Git repo/branch this Jenkinsfile resides in.
+        //checkout scm
+
+        // Checkout source from a specific Git repository
+        git branch: "$GIT_BRANCH", credentialsId: 'scm-credentials', url: 'git@bitbucket.org:architech/k8s-fundamentals.git'
+        GIT_REVISION = sh (
+                script: 'git rev-parse --short HEAD',
+                returnStdout: true
+        ).trim()
+
+        // Desclare versions to use in tags later on.
+        IMAGE_FULL_VERSION = "${PROJECT_VERSION}_${GIT_REVISION}"
+        IMAGE_SEMVER = "${PROJECT_VERSION}"
+    }
+    stage('Test') {
+
+        try {
+            sh "docker-compose -f $PROJECT_PATH/docker-compose.test.yml -p todoapp run -e FAIL_TESTS=false todo-api-test"
+        } finally {
+            echo "Shutting down docker-compose environment"
+            sh "docker-compose -f $PROJECT_PATH/docker-compose.test.yml -p todoapp down"
+        }
+    }
+
+    stage('Build') {
+        buildEnv = docker.build(PROJECT_IMAGE_NAME,PROJECT_PATH)
+    }
+
+    stage('QA Image Push') {
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            QA_IMAGE_FULL_VERSION = "qa_${IMAGE_FULL_VERSION}"
+            buildEnv.push(QA_IMAGE_FULL_VERSION)
+            buildEnv.push("qa_${IMAGE_SEMVER}")
+            buildEnv.push("qa_latest")
+        }
+    }
+
+    stage('Deploy to QA') {
+        //TODO: implement deploy to QA step
+    }
+
+    stage('QA Test') {
+        try {
+            build job: 'QA-Tests',
+                    parameters:
+                            [
+                                    string(name: 'imageName', value: PROJECT_IMAGE_NAME),
+                                    string(name: 'imageVersion', value: QA_IMAGE_FULL_VERSION)
+                            ]
+        } catch (error) {
+            //TODO: Rollback QA deployment here ?
+        }
+    }
+
+    stage('Prod Image Push') {
+        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            PROD_IMAGE_FULL_VERSION = "${IMAGE_FULL_VERSION}"
+            buildEnv.push(PROD_IMAGE_FULL_VERSION)
+            buildEnv.push(IMAGE_SEMVER)
+            buildEnv.push("latest")
+            buildEnv.push("stable")
+        }
+    }
+
+    stage('Deploy to Prod') {
+        input 'Push to Production?'
+        //TODO: Push to production
+    }
+
+}

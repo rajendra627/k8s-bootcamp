@@ -1,7 +1,14 @@
 # --- Build ---
 FROM openjdk:8-jdk-alpine as BUILD
 
-COPY . .
+COPY gradle ./gradle
+COPY gradlew .
+
+RUN ./gradlew
+
+COPY build.gradle .
+
+COPY src ./src
 
 RUN ./gradlew clean build -x test
 

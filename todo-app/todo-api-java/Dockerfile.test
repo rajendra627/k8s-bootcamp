@@ -1,0 +1,21 @@
+# --- Build ---
+FROM openjdk:8-jdk-alpine as BUILD
+
+ENV FAIL_TESTS false
+
+WORKDIR app_build
+
+COPY gradle ./gradle
+COPY gradlew .
+
+RUN ./gradlew
+
+COPY build.gradle .
+
+RUN ./gradlew clean
+
+COPY src ./src
+
+ENTRYPOINT ["./gradlew"]
+
+CMD ["test"]
