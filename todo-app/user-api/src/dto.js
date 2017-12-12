@@ -7,6 +7,8 @@
  *             - firstName
  *             - lastName
  *         properties:
+ *             id:
+ *                 type: string
  *             email:
  *                 type: string
  *             firstName:
@@ -15,7 +17,8 @@
  *                 type: string
  */
 class UserDTO {
-    constructor({email, firstName, lastName}) {
+    constructor({_id, email, firstName, lastName}) {
+        this.id = _id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
