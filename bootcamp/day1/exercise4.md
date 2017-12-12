@@ -6,7 +6,7 @@ You should have successfully set up your environment as outlined in [Day1/setup]
 
 ## Objective ##
 
-In this exercise you are going to be deploy multiple replicas of a Pod, expose it as a service, then do rolling deployment and rollbacks.
+In this exercise you are going to use Deployments to deploy multiple replicas of a Pod, expose it as a service, then do rolling deployment and rollbacks.
 
 ### Create a Deployment and perform rolling updates and rollbacks ###
 
