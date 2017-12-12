@@ -35,6 +35,6 @@ services:
 
 volumes:
     todo-app-data:
-        external: true
+        # external: true
     todo-app-config-data:
-        external: true
+        # external: true
