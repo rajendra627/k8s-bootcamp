@@ -20,9 +20,9 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name:  random-quote
+  name:  random-quote-api
   labels:
-    name:  random-quote
+    name:  random-quote-api
 spec:
   replicas: 2
   strategy:
@@ -33,11 +33,11 @@ spec:
   template:
     metadata:
       labels:
-        name:  random-quote
+        name:  random-quote-api
     spec:
       containers:
       - image:  architechbootcamp/random-quote:1.0.0
-        name:  my-name
+        name:  random-quote-api
         resources:
           requests:
             cpu: "20m"
