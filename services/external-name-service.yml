@@ -10,10 +10,12 @@
 kind: Service
 apiVersion: v1
 metadata:
+  #when looking up this service using the service name, the cluster
+  #DNS will return a CNAME record with the value quotes.rest/qod
   name:  random-quote-service
 spec:
   type:  ExternalName
-  externalName: https://quotes.rest/qod
+  externalName: quotes.rest/qod
 ---
 # This is the deployment and pod template for the API that will
 # integrate with the random-quote-service
