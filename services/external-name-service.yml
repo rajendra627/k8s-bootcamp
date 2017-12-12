@@ -1,5 +1,7 @@
 # This example exposes a REST service that is external to the cluster
-# to the pods within the cluster.  The pods would just look up the service
+# to the pods within the cluster.  Notice, there are no label selectors.  In this
+# case we use the type ExternalName and provide the URI to the external service
+# in the externalName field.  The pods would just look up the service
 # just like any service - using the service name. See the source code of the API 
 # in the random-quote-api directory.
 # 
@@ -11,7 +13,7 @@ metadata:
   name:  random-quote-service
 spec:
   type:  ExternalName
-  externalName: <url to mongodb here>
+  externalName: https://quotes.rest/qod
 ---
 # This is the deployment and pod template for the API that will
 # integrate with the random-quote-service
