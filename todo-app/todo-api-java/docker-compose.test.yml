@@ -1,14 +1,15 @@
-# Merge this file with docker-compose to build and run the todo-api container
-# `docker-compose -f docker-compose.yml -f docker-compose.build.yml build`
-# `docker-compose -f docker-compose.yml -f docker-compose.build.yml up`
+# Merge this file with docker-compose to build and run the todo-api-test container
+# `docker-compose -f docker-compose.test.yml run todo-api-test`
 version: "3"
 services:
-    todo-api:
+    todo-api-test:
         build:
             context: .
-        image: todo-api
-        ports:
-            - "8080:8080"
+            dockerfile: Dockerfile.test
+        image: todo-api-test
+        deploy:
+            restart_policy:
+                condition: none
         environment:
             MONGODB_URL: mongodb:27017
             SPRING_LOG_LEVEL: INFO
@@ -18,3 +19,5 @@ services:
             AD_IDENTITY_META_DATA_URL: https://login.microsoftonline.com/architech.onmicrosoft.com/v2.0/.well-known/openid-configuration=
         depends_on:
             - mongodb
+    mongodb:
+            image: mongo
