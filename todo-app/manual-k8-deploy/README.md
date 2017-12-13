@@ -48,7 +48,7 @@ Run the command
 
 Here is a description of what the script did
 
-First we create the name space in the clsuter (defaults to _todoapp_)
+First we create the name space in the cluster (defaults to _todoapp_)
 ```bash
 kubectl create namespace $todoapp_namespace
 ```
@@ -58,7 +58,7 @@ Then we create a few secrets based on the _secrets_ directory, you can see that 
 kubectl create secret generic todoapp-secrets --from-file=secrets --namespace=$todoapp_namespace
 ```
 
-The next line will create the configmap form the yaml file, you can check the yaml file to get an idea of the configuration environment variables passed to the application (such as log level and monggDB url)
+The next line will create the configmap form the yaml file, you can check the yaml file to get an idea of the configuration environment variables passed to the application (such as log level and mongoDB url)
 
 ```bash
 kubectl create --namespace=$todoapp_namespace -f todo-config.yaml
@@ -74,7 +74,7 @@ kubectl create --namespace=$todoapp_namespace -f todo-app.yaml
 
 This approach makes installing the application in different environments, with different docker repositories and a very complex process, as you can see from the multiple commands we had to issue, on top of that any error will require almost a surgical approach to remove the created resources and changes to the configuration require environment settings etc.
 
-This is where framworks such as Helm comes to aid!
+This is where frameworks such as Helm comes to aid!
 
 ## Repo Helper files
 
