@@ -5,7 +5,7 @@ const logger = require('../logger');
 
 
 module.exports = (testMode) => {
-    if (testMode) {
+    if (testMode == true) {
         logger.info(`Using test authentication mode - testMode = ${testMode}`);
         return testAuthMode;
     } else {
