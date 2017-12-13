@@ -1,20 +1,22 @@
 # --- Build ---
 FROM openjdk:8-jdk-alpine as BUILD
 
-ENV FAIL_TESTS false
-
-WORKDIR app_build
-
 COPY gradle ./gradle
 COPY gradlew .
 
+# Layer to download gradle
 RUN ./gradlew
 
 COPY build.gradle .
 
-RUN ./gradlew clean
+# Download dependencies
+RUN ./gradlew getDependencies -x test --continue
+
+RUN echo 'Dependencies Downloaded'
 
 COPY src ./src
+
+ENV FAIL_TESTS false
 
 ENTRYPOINT ["./gradlew"]
 

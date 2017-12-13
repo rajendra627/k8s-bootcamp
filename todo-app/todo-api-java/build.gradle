@@ -48,3 +48,13 @@ dependencyManagement {
 		mavenBom "com.microsoft.azure:azure-spring-boot-bom:${azureVersion}"
 	}
 }
+
+// Used to help improve performance when building the Docker image by separating the dependency download from the actual
+// build
+task getDependencies(type: Copy) {
+	from sourceSets.main.runtimeClasspath
+	from sourceSets.main.compileClasspath
+	from sourceSets.test.runtimeClasspath
+	from sourceSets.test.compileClasspath
+	into '.dependencies/'
+}
