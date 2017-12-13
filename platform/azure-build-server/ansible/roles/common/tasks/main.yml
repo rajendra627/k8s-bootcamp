@@ -8,6 +8,12 @@
     name: epel-release
     state: present
 
+- name: Install Git
+  become: yes
+  yum:
+    name: git
+    state: present
+
 # Put SELinux in permissive mode, nginx had issues accessing jenkins.
 - selinux:
     policy: targeted

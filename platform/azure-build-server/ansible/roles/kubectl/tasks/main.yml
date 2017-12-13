@@ -14,7 +14,9 @@
 - name: Create .kube config directory
   become: yes
   file:
-    path: ~/.kube
+    path: /var/lib/jenkins/.kube
+    owner: jenkins
+    group: jenkins
     state: directory
     mode: 0755
 
@@ -22,5 +24,7 @@
   become: yes
   copy:
     src: "~/.kube/{{ kube_config_file_name }}"
-    dest: ~/.kube/config
+    dest: /var/lib/jenkins/.kube/config
+    owner: jenkins
+    group: jenkins
     backup: yes

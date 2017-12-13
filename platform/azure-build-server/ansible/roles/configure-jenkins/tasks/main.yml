@@ -42,6 +42,8 @@
   template:
     src: hudson.plugins.sonar.SonarGlobalConfiguration.xml.j2
     dest: /var/lib/jenkins/hudson.plugins.sonar.SonarGlobalConfiguration.xml
+    owner: jenkins
+    group: jenkins
     backup: yes
   when: (token_search_response.content.find(jenkins_sonar_token_name) == -1)
 
