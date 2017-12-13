@@ -21,9 +21,3 @@ services:
             - mongodb
     mongodb:
             image: mongo
-            volumes:
-                - "todo-app-data:/data/db"
-                - "todo-app-config-data:/data/config"
-volumes:
-    todo-app-data:
-    todo-app-config-data:
