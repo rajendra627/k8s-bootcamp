@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setSearchFilter } from '../../actions/index';
-import TAG_LIST from '../../constants/tagList';
-import TagToggle from '../../components/tagToggle/TagToggle';
 
 import './search.css';
 import AddTodo from '../addTodo/AddTodo';
@@ -58,7 +56,7 @@ export class Search extends Component{
 
   toggleFiltersPanel(){
     let currentFilterPanelState = this.state.showFiltersPanel;
-    this.setState({showFiltersPanel: !currentFilterPanelState});
+    this.setState({showFiltersPanel: !currentFilterPanelState, showAddTodo: false});
   }
 
   render() {
@@ -98,7 +96,7 @@ export class Search extends Component{
         <div className='container'>
           <div className="row">
             <div className="col-xs-12 hidden-sm hidden-md hidden-lg">
-              <button onClick={this.toggleAddTodo} className="btn btn-primary">
+              <button onClick={this.toggleAddTodo} className="btn btn-primary mobile-add-todo">
                 { this.state.showAddTodo ?
                   <div>
                     <i className="fa fa-close"/> Close

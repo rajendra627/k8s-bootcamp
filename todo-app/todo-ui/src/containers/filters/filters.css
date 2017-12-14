@@ -11,13 +11,18 @@
 }
 
 .filters-container label.btn{
-    margin-right: 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
 }
 
-@media screen and (max-width: 480px) {
+.filters-container label.btn.success{
+
+}
+
+@media screen and (max-width: 767px) {
     .filters-container{
         margin: 0;
-        height: 175px;
+        height: 160px;
         top: -75px;
     }
 }

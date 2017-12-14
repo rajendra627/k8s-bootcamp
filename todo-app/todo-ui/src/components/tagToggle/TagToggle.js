@@ -7,7 +7,7 @@ const TagToggle = ({tag, onToggleChange}) => {
   switch (tag){
     case TAG_LIST.PERSONAL:
       return (
-        <label className="btn btn-primary" onClick={onToggleChange}>
+        <label className="tag-toggle btn btn-default" onClick={onToggleChange}>
           <input name="tags" value={tag} type="checkbox" autoComplete="off"/>
           {tag}
           <i className="fa fa-times tag-cancel"/>
@@ -16,7 +16,7 @@ const TagToggle = ({tag, onToggleChange}) => {
 
     case TAG_LIST.KIDS:
       return (
-        <label className="btn btn-info" onClick={onToggleChange}>
+        <label className="tag-toggle btn btn-info" onClick={onToggleChange}>
           <input name="tags" value={tag} type="checkbox" autoComplete="off"/>
           {tag}
           <i className="fa fa-times tag-cancel"/>
@@ -25,7 +25,7 @@ const TagToggle = ({tag, onToggleChange}) => {
 
     case TAG_LIST.FRIENDS:
       return (
-        <label className="btn btn-info" onClick={onToggleChange}>
+        <label className="tag-toggle btn btn-success" onClick={onToggleChange}>
           <input name="tags" value={tag} type="checkbox" autoComplete="off"/>
           {tag}
           <i className="fa fa-times tag-cancel"/>
@@ -34,7 +34,7 @@ const TagToggle = ({tag, onToggleChange}) => {
 
     case TAG_LIST.FAMILY:
       return (
-        <label className="btn btn-warning" onClick={onToggleChange}>
+        <label className="tag-toggle btn btn-warning" onClick={onToggleChange}>
           <input name="tags" value={tag} type="checkbox" autoComplete="off"/>
           {tag}
           <i className="fa fa-times tag-cancel"/>
@@ -43,7 +43,7 @@ const TagToggle = ({tag, onToggleChange}) => {
 
     case TAG_LIST.WORK:
       return (
-        <label className="btn btn-danger" onClick={onToggleChange}>
+        <label className="tag-toggle btn btn-danger" onClick={onToggleChange}>
           <input name="tags" value={tag} type="checkbox" autoComplete="off"/>
           {tag}
           <i className="fa fa-times tag-cancel"/>
@@ -52,7 +52,7 @@ const TagToggle = ({tag, onToggleChange}) => {
 
     case TAG_LIST.HOME:
       return (
-        <label className="btn btn-info" onClick={onToggleChange}>
+        <label className="tag-toggle btn btn-primary" onClick={onToggleChange}>
           <input name="tags" value={tag} type="checkbox" autoComplete="off"/>
           {tag}
           <i className="fa fa-times tag-cancel"/>
@@ -61,7 +61,7 @@ const TagToggle = ({tag, onToggleChange}) => {
 
     default:
       return (
-        <label className="btn btn-default" onClick={onToggleChange}>
+        <label className="tag-toggle btn btn-default" onClick={onToggleChange}>
           <input name="tags" value={tag} type="checkbox" autoComplete="off"/>
           {tag}
           <i className="fa fa-times tag-cancel"/>
