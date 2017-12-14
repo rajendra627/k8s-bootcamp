@@ -77,7 +77,8 @@ button.todo-delete{
     .tag-container{
         text-align: left;
     }
-    .date-container{
+    .date-container,
+    .tag-container{
         padding-top: 15px;
     }
     .todo-item{

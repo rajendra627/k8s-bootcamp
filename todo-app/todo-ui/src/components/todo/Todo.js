@@ -7,20 +7,20 @@ const Todo = ({ onClick, onDelete, done, description, priority, dueDate, tags })
   <div className="row">
     <div className="col-xs-12 todo-container">
       <div className={"col-sm-12 col-xs-10 todo-item " + (done ? 'done' : 'not-done') } onClick={onClick}>
-        <div className="col-xs-7 col-sm-5">
+        <div className="col-xs-12 col-sm-5">
           <i className={"fa " + (done ? 'fa-check-square-o fa-lg' : 'fa-square-o fa-lg')}/>
           <span className="description">
       {description}
     </span>
         </div>
-        <div className="col-xs-5 col-sm-4 tag-container">
+        <div className="col-xs-8 col-sm-4 tag-container">
           {
             tags.length ?
               tags.map(tag =>  <TagLabel key={tags.indexOf(tag)} tag={tag}/>)
               : ''
           }
         </div>
-        <div className="col-xs-12 col-sm-3 date-container">
+        <div className="col-xs-4 col-sm-3 date-container">
           <span>{dueDate}</span>
         </div>
       </div>
