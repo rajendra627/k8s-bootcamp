@@ -26,6 +26,9 @@ export class AddTodo extends Component{
   }
 
   handleTagInputChange(tags){
+    if(this.state.tags.length && this.state.tags.split(',').length === 2){
+      return false
+    }
     this.setState({ tags });
   }
 
