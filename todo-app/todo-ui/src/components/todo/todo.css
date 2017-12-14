@@ -1,6 +1,6 @@
 .todo-item{
     border: 1px #ccc solid;
-    padding: 15px 0 15px 0;
+    padding: 17px 0 17px 0;
     margin-bottom: -1px;
     cursor: pointer;
 }
@@ -54,22 +54,24 @@ button.todo-delete{
     border-color: transparent;
     font-size: 18px;
     padding: 2px 8px;
+    width: 39px;
 }
 
 @media screen and (max-width: 767px) {
+
     .todo-action{
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
         height: 70px;
-        right: 0;
+        /*right: 0;*/
         top: 0;
         opacity: 1;
     }
     .todo-container:hover .todo-action{
         transition: none;
-        right: 0;
+        right: -15px;
     }
     .date-container,
     .tag-container{
@@ -80,5 +82,15 @@ button.todo-delete{
     }
     .todo-item{
         overflow-x: scroll;
+    }
+
+    button.todo-delete{
+        border-radius: 25px;
+        background-color: #9B9B9B;
+        color: #FFFFFF;
+        border-color: transparent;
+        font-size: 18px;
+        padding: 2px 11px;
+        width: 39px;
     }
 }

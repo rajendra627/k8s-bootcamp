@@ -4,34 +4,36 @@ import './todo.css';
 import TagLabel from '../TagLabel';
 
 const Todo = ({ onClick, onDelete, done, description, priority, dueDate, tags }) => (
-  <div className="col-xs-12 todo-container">
-    <div className={"col-sm-12 col-xs-10 todo-item " + (done ? 'done' : 'not-done') } onClick={onClick}>
-      <div className="col-xs-7 col-sm-5">
-        <i className={"fa " + (done ? 'fa-check-square-o fa-lg' : 'fa-square-o fa-lg')}/>
-        <span className="description">
+  <div className="row">
+    <div className="col-xs-12 todo-container">
+      <div className={"col-sm-12 col-xs-10 todo-item " + (done ? 'done' : 'not-done') } onClick={onClick}>
+        <div className="col-xs-7 col-sm-5">
+          <i className={"fa " + (done ? 'fa-check-square-o fa-lg' : 'fa-square-o fa-lg')}/>
+          <span className="description">
       {description}
     </span>
+        </div>
+        <div className="col-xs-5 col-sm-4 tag-container">
+          {
+            tags.length ?
+              tags.map(tag =>  <TagLabel key={tags.indexOf(tag)} tag={tag}/>)
+              : ''
+          }
+        </div>
+        <div className="col-xs-12 col-sm-3 date-container">
+          <span>{dueDate}</span>
+        </div>
       </div>
-      <div className="col-xs-5 col-sm-4 tag-container">
-        {
-          tags.length ?
-            tags.map(tag =>  <TagLabel key={tags.indexOf(tag)} tag={tag}/>)
-            : ''
-        }
+      <div className="col-xs-2 col-sm-1 hidden-lg text-right todo-action">
+        <button className="btn btn-default todo-delete" type="button" onClick={onDelete}>
+          <i className="fa fa-trash-o" aria-hidden="true"/>
+        </button>
       </div>
-      <div className="col-xs-12 col-sm-3 date-container">
-        <span>{dueDate}</span>
+      <div className="todo-action hidden-md hidden-sm hidden-xs">
+        <button className="btn btn-default todo-delete" type="button" onClick={onDelete}>
+          <i className="fa fa-trash-o" aria-hidden="true"/>
+        </button>
       </div>
-    </div>
-    <div className="col-xs-2 col-sm-1 hidden-lg text-right todo-action">
-      <button className="btn btn-default todo-delete" type="button" onClick={onDelete}>
-        <i className="fa fa-trash-o" aria-hidden="true"/>
-      </button>
-    </div>
-    <div className="todo-action hidden-md hidden-sm hidden-xs">
-      <button className="btn btn-default todo-delete" type="button" onClick={onDelete}>
-        <i className="fa fa-trash-o" aria-hidden="true"/>
-      </button>
     </div>
   </div>
 );

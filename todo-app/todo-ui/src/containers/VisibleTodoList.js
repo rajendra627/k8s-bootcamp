@@ -19,13 +19,13 @@ const getVisibleTodos = (todos, filter) => {
 const filterTodoInSections = (todos, section) => {
   switch(section) {
     case TODO_SECTION.UPCOMING:
-      return todos.filter( todo => moment(todo.dueDate).format("YYYY-MM-DD") < moment().format("YYYY-MM-DD") );
+      return todos.filter( todo => moment(todo.dueDate).format("YYYY-MM-DD") > moment().format("YYYY-MM-DD") );
 
     case TODO_SECTION.TODAY:
       return todos.filter( todo => moment(todo.dueDate).format("YYYY-MM-DD") === moment().format("YYYY-MM-DD") );
 
     case TODO_SECTION.PAST_DUE:
-      return todos.filter( todo => moment(todo.dueDate).format("YYYY-MM-DD") > moment().format("YYYY-MM-DD") );
+      return todos.filter( todo => moment(todo.dueDate).format("YYYY-MM-DD") < moment().format("YYYY-MM-DD") );
 
     default:
       return todos

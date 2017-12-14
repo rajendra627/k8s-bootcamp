@@ -55,50 +55,57 @@ export class AddTodo extends Component{
 
   handleCancel() {
     this.setState(this.resetInput());
+    this.props.onCancel();
   }
 
   render() {
     return(
-      <div>
+      <div className="add-todo-container">
         <form onSubmit={this.onFormSubmit}>
-          <div className="form-inline row">
-            <div className="form-group col-md-5">
-              <label>Description:</label>
-              <input
-                id="todo-description"
-                value={this.state.description}
-                placeholder="Enter To Do"
-                onChange={(event) => {this.setState({description: event.target.value})}}
-                required
-                className="form-control"
-              />
-            </div>
-            <div className="form-group col-md-4">
-              <label>Tags:</label>
+          <div className="row">
+            <div className="col-md-12">
+              <div className="form-inline">
+                <div className="add-todo-row">
+                  <div className="form-group col-xs-12 col-sm-4 col-md-5">
+                    <label className="hidden-sm hidden-md hidden-lg">Description:</label>
+                    <input
+                      id="todo-description"
+                      value={this.state.description}
+                      placeholder="Enter To Do"
+                      onChange={(event) => {this.setState({description: event.target.value})}}
+                      required
+                      className="form-control"
+                    />
+                  </div>
+                  <div className="form-group col-xs-12 col-sm-4 col-md-4">
+                    <label>Tags:</label>
 
-              <Select
-                closeOnSelect={false}
-                multi
-                onChange={this.handleTagInputChange}
-                options={TAG_OPTIONS}
-                removeSelected={true}
-                simpleValue
-                value={this.state.tags}
-              />
-            </div>
-            <div className="form-group col-md-3">
-              <label>Due:</label>
-              <input
-                value={this.state.dueDate}
-                onChange={(event) => {this.setState({dueDate: event.target.value})}}
-                type="date"
-                className="form-control"/>
+                    <Select
+                      closeOnSelect={false}
+                      multi
+                      onChange={this.handleTagInputChange}
+                      options={TAG_OPTIONS}
+                      removeSelected={true}
+                      simpleValue
+                      value={this.state.tags}
+                    />
+                  </div>
+                  <div className="form-group col-xs-12 col-sm-4 col-md-3">
+                    <label>Due:</label>
+                    <input
+                      value={this.state.dueDate}
+                      onChange={(event) => {this.setState({dueDate: event.target.value})}}
+                      type="date"
+                      className="form-control"/>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="row">
             <div className="col-sm-12 text-center add-todo-actions">
               <button className="btn btn-primary" type="submit">
-                Done
+                Add
               </button>
               <button className="btn btn-default" type="button" onClick={this.handleCancel}>
                 Cancel
@@ -106,6 +113,7 @@ export class AddTodo extends Component{
             </div>
           </div>
         </form>
+        <hr/>
       </div>
     );
   }
@@ -115,5 +123,6 @@ export class AddTodo extends Component{
 function mapDispatchToProps(dispatch) {
   return bindActionCreators( { createTodo }, dispatch );
 }
+
 
 export default connect(null, mapDispatchToProps)(AddTodo);
