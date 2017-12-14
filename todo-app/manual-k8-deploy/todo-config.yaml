@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todoapp-config
+  namespace: todoapp
+data:
+  db_url: mongodb:27017
+  spring_log_level: INFO
+  app_log_level: INFO
