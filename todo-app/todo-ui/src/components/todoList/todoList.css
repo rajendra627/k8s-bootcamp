@@ -25,13 +25,16 @@ h1[data-toggle="collapse"].collapsed:before
 
 .past-due-container .todo-container .todo-item.not-done .date-container{
     -webkit-animation-name: over-due; /* Safari 4.0 - 8.0 */
-    -webkit-animation-duration: 3s; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
+    animation-timing-function: ease-in-out;
+    -webkit-animation-timing-function: ease-in-out;
     animation-name: over-due;
-    animation-duration: 3s;
+    animation-duration: 2s;
     animation-iteration-count: infinite;
 }
 
 @-webkit-keyframes over-due {
-    0% {color: darkorange; text-shadow: 0 0 1px rgba(255, 0, 0, 0.8);}
-    100% {color: red; text-shadow: 0 0 1px rgba(255, 0, 0, 1);}
+    0% {color: red; text-shadow: 0 0 1px rgba(255, 0, 0, 0.2);}
+    50% {color: red; text-shadow: 0 0 1px rgba(255, 0, 0, 0.8);}
+    100% {color: red; text-shadow: 0 0 1px rgba(255, 0, 0, 0.2);}
 }
