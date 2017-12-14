@@ -17,12 +17,14 @@ Pods are resources within K8S.  Their declarative specification (e.g. what conta
 
 Pods are specified in a pod manifest (in fact, all the K8S resources you will directly work with are specified in manifests).  These manifests are consumed by K8S to deploy and manage the lifecycle of your application.  You can view these manifests as the declarative specification of your system on K8S. If the specification changes, the K8S services deploys that change.  K8S essentially takes the "desired state" that you specify and makes it the "current state", and it does so continuously.  This is what makes K8S very, very powerful.
 
-[simple nginx pod](./nginx.yml).
-[nginx pod that is scheduled to specific nodes](./nginx-scheduling.yml)
+* [simple nginx pod](./nginx.yml).
+* [nginx pod that is scheduled to specific nodes](./nginx-scheduling.yml)
 
 ## Resource Requests and Limits ##
 
-Pods are dynamically scheduled onto nodes with other pods.  In order to play nice, you should consider the cpu/memory resources that your pods consume.  Resource requests and limits can be defined within the manifest to tell the kubelet how much cpu/memory you would like, and also the limit to set it to.  How you define resource requests/limits will influence how, when your pods will be scheduled.  For example, K8S supports Guaranteed, Burstable and BestEffort QoS classes.  Given a set of pods waiting to be scheduled they will be scheduled in this order: Guaranteed before Burstable before BestEffort.  See [nginx pod that specifies a QoS](./nginx-qos.yml) for an example.
+Pods are dynamically scheduled onto nodes with other pods.  In order to play nice, you should consider the cpu/memory resources that your pods consume.  Resource requests and limits can be defined within the manifest to tell the kubelet how much cpu/memory you would like, and also the limit to set it to.  How you define resource requests/limits will influence how, when your pods will be scheduled.  For example, K8S supports Guaranteed, Burstable and BestEffort QoS classes.  Given a set of pods waiting to be scheduled they will be scheduled in this order: Guaranteed before Burstable before BestEffort.  
+
+* See [nginx pod that specifies a QoS](./nginx-qos.yml) for an example.
 
 ## Container Probes ##
 
@@ -30,10 +32,10 @@ The kubelet agent that runs on every worker node, monitors the health and readin
 
 If and when you should define liveness and readiness probes depends on the containers.  If your container requires sometime to start up and you do not want any requests routed to your pod until it is ready, then you should define a readiness probe.  If your container should be restarted if it does not respond after a period of time (because it has an unidentified bug), you should define a liveness probe.  See the excellent docs [here](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) for details.
 
-[Configuring liveness and readiness probes](./http-liveness.yml)
+* [Example configuring liveness and readiness probes](./http-liveness.yaml)
 
 ## Note ##
-It is important to note that you will rarely work directly with pods.  You will work with other resources such as Deployments, StatefulSets, DaemonSets, Jobs that control the deployment and lifecycle of your pods.  Your pods specifications are in fact defined as 'templates' within the manifests for these resources.
+It is important to note that you will rarely work directly with pods.  You will work with other resources such as Deployments, StatefulSets, DaemonSets, Jobs that control the deployment, scaling, and lifecycle of your pods.  When you define your pod specifications you will do so as 'templates' within the manifests for those resources.
 
 ## Reference ##
 

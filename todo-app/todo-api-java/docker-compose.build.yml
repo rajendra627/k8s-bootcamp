@@ -1,5 +1,5 @@
-# Merge this file with docker-compose to be build and run the todo-api container
-# `docker-compose -f docker-compose.yml -f docker-compose.build.yml build --no-cache`
+# Merge this file with docker-compose to build and run the todo-api container
+# `docker-compose -f docker-compose.yml -f docker-compose.build.yml build`
 # `docker-compose -f docker-compose.yml -f docker-compose.build.yml up`
 version: "3"
 services:

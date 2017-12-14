@@ -34,6 +34,7 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - [Helm - packaging and deploying your application to K8S](https://docs.helm.sh/)
 
 ### Day 1 Outline: ###
+
 - [Setting up your environment](./bootcamp/day1/setup.md)
 - The Todo list microservices application overview
     - Deploying the application to K8S
@@ -51,12 +52,12 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - [Services](./services/README.md) - How do pods find each other?
     - Exposing your pods as services
     - Using load-balancers and NodePorts to expose your pods to clients outside your cluster
-    - Services to access services external to your cluster
-- [ReplicaSets](./replicasets/README.md) - How do you scale your services?
+    - Accessing services external to your cluster. e.g. Azure CosmosDB service
 - [Deployments](./deployments/README.md) - Deployments enable you to perform rolling upgrades, rollback, and scale up/scale down your services.
 - [Persistence](./persistence/README.md) - Volumes, Persistence Volume Claims, Storage Classes. 
 
-### Day 2 Outline: ### 
+### Day 2 Outline: ###
+
 - [Statefulsets](./statefulsets/README.md) - Using statefulsets to deploy services that require long-lasting, durable state (e.g. databases)
 - [Jobs]()
 - [Daemonsets](./daemonsets/README.md) - Running pods that need to run on all or some nodes continuously e.g. for log aggregation.
@@ -75,6 +76,15 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
     - Charts and templates
     - Sharing your charts
 - Brief overview of other K8S tools and projects you should know about:
+    - [Draft](https://github.com/Azure/draft) - Tool to help developers be productive building/testing applications on K8S
+    - [Minikube](https://github.com/kubernetes/minikube) - Local single node K8S cluster for development and learning.
     - [Istio](https://istio.io/docs/) - A microservices service mesh that can be deployed to K8S.  Provides fine-grained service to service authn/authr, intelligent load-balancing (via ingress and ingress controllers), telemetry and more!
     - [Kompose](http://kompose.io/) - converts you docker compose yaml files to K8S manifests.  Very helpful if you start with docker compose.
     - [kubespray](https://github.com/kubernetes-incubator/kubespray) - Deploying K8S using ansible. Can be used to deploy on bare metal, on-premises VMs, various cloud providers.
+
+### Interesting Links ###
+
+* [Why Kubernetes](https://apprenda.com/why-kubernetes/)
+* [Large-scale cluster management at Google with Borg](https://research.google.com/pubs/pub43438.html)
+* [12 Factor Application Principles](https://12factor.net/)
+* [Kubernetes Case Studies](https://kubernetes.io/case-studies/)

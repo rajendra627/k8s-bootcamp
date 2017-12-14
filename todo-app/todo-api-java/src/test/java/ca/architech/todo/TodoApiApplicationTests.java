@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -21,6 +22,8 @@ public class TodoApiApplicationTests {
 
 	@Autowired
 	private TodoItemRepository repository;
+
+	@Value("${FAIL_TESTS:false}") boolean failTests;
 
 	@Before
 	public void setUp() {
@@ -84,5 +87,13 @@ public class TodoApiApplicationTests {
 	@Test
 	public void findNotDone() {
 		assertThat(repository.findNotDone()).size().isEqualTo(2);
+	}
+
+	/**
+	 * Useful to fail the testing phase of a build process for demonstration purposes.
+	 */
+	@Test
+	public void failTest() {
+		assertThat(failTests).isFalse();
 	}
 }

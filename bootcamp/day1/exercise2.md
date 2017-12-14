@@ -2,11 +2,11 @@
 
 ## Pre-Requisites ##
 
-You should have successfully set up your environment as outlined in [Day1](./README.md)
+You should have successfully set up your environment as outlined in [Day1/setup](./setup.md)
 
 ## Objective ##
 
-In this exercise you are going to be defining pod manifests and configuring the pod with probe, resource limits/requests, and QoS.  If you are really stuck, see [solutions](./solutions/exercise2).
+In this exercise you are going to be defining pod manifests and configuring the pod with probe, resource limits/requests, and QoS.  If you are really stuck, see [solutions](./solutions/exercise2/).
 
 ### Create and deploy pod that contains a single container. ###
 
@@ -26,6 +26,8 @@ Use the busybox image from [DockerHub](https://hub.docker.com/_/busybox/).
 * Configure the probe to restart the pod after 3 failures
 * Configure the pod to have the Burstable QoS
 
+### Next... ###
 
+[Exercise 3](./exercise3.md)
 
 
