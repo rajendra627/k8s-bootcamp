@@ -16,15 +16,22 @@ SECONDS=0
 
 resourceGroup=''
 clusterName=''
-nodeNumber=''
+nodeNumber='3'
 clientId=''
 clientSecret=''
+#clientId='85da2dd8-bba0-48eb-aaee-0f3a1f186a7b'
+#clientSecret='7ff921e0-9df6-4248-a5b5-0a06648810cb'
 ## Currently, AKS is only available in 'eastus,westeurope,centralus' regions
 resourceGroupLocation='eastus'
 generatedAzureAcsKubeCredentials='acsGenerated.config'
 
 function log {
-    echo "deploy-cluster.sh --> $*"
+    echo "deploy-acs-cluster.sh --> $*"
+}
+
+function delay {
+    log "Delaying for $*"
+    sleep $*
 }
 
 function usage {
@@ -57,20 +64,28 @@ function check_resource_group {
 }
 
 function create_cluster {
-  az acs create -g "${resourceGroup}" -n "${clusterName}" -t "Kubernetes" -l "${resourceGroupLocation}" --generate-ssh-keys
-  # az acs create -g "${resourceGroup}" -n "${clusterName}" -t "Kubernetes" -l "${resourceGroupLocation}" --service-principal "${clientId}" --client-secret "${clientSecret}" --generate-ssh-keys
+    log "Deploying '${clusterName}' cluster"
+
+    # az acs create -g "${resourceGroup}" -n "${clusterName}" -t "Kubernetes" -l "${resourceGroupLocation}" --generate-ssh-keys
+    az acs create -g "${resourceGroup}" -n "${clusterName}" -t "Kubernetes" -l "${resourceGroupLocation}" --service-principal "${clientId}" --client-secret "${clientSecret}" --generate-ssh-keys
+
+    log "Finished deploying '${clusterName}' cluster"
 }
 
 function get_cluster_credentials {
+    log "Generating Azure Service Principal"
+
     subscriptionId="$(az account show --verbose -o tsv | awk '{print $2}')"
-    echo "subId: ${subscriptionId}"
+    log "subId: ${subscriptionId}"
     # appIdAndPassword="$(az ad sp create-for-rbac -n ${clusterName}SP --role='Contributor' --scopes='/subscriptions/'${subscriptionId} --verbose -o tsv | awk '{print $1"\t"$4}')"
     appIdAndPassword="$(az ad sp create-for-rbac -n ${clusterName}SP --role Contributor  --scopes /subscriptions/${subscriptionId}/resourceGroups/${resourceGroup}  --verbose -o tsv | awk '{print $1"\t"$4}')"
-    echo "appIdAndPassword: ${appIdAndPassword}"
+    log "appIdAndPassword: ${appIdAndPassword}"
     clientId="$(echo ${appIdAndPassword} | awk '{print $1}')"
     clientSecret="$(echo ${appIdAndPassword} | awk '{print $2}')"
-    echo "Client ID:\t${clientId}"
-    echo "Client Secret:\t${clientSecret}"
+    log "Client ID: ${clientId}"
+    log "Client Secret: ${clientSecret}"
+
+    log "Finished generating Azure Service Principal"
 }
 
 function get_kubernetes_credentials {
@@ -103,10 +118,10 @@ done
 
 if [ -z "$resourceGroup" ] ;then echo "-g (Resource Group Name) must be provided"; exit 1; fi
 if [ -z "$clusterName" ] ;then echo "-c (Cluster Name) must be provided"; exit 1; fi
-## if [ -z "$nodeNumber" ] ;then echo "-n (Node Number) must be provided"; exit 1; fi
 
 check_resource_group
-# get_cluster_credentials
+get_cluster_credentials
+delay 60
 create_cluster
 get_kubernetes_credentials
 

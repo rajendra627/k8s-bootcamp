@@ -17,6 +17,7 @@ node {
     final PROJECT_VERSION = '1.0'
     final PROJECT_IMAGE_NAME = 'architechbootcamp/todo-api'
     final PROJECT_PATH = 'todo-app/todo-api-java'
+    final DEPLOYMENT_NAME = 'todo-api'
 
     def buildEnv;
 
@@ -49,6 +50,14 @@ node {
         IMAGE_SEMVER = "${PROJECT_VERSION}.${GIT_REVISION_COUNT}"
         IMAGE_FULL_VERSION = "${IMAGE_SEMVER}_${GIT_REVISION}"
 
+        OLD_IMAGE_VERSION_QA = sh(
+            script: "/usr/local/bin/kubectl get deployment/\${DEPLOYMENT_NAME} --namespace=qa-env -o wide | awk '{ if (NR!=1) {print \$8}}' | cut -d ':' -f 2",
+            returnStdout: true
+        ).trim()
+        OLD_IMAGE_VERSION_PROD = sh(
+            script: "/usr/local/bin/kubectl get deployment/\${DEPLOYMENT_NAME} --namespace=prod-env -o wide | awk '{ if (NR!=1) {print \$8}}' | cut -d ':' -f 2",
+            returnStdout: true
+        ).trim()
     }
     stage('Test') {
         def projectName = "todoapi${env.BUILD_NUMBER}"
@@ -85,7 +94,7 @@ node {
     }
 
     stage('Deploy to QA') {
-        //TODO: implement deploy to QA step
+        sh "/usr/local/bin/kubectl set image deployment/${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}=${PROJECT_IMAGE_NAME}:${IMAGE_FULL_VERSION} --namespace=qa-env"
     }
 
     stage('QA Test') {
@@ -99,6 +108,7 @@ node {
                             ]
         } catch (error) {
             //TODO: Rollback QA deployment here ?
+            sh "/usr/local/bin/kubectl set image deployment/${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}=${PROJECT_IMAGE_NAME}:${OLD_IMAGE_VERSION_QA} --namespace=qa-env"
         }
     }
 
@@ -116,6 +126,12 @@ node {
     stage('Deploy to Prod') {
         input 'Push to Production?'
         //TODO: Push to production
+        sh "/usr/local/bin/kubectl set image deployment/${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}=${PROJECT_IMAGE_NAME}:${IMAGE_FULL_VERSION} --namespace=prod-env"
+    }
+
+    stage('Roll back Prod') {
+        input 'Roll back Production?'
+        sh "/usr/local/bin/kubectl set image deployment/${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}=${PROJECT_IMAGE_NAME}:${OLD_IMAGE_VERSION_PROD} --namespace=qa-env"
     }
 
 }
