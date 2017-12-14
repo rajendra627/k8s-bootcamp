@@ -14,7 +14,7 @@ const TodoList = ({ upcomingTodos, pastDueTodos, todayTodos, onTodoClick, onDele
               )
           }
     </div>
-    <div className="col-xs-12">
+    <div className="col-xs-12 past-due-container">
       <h1>Past Due <small>({pastDueTodos.length})</small></h1>
 
         {
