@@ -23,7 +23,7 @@ resourceGroupLocation='eastus'
 template='arm/azureDeploy.json'
 parameters='arm/azureDeploy.parameters.json'
 tempParameters='arm/temp.parameters.json'
-azureVmUsername='architech'
+azureVmUsername=''
 justValidate=false
 
 function log {
@@ -190,6 +190,7 @@ then
 fi
 if [ -z "$resourceGroup" ] ;then echo "-g must be provided"; exit 1; fi
 if [ -z "$storageAccount" ] ;then echo "-s must be provided"; exit 1; fi
+if [ -z "$azureVmUsername" ] ;then echo "-u must be provided"; exit 1; fi
 
 create_storage_account
 deploy_template
