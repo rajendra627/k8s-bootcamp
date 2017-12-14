@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -31,9 +32,11 @@ public class TodoApiApplication extends WebMvcConfigurerAdapter {
 
         logger.info(String.format("origins set to %s", allowed_origins));
 
-        registry.addMapping("/api/todos/**")
-				.allowedOrigins(allowed_origins)
-				.allowedMethods("GET", "PUT", "DELETE", "PATCH", "POST")
-				.allowCredentials(false).maxAge(3600);
+        if (allowed_origins != null) {
+            registry.addMapping("/api/todos/**")
+                .allowedOrigins(allowed_origins)
+                .allowedMethods("GET", "PUT", "DELETE", "PATCH", "POST")
+                .allowCredentials(false).maxAge(3600);
+        }
 	}
 }
