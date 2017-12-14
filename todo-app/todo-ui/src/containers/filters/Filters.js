@@ -7,7 +7,6 @@ import VisibilitySelector from '../../components/VisibilitySelector';
 export class Filters extends Component{
   constructor(props){
     super(props);
-    console.log(this.props)
   }
 
   render() {
