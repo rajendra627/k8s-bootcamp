@@ -27,3 +27,4 @@ The worker nodes has the following components:
 
 * [Excellent community docs on K8S architecture](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/architecture.md)
 * [Large-scale cluster management at Google with Borg](https://research.google.com/pubs/pub43438.html)
+* [12 Factor Application Principles](https://12factor.net/)

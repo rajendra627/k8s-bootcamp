@@ -81,3 +81,9 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
     - [Istio](https://istio.io/docs/) - A microservices service mesh that can be deployed to K8S.  Provides fine-grained service to service authn/authr, intelligent load-balancing (via ingress and ingress controllers), telemetry and more!
     - [Kompose](http://kompose.io/) - converts you docker compose yaml files to K8S manifests.  Very helpful if you start with docker compose.
     - [kubespray](https://github.com/kubernetes-incubator/kubespray) - Deploying K8S using ansible. Can be used to deploy on bare metal, on-premises VMs, various cloud providers.
+
+### Interesting Links ###
+
+* [Why Kubernetes](https://apprenda.com/why-kubernetes/)
+* [Large-scale cluster management at Google with Borg](https://research.google.com/pubs/pub43438.html)
+* [12 Factor Application Principles](https://12factor.net/)
