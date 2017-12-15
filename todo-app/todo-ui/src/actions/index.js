@@ -44,7 +44,7 @@ export const createTodo = (todo) => {
         {
           "owner": "87897",
           "description": todo.description,
-          "done": 'sdfsdf',
+          "done": false,
           "priority": todo.priority,
           "dueDate": todo.dueDate,
           "tags": todo.tags
