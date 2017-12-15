@@ -51,9 +51,16 @@ export const createTodo = (todo) => {
         }
       )
     })
-      .then(handleErrors)
+      .then((response) => {
+          if (!response.ok) {
+            throw Error(response.statusText);
+          }
+          return response.json();
+        }
+      )
       .then(newTodo => {
-        dispatch(addedTodo(newTodo.json()));
+        console.log(newTodo);
+        dispatch(addedTodo(newTodo));
         dispatch(setLoading(false));
         dispatch(setError({error:false, errorMessage:''}))
       })
