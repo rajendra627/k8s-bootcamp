@@ -1,4 +1,8 @@
 ---
+- name: Add jenkins user to docker group
+  become: yes
+  shell: "gpasswd -a jenkins docker"
+
 - name: Wait for SonarQube to start up before proceeding.
   shell: "curl -u {{ jenkins_admin_username }}:{{ jenkins_admin_password }} -X GET --max-time {{ sonar_connection_delay }} http://localhost:9000/sonar/api/system/health"
   register: result
