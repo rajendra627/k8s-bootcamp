@@ -25,22 +25,19 @@ export const createTodo = (todo) => {
       },
       body: JSON.stringify(
         {
-          "id": Math.floor(Math.random()*90000) + 10000,
           "owner": "87897",
           "description": todo.description,
           "done": false,
           "priority": todo.priority,
           "dueDate": todo.dueDate,
-          "tags": [
-            "string"
-          ]
+          "tags": todo.tags
         }
       )
     })
-      .then()
-      .then(dispatch(addedTodo(todo)))
+      .then(response => response.json())
+      .then(newTodo => dispatch(addedTodo(newTodo)))
   }
-}
+};
 
 export const toggledTodo = id => {
   return {
@@ -51,22 +48,51 @@ export const toggledTodo = id => {
 
 export const toggleTodo = todo => {
   return function (dispatch) {
-    const newToggledTodo = {...todo, done: !todo.done};
     return fetch(BASE_API_URL, {
       method: 'put',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(newToggledTodo)
+      body: JSON.stringify({...todo, done: !todo.done})
     }).then()
       .then(dispatch(toggledTodo(todo.id)))
   }
+};
+
+export const deletedTodo = id => {
+  return {
+    type: actionTypes.DELETED_TODO,
+    id
+  }
+};
+
+export const deleteTodo = id => {
+  return function (dispatch) {
+    return fetch(BASE_API_URL + '/' + id, {
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then()
+      .then(dispatch(deletedTodo(id)))
+  };
 };
 
 export const setVisibilityFilter = filter => {
   return {
     type: actionTypes.SET_VISIBILITY_FILTER,
     filter
+  }
+};
+
+export const setSearchFilter = ({searchTerm, tags}) => {
+  console.log(tags)
+  return {
+    type: actionTypes.SET_SEARCH_FILTER,
+    filter: {
+      searchTerm,
+      tags
+    }
   }
 };
 

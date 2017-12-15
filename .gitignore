@@ -2,7 +2,12 @@
 .*/
 
 *.jar
-.idea
+
+# Mac Specific files
+.DS_Store*
+
+# Windows files
+Thumbs.db
 
 !platform/azure-build-server/keys/README.md
 platform/azure-build-server/keys/*

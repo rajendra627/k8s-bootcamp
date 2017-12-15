@@ -50,11 +50,33 @@ describe('Todos Reducer', ()=>{
     };
     const initialState = [initalTodo];
     const finalState = [doneTodo];
-    const action ={
+    const action = {
       type: actionTypes.TOGGLED_TODO,
       id: 1
     };
     const actualState = todos(initialState, action);
+
+    expect(actualState).toEqual(finalState);
+  });
+
+  it('Should handle deleting a todo', () => {
+    const todo = {
+      id: 1,
+      description: 'todo',
+    };
+    const tobeDeleted = {
+      id: 2,
+      description: 'delete me',
+    };
+    const initalState = [todo,tobeDeleted];
+    const finalState = [todo];
+
+    const action = {
+      type: actionTypes.DELETED_TODO,
+      id: tobeDeleted.id
+    };
+
+    const actualState = todos(initalState, action);
 
     expect(actualState).toEqual(finalState);
   });

@@ -1,0 +1,19 @@
+# Merge this file with docker-compose to build and run the user-api container
+# `docker-compose -f docker-compose.yml -f docker-compose.build.yml build --no-cache`
+# `docker-compose -f docker-compose.yml -f docker-compose.build.yml up`
+version: "3"
+services:
+    user-api:
+        build:
+            context: .
+        image: user-api
+        ports:
+            - "8082:8082"
+        environment:
+            IS_TEST_MODE: "false"
+            MONGODB_URL: "mongodb://user-api-mongodb:27017/user-api"
+            LOG_LEVEL: "info"
+            AZURE_IDENTITY_META_DATA: "https://login.microsoftonline.com/architech.onmicrosoft.com/v2.0/.well-known/openid-configuration"
+            AZURE_CLIENT_ID: ${AZURE_APP_ID}
+        depends_on:
+            - user-api-mongodb

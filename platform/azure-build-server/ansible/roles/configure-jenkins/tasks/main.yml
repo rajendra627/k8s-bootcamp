@@ -1,6 +1,6 @@
 ---
 - name: Wait for SonarQube to start up before proceeding.
-  shell: "curl -u admin:admin -X GET --max-time {{ sonar_connection_delay }} http://localhost:9000/sonar/api/system/health"
+  shell: "curl -u {{ jenkins_admin_username }}:{{ jenkins_admin_password }} -X GET --max-time {{ sonar_connection_delay }} http://localhost:9000/sonar/api/system/health"
   register: result
   until: (result.stdout.find("GREEN") != -1)
   retries: "{{ sonar_connection_retries }}"
@@ -12,8 +12,8 @@
   uri:
     url: http://localhost:9000/sonar/api/user_tokens/search
     method: GET
-    user: admin
-    password: admin
+    user: "{{ jenkins_admin_username }}"
+    password: "{{ jenkins_admin_password }}"
     force_basic_auth: yes
     return_content: yes
   register: token_search_response
@@ -22,8 +22,8 @@
   uri:
     url: http://localhost:9000/sonar/api/user_tokens/generate
     method: POST
-    user: admin
-    password: admin
+    user: "{{ jenkins_admin_username }}"
+    password: "{{ jenkins_admin_password }}"
     body: "name={{ jenkins_sonar_token_name }}"
     force_basic_auth: yes
     headers:
@@ -42,6 +42,8 @@
   template:
     src: hudson.plugins.sonar.SonarGlobalConfiguration.xml.j2
     dest: /var/lib/jenkins/hudson.plugins.sonar.SonarGlobalConfiguration.xml
+    owner: jenkins
+    group: jenkins
     backup: yes
   when: (token_search_response.content.find(jenkins_sonar_token_name) == -1)
 
