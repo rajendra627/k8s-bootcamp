@@ -69,14 +69,14 @@ node {
 
         try {
             echo "Building Testing container"
-            sh "docker-compose -f $PROJECT_PATH/docker-compose.test.yml -p $projectName build"
+            sh "/usr/local/bin/docker-compose -f $PROJECT_PATH/docker-compose.test.yml -p $projectName build"
 
             echo "Starting integration tests"
-            sh "docker-compose -f $PROJECT_PATH/docker-compose.test.yml -p $projectName run -e FAIL_TESTS=false todo-api-test"
+            sh "/usr/local/bin/docker-compose -f $PROJECT_PATH/docker-compose.test.yml -p $projectName run -e FAIL_TESTS=false todo-api-test"
         } finally {
             echo "Shutting down docker-compose environment"
             try {
-                sh "docker-compose -f $PROJECT_PATH/docker-compose.test.yml -p $projectName down"
+                sh "/usr/local/bin/docker-compose -f $PROJECT_PATH/docker-compose.test.yml -p $projectName down"
             } catch (error) {
                 echo "Error shutting down docker-compose: ${error}"
             }
