@@ -1,15 +1,12 @@
-version: "3"
+version: '3'
 services:
-    mongodb:
-        image: mongo
-
-    user-api-mongodb:
-        image: mongo
-
-    user-api:
-      build:
-          context: ../user-api
-      image: user-api
-      depends_on:
-        - user-api-mongodb
-
+  mongodb:
+    image: mongo
+  user-api-mongodb:
+    image: mongo
+  user-api:
+    build:
+      context: ../user-api
+    image: user-api
+    depends_on:
+      - user-api-mongodb
