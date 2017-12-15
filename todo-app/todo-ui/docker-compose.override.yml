@@ -1,0 +1,12 @@
+# Contains services that are only required during development but are not required when running the todo-ui in a
+# container.
+version: "3"
+services:
+    nginx:
+        image: nginx:1.13.7
+        ports:
+            - "80:80"
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - todo-api

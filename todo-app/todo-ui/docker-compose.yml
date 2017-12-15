@@ -23,16 +23,6 @@ services:
             AD_IDENTITY_META_DATA_URL: https://login.microsoftonline.com/architech.onmicrosoft.com/v2.0/.well-known/openid-configuration=
         depends_on:
             - mongodb
-
-    nginx:
-        image: nginx:1.13.7
-        ports:
-            - "80:80"
-        volumes:
-            - ./nginx.conf:/etc/nginx/conf.d/default.conf
-        depends_on:
-            - todo-api
-
 volumes:
     todo-app-data:
         # external: true
