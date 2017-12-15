@@ -1,15 +1,12 @@
-version: "3"
+version: '3'
 services:
-    mongodb:
-        image: mongo 
-        ports:
-            - "27017:27017"
-        volumes:
-            - "todo-app-data:/data/db"
-            - "todo-app-config-data:/data/config"
-volumes:
-    todo-app-data:
-        external: true
-    todo-app-config-data:
-        external: true
-
+  mongodb:
+    image: mongo
+  user-api-mongodb:
+    image: mongo
+  user-api:
+    build:
+      context: ../user-api
+    image: user-api
+    depends_on:
+      - user-api-mongodb

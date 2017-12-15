@@ -1,20 +1,21 @@
 # Merge this file with docker-compose to build and run the todo-api container
 # `docker-compose -f docker-compose.yml -f docker-compose.build.yml build`
 # `docker-compose -f docker-compose.yml -f docker-compose.build.yml up`
-version: "3"
+version: '3'
 services:
-    todo-api:
-        build:
-            context: .
-        image: todo-api
-        ports:
-            - "8080:8080"
-        environment:
-            MONGODB_URL: mongodb:27017
-            SPRING_LOG_LEVEL: INFO
-            APP_LOG_LEVEL: DEBUG
-            ALLOWED_ORIGINS: '*'
-            AZURE_APP_ID: 'ADD APP ID HERE'
-            AD_IDENTITY_META_DATA_URL: https://login.microsoftonline.com/architech.onmicrosoft.com/v2.0/.well-known/openid-configuration=
-        depends_on:
-            - mongodb
+  todo-api:
+    build:
+      context: .
+    image: todo-api
+    ports:
+      - '8080:8080'
+    environment:
+      MONGODB_URL: 'mongodb:27017'
+      SPRING_LOG_LEVEL: INFO
+      APP_LOG_LEVEL: DEBUG
+      ALLOWED_ORIGINS: '*'
+      AZURE_APP_ID: 'ADD APP ID HERE'
+      AD_IDENTITY_META_DATA_URL: 'https://login.microsoftonline.com/architech.onmicrosoft.com/v2.0/.well-known/openid-configuration='
+    depends_on:
+      - mongodb
+      - user-api
