@@ -1,6 +1,22 @@
 import fetch from 'cross-fetch';
 import actionTypes from './actionTypes';
 import BASE_API_URL from '../constants/api';
+import handleErrors from '../utils/fetchErrorHandler'
+
+export const setLoading = (loading) => {
+  return {
+    type: actionTypes.LOADING,
+    loading
+  }
+};
+
+export const setError = ({error, errorMessage}) => {
+  return {
+    type: actionTypes.SET_ERROR,
+    error,
+    errorMessage
+  }
+};
 
 export const addTodo = () => {
   return {
@@ -18,6 +34,7 @@ export const addedTodo = todo => {
 export const createTodo = (todo) => {
   return function (dispatch) {
     dispatch(addTodo());
+    dispatch(setLoading(true));
     return fetch(BASE_API_URL, {
       method: 'post',
       headers: {
@@ -27,15 +44,23 @@ export const createTodo = (todo) => {
         {
           "owner": "87897",
           "description": todo.description,
-          "done": false,
+          "done": 'sdfsdf',
           "priority": todo.priority,
           "dueDate": todo.dueDate,
           "tags": todo.tags
         }
       )
     })
-      .then(response => response.json())
-      .then(newTodo => dispatch(addedTodo(newTodo)))
+      .then(handleErrors)
+      .then(newTodo => {
+        dispatch(addedTodo(newTodo.json()));
+        dispatch(setLoading(false));
+        dispatch(setError({error:false, errorMessage:''}))
+      })
+      .catch(err => {
+        dispatch(setError({error: true, errorMessage: err.message}));
+        dispatch(setLoading(false));
+      })
   }
 };
 
@@ -48,14 +73,23 @@ export const toggledTodo = id => {
 
 export const toggleTodo = todo => {
   return function (dispatch) {
+    dispatch(setLoading(true));
     return fetch(BASE_API_URL, {
       method: 'put',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({...todo, done: !todo.done})
-    }).then()
-      .then(dispatch(toggledTodo(todo.id)))
+    }).then(handleErrors)
+      .then(() => {
+        dispatch(toggledTodo(todo.id));
+        dispatch(setLoading(false));
+        dispatch(setError({error:false, errorMessage:''}))
+      })
+      .catch(err => {
+        dispatch(setError({error: true, errorMessage: err.message}));
+        dispatch(setLoading(false));
+      })
   }
 };
 
@@ -68,13 +102,23 @@ export const deletedTodo = id => {
 
 export const deleteTodo = id => {
   return function (dispatch) {
+    dispatch(setLoading(true));
     return fetch(BASE_API_URL + '/' + id, {
       method: 'delete',
       headers: {
         'Content-Type': 'application/json'
       }
-    }).then()
-      .then(dispatch(deletedTodo(id)))
+    }).then(handleErrors)
+      .then(() => {
+          dispatch(deletedTodo(id));
+          dispatch(setLoading(false));
+          dispatch(setError({error:false, errorMessage:''}))
+        }
+      )
+      .catch(err => {
+        dispatch(setError({error: true, errorMessage: err.message}));
+        dispatch(setLoading(false));
+      })
   };
 };
 
@@ -86,7 +130,6 @@ export const setVisibilityFilter = filter => {
 };
 
 export const setSearchFilter = ({searchTerm, tags}) => {
-  console.log(tags)
   return {
     type: actionTypes.SET_SEARCH_FILTER,
     filter: {
@@ -111,9 +154,18 @@ export const receiveTodos = (todos) => {
 
 export const fetchTodos = () => {
   return function (dispatch) {
+    dispatch(setLoading(true));
     dispatch(requestTodos());
     return fetch(BASE_API_URL)
       .then(response => response.json())
-      .then(response => dispatch(receiveTodos(response)))
+      .then(response => {
+        dispatch(receiveTodos(response));
+        dispatch(setLoading(false));
+        dispatch(setError({error:false, errorMessage:''}))
+      })
+      .catch(err => {
+        dispatch(setError({error: true, errorMessage: err.message}));
+        dispatch(setLoading(false));
+      })
   }
 };

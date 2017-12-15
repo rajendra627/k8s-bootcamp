@@ -55,7 +55,8 @@ const mapStateToProps = state => {
   return {
     pastDueTodos: filterTodoInSections(getVisibleTodos(todos, state.visibilityFilter), TODO_SECTION.PAST_DUE ) ,
     upcomingTodos: filterTodoInSections(getVisibleTodos(todos, state.visibilityFilter), TODO_SECTION.UPCOMING ),
-    todayTodos: filterTodoInSections(getVisibleTodos(todos, state.visibilityFilter), TODO_SECTION.TODAY )
+    todayTodos: filterTodoInSections(getVisibleTodos(todos, state.visibilityFilter), TODO_SECTION.TODAY ),
+    isLoading: state.loading.isLoading
   }
 };
 
