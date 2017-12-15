@@ -18,6 +18,7 @@ PROJECT_PATH = 'todo-app/todo-api-java'
 DEPLOYMENT_NAME = 'todo-api'
 QA_NAMESPACE = 'qa-env'
 PROD_NAMESPACE = 'prod-env'
+REGISTRY_URL = 'https://igortestacs.azurecr.io'
 
 node {
 
@@ -90,7 +91,7 @@ node {
 
     stage('QA Image Push') {
         echo "Pushing QA tags of image to docker registry"
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+        docker.withRegistry("${REGISTRY_URL}", 'docker-hub-credentials') {
             QA_IMAGE_FULL_VERSION = "qa_${IMAGE_FULL_VERSION}"
             buildEnv.push(QA_IMAGE_FULL_VERSION)
             buildEnv.push("qa_${IMAGE_SEMVER}")
@@ -125,7 +126,7 @@ node {
 
     stage('Prod Image Push') {
         echo "Pushing Production-ready tags to docker registry"
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+        docker.withRegistry("${REGISTRY_URL}", 'docker-hub-credentials') {
             PROD_IMAGE_FULL_VERSION = "${IMAGE_FULL_VERSION}"
             buildEnv.push(PROD_IMAGE_FULL_VERSION)
             buildEnv.push(IMAGE_SEMVER)
