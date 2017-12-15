@@ -75,7 +75,7 @@ kind: Service
 metadata:
   name: todo-api
 spec:
-  type: LoadBalancer
+  # type: LoadBalancer
   ports:
   - port: 8080
   selector:
