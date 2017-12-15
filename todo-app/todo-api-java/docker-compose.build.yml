@@ -18,3 +18,4 @@ services:
             AD_IDENTITY_META_DATA_URL: https://login.microsoftonline.com/architech.onmicrosoft.com/v2.0/.well-known/openid-configuration=
         depends_on:
             - mongodb
+            - user-api

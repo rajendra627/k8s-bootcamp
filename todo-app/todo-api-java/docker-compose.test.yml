@@ -1,5 +1,5 @@
 # Merge this file with docker-compose to build and run the todo-api-test container
-# `docker-compose -f docker-compose.test.yml run todo-api-test`
+# `docker-compose -f docker-compose.yml -f docker-compose.test.yml run todo-api-test`
 version: "3"
 services:
     todo-api-test:
@@ -19,5 +19,4 @@ services:
             AD_IDENTITY_META_DATA_URL: https://login.microsoftonline.com/architech.onmicrosoft.com/v2.0/.well-known/openid-configuration=
         depends_on:
             - mongodb
-    mongodb:
-            image: mongo
+            - user-api
