@@ -11,15 +11,15 @@
   - `CleanWorkspace` : Boolean. Default to unchecked.
 */
 
-node {
+// Major.minor version
+final PROJECT_VERSION = '1.0'
+final PROJECT_IMAGE_NAME = 'architechbootcamp/todo-api'
+final PROJECT_PATH = 'todo-app/todo-api-java'
+final DEPLOYMENT_NAME = 'todo-api'
+final QA_NAMESPACE = 'qa-env'
+final PROD_NAMESPACE = 'prod-env'
 
-    // Major.minor version
-    final PROJECT_VERSION = '1.0'
-    final PROJECT_IMAGE_NAME = 'architechbootcamp/todo-api'
-    final PROJECT_PATH = 'todo-app/todo-api-java'
-    final DEPLOYMENT_NAME = 'todo-api'
-    final QA_NAMESPACE = 'qa-env'
-    final PROD_NAMESPACE = 'prod-env'
+node {
 
     def buildEnv;
 
