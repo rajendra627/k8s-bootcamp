@@ -19,9 +19,9 @@ public interface TodoItemRepository extends MongoRepository<TodoItem, String> {
     @Query(value = "{ 'tags' : ?0, 'owner' : ?1 }")
     List<TodoItem> findByTagAndOwner(String tag, String owner);
 
-    @Query(value = "{ 'done': true, 'owner': ?1 }")
+    @Query(value = "{ 'done': true, 'owner': ?0 }")
     List<TodoItem> findDoneByOwner(String owner);
 
-    @Query(value = "{ 'done': false, 'owner': ?1 }")
+    @Query(value = "{ 'done': false, 'owner': ?0 }")
     List<TodoItem> findNotDoneByOwner(String owner);
 }
