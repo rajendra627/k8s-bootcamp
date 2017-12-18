@@ -29,6 +29,7 @@ func getRandomQuote(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("Looking up CNAME for %s", quoteService)
 	cName, err := net.LookupCNAME(quoteService)
+	log.Printf("CNAME for %s was %s", quoteService, cName)
 
 	if err != nil {
 		log.Fatal(err)
