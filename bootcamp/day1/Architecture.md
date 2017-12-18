@@ -23,8 +23,24 @@ The worker nodes has the following components:
 * [kubeproxy](https://kubernetes.io/docs/reference/generated/kube-proxy/) - a component that routes requests to services to the correct pods. This service plays a key role in service discovery.  It programs local ```iptable``` rules to capture requests to service IPs and routes to the proper pods.  The service IPs are looked through a DNS service that is deployed on the cluster. 
 * Container runtime - docker or rkt required to deploy your containers.
 
+## Kubernetes Resources ##
+
+When you work with Kubernetes, you need to be aware of its core resources that model the runtime behaviour of the cluster and your deployed application.  There are resources such as Pods, Deployments, Services, PersistentVolumes, etc that are defined in JSON and YAML format - actually JSON but you define these resources in YAML and it is converted to JSON before they are sent to the API server. These resources are exposed to you through the API Server so that you can perform create, update, delete, list, watch and other operations.  For organization and versioning purposes, the resources are organized into API groups (see the [API Reference](https://v1-8.docs.kubernetes.io/docs/api-reference/v1.8/)). 
+
+*Tip: To understand what objects, names, values are valid within a resource manifest, get familiar with navigating the API reference docs.*
+
+To interact with the API server, you have multiple options:
+
+* kubectl - the primary CLI tool
+* Your own client as the API Server exposes REST APIs
+* 3rd party tools such as [Helm](https://github.com/kubernetes/helm) 
+* Kubernetes Dashboard - the UI that provides runtime view of the cluster such as deployed resources, CPU, memory stats etc. It uses the API Server to retrieve the data it displays.
+
+**Bottomline - in order to configure, secure, deploy, scale your application components on K8S, you need to work with resources.**
+
 ## References ##
 
 * [Excellent community docs on K8S architecture](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/architecture/architecture.md)
 * [Large-scale cluster management at Google with Borg](https://research.google.com/pubs/pub43438.html)
 * [12 Factor Application Principles](https://12factor.net/)
+* [K8S API Reference](https://v1-8.docs.kubernetes.io/docs/api-reference/v1.8/)
