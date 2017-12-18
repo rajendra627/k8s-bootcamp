@@ -25,7 +25,7 @@ The worker nodes has the following components:
 
 ## Kubernetes Resources ##
 
-When you work with Kubernetes, you need to be aware of its core resources that model the runtime behaviour of the cluster and your deployed application.  There are resources such as Pods, Deployments, Services, PersistentVolumes, etc that are defined in JSON and YAML format - actually JSON but you define these resources in YAML and it is converted to JSON before they are sent to the API server. These resources are exposed to you through the API Server so that you can perform create, update, delete, list, watch and other operations.  For organization and versioning purposes, the resources are organized into API groups (see the [API Reference](https://v1-8.docs.kubernetes.io/docs/api-reference/v1.8/)). 
+When you work with Kubernetes, you need to be aware of its core resources that model the runtime behaviour of the cluster and your deployed application.  There are resources such as Pods, Deployments, Services, PersistentVolumes, Ingress, Roles, etc that are defined in JSON and YAML format - actually JSON but you define these resources in YAML and it is converted to JSON before they are sent to the API server. These resources are exposed to you through the API Server so that you can perform create, update, delete, list, watch and other operations.  For organization and versioning purposes, the resources are organized into API groups (see the [API Reference](https://v1-8.docs.kubernetes.io/docs/api-reference/v1.8/)). 
 
 *Tip: To understand what objects, names, values are valid within a resource manifest, get familiar with navigating the API reference docs.*
 
