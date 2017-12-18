@@ -23,6 +23,10 @@ public class TodoItemController {
 
     @Autowired
     TodoItemRepository repository;
+
+    @Autowired
+    UserService userService;
+
     private static final Log logger;
 
     static {
@@ -167,9 +171,10 @@ public class TodoItemController {
         }
     }
 
-    private static String getOwner(PreAuthenticatedAuthenticationToken authToken) {
+    private String getOwner(PreAuthenticatedAuthenticationToken authToken) {
         UserPrincipal userPrincipal = (UserPrincipal) authToken.getPrincipal();
         Map<String, Object> claims = userPrincipal.getClaims();
-        return (String) claims.get("email");
+        String email = (String) claims.get("email");
+        return userService.findUserByEmail(email).getId();
     }
 }
