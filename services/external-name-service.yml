@@ -64,6 +64,8 @@ spec:
         ports:
         - containerPort: 8000
         env:
+        #Notice the value of the environment variable
+        #is the name of the service defined above
         - name: RANDOM_QUOTE_SERVICE
           value: random-quote-service
       restartPolicy: Always
