@@ -1,6 +1,8 @@
 # Role Based Access Control #
 
-When you provision a K8S cluster on Azure Container Service using the az cli, RBAC is not enabled by default.  Therefore, everyone will have full read/write access.  But what happens if you need to provide other users/roles restricted access to the K8S cluster?  For example, you want "QA" roles having read/write access to only their environment, and "Dev" roles having read/write access to only their evironment. This is where RBAC comes into play.
+When you provision a K8S cluster on Azure Container Service using the az cli, RBAC is not enabled by default.  Therefore, everyone will have full read/write access.  But what happens if you need to provide other users/roles restricted access to the K8S cluster?  For example, you want "QA" roles having read/write access to only their environment, and "Dev" roles having read/write access to only their evironment. This is where RBAC comes into play. 
+
+**Note: ACS currently does not support RBAC.  To enable RBAC in Azure, you need to use [ACS Engine](https://github.com/Azure/acs-engine).  However, this is an advanced topic so we will be using Minikube to demonstrate RBAC in K8S**
 
 ## Objective ##
 
@@ -23,20 +25,11 @@ See [Controlling access to the K8S API](https://kubernetes.io/docs/admin/accessi
 
 ## Enabling RBAC ##
 
-In order to enable RBAC, you need to:
-1. ssh into the master node(s) and restart the kube-apiserver with ``--authorization-mode=RBAC``
-2. Define permissions (roles) that you want to grant to a given user/group
-3. Bind defined permissions to the a given user/group
-
-For 1, login to your Azure portal, navigate to the resource group where you deployed your cluster and find the master VM resource.  You can get the IP to the master and ssh into the master with 'azureuser' (The default username that selected during provisioning).  
-
-![IP address in Azure Portal](./azure-portal.png)
+* Start up minikube with the options to enable RBAC on the api-server.
 
 ```
-ssh azureuser@xxx.xxx.xxx.xxx
+minikube start --extra-config=apiserver.Authorization.Mode=RBAC
 ```
-
-For 2 and 3 see below.
 
 
 ## Reference ##
