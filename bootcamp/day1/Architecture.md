@@ -29,6 +29,10 @@ When you work with Kubernetes, you need to be aware of its core resources that m
 
 *Tip: To understand what objects, names, values are valid within a resource manifest, get familiar with navigating the API reference docs.*
 
+## Controllers ##
+
+The resources describe your desired state, the controllers work to make the desired state the current state - continuously.  There are multiple controllers that manage ReplicaSets, Deployments, and more.  They are essentially daemons that continuously watch for changes in resources and then carries out the necessary actions to put the cluster into a desired state.  This is key to K8S providing self-healing capabilities.
+
 To interact with the API server, you have multiple options:
 
 * kubectl - the primary CLI tool
