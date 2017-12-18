@@ -3,7 +3,13 @@
 # You can use any technology you wish.
 # Tag the image and push it to DockerHub or Azure Container Service
 # Deploy to K8S and test through a browser or curl
+#
+# Deploy the service: kubectl create -f stock-quote-service.yml
+# access the service at http://ip:port/stock-quote
+
 # Bonus: Implement your service so that you can pass any stock symbol as query string parameter.
+
+# pass different symbols like so http://ip:port/stock-quote?symbol=tsla
 
 apiVersion: v1
 kind: Service
