@@ -42,5 +42,5 @@ spec:
         ports:
         - containerPort:  8000
           name:  pod-port
-      restartPolicy: Always
-      imagePullPolicy: Always
+        restartPolicy: Always
+        imagePullPolicy: Always
