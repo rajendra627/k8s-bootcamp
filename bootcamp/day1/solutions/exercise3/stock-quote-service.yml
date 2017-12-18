@@ -1,0 +1,44 @@
+# Create a docker image that contains a service that integrates with the following stock quote API - https://api.iextrading.com/1.0/stock/aapl/quote.  You can use any technology you wish.
+# Tag the image and push it to DockerHub or Azure Container Service
+# Deploy to K8S and test through a browser or curl
+# Bonus: Implement your service so that you can pass any stock symbol as query string parameter.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name:  stock-quote-api
+spec:
+  selector:
+    app:  stock-quote-api
+  type:  LoadBalancer
+  ports:
+  - name:  http
+    port:  80
+    targetPort:  pod-port
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: stock-quote-api
+spec:
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: stock-quote-api
+    spec:
+      containers:
+      - name: stock-quote-api
+        image: architechbootcamp/stock-quote:1.0.0
+        resources:
+          requests:
+            cpu: "20m"
+            memory: "55M"
+          limits:
+            cpu: "20m"
+            memory: "55M"
+        ports:
+        - containerPort:  8000
+          name:  pod-port
+      restartPolicy: Always
+      imagePullPolicy: Always
