@@ -28,7 +28,9 @@ ext {
 }
 
 dependencies {
-	//compile('com.microsoft.azure:azure-active-directory-spring-boot-starter')
+	compile('com.microsoft.azure:azure-active-directory-spring-boot-starter')
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.security.oauth:spring-security-oauth2')
 	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 	compile('org.springframework.boot:spring-boot-starter-data-rest')
 	compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.0')
