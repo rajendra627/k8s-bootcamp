@@ -20,7 +20,7 @@ RUN  CI=true yarn test && yarn build
 
 #
 # ---- Release Node ----
-FROM nginx:1.13.7 AS release
+FROM nginx:1.13.7
 WORKDIR /app
 # copy production build output from build node
 COPY --from=build /root/todo-app/build .
