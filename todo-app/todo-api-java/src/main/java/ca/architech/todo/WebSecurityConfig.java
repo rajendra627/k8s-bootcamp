@@ -12,8 +12,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @EnableOAuth2Sso
 @EnableGlobalMethodSecurity(
-        securedEnabled = true,
-        prePostEnabled = true
+    securedEnabled = true,
+    prePostEnabled = true
 )
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
