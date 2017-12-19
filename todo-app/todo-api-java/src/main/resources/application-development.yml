@@ -23,4 +23,6 @@ azure:
 
 api:
   user:
-    baseUrl: http://localhost:8082
+    baseUrl: ${USER_API_BASE_URL}
+  todo:
+    isTestMode: ${IS_TEST_MODE}
