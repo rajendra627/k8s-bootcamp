@@ -11,7 +11,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import org.apache.commons.logging.LogFactory;
 
 @SpringBootApplication
-@EnableSwagger2
 @EnableMongoRepositories("ca.architech.todo")
 public class TodoApiApplication extends WebMvcConfigurerAdapter {
     private static final Log logger;
