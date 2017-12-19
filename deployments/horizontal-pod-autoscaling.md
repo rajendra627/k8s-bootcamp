@@ -1,6 +1,6 @@
 # Horizontal Pod Auto-Scaling #
 
-Horizontal Pod Auto Scaling (HPA) is a capability to scale out/in the number of pods based on resource metrics e.g. CPU  Note: stable version of the autocaling API supports only CPU scaling, beta supports both CPU and Memory and custom metrics.
+Horizontal Pod Auto Scaling (HPA) is a capability to scale out/in the number of pods based on resource metrics e.g. CPU  Note: stable version of the autocaling API (autoscaling/v1) supports only CPU scaling, beta (autoscaling/v2beta1) supports both CPU and Memory and custom metrics.
 
 In order to use auto-scaling, you should deploy your pods using deployments.  
 
