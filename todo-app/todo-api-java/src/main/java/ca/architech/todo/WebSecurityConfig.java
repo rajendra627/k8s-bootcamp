@@ -19,6 +19,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private AADAuthenticationFilter aadAuthFilter;
 
+    @Autowired
+    private Base64AuthenticationFilter base64AuthFilter;
+
     private static final Log logger;
 
     static {
@@ -35,5 +38,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.addFilterBefore(aadAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(base64AuthFilter, AADAuthenticationFilter.class);
     }
 }

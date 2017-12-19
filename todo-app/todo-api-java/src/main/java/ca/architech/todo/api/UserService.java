@@ -2,14 +2,14 @@ package ca.architech.todo.api;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-@ConfigurationProperties("api.user")
 public class UserService {
+    @Value("${api.user.baseUrl}")
     private String baseUrl;
 
     private RestTemplate restTemplate;
@@ -21,10 +21,6 @@ public class UserService {
 
     public UserService() {
         restTemplate = new RestTemplate();
-    }
-
-    public void setBaseUrl(String baseUrl) {
-        this.baseUrl = baseUrl;
     }
 
     public User findUserByEmail(String email) {
