@@ -12,6 +12,8 @@ A common question is what if you do not need replication?  You should still use 
 
 Note, in previous versions of K8S, you interacted directly with ReplicationControllers and ReplicaSets to manage the replica count of your pods.  With Deployments, you no longer should deal directly with ReplicaSets, in fact, Deployments manages the ReplicaSets for you.
 
+See [Exercise 1](../bootcamp/day1/exercise1.md) for deployment examples.
+
 ## References ##
 
 - [Deployment docs at k8s.io](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
