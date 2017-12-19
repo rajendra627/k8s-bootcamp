@@ -12,7 +12,7 @@ Custom metrics can be any metric that is captured about your pods or even other 
 
 See [php-apache-hpa.yml](./php-apache-hpa.yml) for autoscaling/v1 and [hpa.v2beta1.yml](./hpa.v2beta1.yml) for autoscaling/v2beta1.
 
-*Note: Before you leverage autoscaling, you should understand [pod disruptions](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/) in order to ensure your application behaves appropriately in situations the autoscaler scales in the number of pods.*
+*Note: Before you leverage autoscaling, you should understand [pod disruptions and pod disruption budgets](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/) in order to ensure your application availability constraints are respected*
 
 ## References ##
 
