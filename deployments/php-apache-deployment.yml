@@ -1,3 +1,5 @@
+# Based on the HPA walkthrough at k8s.io https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/
+
 kind: Service
 apiVersion: v1
 metadata:
