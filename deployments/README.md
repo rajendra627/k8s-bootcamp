@@ -8,6 +8,8 @@ Deployments enable you to define the "desired state" of your pods.  The deployme
 * Pause a deployment
 * Rollback a deployment
 
+A common question is what if you do not need replication?  You should still use deployments as you benefit from resilience, rollback, and [horizontal auto-scaling](./auto-scaling.md) capabilities.
+
 Note, in previous versions of K8S, you interacted directly with ReplicationControllers and ReplicaSets to manage the replica count of your pods.  With Deployments, you no longer should deal directly with ReplicaSets, in fact, Deployments manages the ReplicaSets for you.
 
 ## References ##
