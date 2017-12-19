@@ -25,6 +25,9 @@ import java.util.*;
 
 @Component
 public class Base64AuthenticationFilter extends OncePerRequestFilter {
+    private static final String AUTHORIZATION_HEADER_NAME = "Authorization";
+    private static final String BEARER_TOKEN_PREFIX = "Bearer";
+
     @Value("${api.todo.isTestMode:false}")
     private String isTestMode;
 
@@ -39,9 +42,11 @@ public class Base64AuthenticationFilter extends OncePerRequestFilter {
             HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         HttpServletRequest requestToForward = request;
-        if (Boolean.parseBoolean(isTestMode)) {
+        String authToken = getAuthorizationHeader(request);
+
+        if (Boolean.parseBoolean(isTestMode) && authToken != null) {
             logger.info("Using Base 64 authentication");
-            User authenticatedUser = getUser(request);
+            User authenticatedUser = getUser(authToken);
             logger.info(String.format("Decoded user from Base 64 header - %s", authenticatedUser));
 
             UserPrincipal userPrincipal = new Base64AuthenticationUserPrincipal(authenticatedUser);
@@ -56,26 +61,23 @@ public class Base64AuthenticationFilter extends OncePerRequestFilter {
     }
 
     private String getAuthorizationHeader(HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer")) {
-            throw new RuntimeException("Invalid authorization header");
+        String authHeader = request.getHeader(AUTHORIZATION_HEADER_NAME);
+        if (authHeader == null || !authHeader.startsWith(BEARER_TOKEN_PREFIX)) {
+            return null;
         }
 
-        return authHeader.replace("Bearer", "").trim();
+        return authHeader.replace(BEARER_TOKEN_PREFIX, "").trim();
     }
 
-    private User getUser(HttpServletRequest request) throws IOException {
-        String base64Header = getAuthorizationHeader(request);
+    private User getUser(String authToken) throws IOException {
         Base64.Decoder decoder = Base64.getDecoder();
-        String serializedUser = new String(decoder.decode(base64Header), "UTF-8");
+        String serializedUser = new String(decoder.decode(authToken), "UTF-8");
 
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(serializedUser, User.class);
     }
 
     private HttpServletRequest removeAuthorizationHeader(HttpServletRequest request) {
-        final String AUTHORIZATION = "Authorization";
-
         return new HttpServletRequestWrapper(request) {
             @Override
             public Enumeration<String> getHeaderNames() {
@@ -83,7 +85,7 @@ public class Base64AuthenticationFilter extends OncePerRequestFilter {
                 Enumeration<String> allHeaderNames = super.getHeaderNames();
                 while (allHeaderNames.hasMoreElements()) {
                     String headerName = allHeaderNames.nextElement();
-                    if (!headerName.equalsIgnoreCase(AUTHORIZATION)) {
+                    if (!headerName.equalsIgnoreCase(AUTHORIZATION_HEADER_NAME)) {
                         filteredNames.add(headerName);
                     }
                 }
@@ -92,7 +94,7 @@ public class Base64AuthenticationFilter extends OncePerRequestFilter {
 
             @Override
             public Enumeration<String> getHeaders(String name) {
-                if (name.equalsIgnoreCase(AUTHORIZATION)) {
+                if (name.equalsIgnoreCase(AUTHORIZATION_HEADER_NAME)) {
                     return Collections.emptyEnumeration();
                 }
                 return super.getHeaders(name);
@@ -100,7 +102,7 @@ public class Base64AuthenticationFilter extends OncePerRequestFilter {
 
             @Override
             public String getHeader(String name) {
-                if (name.equalsIgnoreCase(AUTHORIZATION)) {
+                if (name.equalsIgnoreCase(AUTHORIZATION_HEADER_NAME)) {
                     return null;
                 }
                 return super.getHeader(name);
