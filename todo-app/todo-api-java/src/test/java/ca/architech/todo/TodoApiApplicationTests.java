@@ -1,7 +1,8 @@
 package ca.architech.todo;
 
-import ca.architech.todo.api.Priority;
-import ca.architech.todo.api.TodoItem;
+import ca.architech.todo.models.Priority;
+import ca.architech.todo.models.TodoItem;
+import ca.architech.todo.services.TodoItemRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

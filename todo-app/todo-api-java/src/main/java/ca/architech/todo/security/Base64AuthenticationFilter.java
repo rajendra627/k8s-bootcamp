@@ -1,6 +1,6 @@
-package ca.architech.todo;
+package ca.architech.todo.security;
 
-import ca.architech.todo.api.User;
+import ca.architech.todo.models.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.azure.spring.autoconfigure.aad.UserGroup;
 import com.microsoft.azure.spring.autoconfigure.aad.UserPrincipal;

@@ -1,7 +1,7 @@
-package ca.architech.todo;
+package ca.architech.todo.services;
 
-import ca.architech.todo.api.Priority;
-import ca.architech.todo.api.TodoItem;
+import ca.architech.todo.models.Priority;
+import ca.architech.todo.models.TodoItem;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 

@@ -1,6 +1,9 @@
 package ca.architech.todo.api;
 
-import ca.architech.todo.TodoItemRepository;
+import ca.architech.todo.services.TodoItemRepository;
+import ca.architech.todo.models.Priority;
+import ca.architech.todo.models.TodoItem;
+import ca.architech.todo.services.UserService;
 import com.microsoft.azure.spring.autoconfigure.aad.UserPrincipal;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -9,10 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
-import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;

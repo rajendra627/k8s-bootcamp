@@ -1,4 +1,4 @@
-package ca.architech.todo;
+package ca.architech.todo.security;
 
 import com.microsoft.azure.spring.autoconfigure.aad.AADAuthenticationFilter;
 import org.apache.commons.logging.Log;
