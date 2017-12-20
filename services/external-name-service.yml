@@ -17,6 +17,19 @@ spec:
   type:  ExternalName
   externalName: quotes.rest #must be a valid DNS name.  e.g. you can't do https://quotes.rest/qod
 ---
+kind: Service
+apiVersion: v1
+metadata:
+  name:  random-quote
+spec:
+  selector:
+    name: random-quote-api
+  type:  LoadBalancer
+  ports:
+  - name:  name-of-the-port
+    port:  80
+    targetPort:  8000 
+---
 # This is the deployment and pod template for the API that will
 # integrate with the random-quote-service
 apiVersion: extensions/v1beta1
@@ -26,7 +39,7 @@ metadata:
   labels:
     name:  random-quote-api
 spec:
-  replicas: 2
+  replicas: 1
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -39,6 +52,7 @@ spec:
     spec:
       containers:
       - image:  architechbootcamp/random-quote:1.0.0
+        imagePullPolicy: Always
         name:  random-quote-api
         resources:
           requests:
@@ -47,8 +61,11 @@ spec:
           limits:
             cpu: "20m"
             memory: "55M"
-        restartPolicy: Always
-        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
         env:
+        #Notice the value of the environment variable
+        #is the name of the service defined above
         - name: RANDOM_QUOTE_SERVICE
           value: random-quote-service
+      restartPolicy: Always

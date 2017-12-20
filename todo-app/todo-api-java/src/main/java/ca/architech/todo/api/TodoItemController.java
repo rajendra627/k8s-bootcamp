@@ -1,29 +1,35 @@
 package ca.architech.todo.api;
 
-import ca.architech.todo.TodoItemRepository;
+import ca.architech.todo.models.TodoItem;
+import ca.architech.todo.services.TodoService;
+import com.microsoft.azure.spring.autoconfigure.aad.UserPrincipal;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
-import java.net.URI;
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/todos")
 public class TodoItemController {
-
-    @Autowired
-    TodoItemRepository repository;
     private static final Log logger;
 
     static {
         logger = LogFactory.getLog(TodoItemController.class);
+    }
+
+    private TodoService todoService;
+
+    @Autowired
+    public TodoItemController(TodoService todoService) {
+        this.todoService = todoService;
     }
 
     @GetMapping(value = "/healthcheck")
@@ -33,125 +39,62 @@ public class TodoItemController {
     }
 
     @GetMapping()
-    public List<TodoItem> getTodoItems() {
-        return repository.findAll();
-    }
-
-    @GetMapping(value = "/{id}")
-    public TodoItem getTodoItem(@PathVariable String id, HttpServletResponse response) {
-        logger.info(String.format("get Todo item with id: %s", id));
-        TodoItem item = repository.findById(id);
-
-        if (item == null) {
-            response.setStatus(HttpStatus.NOT_FOUND.value());
-            return null;
-        }
-
-        return item;
-    }
-
-    @GetMapping(value = "/priority/{priority}")
-    List<TodoItem> getTodoItemsForPriority(@PathVariable Priority priority, HttpServletResponse response) {
-
-        List<TodoItem> items = repository.findByPriority(priority);
-        if (items == null || items.isEmpty()) {
-            response.setStatus(HttpStatus.NOT_FOUND.value());
-            return null;
-        }
-
-        return items;
-    }
-
-
-    @GetMapping(value = "/duedate/{dueDate}")
-    public List<TodoItem> getTodoItemsByDueDate(@PathVariable LocalDate dueDate, HttpServletResponse response) {
+    public ResponseEntity<List<TodoItem>> getTodoItems(PreAuthenticatedAuthenticationToken authToken) {
         try {
-            return repository.findAllByOrderByDueDateDesc();
+            List<TodoItem> todoItems = todoService.getTodos(getEmail(authToken));
+            logger.info(String.format("Returning %d Todo items", todoItems.size()));
+            return new ResponseEntity<>(todoItems, HttpStatus.OK);
         } catch (Exception e) {
-            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-            logger.error("Failed to get items by due date", e);
-            return null;
-        }
-    }
-
-    @GetMapping(value = "/tags/{tag}")
-    public List<TodoItem> getTodoItemsByTag(@PathVariable String tag, HttpServletResponse response) {
-        if (tag.isEmpty()) {
-            logger.error("invalid tag was submitted.");
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
-            return null;
-        }
-
-        logger.info(String.format("get todo items by tag: %s", tag));
-        return repository.findByTag(tag);
-    }
-
-    @PatchMapping(value = "/{id}/{tag}")
-    public ResponseEntity<HttpStatus> addTagToItem(@PathVariable String id, @PathVariable String tag) {
-        logger.info(String.format("Adding %s to item with id=%s", tag, id));
-        try {
-            TodoItem item = repository.findById(id);
-            item.addTag(tag);
-            repository.save(item);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("Failed to add tag to item", e);
+            logger.error("Error when fetching Todo items", e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping()
-    public ResponseEntity<HttpStatus> updateTodoItem(@RequestBody TodoItem todoItem) {
-        logger.info(String.format("updating todo item: %s", todoItem));
-
+    public ResponseEntity<TodoItem> updateTodoItem(@RequestBody TodoItem todoItem,
+            PreAuthenticatedAuthenticationToken authToken) {
         try {
-            TodoItem item = repository.findById(todoItem.getId());
-
-            if (item == null)
-                return new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
-
-            repository.save(todoItem);
-
-            return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+            Optional<TodoItem> updatedItem = todoService.updateTodo(todoItem, getEmail(authToken));
+            if (!updatedItem.isPresent()) {
+                logger.info(String.format("Todo item is not found - %s", todoItem.getId()));
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            logger.info(String.format("Todo item is successfully updated - %s", todoItem.getId()));
+            return new ResponseEntity<>(updatedItem.get(), HttpStatus.OK);
         } catch (Exception e) {
-            logger.error("Failed to update item", e);
-            return new ResponseEntity<HttpStatus>(HttpStatus.INTERNAL_SERVER_ERROR);
+            logger.error("Error when updating a Todo item", e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping()
-    public TodoItem createTodoItem(@RequestBody TodoItem todoItem, HttpServletResponse response) {
-        logger.info(String.format("creating new todo item: %s", todoItem));
-        TodoItem newItem;
-
+    public ResponseEntity<TodoItem> createTodoItem(@RequestBody TodoItem todoItem,
+            PreAuthenticatedAuthenticationToken authToken, HttpServletResponse response) {
         try {
-            newItem = repository.insert(todoItem);
-            logger.info("New todo item created with id: $newItem.id");
-            return newItem;
+            TodoItem newItem = todoService.createTodo(todoItem, getEmail(authToken));
+            logger.info(String.format("New Todo item is successfully created - %s", newItem.getId()));
+            return new ResponseEntity<>(newItem, HttpStatus.CREATED);
         } catch (Exception e) {
-            logger.error("Failed to create new item: ${todoItem.id}", e);
-            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-            return null;
+            logger.error("Error when creating a new Todo item", e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deletePost(@PathVariable String id) {
-        //when is like the Java switch but more powerful
-        //notice it evaluates to an expression
-        //and because it is an expression, we can use the expression body syntax
-        //for functions
-        TodoItem item = repository.findById(id);
-
-        if (item == null) {
-            logger.info(String.format("Todo item not found for id: %s", id));
+    public ResponseEntity<TodoItem> deletePost(@PathVariable String id,
+            PreAuthenticatedAuthenticationToken authToken) {
+        Optional<TodoItem> deletedItem = todoService.deleteTodo(id, getEmail(authToken));
+        if (!deletedItem.isPresent()) {
+            logger.info(String.format("Todo item is not found - %s", id));
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        } else {
-            repository.delete(id);
-            logger.info(String.format("TodoItem with id: %s deleted.", id));
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }
+        logger.info(String.format("Todo item is successfully deleted - %s", id));
+        return new ResponseEntity<>(deletedItem.get(), HttpStatus.ACCEPTED);
+    }
+
+    private String getEmail(PreAuthenticatedAuthenticationToken authToken) {
+        UserPrincipal userPrincipal = (UserPrincipal) authToken.getPrincipal();
+        Map<String, Object> claims = userPrincipal.getClaims();
+        return (String) claims.get("email");
     }
 }
-
-

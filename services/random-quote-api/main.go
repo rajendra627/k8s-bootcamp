@@ -6,6 +6,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"os"
 
@@ -26,7 +27,15 @@ func getRandomQuote(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Getting random quote from %s for request from %s\n",
 		quoteService, r.RemoteAddr)
 
-	url := fmt.Sprintf("https://%s/qod", quoteService)
+	log.Printf("Looking up CNAME for %s", quoteService)
+	cName, err := net.LookupCNAME(quoteService)
+	log.Printf("CNAME for %s was %s", quoteService, cName)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	url := fmt.Sprintf("https://%s/qod", cName)
 
 	resp, err := resty.R().Get(url)
 

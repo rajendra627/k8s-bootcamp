@@ -1,3 +1,9 @@
+#Replace account_id with your Azure subscription ID
+#You can retrieve it using the cli like so:
+# 
+# az account show
+#
+# The subscription ID is the value of the "id" field
 account_id="f6de0a1c-8065-430a-92d0-2dd8fff759bf"
 echo " setting the account id to $account_id"
 rgname="tech-demo-acr-rg"
