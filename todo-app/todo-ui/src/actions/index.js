@@ -1,7 +1,76 @@
 import fetch from 'cross-fetch';
 import actionTypes from './actionTypes';
 import BASE_API_URL from '../constants/api';
-import handleErrors from '../utils/fetchErrorHandler'
+import handleErrors from '../utils/fetchErrorHandler';
+import AuthenticationContext from 'adal-vanilla';
+import adalConfig from '../constants/adalConfig';
+import AuthUtil from '../utils/authUtil';
+
+export const loginRequest = () => {
+  return {
+    type: actionTypes.LOGIN_REQUEST
+  }
+};
+
+export const successfulLogin = (user, token) => {
+  return {
+    type: actionTypes.LOGIN_SUCCESS,
+    token: token,
+    user: user
+  }
+};
+
+export const authenticationSuccess = (token) => {
+  return function (dispatch) {
+    //get user
+    fetch('http://localhost:8082/api/user', { headers: {'Authorization': 'Bearer ' + token } })
+      .then((response) => {
+        if (response.statusCode === 401) {
+          throw new Error()
+        }else return response.json()
+      })
+      .then((user) => {
+        AuthUtil.setAuthenticatedUser(user, token);
+        dispatch(successfulLogin(user, token));
+      })
+      .catch((err) => {
+        console.log('error',err);
+        fetch('http://localhost:8082/api/user', { method: 'post', headers: {'Authorization': 'Bearer ' + token } })
+          .then(handleErrors)
+          .then((user) => {
+            AuthUtil.setAuthenticatedUser(user, token);
+            dispatch(successfulLogin(user, token));
+          })
+      });
+  };
+};
+
+export const loginFailed = (error) => {
+  return {
+    type: actionTypes.LOGIN_FAILURE,
+    error: error
+  }
+};
+
+export const ADLogin = () => {
+  return function (dispatch) {
+    dispatch(loginRequest());
+    new AuthenticationContext(adalConfig).login();
+  };
+};
+
+export const loggedOut = () => {
+  return {
+    type: actionTypes.LOGGED_OUT
+  }
+};
+
+export const logOut = () => {
+  return function (dispatch) {
+    AuthUtil.clearUser();
+    dispatch(loggedOut());
+  }
+};
 
 export const setLoading = (loading) => {
   return {
@@ -59,7 +128,6 @@ export const createTodo = (todo) => {
         }
       )
       .then(newTodo => {
-        console.log(newTodo);
         dispatch(addedTodo(newTodo));
         dispatch(setLoading(false));
         dispatch(setError({error:false, errorMessage:''}))
@@ -171,6 +239,9 @@ export const fetchTodos = () => {
         dispatch(setError({error:false, errorMessage:''}))
       })
       .catch(err => {
+        if (err.statusCode === 401){
+          AuthUtil.clearUser();
+        }
         dispatch(setError({error: true, errorMessage: err.message}));
         dispatch(setLoading(false));
       })
