@@ -8,3 +8,5 @@ You should have successfully set up your environment as outlined in [Day1/setup]
 
 In this exercise you will create persistent volumes, persistent volume claims and storage classes.
 
+* Complete the task on K8S.io on [configuring persistent volume storage](https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/)
+
