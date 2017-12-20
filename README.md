@@ -55,6 +55,7 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
     - Accessing services external to your cluster. e.g. Azure CosmosDB service
 - [Deployments](./deployments/README.md) - Deployments enable you to perform rolling upgrades, rollback, and scale up/scale down your services.
 - [Storage](./storage/README.md) - Volumes, Persistent Volumes, Persistence Volume Claims, Storage Classes. 
+- [ConfigMaps](./configmaps/README.md) - ConfigMaps enable you to define configuration that is accessible as environment variables, files in a volume or command line arguments.
 
 ### Day 2 Outline: ###
 
