@@ -1,5 +1,6 @@
-package ca.architech.todo.api;
+package ca.architech.todo.models;
 
+import ca.architech.todo.models.Priority;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
