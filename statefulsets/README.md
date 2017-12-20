@@ -10,6 +10,8 @@ For example, certain databases, you need to access a specific node in the cluste
 
 When you have such requirements, then statefulsets are the way to go.  If you do not have such requirements, then Deployments with Persistent Volumes may be all you need.
 
+*Note: prior to 1.9 statefulsets are still Beta*
+
 ## References ##
 
 - [Statefulsets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
