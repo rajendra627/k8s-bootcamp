@@ -10,7 +10,7 @@ See an excellent overview of how service discovery is implemented as well as the
 
 * See [pod-details-service](./pod-details-service.yml) that shows a service that routes to 5 instances of a pod.
 
-When you use services, you need to decide if they need to be exposed only internal to your K8S cluster or externally to clients outside your cluster (e.g. mobile apps).  In general, you should only publish services that need to be published to reduce the security exposure.  How you define the way your services are exposed is through the service type.
+When you use services, you need to decide if they need to be exposed only internal to your K8S cluster or externally to clients outside your cluster (e.g. mobile apps).  In general, you should only publish services that need to be published to reduce coupling and security exposure.  How you define the way your services are exposed is through the service type.
 
 * ClusterIP - exposed only internally.  This is the default.
 * LoadBalancer - exposed externally using a load balancer provisioned by the cloud provider

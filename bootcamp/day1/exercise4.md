@@ -10,8 +10,7 @@ In this exercise you are going to use Deployments to deploy multiple replicas of
 
 ### Create a Deployment and perform rolling updates and rollbacks ###
 
-* Create a docker image with contains simple HTTP service that returns a random number and today's date.  You can use any technology you wish.
-* Deploy the container with 4 replicas
-* Update the simple HTTP Service to return just a random number and do a rolling update
-* Rollback the update and verify that you see a random numer and today's date
+* Deploy the [pod-detail-service](../../services/pod-details-service.yml)
 * Pull one of the pods from the replicaset by changing its label.  Confirm that the deployment creates a another replica.
+* Update the image version for the container to **architechbootcamp/pod-details:1.0.1** then immediately check the status of the deployment
+* Rollback the deployment to image version **architechbootcamp/pod-details:1.0.0**

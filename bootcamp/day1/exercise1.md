@@ -95,7 +95,7 @@ kubectl rollout status deployment/todo-api-deployment
 
 Now let's rollback!
 ```
-kubectl rollout undeo deployment/todo-api-deployment
+kubectl rollout undo deployment/todo-api-deployment
 ```
 
 ### Next ... ###

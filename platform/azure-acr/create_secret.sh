@@ -1,3 +1,4 @@
+#Create your own values for these variables
 secretname="techdemosecret"
 password="9UDu338japoI=OC6oQLcVCOB8TBC3hcS"
 server="https://techdemoacr.azurecr.io"

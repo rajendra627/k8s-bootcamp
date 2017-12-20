@@ -1,7 +1,8 @@
 package ca.architech.todo;
 
-import ca.architech.todo.api.Priority;
-import ca.architech.todo.api.TodoItem;
+import ca.architech.todo.models.Priority;
+import ca.architech.todo.models.TodoItem;
+import ca.architech.todo.services.TodoItemRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -64,7 +65,7 @@ public class TodoApiApplicationTests {
 		assert(!items.isEmpty());
 
 		String id = "123456789";
-		TodoItem item = repository.findById(id);
+		TodoItem item = repository.findByIdAndOwner(id, id);
 
 		assertThat(item.getId()).isEqualTo(id);
 	}
@@ -74,19 +75,19 @@ public class TodoApiApplicationTests {
 		assert(!repository.findAll().isEmpty());
 
 		String tag = "training";
-		List<TodoItem> items = repository.findByTag(tag);
+		List<TodoItem> items = repository.findByTagAndOwner(tag, "345678901");
 
 		assertThat(items).hasSize(1);
 	}
 
 	@Test
 	public void findDone() {
-		assertThat(repository.findDone()).size().isEqualTo(1);
+		assertThat(repository.findDoneByOwner("345678901")).size().isEqualTo(1);
 	}
 
 	@Test
 	public void findNotDone() {
-		assertThat(repository.findNotDone()).size().isEqualTo(2);
+		assertThat(repository.findNotDoneByOwner("123456789")).size().isEqualTo(1);
 	}
 
 	/**

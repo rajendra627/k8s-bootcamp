@@ -23,6 +23,11 @@ h1[data-toggle="collapse"].collapsed:before
     bottom: 5px;
 }
 
+h1 small{
+    vertical-align: super;
+    font-size: 50%;
+}
+
 .past-due-container .todo-container .todo-item.not-done .date-container{
     -webkit-animation-name: over-due; /* Safari 4.0 - 8.0 */
     -webkit-animation-duration: 2s; /* Safari 4.0 - 8.0 */
@@ -34,7 +39,7 @@ h1[data-toggle="collapse"].collapsed:before
 }
 
 @-webkit-keyframes over-due {
-    0% {color: red; text-shadow: 0 0 1px rgba(255, 0, 0, 0.2);}
-    50% {color: red; text-shadow: 0 0 1px rgba(255, 0, 0, 0.8);}
-    100% {color: red; text-shadow: 0 0 1px rgba(255, 0, 0, 0.2);}
+    0% {color: red; text-shadow: 0 0 1px rgba(253, 100, 5, 0.2);}
+    50% {color: red; text-shadow: 0 0 1px rgba(253, 100, 5, 0.8);}
+    100% {color: red; text-shadow: 0 0 1px rgba(253, 100, 5, 0.2);}
 }

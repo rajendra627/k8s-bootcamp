@@ -1,4 +1,4 @@
-package ca.architech.todo.api;
+package ca.architech.todo.models;
 
 public enum Priority {
     HIGH,

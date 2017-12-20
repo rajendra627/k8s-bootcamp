@@ -1,6 +1,6 @@
 # Merge this file with docker-compose to be build and run the todo-ui container
 # `docker-compose -f docker-compose.yml -f docker-compose.build.yml build`
-# `docker-compose -f docker-compose.yml -f docker-compose.build.yml up --scale nginx=0`
+# `docker-compose -f docker-compose.yml -f docker-compose.build.yml up`
 version: "3"
 services:
   todo-ui:
