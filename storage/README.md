@@ -12,6 +12,14 @@ See [here](https://github.com/kubernetes/examples/blob/master/staging/volumes/az
 
 With Volumes the life-cycle of the storage is tied to the pod.  This means the volume survives container restarts, however, if the pod is destroyed, the volume storage will be blown away. This is not appropriate for applications such as databases that require the data is saved even if the pod is rescheduled to another node.
 
+Persistent Volumes are a volume type that is pre-provisioned by the cluster admin - they can be provisioned statically or dynamically.  Persistent Volume Claims are how pods "claim" the provisioned storage. In the claim is the request for amount of storage and access modes. A claim is fulfilled if there is a PV that meets the criteria specified in the claim.  Note this means that it is possible for a claim not to be fulfilled.  Once a PVC is bound to a PV, that relationship is one to one. What this means is that even if the Pod is rescheduled, the volume is not reallocated because there is a PVC that claims that volume.  The volume is only reallocated when the PVC is removed.  
+
+*Note: It is very important that you do not remove PVCs indiscriminantly!!! K8S 1.9 does have an alpha feature that will not remove PVCs that are in active use by a pod.  However, this needs to be enabled and prior versions do not have any such safety net.*
+
+
+
+
+
 
 
 
