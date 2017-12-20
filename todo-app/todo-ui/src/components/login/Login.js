@@ -99,7 +99,7 @@ class Login extends Component {
                   </div>
 
                   <div className="form-group">
-                    <button type="submit" className="btn btn-primary">Submit <i class="fa fa-sign-in"/></button>
+                    <button type="submit" className="btn btn-primary">Submit <i className="fa fa-sign-in"/></button>
                   </div>
                 </form>
               </div>
