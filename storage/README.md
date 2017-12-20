@@ -21,7 +21,35 @@ Persistent Volume Claims (PVC) are how pods "claim" the provisioned storage. In 
 *Note: How a PV is reclaimed after a PVC is removed depends on the reclaim policy - Retain, Recycle, Delete. Delete is the most destructive as it also deletes the PV and the underlying backing storage.  Not all storage providers support all policies. See [reclaim policies](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#reclaiming) for details*
 
 
+## Storage Classes ##
 
+To find out what storage classes have been defined for you cluster run:
+
+```
+kubectl get storageclasses
+
+#On Azure, this is returned
+
+NAME                PROVISIONER
+azurefile           kubernetes.io/azure-file
+default (default)   kubernetes.io/azure-disk
+managed-premium     kubernetes.io/azure-disk
+managed-standard    kubernetes.io/azure-disk
+```
+
+Notice the default storage class is azure-disk.  This is the class that is used if a PVC does not specify a storage class.  To use a different storage class you would specify the desired storage class in your PVC's ``storageClassName`` attribute.
+
+To get details of a specific storage class run:
+
+```
+kubectl describe storageclass/managed-premium
+```
+
+To get the details in yaml format run:
+
+```
+kubectl get storageclass/managed-premium -o=yaml
+```
 
 
 
