@@ -16,6 +16,12 @@ Persistent Volumes (PV) are a volume type that is pre-provisioned/defined by the
 
 Persistent Volume Claims (PVC) are how pods "claim" the provisioned storage. In the claim is the request for amount of storage and access modes. A claim is fulfilled if there is a PV that meets the criteria specified in the claim.  Note this means that it is possible for a claim not to be fulfilled.  Once a PVC is bound to a PV, that relationship is one to one. What this means is that even if the Pod is rescheduled, the volume is not reallocated because there is a PVC that claims that volume.  The volume is only reallocated when the PVC is removed.  
 
+See the following example manifests from K8S.io:
+
+* [task-pv-volume.yml](./task-pv-volume.yml)
+* [task-pv-claim.yml](./task-pv-claim.yml)
+* [task-pv-pod.yml](./task-pv-pod.yml)
+
 *Note: It is very important that you do not remove PVCs indiscriminantly!!! K8S 1.9 does have an alpha feature that will not remove PVCs that are in active use by a pod.  However, this needs to be enabled and prior versions do not have any such safety net.*
 
 *Note: How a PV is reclaimed after a PVC is removed depends on the reclaim policy - Retain, Recycle, Delete. Delete is the most destructive as it also deletes the PV and the underlying backing storage.  Not all storage providers support all policies. See [reclaim policies](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#reclaiming) for details*
@@ -23,12 +29,18 @@ Persistent Volume Claims (PVC) are how pods "claim" the provisioned storage. In 
 
 ## Storage Classes ##
 
+*Note: You only need to be aware of storage classes if you are a cluster admin.*
+
+Storage classes enable cluster admins to define different classes of persistent volumes.  These classes could vary in storage size, access modes, reclaim policy, storage provider (e.g. Azure, AWS, NFS, etc) and more.  The cluster admin can also specify a default storage class for those PVCs that do not specify a storage class.  If the cluster admin wants to enable dynamic provisioning of the underlying storage, then they must define storage classes.   
+
+Storage classes also serves to abstract away the underlying storage implementation from the pod. This is beneficial when you have developers using a tool like minikube for development and production uses K8S on a cloud provider like Azure.  Instead of the pod definition being aware of the underlying storage implementation, it can use a PVC that specifies a storage class that uses the same name but different implementation across environments.
+
 To find out what storage classes have been defined for you cluster run:
 
 ```
 kubectl get storageclasses
 
-#On Azure, this is returned
+#On Azure, this is what is returned
 
 NAME                PROVISIONER
 azurefile           kubernetes.io/azure-file
@@ -50,12 +62,6 @@ To get the details in yaml format run:
 ```
 kubectl get storageclass/managed-premium -o=yaml
 ```
-
-
-
-
-
-
 
 ## References ##
 
