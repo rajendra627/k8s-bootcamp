@@ -1,7 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongodb
+  name:  {{ .Values.Mongo.ServiceName }}
+  namespace: {{.Values.General.NameSpace}}
 spec:
   ports:
   - port: {{ .Values.Mongo.ServicePort }}
@@ -13,12 +14,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.TodoAPI.Name }}
+  name: {{ .Values.TodoAPI.ServiceName }}
+  namespace: {{.Values.General.NameSpace}}
 spec:
   type: LoadBalancer
   ports:
   - port: {{ .Values.TodoAPI.ServicePort }}
   selector:
-    app: todo-api
+    app: {{ .Values.TodoAPI.Name }}
     tier: backend
     environment: {{.Values.General.Environment}}
