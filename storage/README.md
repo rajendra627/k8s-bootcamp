@@ -33,6 +33,8 @@ See the following example manifests from K8S.io:
 
 Storage classes enable cluster admins to define different classes of persistent volumes.  These classes could vary in storage size, access modes, reclaim policy, storage provider (e.g. Azure, AWS, NFS, etc) and more.  The cluster admin can also specify a default storage class for those PVCs that do not specify a storage class.  If the cluster admin wants to enable dynamic provisioning of the underlying storage, then they must define storage classes.   
 
+*Note: All cloud providers provide pre-defined storage classes.  You can define others as you see fit for your requirements*
+
 Storage classes also serves to abstract away the underlying storage implementation from the pod. This is beneficial when you have developers using a tool like minikube for development and production uses K8S on a cloud provider like Azure.  Instead of the pod definition being aware of the underlying storage implementation, it can use a PVC that specifies a storage class that uses the same name but different implementation across environments.
 
 To find out what storage classes have been defined for you cluster run:

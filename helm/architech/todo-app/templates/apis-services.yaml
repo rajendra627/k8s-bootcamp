@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+spec:
+  ports:
+  - port: {{ .Values.Mongo.ServicePort }}
+  selector:
+    app: {{ .Values.Mongo.Name }}
+    tier: data-tier
+    environment: {{.Values.General.Environment}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.TodoAPI.Name }}
+spec:
+  type: LoadBalancer
+  ports:
+  - port: {{ .Values.TodoAPI.ServicePort }}
+  selector:
+    app: todo-api
+    tier: backend
+    environment: {{.Values.General.Environment}}
