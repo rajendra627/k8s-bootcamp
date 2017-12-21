@@ -4,14 +4,14 @@
 # name: value
 
 
-
 General:
   Version : 1.0
-  namespace: todoapp
   Environment: prod
+  NameSpace: todoapp
 
 WebUI:
-  Name: webui
+  Name: web-ui
+  ServiceName: todo-webui-service
   Image: "architechbootcamp/todo-ui"
   ImageTag: "v0.2"
   Replicas: 1
@@ -20,6 +20,7 @@ WebUI:
 
 TodoAPI:
   Name: todo-api
+  ServiceName: todo-api
   Image: "architechbootcamp/todo-api"
   ImageTag: "v0.2"
   Replicas: 1
@@ -28,6 +29,7 @@ TodoAPI:
 
 Mongo:
   Name: mongo
+  ServiceName: mongodb
   Image: "mongo"
   Replicas: 1
   ServicePort: 27017

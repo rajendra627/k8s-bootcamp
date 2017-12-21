@@ -2,13 +2,14 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: web-ui
+  name:  {{.Values.WebUI.Name}}
+  namespace: {{.Values.General.NameSpace}}
 spec:
   replicas: {{.Values.WebUI.Replicas}}
   template:
     metadata:
       labels:
-        app: web-ui
+        app:  {{.Values.WebUI.Name}}
         tier: frontend
         environment: {{.Values.General.Environment}}
     spec:
