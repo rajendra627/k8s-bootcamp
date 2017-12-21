@@ -49,8 +49,9 @@ public class TodoService {
         if (matchingItem != null) {
             todoItem.setOwner(owner);
             repository.save(todoItem);
+            return Optional.of(todoItem);
         }
-        return Optional.ofNullable(todoItem);
+        return Optional.empty();
     }
 
     public Optional<TodoItem> deleteTodo(String id, String email) {
