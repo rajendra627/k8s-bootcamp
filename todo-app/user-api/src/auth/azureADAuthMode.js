@@ -2,7 +2,7 @@ const passport = require('passport');
 const BearerStrategy = require('passport-azure-ad').BearerStrategy;
 
 const config = require('../config');
-
+const logger = require('../logger');
 
 const strategy = new BearerStrategy(
     {
@@ -13,8 +13,9 @@ const strategy = new BearerStrategy(
         isB2C: false,
         allowMultipleAudiencesInToken: false
     },
-    (req, {upn, given_name, family_name}, done) => {
-        done(null, {email: upn, firstName: given_name, lastName: family_name});
+    (req, {upn, email, given_name, family_name}, done) => {
+        logger.info(`AD Response: UPN=${upn}, EMAIL=${email}, GIVEN_NAME=${given_name}, FAMILY_NAME=${family_name}`)
+        done(null, {email: upn || email, firstName: given_name, lastName: family_name});
     }
 );
 
