@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: todoapp-config
-  # namespace: todoapp
+  namespace: {{.Values.General.NameSpace}}
 data:
   db_url: mongodb:27017
   spring_log_level: INFO

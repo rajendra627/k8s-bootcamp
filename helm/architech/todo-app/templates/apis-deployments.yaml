@@ -2,13 +2,14 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: mongo
+  namespace: {{.Values.General.NameSpace}}
 spec:
   replicas: {{.Values.Mongo.Replicas}}
   minReadySeconds: 2
   template:
     metadata:
       labels:
-        app: mongo
+        app:  {{ .Values.Mongo.Name }}
         tier: data-tier
         environment: {{.Values.General.Environment}}
     spec:
@@ -21,14 +22,15 @@ spec:
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: todo-api
+  name: {{ .Values.TodoAPI.Name }}
+  namespace: {{.Values.General.NameSpace}}
 spec:
   replicas:  {{.Values.TodoAPI.Replicas}}
   minReadySeconds: 3
   template:
     metadata:
       labels:
-        app: todo-api
+        app: {{ .Values.TodoAPI.Name }}
         tier: backend
         environment: {{.Values.General.Environment}}
     spec:
