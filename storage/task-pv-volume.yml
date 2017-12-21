@@ -1,4 +1,5 @@
 # From the task at K8S.io https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
+# The cluster admin role would create PV resources.
 
 kind: PersistentVolume
 apiVersion: v1
