@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
         - name: todo-api
-          image: architechbootcamp/todo-api:stable
+          image: architechbootcamp/todo-api:v0.2
           ports:
             - containerPort: 8080
           env:
@@ -75,7 +75,7 @@ kind: Service
 metadata:
   name: todo-api
 spec:
-  type: LoadBalancer
+  # type: LoadBalancer
   ports:
   - port: 8080
   selector:
@@ -94,7 +94,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: architechbootcamp/todo-ui:stable
+          image: architechbootcamp/todo-ui:v0.2
           ports:
             - containerPort: 80
 ---

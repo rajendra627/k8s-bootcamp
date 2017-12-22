@@ -1,6 +1,7 @@
 # Setting up your environment #
 
 You will need the following tools installed:
+
 * Azure cli
 * docker
 * Helm
@@ -13,7 +14,8 @@ Install the latest version of azure cli for your operating system from [here](ht
 
 ## Install Docker ##
 
-Install docker for your operating system.  
+Install docker for your operating system. 
+
 * For [Windows](https://docs.docker.com/docker-for-windows/install/)
 * For [macOS](https://docs.docker.com/docker-for-mac/install/)
 * For [Ubuntu](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#docker-ee-customers)
@@ -31,6 +33,7 @@ docker-compose version
 Download and install VS Code for your OS.  [https://code.visualstudio.com/](https://code.visualstudio.com/)
 
 Install the following extensions (search in the extensions tab):
+
 * Kubernetes Support 
 * vs-kubernetes
 * vscode-helm
@@ -40,6 +43,7 @@ The above extensions provide syntax highlighting, code snippets and more for wor
 
 ## Verify your Azure subscription ##
 Make sure all the required resource providers are registered in your Azure subscription.  As you will be creating network, compute and storage resources on Azure, and you will be using Azure Container Service and Azure Container Service, you need to ensure you have the following providers registered in your Azure subscription:
+
 - Microsoft.Network
 - Microsoft.Storage
 - Microsoft.Compute
@@ -72,22 +76,22 @@ az provider register -n Microsoft.ContainerService
 
 After you have verified your subscription has the necessary providers registered, create a test K8S cluster on Azure. To do so, run the following commands (you already have to be logged into Azure via the CLI). Note, I use the resource group name ``k8s-example`` and cluster name ``test-cluster`` but you can name them what you want.
 
-1. Create a resource group for your cluster
+* Create a resource group for your cluster
 
 ```
 az group create -n k8s-example -l canadaeast
 ```
 
-2. Create the cluster
+* Create the cluster
 ```
 az acs create -n test-cluster -g k8s-example --generate-ssh-keys --master-count 1 --agent-count 1 -t Kubernetes
 ```
 
-3. After the cluster has been successfully created install kubectl 
+* After the cluster has been successfully created install kubectl 
 ```
 az acs kubernetes install-cli
 ```
-4. Then get the credentials to your K8S cluster. 
+* Then get the credentials to your K8S cluster. 
 ``` 
 #this will download and install the certificates to access your cluster 
 #in your ~/.kube/config file
@@ -95,12 +99,12 @@ az acs kubernetes install-cli
 az acs kubernetes get-credentials -n test-cluster -g k8s-example
 ```
 
-5. Verify your kubectl installation by listing the nodes in your cluster
+* Verify your kubectl installation by listing the nodes in your cluster
 ```
 kubectl get nodes
 ```
 
-6. Start up proxy to tunnel to the Kubernetes Dashboard
+* Start up proxy to tunnel to the Kubernetes Dashboard
 ```
 kubectl proxy
 ```
@@ -126,7 +130,11 @@ az group delete -n k8s-example
 
 This part is only for the RBAC portion of the exercises.  Unfortunately, ACS currently does not support RBAC.  To enable RBAC on Azure, you will need to leverage [ACS Engine](https://github.com/Azure/acs-engine), however, that is an advanced topic so we will be using Minikube to demonstrate RBAC concepts.
 
-See the installation instructions for your OS [here](https://github.com/kubernetes/minikube).  Note for Windows, you need to make a decision if you are going to use Hyper-V or Virtualbox for virtualization.  If you have installed Docker with Hyper-V then you have to choose Hyper-V for Minikube also to support both.
+See the installation instructions for your OS [here](https://github.com/kubernetes/minikube).  
+
+*Note for Windows, you need to make a decision if you are going to use Hyper-V or Virtualbox for virtualization.  If you have installed Docker with Hyper-V then you have to choose Hyper-V for Minikube also to support both.*
+
+*Note for Linux, if you have enabled Secure Boot in your BIOS, then you need to sign the virtualbox kernel modules. See this [article](https://askubuntu.com/questions/760671/could-not-load-vboxdrv-after-upgrade-to-ubuntu-16-04-and-i-want-to-keep-secur) The easiest is to just disable Secure Boot.*
 
 Once installed, run the following command to start up Minikube.  This will download the latest release of K8S and start a single node cluster locally.
 
@@ -162,8 +170,9 @@ Go to [Exercise 1](./exercise1.md)
 
 ## References ##
 
-- [Kubectl Cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
-- [Kubernetes on Azure](https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-intro-kubernetes)
+* [Kubectl Cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+* [Kubectl Command Reference](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#-strong-getting-started-strong-)
+* [Kubernetes on Azure](https://docs.microsoft.com/en-us/azure/container-service/kubernetes/container-service-intro-kubernetes)
 
 
 

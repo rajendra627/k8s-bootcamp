@@ -34,4 +34,14 @@ describe('actions', () => {
 
     expect(actions.setVisibilityFilter(filter)).toEqual(expectedAction)
   });
+
+  it('should create the right action to delete a todo', () => {
+      const todoID = 4;
+      const expectedAction = {
+        id: todoID,
+        type: actionTypes.DELETED_TODO
+      };
+
+      expect(actions.deletedTodo(todoID)).toEqual(expectedAction)
+  });
 });

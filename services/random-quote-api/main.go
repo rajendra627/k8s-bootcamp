@@ -4,7 +4,9 @@ package main
 //Note the RANDOM_QUOTE_SERVICE environment variable value will be the
 //name of the service resource deployed to K8S.
 import (
+	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"os"
 
@@ -25,7 +27,17 @@ func getRandomQuote(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Getting random quote from %s for request from %s\n",
 		quoteService, r.RemoteAddr)
 
-	resp, err := resty.R().Get(quoteService)
+	log.Printf("Looking up CNAME for %s", quoteService)
+	cName, err := net.LookupCNAME(quoteService)
+	log.Printf("CNAME for %s was %s", quoteService, cName)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	url := fmt.Sprintf("https://%s/qod", cName)
+
+	resp, err := resty.R().Get(url)
 
 	if err != nil {
 		log.Fatal(err)

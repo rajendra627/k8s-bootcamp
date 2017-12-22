@@ -22,7 +22,7 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - [Pods - the unit of deployment on K8S](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) 
 - [Services - how service discovery works in K8S](https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/)
 - [Deployments - doing rolling updates, rollbacks, scaling out](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
-- [Persistence - managing durable state with volumes and persistent volume claims](https://kubernetes.io/docs/concepts/storage/volumes/)
+- [Storage - managing durable state with volumes, persistance volumes and persistent volume claims](https://kubernetes.io/docs/concepts/storage/volumes/)
 - [Secrets - externalizing secrets and passwords](https://kubernetes.io/docs/concepts/configuration/secret/)
 - [ConfigMaps - externalizing configuration from your applications](https://kubernetes.io/docs/tasks/configure-pod-container/configmap/)
 - [Statefulsets - how to deploy stateful applications](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
@@ -54,7 +54,8 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
     - Using load-balancers and NodePorts to expose your pods to clients outside your cluster
     - Accessing services external to your cluster. e.g. Azure CosmosDB service
 - [Deployments](./deployments/README.md) - Deployments enable you to perform rolling upgrades, rollback, and scale up/scale down your services.
-- [Persistence](./persistence/README.md) - Volumes, Persistence Volume Claims, Storage Classes. 
+- [Storage](./storage/README.md) - Volumes, Persistent Volumes, Persistence Volume Claims, Storage Classes. 
+- [ConfigMaps](./configmaps/README.md) - ConfigMaps enable you to define configuration that is accessible as environment variables, files in a volume or command line arguments.
 
 ### Day 2 Outline: ###
 

@@ -1,0 +1,17 @@
+# From the task at K8S.io https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
+# The cluster admin role would create PV resources.
+
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: task-pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/tmp/data"

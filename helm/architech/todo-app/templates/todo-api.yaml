@@ -1,0 +1,69 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: mongo
+  namespace: {{.Values.General.NameSpace}}
+spec:
+  replicas: {{.Values.Mongo.Replicas}}
+  minReadySeconds: 2
+  template:
+    metadata:
+      labels:
+        app:  {{ .Values.Mongo.Name }}
+        tier: data-tier
+        environment: {{.Values.General.Environment}}
+    spec:
+      containers:
+        - name:  {{ .Values.Mongo.Name }}
+          image: {{ .Values.Mongo.Image }}
+          ports:
+           - containerPort: {{ .Values.Mongo.ContainerPort }}
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Values.TodoAPI.Name }}
+  namespace: {{.Values.General.NameSpace}}
+spec:
+  replicas:  {{.Values.TodoAPI.Replicas}}
+  minReadySeconds: 3
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.TodoAPI.Name }}
+        tier: backend
+        environment: {{.Values.General.Environment}}
+    spec:
+      containers:
+        - name: {{.Values.TodoAPI.Name}}
+          image: {{.Values.TodoAPI.Image}}:{{.Values.TodoAPI.ImageTag}}
+          ports:
+            - containerPort: {{.Values.TodoAPI.ContainerPort}}
+          env:
+            - name: MONGODB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: todoapp-config
+                  key: db_url
+            - name: SPRING_LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: todoapp-config
+                  key: spring_log_level
+            - name: APP_LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: todoapp-config
+                  key: app_log_level
+            - name: AZURE_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: todoapp-secrets
+                  key: azure_app_id
+            - name: AD_IDENTITY_META_DATA_URL
+              valueFrom:
+                secretKeyRef:
+                  name: todoapp-secrets
+                  key: ad_identity
+      imagePullSecrets:
+        - name: techdemosecret

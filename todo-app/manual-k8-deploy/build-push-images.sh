@@ -12,8 +12,8 @@ docker build -t todo-api ../todo-api-java
 
 # docker rmi $(docker images -f "dangling=true" -q )
 
-docker tag todo-ui:latest $dockerid/todo-ui:stable
-docker tag todo-api:latest $dockerid/todo-api:stable
+docker tag todo-ui:latest $dockerid/todo-ui:v0.2
+docker tag todo-api:latest $dockerid/todo-api:v0.2
 
 
 echo " Enter your login password to Docker .."
@@ -22,5 +22,5 @@ docker login --username $dockerid
 echo " .. "
 echo " pushing images .. "
 
-docker push  $dockerid/todo-ui:stable
-docker push  $dockerid/todo-api:stable
+docker push  $dockerid/todo-ui:v0.2
+docker push  $dockerid/todo-api:v0.2

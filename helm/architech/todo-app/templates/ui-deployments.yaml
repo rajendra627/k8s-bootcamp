@@ -1,0 +1,20 @@
+
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name:  {{.Values.WebUI.Name}}
+  namespace: {{.Values.General.NameSpace}}
+spec:
+  replicas: {{.Values.WebUI.Replicas}}
+  template:
+    metadata:
+      labels:
+        app:  {{.Values.WebUI.Name}}
+        tier: frontend
+        environment: {{.Values.General.Environment}}
+    spec:
+      containers:
+        - name: web
+          image: {{.Values.WebUI.Image}}:{{.Values.WebUI.ImageTag}}
+          ports:
+            - containerPort: {{.Values.WebUI.ContainerPort}}

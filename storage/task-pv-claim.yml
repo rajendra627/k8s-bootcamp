@@ -1,0 +1,15 @@
+# From the task at K8S.io https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
+# Cluster User role would create PVC resources, they would need to know about what StorageClasses are available using
+# kubectl get storageclasses.  In this case, we use 'manual' which does not use any StorageClass.
+
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: task-pv-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi

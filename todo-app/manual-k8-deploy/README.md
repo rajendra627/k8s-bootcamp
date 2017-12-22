@@ -44,7 +44,7 @@ image: architechbootcamp/todo-ui:stable
 -----------------
 Run the command
 
-> kubectl create secret docker-registry acr-secret --docker-server=https://techdemoacr.azurecr.io --docker-username=acr_username --docker-password=acr_password --docker-email=anymail@company.com
+> ./config_deploy_app.sh
 
 Here is a description of what the script did
 
