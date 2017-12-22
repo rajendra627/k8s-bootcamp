@@ -28,4 +28,8 @@ the API. The Swagger URL is `http://${HOST}:${PORT}/swagger-ui.html`
 
 You can set the following environment to customize how the API runs:
 
--
+- `IS_TEST_MODE` = whether to run in test mode or not
+- `APP_LOG_LEVEL` = application log level
+- `AZURE_IDENTITY_META_DATA` = for instance, https://login.microsoftonline.com/architech.onmicrosoft.com/v2.0/.well-known/openid-configuration
+- `AZURE_APP_ID` = Azure AD registered application ID
+- `AZURE_CLIENT_SECRET` = Azure AD registered application's secret key
