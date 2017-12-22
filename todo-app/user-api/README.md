@@ -26,3 +26,9 @@ You can set the following environment to customize how the API runs:
 - `APP_LOG_LEVEL` = application log level
 - `AZURE_IDENTITY_META_DATA` = for instance, https://login.microsoftonline.com/architech.onmicrosoft.com/v2.0/.well-known/openid-configuration
 - `AZURE_APP_ID` = Azure AD registered application ID
+
+### Azure AD Setup ###
+
+> For more information on how to set up Azure AD authentication, please visit this
+[site](https://docs.microsoft.com/en-us/java/azure/spring-framework/configure-spring-boot-starter-java-app-with-azure-active-directory).
+Focus on the `Create and configure a new Azure Active Directory instance` section of the document.
