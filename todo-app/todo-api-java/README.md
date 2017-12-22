@@ -14,12 +14,18 @@ is acquired from Azure through the intrinsic flow
 The format of the JSON is: `{"email":"test@architech.ca","firstName":"John","lastName":"Smith"}`. You can encode the
 JSON string from this [site](https://www.base64encode.org/).
 
-### Flow ###
-
 ### Dependencies ###
+
+> The Todo API depends on the User API to identify the current user. It receives the current user's email from Azure
+and delegates to the User API to retrieve the user data associated to the email.
 
 ### Swagger ###
 
-> Swagger is incorporated To play around with the Todo API, you can
+> Swagger is incorporated in this project to document the REST endpoints and to allow developers to play around with
+the API. The Swagger URL is `http://${HOST}:${PORT}/swagger-ui.html`
 
-### Running the A
+### Environment Variables ###
+
+You can set the following environment to customize how the API runs:
+
+-

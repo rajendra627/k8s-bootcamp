@@ -13,10 +13,10 @@ services:
     ports:
       - '8082:8082'
     environment:
-      IS_TEST_MODE: '${IS_TEST_MODE:-false}'
+      IS_TEST_MODE: '${IS_TEST_MODE}'
       MONGODB_URL: 'mongodb://user-api-mongodb:27017/user-api'
-      APP_LOG_LEVEL: info
-      AZURE_IDENTITY_META_DATA: 'https://login.microsoftonline.com/architech.onmicrosoft.com/v2.0/.well-known/openid-configuration'
+      APP_LOG_LEVEL: '${APP_LOG_LEVEL}'
+      AZURE_IDENTITY_META_DATA: '${AZURE_IDENTITY_META_DATA}'
       AZURE_APP_ID: '${AZURE_APP_ID}'
     depends_on:
       - user-api-mongodb
