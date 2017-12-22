@@ -130,7 +130,11 @@ az group delete -n k8s-example
 
 This part is only for the RBAC portion of the exercises.  Unfortunately, ACS currently does not support RBAC.  To enable RBAC on Azure, you will need to leverage [ACS Engine](https://github.com/Azure/acs-engine), however, that is an advanced topic so we will be using Minikube to demonstrate RBAC concepts.
 
-See the installation instructions for your OS [here](https://github.com/kubernetes/minikube).  Note for Windows, you need to make a decision if you are going to use Hyper-V or Virtualbox for virtualization.  If you have installed Docker with Hyper-V then you have to choose Hyper-V for Minikube also to support both.
+See the installation instructions for your OS [here](https://github.com/kubernetes/minikube).  
+
+*Note for Windows, you need to make a decision if you are going to use Hyper-V or Virtualbox for virtualization.  If you have installed Docker with Hyper-V then you have to choose Hyper-V for Minikube also to support both.*
+
+*Note for Linux, if you have enabled Secure Boot in your BIOS, then you need to sign the virtualbox kernel modules. See this [article](https://askubuntu.com/questions/760671/could-not-load-vboxdrv-after-upgrade-to-ubuntu-16-04-and-i-want-to-keep-secur) The easiest is to just disable Secure Boot.*
 
 Once installed, run the following command to start up Minikube.  This will download the latest release of K8S and start a single node cluster locally.
 
