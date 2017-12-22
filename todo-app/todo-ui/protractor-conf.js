@@ -4,7 +4,7 @@ const {SpecReporter} = require('jasmine-spec-reporter');
 exports.config = {
   framework: 'jasmine',
   seleniumAddress: 'http://localhost:4444/wd/hub',
-  specs: ['src/test/e2e/*.spec.js'],
+  specs: ['src/test/e2e/*.e2e.js'],
   onPrepare: function () {
     /**
      * If you are testing against a non-angular site - set ignoreSynchronization setting to true
