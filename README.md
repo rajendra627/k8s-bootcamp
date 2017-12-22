@@ -22,7 +22,7 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - [Pods - the unit of deployment on K8S](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) 
 - [Services - how service discovery works in K8S](https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/)
 - [Deployments - doing rolling updates, rollbacks, scaling out](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
-- [Persistence - managing durable state with volumes and persistent volume claims](https://kubernetes.io/docs/concepts/storage/volumes/)
+- [Storage - managing durable state with volumes, persistance volumes and persistent volume claims](https://kubernetes.io/docs/concepts/storage/volumes/)
 - [Secrets - externalizing secrets and passwords](https://kubernetes.io/docs/concepts/configuration/secret/)
 - [ConfigMaps - externalizing configuration from your applications](https://kubernetes.io/docs/tasks/configure-pod-container/configmap/)
 - [Statefulsets - how to deploy stateful applications](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
