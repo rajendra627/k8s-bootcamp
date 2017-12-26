@@ -23,7 +23,7 @@ export const successfulLogin = (user, token) => {
 export const authenticationSuccess = (token) => {
   return function (dispatch) {
     //get user
-    fetch('http://localhost:8082/api/user', { headers: {'Authorization': 'Bearer ' + token } })
+    fetch('/api/user', { headers: {'Authorization': 'Bearer ' + token } })
       .then((response) => {
         if (response.statusCode === 401) {
           throw new Error()
@@ -35,7 +35,7 @@ export const authenticationSuccess = (token) => {
       })
       .catch((err) => {
         console.log('error',err);
-        fetch('http://localhost:8082/api/user', { method: 'post', headers: {'Authorization': 'Bearer ' + token } })
+        fetch('/api/user', { method: 'post', headers: {'Authorization': 'Bearer ' + token } })
           .then(handleErrors)
           .then((user) => {
             AuthUtil.setAuthenticatedUser(user, token);

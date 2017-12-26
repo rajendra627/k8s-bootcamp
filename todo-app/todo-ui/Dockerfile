@@ -30,9 +30,10 @@ COPY ./nginx.conf /etc/nginx/conf.d/default.conf.template
 STOPSIGNAL SIGTERM
 
 # Empty config array
-ENV APP_CONF "config={}"
+ENV AZURE_APP_ID ""
+ENV IS_TEST_MODE "false"
 
 # run nginx
-CMD envsubst '\$APP_CONF' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
+CMD envsubst '\$AZURE_APP_ID \$IS_TEST_MODE' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
 
 
