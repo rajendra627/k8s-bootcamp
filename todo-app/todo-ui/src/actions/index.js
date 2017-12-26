@@ -104,10 +104,12 @@ export const createTodo = (todo) => {
   return function (dispatch) {
     dispatch(addTodo());
     dispatch(setLoading(true));
+
     return fetch(BASE_API_URL, {
       method: 'post',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        ...AuthUtil.getAuthHeader()
       },
       body: JSON.stringify(
         {
@@ -152,7 +154,8 @@ export const toggleTodo = todo => {
     return fetch(BASE_API_URL, {
       method: 'put',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        ...AuthUtil.getAuthHeader()
       },
       body: JSON.stringify({...todo, done: !todo.done})
     }).then(handleErrors)
@@ -181,7 +184,8 @@ export const deleteTodo = id => {
     return fetch(BASE_API_URL + '/' + id, {
       method: 'delete',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        ...AuthUtil.getAuthHeader()
       }
     }).then(handleErrors)
       .then(() => {
@@ -231,7 +235,9 @@ export const fetchTodos = () => {
   return function (dispatch) {
     dispatch(setLoading(true));
     dispatch(requestTodos());
-    return fetch(BASE_API_URL)
+    return fetch(BASE_API_URL, {
+      headers: AuthUtil.getAuthHeader()
+    })
       .then(response => response.json())
       .then(response => {
         dispatch(receiveTodos(response));
