@@ -25,11 +25,15 @@ WORKDIR /app
 # copy production build output from build node
 COPY --from=build /root/todo-app/build .
 
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf.template
 
 STOPSIGNAL SIGTERM
 
+# Empty config array
+ENV AZURE_APP_ID ""
+ENV IS_TEST_MODE "false"
+
 # run nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD envsubst '\$AZURE_APP_ID \$IS_TEST_MODE' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
 
 
