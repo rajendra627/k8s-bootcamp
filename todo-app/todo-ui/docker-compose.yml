@@ -4,9 +4,6 @@ services:
     image: mongo
     ports:
       - '27017:27017'
-    volumes:
-      - 'todo-app-data:/data/db'
-      - 'todo-app-config-data:/data/config'
   user-api-mongodb:
     image: mongo
   user-api:

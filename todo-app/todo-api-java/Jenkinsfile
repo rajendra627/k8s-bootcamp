@@ -2,6 +2,7 @@
  Required Plugins:
   - Environment Injector Plugin
    -- Add `GIT_BRANCH=some/branch` when testing pipeline script directly in Jenkins
+   -- Add `PROD_KUBECTL_CONTEXT=myContenxt` where 'mycontext' is the name of the kubectl context to access the production cluster
  Required Credentials:
   - `docker-hub-credentials` : Username and password for docker hub
   - `scm-credentials` : SSH username (git) and private key to access git. Used when testing pipeline script directly in Jenkins
@@ -49,7 +50,7 @@ node {
 
         echo "Checked out git commit ${GIT_REVISION}"
 
-        // Desclare versions to use in tags later on.
+        // Declare versions to use in tags later on.
         IMAGE_SEMVER = "${PROJECT_VERSION}.${GIT_REVISION_COUNT}"
         IMAGE_FULL_VERSION = "${IMAGE_SEMVER}_${GIT_REVISION}"
 
@@ -99,29 +100,15 @@ node {
         }
     }
 
-    stage('Deploy to QA') {
-        deployImage(
-            imageTag: "${QA_IMAGE_FULL_VERSION}",
-            namespace: "${QA_NAMESPACE}"
-        )
-    }
-
     stage('QA Test') {
         echo "Spawning Job to run functional testing on all components in QA environment"
-        try {
-            build job: 'QA-Tests',
-                    parameters:
-                            [
-                                    string(name: 'imageName', value: PROJECT_IMAGE_NAME),
-                                    string(name: 'imageVersion', value: QA_IMAGE_FULL_VERSION)
-                            ]
-        } catch (error) {
-            //TODO: Rollback QA deployment here ?
-            deployImage(
-                imageTag: "${OLD_IMAGE_VERSION_QA}",
-                namespace: "${QA_NAMESPACE}"
-            )
-        }
+        build job: 'QA-Tests',
+            parameters:
+                [
+                        string(name: 'imageName', value: PROJECT_IMAGE_NAME),
+                        string(name: 'imageVersion', value: QA_IMAGE_FULL_VERSION)
+                ]
+
     }
 
     stage('Prod Image Push') {
@@ -138,6 +125,8 @@ node {
     stage('Deploy to Prod') {
         input 'Push to Production?'
         //TODO: Push to production
+        OLD_IMAGE_VERSION_PROD = getCurrentDeploymentVersion(PROD_NAMESPACE)
+
         deployImage(
             imageTag: "${IMAGE_FULL_VERSION}",
             namespace: "${PROD_NAMESPACE}"

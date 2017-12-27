@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todoapi-config
+  namespace: {{.Values.General.NameSpace}}
+data:
+  db_url: {{.Values.TodoMongo.ServiceName}}:{{.Values.TodoMongo.ServicePort}}
+  is_test_mode: {{.Values.General.IsTesting}}
+  app_log_level: {{.Values.General.LogLevel}}
+  spring_log_level: {{.Values.General.LogLevel}}
+  allowed_origins: "*" 
+  user_api_URL: {{.Values.UserAPI.ServiceName}}:{{.Values.UserAPI.ServicePort}}

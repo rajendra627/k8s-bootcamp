@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name:  {{ .Values.UserMongo.ServiceName }}
+  namespace: {{.Values.General.NameSpace}}
+spec:
+  ports:
+  - port: {{ .Values.UserMongo.ServicePort }}
+  selector:
+    app: {{ .Values.UserMongo.Name }}
+    tier: data-tier
+    environment: {{.Values.General.Environment}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.UserAPI.ServiceName }}
+  namespace: {{.Values.General.NameSpace}}
+spec:
+  type: LoadBalancer
+  ports:
+  - port: {{ .Values.UserAPI.ServicePort }}
+  selector:
+    app: {{ .Values.UserAPI.Name }}
+    tier: backend
+    environment: {{.Values.General.Environment}}
