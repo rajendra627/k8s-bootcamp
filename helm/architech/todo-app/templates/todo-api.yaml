@@ -60,6 +60,11 @@ spec:
                 configMapKeyRef:
                   name: {{.Values.TodoAPI.ConfigName}}
                   key: app_log_level
+            - name: USER_API_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{.Values.TodoAPI.ConfigName}}
+                  key: user_api_url
             - name: ALLOWED_ORIGINS
               valueFrom:
                 configMapKeyRef:
