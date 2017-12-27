@@ -1,0 +1,69 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{.Values.UserMongo.Name}}
+  namespace: {{.Values.General.NameSpace}}
+spec:
+  replicas: {{.Values.UserMongo.Replicas}}
+  minReadySeconds: 2
+  template:
+    metadata:
+      labels:
+        app:  {{ .Values.UserMongo.Name }}
+        tier: data-tier
+        environment: {{.Values.General.Environment}}
+    spec:
+      containers:
+        - name:  {{ .Values.UserMongo.Name }}
+          image: {{ .Values.UserMongo.Image }}
+          ports:
+           - containerPort: {{ .Values.UserMongo.ContainerPort }}
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Values.UserAPI.Name }}
+  namespace: {{.Values.General.NameSpace}}
+spec:
+  replicas:  {{.Values.UserAPI.Replicas}}
+  minReadySeconds: 3
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.UserAPI.Name }}
+        tier: backend
+        environment: {{.Values.General.Environment}}
+    spec:
+      containers:
+        - name: {{.Values.UserAPI.Name}}
+          image: {{.Values.UserAPI.Image}}:{{.Values.UserAPI.ImageTag}}
+          ports:
+            - containerPort: {{.Values.UserAPI.ContainerPort}}
+          env:
+            - name: MONGODB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{.Values.UserAPI.ConfigName}}
+                  key: db_url
+            - name: IS_TEST_MODE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{.Values.UserAPI.ConfigName}}
+                  key: is_test_mode
+            - name: APP_LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{.Values.UserAPI.ConfigName}}
+                  key: app_log_level
+            - name: AZURE_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.UserAPI.SecretName}}
+                  key: azure_app_id
+            - name: AZURE_IDENTITY_META_DATA
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.UserAPI.SecretName}}
+                  key: ad_identity
+      imagePullSecrets:
+        - name: techdemosecret

@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name:  {{ .Values.Mongo.ServiceName }}
+  name:  {{ .Values.TodoMongo.ServiceName }}
   namespace: {{.Values.General.NameSpace}}
 spec:
   ports:
-  - port: {{ .Values.Mongo.ServicePort }}
+  - port: {{ .Values.TodoMongo.ServicePort }}
   selector:
-    app: {{ .Values.Mongo.Name }}
+    app: {{ .Values.TodoMongo.Name }}
     tier: data-tier
     environment: {{.Values.General.Environment}}
 ---
