@@ -5,7 +5,7 @@ metadata:
   namespace: {{.Values.General.NameSpace}}
 spec:
   replicas: {{.Values.UserMongo.Replicas}}
-  minReadySeconds: 2
+  minReadySeconds: 0
   template:
     metadata:
       labels:
