@@ -6,8 +6,6 @@ services:
       - '27017:27017'
   user-api-mongodb:
     image: mongo
-    ports:
-      - '27018:27017'
   user-api:
     build:
       context: ../user-api
