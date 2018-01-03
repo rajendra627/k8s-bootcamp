@@ -1,4 +1,6 @@
-# Merge this file with docker-compose to be build and run the todo-ui container
+# This is the docker-compose settings file leveraged when building and running the application's container.
+# Merge this file with docker-compose to build and run the todo-ui container. Note that docker-compose.override.yml is
+# not automatically picked up when using the `-f` parameter below.
 # `docker-compose -f docker-compose.yml -f docker-compose.build.yml build`
 # `docker-compose -f docker-compose.yml -f docker-compose.build.yml up`
 version: "3"

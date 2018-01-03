@@ -1,4 +1,5 @@
-# Development configuration. Automatically picked up on `docker-compose up`
+# This is the docker-compose settings file leveraged when developing the application outside of it's container.
+# It is automatically picked up on `docker-compose up`.
 version: '3'
 services:
   nginx:

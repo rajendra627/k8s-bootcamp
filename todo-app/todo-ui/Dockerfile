@@ -7,7 +7,7 @@ FROM node:8.9.1-alpine AS build
 WORKDIR /root/todo-app
 # Set tini as entrypoint
 ENTRYPOINT ["/sbin/tini", "--"]
-# copy package files as indicator if layer with dependies should re-run.
+# copy package files as indicator if layer with dependencies should re-run.
 COPY ./package.json .
 COPY ./yarn.lock .
 
