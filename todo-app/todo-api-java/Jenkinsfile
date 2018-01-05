@@ -64,7 +64,7 @@ node {
         ).trim()
 */
         OLD_IMAGE_VERSION_QA = getCurrentDeploymentVersion(QA_NAMESPACE)
-        //OLD_IMAGE_VERSION_PROD = getCurrentDeploymentVersion(PROD_NAMESPACE)
+        // OLD_IMAGE_VERSION_PROD = getCurrentDeploymentVersion(PROD_NAMESPACE)
     }
     stage('Test') {
         def projectName = "todoapi${env.BUILD_NUMBER}"
@@ -141,9 +141,9 @@ node {
             namespace: "${PROD_NAMESPACE}"
         )
     }
-
-}
 */
+}
+
 def deployImage(Map attrs) {
     sh("/usr/local/bin/kubectl set image deployment/${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}=${PROJECT_IMAGE_NAME}:${attrs.imageTag} --namespace=${attrs.namespace}")
 }
