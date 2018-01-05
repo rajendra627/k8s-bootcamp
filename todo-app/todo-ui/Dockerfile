@@ -7,7 +7,7 @@ FROM node:8.9.1-alpine AS build
 WORKDIR /root/todo-app
 # Set tini as entrypoint
 ENTRYPOINT ["/sbin/tini", "--"]
-# copy package files as indicator if layer with dependies should re-run.
+# copy package files as indicator if layer with dependencies should re-run.
 COPY ./package.json .
 COPY ./yarn.lock .
 
@@ -34,6 +34,6 @@ ENV AZURE_APP_ID ""
 ENV IS_TEST_MODE "false"
 
 # run nginx
-CMD envsubst '\$AZURE_APP_ID \$IS_TEST_MODE' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
+CMD envsubst '\$AZURE_APP_ID \$IS_TEST_MODE \$AZURE_AD_TENANT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
 
 

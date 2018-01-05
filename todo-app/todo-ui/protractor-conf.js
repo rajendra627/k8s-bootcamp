@@ -1,10 +1,23 @@
 // noinspection JSUnusedGlobalSymbols
 const {SpecReporter} = require('jasmine-spec-reporter');
 
+const chromeOptions = process.env.TEST_ENV === "container" ?
+  {
+    args: [ "--headless", "--disable-gpu", "--window-size=800,600", "no-sandbox" ]
+  }
+  : {};
+
+const directConnect = process.env.TEST_ENV === "container";
+
 exports.config = {
   framework: 'jasmine',
   seleniumAddress: 'http://localhost:4444/wd/hub',
   specs: ['src/test/e2e/*.e2e.js'],
+  directConnect: directConnect,
+  capabilities: {
+    browserName: 'chrome',
+    chromeOptions: chromeOptions
+  },
   onPrepare: function () {
     /**
      * If you are testing against a non-angular site - set ignoreSynchronization setting to true
