@@ -71,6 +71,7 @@ node {
 
         try {
             echo "Building Testing container"
+            sh "echo $PROJECT_PATH"
             sh "docker-compose -f $PROJECT_PATH/docker-compose.yml -f $PROJECT_PATH/docker-compose.test.yml -p $projectName build"
 
             echo "Starting integration tests"

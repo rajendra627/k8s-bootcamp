@@ -1,0 +1,59 @@
+# Default values for Architech TechDemo.
+# This is a YAML-formatted file.
+# Declare name/value pairs to be passed into your templates.
+# name: value
+
+
+General:
+  Version : 1.0
+  Environment: qa
+  NameSpace: qa-env
+  IsTesting: false
+  LogLevel: INFO
+
+WebUI:
+  Name: web-ui
+  ServiceName: todo-webui-service
+  Image: "architechbootcamp/todo-ui"
+  ImageTag: "v0.2"
+  Replicas: 1
+  ServicePort: 80
+  ContainerPort: 80
+
+TodoAPI:
+  Name: todo-api
+  ServiceName: todo-api
+  Image: "architechbootcamp/todo-api"
+  ImageTag: "v0.2"
+  Replicas: 1
+  ServicePort: 8080
+  ContainerPort: 8080
+  ConfigName: todoapi-config
+  SecretName: todoapp-secrets
+
+TodoMongo:
+  Name: todo-mongo
+  ServiceName: todo-mongodb
+  Image: "mongo"
+  Replicas: 1
+  ServicePort: 27017
+  ContainerPort: 27017
+
+UserAPI:
+  Name: user-api
+  ServiceName: user-api
+  Image: "architechbootcamp/user-api"
+  ImageTag: "v0.4"
+  Replicas: 1
+  ServicePort: 8081
+  ContainerPort: 8080
+  ConfigName: userapi-config
+  SecretName: todoapp-secrets
+
+UserMongo:
+  Name: user-mongo
+  ServiceName: user-mongodb
+  Image: "mongo"
+  Replicas: 1
+  ServicePort: 27018
+  ContainerPort: 27017

@@ -230,6 +230,19 @@
                           "priority": 300,
                           "direction": "Inbound"
                       }
+                  },
+                  {
+                      "name": "jenkins-slave-rule",
+                      "properties": {
+                          "protocol": "Tcp",
+                          "sourcePortRange": "*",
+                          "destinationPortRange": "8888",
+                          "sourceAddressPrefix": "INTERNET",
+                          "destinationAddressPrefix": "*",
+                          "access": "Allow",
+                          "priority": 400,
+                          "direction": "Inbound"
+                      }
                   }
               ]
           },

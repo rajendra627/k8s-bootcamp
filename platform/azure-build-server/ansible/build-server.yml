@@ -3,9 +3,14 @@
   hosts: all
   vars:
     nginx_port: 80
+    jenkins_version: "2.93"
+    kube_qa_namespace: "qa-env"
+    jenkins_slave_agent_port: 8888
+    jenkins_url: "http://{{ inventory_hostname }}"
   vars_prompt:
     - name: "admin_username"
       prompt: "Enter admin username:"
+      private: no
     - name: "admin_password"
       prompt: "Enter admin password:"
       private: yes
@@ -36,7 +41,7 @@
     - { role: geerlingguy.java, java_packages: "java-1.8.0-openjdk", become: yes }
     - { role: geerlingguy.mysql, become: yes }
     - { role: sonar }
-    - { role: geerlingguy.jenkins, jenkins_version: "2.93", jenkins_admin_username: "{{ admin_username }}", jenkins_admin_password: "{{ admin_username }}", jenkins_plugins: ["git", "build-pipeline-plugin", "blueocean", "kubernetes", "kubernetes-cd", "azure-acs", "sonar", "pipeline-stage-view"], jenkins_plugins_state: present, become: yes }
+    - { role: geerlingguy.jenkins, jenkins_admin_username: "{{ admin_username }}", jenkins_admin_password: "{{ admin_username }}", jenkins_plugins: ["git", "build-pipeline-plugin", "blueocean", "kubernetes", "kubernetes-cd", "azure-acs", "sonar", "pipeline-stage-view"], jenkins_plugins_state: present, become: yes }
+    - { role: docker, become: yes }
     - { role: configure-jenkins, jenkins_admin_username: "{{ admin_username }}", jenkins_admin_password: "{{ admin_username }}", become: yes }
     - { role: kubectl, become: yes }
-    - { role: docker, become: yes }
