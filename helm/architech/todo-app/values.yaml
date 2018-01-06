@@ -15,7 +15,7 @@ WebUI:
   Name: web-ui
   ServiceName: todo-webui-service
   Image: "architechbootcamp/todo-ui"
-  ImageTag: "v0.6.ui.retry.mongo"
+  ImageTag: "v0.7.ui.retry"
   Replicas: 1
   ServicePort: 80
   ContainerPort: 80
@@ -26,7 +26,7 @@ TodoAPI:
   Name: todo-api
   ServiceName: todo-api
   Image: "architechbootcamp/todo-api"
-  ImageTag: "v0.6.ui.retry.mongo"
+  ImageTag: "v0.7.ui.retry"
   Replicas: 1
   ServicePort: 8080
   ContainerPort: 8080
@@ -45,10 +45,10 @@ UserAPI:
   Name: user-api
   ServiceName: user-api
   Image: "architechbootcamp/user-api"
-  ImageTag: "v0.6.ui.retry.mongo"
+  ImageTag: "v0.7.ui.retry"
   Replicas: 1
-  ServicePort: 8081
-  ContainerPort: 8080
+  ServicePort: 8082
+  ContainerPort: 8082
   ConfigName: userapi-config
   SecretName: todoapp-secrets
 

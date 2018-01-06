@@ -8,6 +8,6 @@ data:
   is_test_mode: "{{.Values.General.IsTesting}}"
   app_log_level: {{.Values.General.LogLevel}}
   spring_log_level: {{.Values.General.LogLevel}}
-  allowed_origins: "*" 
-  user_api_url: {{.Values.UserAPI.ServiceName}}:{{.Values.UserAPI.ServicePort}}
+  allowed_origins: "*"
+  user_api_url: "http://{{.Values.UserAPI.ServiceName}}:{{.Values.UserAPI.ServicePort}}"
 
