@@ -23,5 +23,5 @@ There are two primary approaches to access your configuration data from the cont
 
 ## References ##
 
-- [Configure Containers Using a ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configmap/)
+- [Configure Containers Using a ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/)
 - [Configuration Best Practices](https://kubernetes.io/docs/concepts/configuration/overview/)
