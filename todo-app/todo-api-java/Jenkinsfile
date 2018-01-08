@@ -101,6 +101,17 @@ node {
         }
     }
 
+    stage('Deploy to QA') {
+        input 'Push to QA?'
+        //TODO: Push to production
+        OLD_IMAGE_VERSION_QA = getCurrentDeploymentVersion(QA_NAMESPACE)
+
+        deployImage(
+            imageTag: "${IMAGE_FULL_VERSION}",
+            namespace: "${QA_NAMESPACE}"
+        )
+    }
+
     stage('QA Test') {
         echo "Spawning Job to run functional testing on all components in QA environment"
         build job: 'QA-Tests',
