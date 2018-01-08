@@ -39,7 +39,9 @@
     enabled: yes
 
 - name: Get Docker Compose
+  become: yes
   shell: curl -L https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 
 - name: Set docker compose as executable
+  become: yes
   shell: chmod +x /usr/local/bin/docker-compose
