@@ -47,10 +47,10 @@ node {
         echo "imageName: ${params.imageName}"
         echo "imageVersion: ${params.imageVersion}"
         echo "semVersion: ${params.semVersion}"
-        IMAGE_FULL_VERSION = params.semVersion
+        //IMAGE_FULL_VERSION = params.semVersion
         echo "IMAGE_FULL_VERSION: ${IMAGE_FULL_VERSION}"
         echo "deploymentName: ${params.deploymentName}"
-        DEPLOYMENT_NAME = params.deploymentName
+        //DEPLOYMENT_NAME = params.deploymentName
     }
 
     stage('Deploy to QA') {
@@ -59,6 +59,8 @@ node {
         OLD_IMAGE_VERSION_QA = getCurrentDeploymentVersion(QA_NAMESPACE)
 
         deployImage(
+            deploymentName: "${params.deploymentName}"
+            imageName: "${params.imageName}"
             imageTag: "${IMAGE_FULL_VERSION}",
             namespace: "${QA_NAMESPACE}"
         )
@@ -101,7 +103,7 @@ node {
 }
 
 def deployImage(Map attrs) {
-    sh("/usr/local/bin/kubectl set image deployment/${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}=${PROJECT_IMAGE_NAME}:${attrs.imageTag} --namespace=${attrs.namespace}")
+    sh("/usr/local/bin/kubectl set image deployment/${attrs.deploymentName} ${attrs.deploymentName}=${attrs.imageName}:${attrs.imageTag} --namespace=${attrs.namespace}")
 }
 
 def getCurrentDeploymentVersion(String namespace) {
