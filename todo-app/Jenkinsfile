@@ -59,8 +59,8 @@ node {
         OLD_IMAGE_VERSION_QA = getCurrentDeploymentVersion(QA_NAMESPACE)
 
         deployImage(
-            deploymentName: "${params.deploymentName}"
-            imageName: "${params.imageName}"
+            deploymentName: "${params.deploymentName}",
+            imageName: "${params.imageName}",
             imageTag: "${IMAGE_FULL_VERSION}",
             namespace: "${QA_NAMESPACE}"
         )
