@@ -96,7 +96,7 @@ node {
             deploymentName: "${params.deploymentName}",
             imageName: "${params.imageName}",
             imageTag: "${IMAGE_FULL_VERSION}",
-            namespace: "${QA_NAMESPACE}"
+            namespace: "${PROD_NAMESPACE}"
         )
     }
 /*
