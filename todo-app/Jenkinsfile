@@ -47,7 +47,7 @@ node {
         echo "imageName: ${params.imageName}"
         echo "imageVersion: ${params.imageVersion}"
         echo "semVersion: ${params.semVersion}"
-        //IMAGE_FULL_VERSION = params.semVersion
+        IMAGE_FULL_VERSION = params.semVersion
         echo "IMAGE_FULL_VERSION: ${IMAGE_FULL_VERSION}"
         echo "deploymentName: ${params.deploymentName}"
         //DEPLOYMENT_NAME = params.deploymentName
