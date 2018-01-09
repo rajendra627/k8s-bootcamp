@@ -87,5 +87,6 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 
 * [Why Kubernetes](https://apprenda.com/why-kubernetes/)
 * [Large-scale cluster management at Google with Borg](https://research.google.com/pubs/pub43438.html)
+* [Borg, Omega and Kubernetes](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44843.pdf)
 * [12 Factor Application Principles](https://12factor.net/)
 * [Kubernetes Case Studies](https://kubernetes.io/case-studies/)
