@@ -98,7 +98,8 @@ node {
                         string(name: 'imageName', value: PROJECT_IMAGE_NAME),
                         string(name: 'imageVersion', value: QA_IMAGE_FULL_VERSION),
                         string(name: 'semVersion', value: IMAGE_SEMVER),
-                        string(name: 'deploymentName', value: DEPLOYMENT_NAME)
+                        string(name: 'deploymentName', value: DEPLOYMENT_NAME),
+                        string(name: 'projectPath', value: PROJECT_PATH)
                 ]
 
     }

@@ -51,6 +51,7 @@ node {
         echo "IMAGE_FULL_VERSION: ${IMAGE_FULL_VERSION}"
         echo "deploymentName: ${params.deploymentName}"
         //DEPLOYMENT_NAME = params.deploymentName
+        echo "projectPath: ${params.projectPath}"
     }
 
     stage('Deploy to QA') {
@@ -71,6 +72,11 @@ node {
 
     }
 
+    stage('Build for Prod') {
+        echo "Building image ${params.imageName} for Prod environment"
+        buildEnv = docker.build(params.imageName,params.projectPath)
+    }
+
     stage('Prod Image Push') {
         echo "Pushing Production-ready tags to docker registry"
         docker.withRegistry("${REGISTRY_URL}", 'prod-docker-hub-credentials') {
@@ -87,8 +93,10 @@ node {
         OLD_IMAGE_VERSION_PROD = getCurrentDeploymentVersion(PROD_NAMESPACE)
 
         deployImage(
+            deploymentName: "${params.deploymentName}",
+            imageName: "${params.imageName}",
             imageTag: "${IMAGE_FULL_VERSION}",
-            namespace: "${PROD_NAMESPACE}"
+            namespace: "${QA_NAMESPACE}"
         )
     }
 /*
