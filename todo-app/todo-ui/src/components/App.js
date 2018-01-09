@@ -7,6 +7,7 @@ import Search from '../containers/search/Search';
 import ErrorAlert from '../components/errorAlert/ErrorAlert';
 import { bindActionCreators } from 'redux';
 import { logOut } from '../actions/index';
+import { fetchTodos } from '../actions/index';
 
 class App extends Component {
   constructor(props){
@@ -22,6 +23,8 @@ class App extends Component {
   componentWillMount() {
     if(!this.props.loggedIn){
       this.props.history.push('/login');
+    } else {
+      this.props.fetchTodos();
     }
   }
 
@@ -51,7 +54,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators( { logOut }, dispatch );
+  return bindActionCreators( { logOut, fetchTodos }, dispatch );
 };
 
 

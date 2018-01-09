@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import './index.css';
 import todoApp from './reducers';
 import registerServiceWorker from './registerServiceWorker';
-import { fetchTodos } from './actions/index';
+// import { fetchTodos } from './actions/index';
 import Root from './components/Root';
 
 let store = createStore(
@@ -13,9 +13,9 @@ let store = createStore(
   applyMiddleware(thunk)
 );
 
-store
-  .dispatch(fetchTodos())
-  .then(() => console.log(store.getState()));
+// store
+//   .dispatch(fetchTodos())
+//   .then(() => console.log(store.getState()));
 
 render(
   <Root store={store} />,
