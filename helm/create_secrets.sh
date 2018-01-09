@@ -5,7 +5,7 @@ if [ "$#" -ne 1 ] ; then
   kubectl create secret generic todoapp-secrets --from-file=secrets
  else
   todoapp_namespace=$1
-  kubectl --kubeconfig ~/.kube/acsGenerated.config create namespace $todoapp_namespace
-  kubectl --kubeconfig ~/.kube/acsGenerated.config create secret generic todoapp-secrets --from-file=secrets --namespace=$todoapp_namespace
+  kubectl create namespace $todoapp_namespace
+  kubectl create secret generic todoapp-secrets --from-file=secrets --namespace=$todoapp_namespace
 fi
 
