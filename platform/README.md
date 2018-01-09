@@ -18,3 +18,7 @@ This directory contains scripts for provisioning Platform components
 - AKS preview service needs to be enabled on your Azure subscription with the following command:
   `az provider register -n Microsoft.ContainerService`
 - Before executing any commands, you need to be logged in `az login`
+
+## Reference ##
+
+* [Kubernetes the Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
