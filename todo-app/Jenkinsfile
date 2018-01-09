@@ -47,8 +47,8 @@ node {
     }
 
     stage('Param Testing') {
-        echo "imageName: ${imageName}"
-        echo "imageVersion: ${imageVersion}"
+        echo "imageName: ${params.imageName}"
+        echo "imageVersion: ${params.imageVersion}"
     }
 /*
     stage('Deploy to QA') {
