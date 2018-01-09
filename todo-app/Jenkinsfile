@@ -17,7 +17,7 @@ PROJECT_VERSION = '1.0'
 DEPLOYMENT_NAME = 'todo-api'
 QA_NAMESPACE = 'qa-env'
 PROD_NAMESPACE = 'prod-env'
-REGISTRY_URL = 'https://igortestacs.azurecr.io'
+REGISTRY_URL = 'https://igortestacsprod.azurecr.io'
 
 node {
 
@@ -41,19 +41,21 @@ node {
         ).trim()
 
         echo "Checked out git commit ${GIT_REVISION}"
-
-        OLD_IMAGE_VERSION_QA = getCurrentDeploymentVersion(QA_NAMESPACE)
-        // OLD_IMAGE_VERSION_PROD = getCurrentDeploymentVersion(PROD_NAMESPACE)
     }
 
     stage('Param Testing') {
         echo "imageName: ${params.imageName}"
         echo "imageVersion: ${params.imageVersion}"
+        echo "semVersion: ${params.semVersion}"
+        IMAGE_FULL_VERSION = params.semVersion
+        echo "IMAGE_FULL_VERSION: ${IMAGE_FULL_VERSION}"
+        echo "deploymentName: ${params.deploymentName}"
+        DEPLOYMENT_NAME = params.deploymentName
     }
-/*
+
     stage('Deploy to QA') {
-        input 'Push to QA?'
-        //TODO: Push to production
+        //input 'Push to QA?'
+        //TODO: Push to QA
         OLD_IMAGE_VERSION_QA = getCurrentDeploymentVersion(QA_NAMESPACE)
 
         deployImage(
@@ -62,30 +64,23 @@ node {
         )
     }
 
-    stage('QA Test') {
-        echo "Spawning Job to run functional testing on all components in QA environment"
-        build job: 'QA-Tests',
-            parameters:
-                [
-                        string(name: 'imageName', value: PROJECT_IMAGE_NAME),
-                        string(name: 'imageVersion', value: QA_IMAGE_FULL_VERSION)
-                ]
+    stage('Imaginary QA Integration Tests') {
+        echo "Execute Integration Tests in QA Environment"
 
-    }*/
-/*
+    }
+
     stage('Prod Image Push') {
         echo "Pushing Production-ready tags to docker registry"
-        docker.withRegistry("${REGISTRY_URL}", 'docker-hub-credentials') {
+        docker.withRegistry("${REGISTRY_URL}", 'prod-docker-hub-credentials') {
             PROD_IMAGE_FULL_VERSION = "${IMAGE_FULL_VERSION}"
             buildEnv.push(PROD_IMAGE_FULL_VERSION)
-            buildEnv.push(IMAGE_SEMVER)
             buildEnv.push("latest")
             buildEnv.push("stable")
         }
     }
 
     stage('Deploy to Prod') {
-        input 'Push to Production?'
+        //input 'Push to Production?'
         //TODO: Push to production
         OLD_IMAGE_VERSION_PROD = getCurrentDeploymentVersion(PROD_NAMESPACE)
 
@@ -94,7 +89,7 @@ node {
             namespace: "${PROD_NAMESPACE}"
         )
     }
-
+/*
     stage('Roll back Prod') {
         input 'Roll back Production?'
         deployImage(
