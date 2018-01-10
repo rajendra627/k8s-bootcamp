@@ -14,8 +14,7 @@ const todos = (state = [], action) => {
           : todo
       );
     case actionTypes.RECEIVE_TODOS:
-      state = action.todos;
-      return state;
+      return action.todos || [];
     case actionTypes.DELETED_TODO:
       const newState = Object.assign([], state);
       const todoDelete = state.findIndex(state => {
