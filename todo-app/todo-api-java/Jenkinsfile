@@ -50,6 +50,8 @@ node {
         echo "Checked out git commit ${GIT_REVISION}"
 
         // Declare versions to use in tags later on.
+        PROJECT_VERSION = getAppVersion()
+
         IMAGE_SEMVER = "${PROJECT_VERSION}.${GIT_REVISION_COUNT}"
         IMAGE_FULL_VERSION = "${IMAGE_SEMVER}_${GIT_REVISION}"
 
@@ -92,7 +94,7 @@ node {
 
     stage('QA Test') {
         echo "Spawning Job to run functional testing on all components in QA environment"
-        build job: 'QA-Tests',
+        build job: 'QA-Prod-Pipeline',
             parameters:
                 [
                         string(name: 'imageName', value: PROJECT_IMAGE_NAME),
@@ -103,37 +105,6 @@ node {
                 ]
 
     }
-/*
-    stage('Prod Image Push') {
-        echo "Pushing Production-ready tags to docker registry"
-        docker.withRegistry("${REGISTRY_URL}", 'docker-hub-credentials') {
-            PROD_IMAGE_FULL_VERSION = "${IMAGE_FULL_VERSION}"
-            buildEnv.push(PROD_IMAGE_FULL_VERSION)
-            buildEnv.push(IMAGE_SEMVER)
-            buildEnv.push("latest")
-            buildEnv.push("stable")
-        }
-    }
-
-    stage('Deploy to Prod') {
-        input 'Push to Production?'
-        //TODO: Push to production
-        OLD_IMAGE_VERSION_PROD = getCurrentDeploymentVersion(PROD_NAMESPACE)
-
-        deployImage(
-            imageTag: "${IMAGE_FULL_VERSION}",
-            namespace: "${PROD_NAMESPACE}"
-        )
-    }
-
-    stage('Roll back Prod') {
-        input 'Roll back Production?'
-        deployImage(
-            imageTag: "${OLD_IMAGE_VERSION_PROD}",
-            namespace: "${PROD_NAMESPACE}"
-        )
-    }
-*/
 }
 
 def deployImage(Map attrs) {
@@ -143,6 +114,13 @@ def deployImage(Map attrs) {
 def getCurrentDeploymentVersion(String namespace) {
     return sh(
         script: "/usr/local/bin/kubectl get deployment/${DEPLOYMENT_NAME} --namespace=${namespace} -o wide | awk '{ if (NR!=1) {print \$8}}' | cut -d ':' -f 2",
+        returnStdout: true
+    ).trim()
+}
+
+def getAppVersion() {
+    return sh(
+        script: "cat VERSION",
         returnStdout: true
     ).trim()
 }
