@@ -120,7 +120,7 @@ def getCurrentDeploymentVersion(String namespace) {
 
 def getAppVersion() {
     return sh(
-        script: "cat VERSION",
+        script: "cat ${PROJECT_PATH}/VERSION",
         returnStdout: true
     ).trim()
 }

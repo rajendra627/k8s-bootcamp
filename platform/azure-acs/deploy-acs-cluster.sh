@@ -67,7 +67,8 @@ function create_cluster {
     log "Deploying '${clusterName}' cluster"
 
     # az acs create -g "${resourceGroup}" -n "${clusterName}" -t "Kubernetes" -l "${resourceGroupLocation}" --generate-ssh-keys
-    az acs create -g "${resourceGroup}" -n "${clusterName}" -t "Kubernetes" -l "${resourceGroupLocation}" --service-principal "${clientId}" --client-secret "${clientSecret}" --generate-ssh-keys
+    # az acs create -g "${resourceGroup}" -n "${clusterName}" -t "Kubernetes" -l "${resourceGroupLocation}" --service-principal "${clientId}" --client-secret "${clientSecret}" --generate-ssh-keys
+    az acs create -g "${resourceGroup}" -n "${clusterName}" -t "Kubernetes" -l "${resourceGroupLocation}" --service-principal "${clientId}" --client-secret "${clientSecret}" --ssh-key-value ~/.ssh/id_rsa.pub
 
     log "Finished deploying '${clusterName}' cluster"
 }
@@ -90,9 +91,11 @@ function get_cluster_credentials {
 
 function get_kubernetes_credentials {
     log "Getting ACS Kubernetes credentials -> ~/.kube/config"
-    az acs kubernetes get-credentials -n "${clusterName}" -g "${resourceGroup}"
+    # az acs kubernetes get-credentials -n "${clusterName}" -g "${resourceGroup}"
+    az acs kubernetes get-credentials -n "${clusterName}" -g "${resourceGroup}" --ssh-key-file ~/.ssh/id_rsa
     log "Getting ACS Kubernetes credentials -> ~/.kube/${generatedAzureAcsKubeCredentials}"
-    az acs kubernetes get-credentials -f ~/.kube/${generatedAzureAcsKubeCredentials} -n "${clusterName}" -g "${resourceGroup}"
+    # az acs kubernetes get-credentials -f ~/.kube/${generatedAzureAcsKubeCredentials} -n "${clusterName}" -g "${resourceGroup}"
+    az acs kubernetes get-credentials -f ~/.kube/${generatedAzureAcsKubeCredentials} -n "${clusterName}" -g "${resourceGroup}" --ssh-key-file ~/.ssh/id_rsa
     log "Finished getting ACS Kubernetes credentials"
 }
 

@@ -1,4 +1,10 @@
 ---
+- name: Removing any pre-existing Sonar database.
+  become: yes
+  mysql_db:
+    name: "{{ sonar_mysql_database }}"
+    state: absent
+
 - name: Create a database for Sonar.
   become: yes
   mysql_db:
