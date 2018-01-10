@@ -116,7 +116,7 @@ def deployImage(Map attrs) {
 
 def getCurrentDeploymentVersion(String namespace) {
     return sh(
-        script: "/usr/local/bin/kubectl get deployment/${DEPLOYMENT_NAME} --namespace=${namespace} -o wide | awk '{ if (NR!=1) {print \$8}}' | cut -d ':' -f 2",
+        script: "/usr/local/bin/kubectl get deployment/${params.deploymentName} --namespace=${namespace} -o wide | awk '{ if (NR!=1) {print \$8}}' | cut -d ':' -f 2",
         returnStdout: true
     ).trim()
 }
