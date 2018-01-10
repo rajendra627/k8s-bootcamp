@@ -62,7 +62,7 @@ node {
         deployImage(
             deploymentName: "${params.deploymentName}",
             imageName: "${params.imageName}",
-            imageTag: "${IMAGE_FULL_VERSION}",
+            imageTag: "${params.imageVersion}",
             namespace: "${QA_NAMESPACE}"
         )
     }
