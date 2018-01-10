@@ -14,7 +14,7 @@ When you use services, you need to decide if they need to be exposed only intern
 
 * ClusterIP - exposed only internally.  This is the default.
 * LoadBalancer - exposed externally using a load balancer provisioned by the cloud provider
-* NodePort - exposed externally.  All requests to a specific port on one of your worker nodes will be routed to the service.  You use this type when you want to provision your own load balancer. 
+* NodePort - exposed externally.  All requests to a specific port on one of your worker nodes will be routed to the service.  You would use this type when you want to provision your own load balancer. 
 * ExternalName - See below.
 
 ## Services without label selectors ##
