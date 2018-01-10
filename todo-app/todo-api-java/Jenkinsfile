@@ -54,8 +54,6 @@ node {
 
         IMAGE_SEMVER = "${PROJECT_VERSION}.${GIT_REVISION_COUNT}"
         IMAGE_FULL_VERSION = "${IMAGE_SEMVER}_${GIT_REVISION}"
-
-        OLD_IMAGE_VERSION_QA = getCurrentDeploymentVersion(QA_NAMESPACE)
     }
     stage('Test') {
         def projectName = "todoapi${env.BUILD_NUMBER}"
