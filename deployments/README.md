@@ -4,6 +4,7 @@ Deployments enable you to define the "desired state" of your pods.  The deployme
 
 * Define the number of replicas of your pods
 * Define the deployment strategy e.g RollingUpdate, Recreate
+* Rollout your deployment at a controlled rate e.g. canary deployments
 * Check deployment status
 * Pause a deployment
 * Rollback a deployment
