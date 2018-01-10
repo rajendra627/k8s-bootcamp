@@ -25,11 +25,6 @@ node {
 
     def buildEnv;
 
-    environment {
-        REACT_APP_TENANT = credentials('REACT_APP_TENANT')
-        REACT_APP_CLIENT_ID = credentials('REACT_APP_CLIENT_ID')
-    }
-
     stage('Checkout') {
 
         if (params.CleanWorkspace) {
