@@ -123,10 +123,12 @@ export const createTodo = (todo) => {
       )
     })
       .then((response) => {
-          if (!response.ok) {
-            throw Error(response.statusText);
-          }
-          return response.json();
+          return unauthorizedHandler(response, dispatch, response => {
+              if (!response.ok) {
+                  throw Error(response.statusText);
+              }
+              return response.json();
+          });
         }
       )
       .then(newTodo => {
@@ -158,7 +160,7 @@ export const toggleTodo = todo => {
         ...AuthUtil.getAuthHeader()
       },
       body: JSON.stringify({...todo, done: !todo.done})
-    }).then(handleErrors)
+    }).then(response => unauthorizedHandler(response, dispatch, handleErrors))
       .then(() => {
         dispatch(toggledTodo(todo.id));
         dispatch(setLoading(false));
@@ -187,7 +189,7 @@ export const deleteTodo = id => {
         'Content-Type': 'application/json',
         ...AuthUtil.getAuthHeader()
       }
-    }).then(handleErrors)
+    }).then(response => unauthorizedHandler(response, dispatch, handleErrors))
       .then(() => {
           dispatch(deletedTodo(id));
           dispatch(setLoading(false));
@@ -238,7 +240,7 @@ export const fetchTodos = () => {
     return fetch(BASE_API_URL, {
       headers: AuthUtil.getAuthHeader()
     })
-      .then(response => response.json())
+      .then(response => unauthorizedHandler(response, dispatch, response => response.json()))
       .then(response => {
         dispatch(receiveTodos(response));
         dispatch(setLoading(false));
@@ -252,4 +254,14 @@ export const fetchTodos = () => {
         dispatch(setLoading(false));
       })
   }
+};
+
+const unauthorizedHandler = (response, dispatch, cb) => {
+  console.log(response);
+
+  if (response.status === 500 && response._bodyText && (response._bodyText.includes("JWT") || response._bodyText.includes("JWK"))) {
+    dispatch(logOut());
+    throw Error("Invalid JWT");
+  }
+  return cb(response);
 };
