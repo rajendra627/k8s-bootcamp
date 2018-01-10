@@ -12,7 +12,7 @@ General:
   LogLevel: INFO
 
 WebUI:
-  Name: web-ui
+  Name: todo-ui
   ServiceName: todo-webui-service
   Image: "architechbootcamp/todo-ui"
   ImageTag: "v0.4"

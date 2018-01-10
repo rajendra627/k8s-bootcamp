@@ -12,10 +12,10 @@ General:
   LogLevel: INFO
 
 WebUI:
-  Name: web-ui
+  Name: todo-ui
   ServiceName: todo-webui-service
   Image: "architechbootcamp/todo-ui"
-  ImageTag: "v0.2"
+  ImageTag: "v0.4"
   Replicas: 1
   ServicePort: 80
   ContainerPort: 80
@@ -24,7 +24,7 @@ TodoAPI:
   Name: todo-api
   ServiceName: todo-api
   Image: "architechbootcamp/todo-api"
-  ImageTag: "v0.2"
+  ImageTag: "v0.4"
   Replicas: 1
   ServicePort: 8080
   ContainerPort: 8080

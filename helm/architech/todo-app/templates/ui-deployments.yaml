@@ -14,7 +14,7 @@ spec:
         environment: {{.Values.General.Environment}}
     spec:
       containers:
-        - name: web
+        - name: {{.Values.WebUI.Name}}
           image: {{.Values.WebUI.Image}}:{{.Values.WebUI.ImageTag}}
           ports:
             - containerPort: {{.Values.WebUI.ContainerPort}}
@@ -39,4 +39,4 @@ spec:
                 secretKeyRef:
                   name: {{.Values.WebUI.SecretName}}
                   key: ui_ad_identity
-                
+
