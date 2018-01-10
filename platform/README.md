@@ -22,3 +22,4 @@ This directory contains scripts for provisioning Platform components
 ## Reference ##
 
 * [Kubernetes the Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way)
+* [Kubespray - Ansible Playbooks to install and configure Kubernetes](https://github.com/kubernetes-incubator/kubespray)

@@ -41,4 +41,5 @@ It is important to note that you will rarely work directly with pods.  You will 
 
 * [Pods](https://kubernetes.io/docs/concepts/workloads/pods/pod/)
 * [Pod API Reference](https://kubernetes.io/docs/api-reference/v1.8/#pod-v1-core)
+* [API Conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md)
 
