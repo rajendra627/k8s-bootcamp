@@ -89,6 +89,8 @@ function get_cluster_credentials {
 }
 
 function get_kubernetes_credentials {
+    log "Getting ACS Kubernetes credentials -> ~/.kube/config"
+    az acs kubernetes get-credentials -n "${clusterName}" -g "${resourceGroup}"
     log "Getting ACS Kubernetes credentials -> ~/.kube/${generatedAzureAcsKubeCredentials}"
     az acs kubernetes get-credentials -f ~/.kube/${generatedAzureAcsKubeCredentials} -n "${clusterName}" -g "${resourceGroup}"
     log "Finished getting ACS Kubernetes credentials"
