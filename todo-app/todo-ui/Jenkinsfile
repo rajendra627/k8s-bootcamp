@@ -19,7 +19,7 @@ PROJECT_PATH = 'todo-app/todo-ui'
 DEPLOYMENT_NAME = 'todo-ui'
 QA_NAMESPACE = 'qa-env'
 PROD_NAMESPACE = 'prod-env'
-REGISTRY_URL = 'https://igortestacs.azurecr.io'
+REGISTRY_URL = 'https://registry.hub.docker.com'
 
 node {
 
