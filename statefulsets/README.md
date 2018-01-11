@@ -1,6 +1,6 @@
 # Statefulsets #
 
-Statefulsets are similar to Deployments in that they enable you to define a pod template and specify the number of replicas from that pod.  They differ in that statefulsets provide capabilities that are beneficial for stateful applications that require:
+Statefulsets are similar to Deployments in that they enable you to define a pod template and specify the number of replicas for that pod.  They differ in that statefulsets provide capabilities that are beneficial for stateful applications that require:
 
 * Unique Network Identities (one instance can be identified from another e.g. primary/standby)
 * Ordering of deployment (one instance should be deployed before others)
