@@ -157,6 +157,14 @@ function cleaup_parameters_file {
     fi
 }
 
+function provision_build_server {
+    log "Provisioning build server using Ansible..."
+    cd ansible/
+    ansible-playbook -vv -i hosts.ini build-server.yml --diff
+    cd ..
+    log "Finished provisioning build server"
+}
+
 while getopts g:s:u:v opt; do
     case $opt in
         g)
@@ -196,6 +204,7 @@ create_storage_account
 deploy_template
 generate_ansible_hosts_file
 cleaup_parameters_file
+provision_build_server
 duration=$SECONDS
 echo "***** $(($duration / 60)) minutes and $(($duration % 60)) seconds elapsed."
 

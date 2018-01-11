@@ -31,6 +31,7 @@ STOPSIGNAL SIGTERM
 
 # Empty config array
 ENV AZURE_APP_ID ""
+ENV AZURE_AD_TENANT ""
 ENV IS_TEST_MODE "false"
 
 # run nginx
