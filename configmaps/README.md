@@ -14,6 +14,18 @@ Get the content of a configmap like so:
 kubectl get configmap app-config -o=yaml
 ```
 
+Of course, as ConfigMaps are just resources, you can define a ConfigMap manifest with key/value pairs.  
+
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-properties
+  namespace: default
+data:
+  log_level: DEBUG
+```
+
 *Note: ConfigMaps are not for credentials and keys.  They are meant for environment and application specific configuration data.  Use [secrets](https://kubernetes.io/docs/concepts/configuration/secret/) for credentials and keys.*
 
 ## Accessing ConfigMap Data from Pods ##
