@@ -1,6 +1,6 @@
 # ConfigMaps #
 
-ConfigMaps are K8S' means to externalize configuration from your application code.  They are essentially key/value pairs that can be defined in a single file, multiple files, a directory of files or just simple literal values from the command line.
+ConfigMaps are K8S' means to externalize configuration from your application code.  They are essentially key/value pairs that can be defined in a single file, a directory of files or just simple literal values from the command line.  Configmaps are key value/pairs.  If the datasource is a file, the key is the filename and the value is the content of the file.
 
 To create a config map from a file run:
 
