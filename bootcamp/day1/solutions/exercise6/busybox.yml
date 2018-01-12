@@ -19,6 +19,7 @@ spec:
   containers:
   - name: busybox
     image: k8s.gcr.io/busybox
+    #so that busybox does not just start up and crash
     command: [ "/bin/sh", "-c", "sleep 30000" ]
     #this is where we expose the configmap key/values as
     #environment variables.
