@@ -82,7 +82,7 @@ class Login extends Component {
                 </div>
                 {
                   TEST_MODE ?
-                    <form className="form-horizontal col-xs-12" onSubmit={this.onFormSubmit}>
+                    <form className="form-horizontal col-xs-12 test-mode-form" onSubmit={this.onFormSubmit}>
                       <div className="form-group">
                         <label className="control-label">*Email:</label>
                         <div>
