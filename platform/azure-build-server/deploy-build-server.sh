@@ -11,6 +11,7 @@
 # -g <resourceGroup>
 # -s <storageAccount>
 # -u <azureVmUsername>
+# -n <buildServerDnsPrefix>
 # -v if provided will only validate not deploy
 #
 #######################################################################################################
@@ -24,6 +25,7 @@ template='arm/azureDeploy.json'
 parameters='arm/azureDeploy.parameters.json'
 tempParameters='arm/temp.parameters.json'
 azureVmUsername=''
+buildServerDnsPrefix=''
 justValidate=false
 
 function log {
@@ -31,7 +33,11 @@ function log {
 }
 
 function usage {
-    log "To validate and deploy:  ./deploy-build-server.sh -g <resourceGroup> -s <storageAccountName> -u <azureVmUsername>"
+    log "To validate and deploy:  ./deploy-build-server.sh -g <resourceGroup> -s <storageAccountName> -u <azureVmUsername> -n <buildServerDnsPrefix>"
+    log "-g <resourceGroup> - Name of the Resource Group"
+    log "-s <storageAccountName> - Name of the Azure storage account (Must be globally unique)"
+    log "-u <azureVmUsername> - Admin username for the Azure VM"
+    log "-n <buildServerDnsPrefix> - DNS prefix for build server (Must be globally unique)"
     log "To just validate: add the ARM template -v switch"
 }
 
@@ -158,6 +164,8 @@ function cleaup_parameters_file {
 }
 
 function provision_build_server {
+    log "Sleeping for 60 seconds before provisioning"
+    sleep 60
     log "Provisioning build server using Ansible..."
     cd ansible/
     ansible-playbook -vv -i hosts.ini build-server.yml --diff
@@ -165,7 +173,7 @@ function provision_build_server {
     log "Finished provisioning build server"
 }
 
-while getopts g:s:u:v opt; do
+while getopts g:s:u:n:v opt; do
     case $opt in
         g)
             resourceGroup=${OPTARG}
@@ -178,6 +186,10 @@ while getopts g:s:u:v opt; do
         u)
             azureVmUsername=${OPTARG}
             log "azureVmUsername --> $azureVmUsername"
+            ;;
+        n)
+            buildServerDnsPrefix=${OPTARG}
+            log "buildServerDnsPrefix --> $buildServerDnsPrefix"
             ;;
         v) #if true just validate and don't deploy'
             justValidate=true;
@@ -199,6 +211,7 @@ fi
 if [ -z "$resourceGroup" ] ;then echo "-g must be provided"; exit 1; fi
 if [ -z "$storageAccount" ] ;then echo "-s must be provided"; exit 1; fi
 if [ -z "$azureVmUsername" ] ;then echo "-u must be provided"; exit 1; fi
+if [ -z "$buildServerDnsPrefix" ] ;then echo "-n must be provided"; exit 1; fi
 
 create_storage_account
 deploy_template
