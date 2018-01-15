@@ -1,6 +1,6 @@
 ## Deployment script for Azure Container Services Kubernetes cluster ##
 
-This script provisions a Kubernetes cluster
+This script provisions a Kubernetes cluster on Azure using ACS
 
 ## Pre-requisited ##
 
@@ -11,6 +11,14 @@ This script provisions a Kubernetes cluster
 
 ## Get Started ##
 
-To deploy a Kubernetes cluster with default number of Master and Agent nodes run the following command:
+To deploy a Kubernetes cluster run the following command:
 
-`./deploy-acs-cluster.sh -g <Resource-Group-Name> -c <Cluster-Name>`
+*NOTE: `-n <Number-of-Nodes>` is optional and defaults to 3 nodes.
+
+`./deploy-acs-cluster.sh -g <Resource-Group-Name> -c <Cluster-Name> -n <Number-of-Nodes>`
+
+This deploys a cluster with 1 master node and 3 agent nodes.
+
+## Explanation ##
+
+This scripts creates a Kubernetes ACS cluster on Azure,

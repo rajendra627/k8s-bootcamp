@@ -14,7 +14,7 @@ spec:
         environment: {{.Values.General.Environment}}
     spec:
       containers:
-        - name: web
+        - name: {{.Values.WebUI.Name}}
           image: {{.Values.WebUI.Image}}:{{.Values.WebUI.ImageTag}}
           ports:
             - containerPort: {{.Values.WebUI.ContainerPort}}
@@ -39,4 +39,14 @@ spec:
                 secretKeyRef:
                   name: {{.Values.WebUI.SecretName}}
                   key: ui_ad_identity
-                
+            - name: REACT_APP_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.WebUI.SecretName}}
+                  key: ui_react_app_id
+            - name: REACT_APP_TENANT
+              valueFrom:
+                secretKeyRef:
+                  name: {{.Values.WebUI.SecretName}}
+                  key: ui_react_ad_identity
+
