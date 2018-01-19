@@ -16,12 +16,12 @@ Deploy the Todo Application using helm. We will then do the following:
 
 ### Deploying the Todo Application ###
 
-From within the helm directory run the following command:
+From within the [helm directory](../../helm/) run the following command:
 
 ```sh
 #1) create a namespace to deploy the application
 
-kubectl create namespace todoapp
+kubectl create namespace todo-app
 
 #2) create the secrets required by the application
 
