@@ -11,7 +11,7 @@ todo-app is the helm chart for the Todo Application.  See [Day1/exercise1](../bo
 - Run Command
 
 ```sh
- ./create_secrets.sh todoapp
+ ./create_secrets.sh todo-app
  ```
 
 This command will create the namespace _todoapp_ and will create the secrets required, Secrets are kept out of the Helm Chart, the helm chart is for distribution for your clients, secrets such usernames/passwords/identities, should be local to each environment
