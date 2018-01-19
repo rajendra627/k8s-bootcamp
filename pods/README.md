@@ -35,6 +35,7 @@ If and when you should define liveness and readiness probes depends on the conta
 * [Example configuring liveness and readiness probes](./http-liveness.yaml)
 
 ## Note ##
+
 It is important to note that you will rarely define pod manifests directly except in the most simple cases.  You will work with other resources such as Deployments, StatefulSets, DaemonSets that control the deployment, scaling, and lifecycle of your pods.  When you define your pod specifications you will do so as 'templates' within the manifests for those resources.
 
 ## Reference ##
@@ -43,4 +44,3 @@ It is important to note that you will rarely define pod manifests directly excep
 * [Pod API Reference](https://kubernetes.io/docs/api-reference/v1.8/#pod-v1-core)
 * [Top Level API Objects](https://htmlpreview.github.io/?https://github.com/kubernetes/kubernetes/blob/HEAD/docs/api-reference/v1/definitions.html)
 * [API Conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md)
-
