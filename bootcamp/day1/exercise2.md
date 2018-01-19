@@ -8,7 +8,7 @@ You should have successfully set up your environment as outlined in [Day1/setup]
 
 In this exercise you are going to be defining pod manifests and configuring the pod with probe, resource limits/requests, and QoS.  If you are really stuck, see [solutions](./solutions/exercise2/).
 
-### Create and deploy pod that contains a single container. ###
+### Create and deploy pod that contains a single container ###
 
 Use the busybox image from [DockerHub](https://hub.docker.com/_/busybox/).
 
@@ -19,7 +19,7 @@ Use the busybox image from [DockerHub](https://hub.docker.com/_/busybox/).
 
 ### Create and deploy a pod with liveness probes and QoS ###
 
-* Use the nginx image from Dropbox.  
+* Use the nginx image from Dropbox.
 * The liveness probe path should be '/'.
 * Configure the probe to wait 5 seconds prior to the first probe.
 * Configure the probe to check every 10 seconds
@@ -29,5 +29,3 @@ Use the busybox image from [DockerHub](https://hub.docker.com/_/busybox/).
 ### Next... ###
 
 [Exercise 3](./exercise3.md)
-
-

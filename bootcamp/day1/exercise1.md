@@ -18,12 +18,20 @@ Deploy the Todo Application using helm. We will then do the following:
 
 From within the helm directory run the following command:
 
-```
-#do a dry run install to make sure everything is ok
-helm install --dry-run todo-app
+```sh
+#1) create a namespace to deploy the application
 
-#install the todo-app
-helm install todo-app
+kubectl create namespace todoapp
+
+#2) create the secrets required by the application
+
+./create_secrets.sh
+
+#3) do a dry run install to make sure everything is ok
+helm install --dry-run architech/todo-app
+
+#4) install the todo-app
+helm install architech/todo-app
 
 #check that the app has been deployed.  You should see the todo-app has been deployed.
 helm ls
@@ -34,17 +42,20 @@ Open a browser and access the application at [http://host:8080](http://host:8080
 ### List all deployments, services, pods ###
 
 To list deployments:
-```
+
+```sh
 kubectl get deployments
 ```
 
 To list services:
-```
+
+```sh
 kubectl get services
 ```
 
 To list pods:
-```
+
+```sh
 kubectl get pods
 
 #How many pods are running?
@@ -52,19 +63,21 @@ kubectl get pods
 
 ### Get details of the todo-api pod ###
 
-```
+```sh
 #replace <pod_name> with the name of your pod
 kubectl describe pod/<pod_name>
 ```
 
 ### Get shell access to the todo-ui pod ###
-```
+
+```sh
 #replace <todo-ui-pod-name> with the name of your pod
 kubectl exec -it <todo-ui-pod-name> -- /bin/bash
 ```
 
 ### Scale up then scale down the number of Todo API services ###
-```
+
+```sh
 #scale up to 5 replicas
 kubectl scale --replicas=5 deployment/todo-api-deployment
 
@@ -82,19 +95,21 @@ kubectl get deployment/todo-api-deployment
 
 Open up two shells.  In the first shell run the following command to update the image for the todo-api to a new version.:
 
-```
+```sh
 #we are setting the container image for the todo-api container to todo-api:v2
 #See spec.containers.image field of the deployment manifest
 kubectl set image deployment/todo-api-deployment todo-api=todo-api:v2
 ```
 
 In the second shell we are going to watch the status of the rollout.
-```
+
+```sh
 kubectl rollout status deployment/todo-api-deployment
 ```
 
 Now let's rollback!
-```
+
+```sh
 kubectl rollout undo deployment/todo-api-deployment
 ```
 
