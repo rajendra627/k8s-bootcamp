@@ -8,6 +8,10 @@
 #
 # Add a label to one of your nodes with 'kubectl label node <node_name> disk=ssd'
 # Then delete and create the pod again.  You will see that the pod will be scheduled.
+#
+# Another means to influence scheduling of pods to nodes are node-affinity, inter-pod affinity/anti-affinity
+# These are beta features but much more flexible than nodeSelectors.
+# See https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
 
 apiVersion: v1
 kind: Pod
