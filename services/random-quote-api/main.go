@@ -12,7 +12,7 @@ import (
 	"os"
 
 	"github.com/gorilla/mux"
-	resty "gopkg.in/resty.v1"
+	"gopkg.in/resty.v1"
 )
 
 func main() {
