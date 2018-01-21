@@ -3,6 +3,7 @@ package main
 //Simple API that integrates with a service external to the K8S cluster.
 //Note the RANDOM_QUOTE_SERVICE environment variable value will be the
 //name of the service resource deployed to K8S.
+//@author Jungho Kim, jk@architech.ca
 import (
 	"fmt"
 	"log"
