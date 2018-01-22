@@ -1,1 +1,29 @@
-Add explanation of each secret, their function and add references to Azure AD documentation.
+## Secrets ##
+
+The following secrets are set in the Kubernetes cluster and are loaded as environment variables in To-Do UI, To-Do API, and User API containers in order for the apps to allow Azure AD integration.
+
+**NOTE**: Careful when editing secrets in IDE's that auto-append newline to files. Secrets have issues with newlines.
+
+### ad_identity ###
+
+OpenID url for your Azure Active Directory
+
+### azure_app_id ###
+
+Application ID of the registered application under your Azure AD
+
+### azure_client_secret ###
+
+Client secret of the registered application under your Azure AD
+
+### ui_ad_identity ###
+
+Application tenant url of the registered application under your Azure AD
+
+### ui_react_ad_identity ###
+
+Application tenant url of the registered application under your Azure AD
+
+### ui_react_app_id ###
+
+Application ID of the registered application under your Azure AD

@@ -19,8 +19,6 @@ clusterName=''
 nodeNumber='3'
 clientId=''
 clientSecret=''
-#clientId='85da2dd8-bba0-48eb-aaee-0f3a1f186a7b'
-#clientSecret='7ff921e0-9df6-4248-a5b5-0a06648810cb'
 ## Currently, AKS is only available in 'eastus,westeurope,centralus' regions
 resourceGroupLocation='eastus'
 generatedAzureAcsKubeCredentials='acsGenerated.config'
@@ -68,7 +66,7 @@ function create_cluster {
 
     # az acs create -g "${resourceGroup}" -n "${clusterName}" -t "Kubernetes" -l "${resourceGroupLocation}" --generate-ssh-keys
     # az acs create -g "${resourceGroup}" -n "${clusterName}" -t "Kubernetes" -l "${resourceGroupLocation}" --service-principal "${clientId}" --client-secret "${clientSecret}" --generate-ssh-keys
-    az acs create -g "${resourceGroup}" -n "${clusterName}" -t "Kubernetes" -l "${resourceGroupLocation}" --service-principal "${clientId}" --client-secret "${clientSecret}" --ssh-key-value ~/.ssh/id_rsa.pub
+    az acs create -g "${resourceGroup}" -n "${clusterName}" -t "Kubernetes" -l "${resourceGroupLocation}" --agent-storage-profile "ManagedDisks" --service-principal "${clientId}" --client-secret "${clientSecret}" --ssh-key-value ~/.ssh/id_rsa.pub
 
     log "Finished deploying '${clusterName}' cluster"
 }
@@ -93,6 +91,7 @@ function get_kubernetes_credentials {
     log "Getting ACS Kubernetes credentials -> ~/.kube/config"
     # az acs kubernetes get-credentials -n "${clusterName}" -g "${resourceGroup}"
     az acs kubernetes get-credentials -n "${clusterName}" -g "${resourceGroup}" --ssh-key-file ~/.ssh/id_rsa
+    generatedAzureAcsKubeCredentials="${clusterName}Generated.config"
     log "Getting ACS Kubernetes credentials -> ~/.kube/${generatedAzureAcsKubeCredentials}"
     # az acs kubernetes get-credentials -f ~/.kube/${generatedAzureAcsKubeCredentials} -n "${clusterName}" -g "${resourceGroup}"
     az acs kubernetes get-credentials -f ~/.kube/${generatedAzureAcsKubeCredentials} -n "${clusterName}" -g "${resourceGroup}" --ssh-key-file ~/.ssh/id_rsa
@@ -128,6 +127,7 @@ check_resource_group
 get_cluster_credentials
 delay 60
 create_cluster
+delay 60
 get_kubernetes_credentials
 
 duration=$SECONDS

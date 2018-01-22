@@ -101,8 +101,6 @@ function create_storage_account {
     log "Replacing placeholders in ARM template parameters file"
     sed -i "s~STORAGE_ACCOUNT_NAME~${storageAccount}~g" "${tempParameters}" || exit 1
     sed -i "s~AZURE_VM_USERNAME~${azureVmUsername}~g" "${tempParameters}" || exit 1
-
-    read -r -p "Enter DNS prefix for build server (must be globally unique): " buildServerDnsPrefix
     sed -i "s~BUILD_SERVER_UNIQUE_DNS_PREFIX~${buildServerDnsPrefix}~g" "${tempParameters}" || exit 1
 
     localPubKey='keys/id_rsa.pub'
@@ -141,8 +139,9 @@ function validate_template {
 function deploy_template {
     if ! $justValidate
     then
-        log "start deploying template..."
+        log "Starting to deploying template..."
         az group deployment create -g "${resourceGroup}" --template-file "${template}" --parameters "${tempParameters}"
+        log "Finished deploying template"
     fi
 }
 

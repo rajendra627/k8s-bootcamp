@@ -85,32 +85,6 @@ node {
                 ]
 
     }
-/*
-    stage('Prod Image Push') {
-        echo "Pushing Production-ready tags to docker registry"
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-            PROD_IMAGE_FULL_VERSION = "${IMAGE_FULL_VERSION}"
-            buildEnv.push(PROD_IMAGE_FULL_VERSION)
-            buildEnv.push(IMAGE_SEMVER)
-            buildEnv.push("latest")
-            buildEnv.push("stable")
-        }
-    }
-
-    stage('Deploy to Prod') {
-        input 'Push to Production?'
-        OLD_IMAGE_VERSION_PROD = sh(
-            script: "/usr/local/bin/kubectl --context=${PROD_KUBECTL_CONTEXT} get deployment/\${DEPLOYMENT_NAME} --namespace=prod-env -o wide | awk '{ if (NR!=1) {print \$8}}' | cut -d ':' -f 2",
-            returnStdout: true
-        ).trim()
-        sh "/usr/local/bin/kubectl --context=${PROD_KUBECTL_CONTEXT} set image deployment/${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}=${PROJECT_IMAGE_NAME}:${IMAGE_FULL_VERSION} --namespace=prod-env"
-    }
-
-    stage('Roll back Prod') {
-        input 'Roll back Production?'
-        sh "/usr/local/bin/kubectl --context=${PROD_KUBECTL_CONTEXT} set image deployment/${DEPLOYMENT_NAME} ${DEPLOYMENT_NAME}=${PROJECT_IMAGE_NAME}:${OLD_IMAGE_VERSION_PROD} --namespace=qa-env"
-    }
-*/
 }
 
 def deployImage(Map attrs) {
