@@ -1,3 +1,16 @@
+# 1) Deploy the configmap and this manifest
+#
+# kubectl create -f app-properties.yml
+# kubectl create -f configmap-from-volume.yml
+#
+# 2) Exec into the pod
+#
+# kubectl exec -ti cm-volume -- sh
+#
+# 3) In the shell:
+#
+# cat /mnt/config/LOG_LEVEL
+#
 apiVersion: v1
 kind: Pod
 metadata:
