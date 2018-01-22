@@ -1,0 +1,1 @@
+Add explanation of each secret, their function and add references to Azure AD documentation.
