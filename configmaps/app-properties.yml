@@ -4,4 +4,4 @@ metadata:
   name: app-properties
   namespace: default
 data:
-  log_level: DEBUG
+  LOG_LEVEL: DEBUG

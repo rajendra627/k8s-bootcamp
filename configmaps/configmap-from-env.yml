@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cm-env
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    #here we are saying create an environment variable
+    #named LOG_LEVEL with the value of the key named 'log_level'
+    #in the configMap named app-properties
+    env:
+    - name: LOG_LEVEL
+      valueFrom:
+        configMapKeyRef:
+          name: app-properties
+          key: LOG_LEVEL

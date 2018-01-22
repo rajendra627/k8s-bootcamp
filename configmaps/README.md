@@ -4,19 +4,19 @@ ConfigMaps are K8S' means to externalize configuration from your application cod
 
 To create a config map from a file run:
 
-```
+```sh
 kubectl create configmap app-config --from-file=application.properties
 ```
 
 Get the content of a configmap like so:
 
-```
+```sh
 kubectl get configmap app-config -o=yaml
 ```
 
-Of course, as ConfigMaps are just resources, you can define a ConfigMap manifest with key/value pairs.  
+Of course, as ConfigMaps are just resources, you can define a ConfigMap manifest with key/value pairs.
 
-```
+```yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -32,6 +32,11 @@ data:
 
 There are two primary approaches to access your configuration data from the containers within your Pods.  As environment variables and as a file in a volume.  You specify the approach within your pod template.  See the [Use ConfigMap Data in Pods](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/) at K8S.io.
 
+Also see:
+
+- [configmap-from-env.yml](./configmap-from-env.yml)
+- [configmap-from-envFrom.yml](./configmap-from-envFrom.yml)
+- [configmap-from-volume.yml](./configmap-from-volume.yml)
 
 ## References ##
 
