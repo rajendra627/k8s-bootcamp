@@ -1,12 +1,12 @@
 # Horizontal Pod Auto-Scaling #
 
-Horizontal Pod Auto Scaling (HPA) is a capability to scale out/in the number of pods based on resource metrics e.g. CPU.  
+Horizontal Pod Auto Scaling (HPA) is a capability to scale out/in the number of pods based on resource metrics e.g. CPU.
 
-In order to use auto-scaling, you should deploy your pods using deployments.  
+In order to use auto-scaling, you should deploy your pods using deployments. You also need to enable the heapster add-on which will be responsible for capturing the metrics.
 
 HPA is a resource and is managed by a controller just like other resources.
 
-There are two versions of the autoscaling apis and they differ in capability.  The stable version of the autocaling API (autoscaling/v1) supports only CPU scaling, beta (autoscaling/v2beta1) supports both CPU and Memory and custom metrics.  
+There are two versions of the autoscaling apis and they differ in capability.  The stable version of the autocaling API (autoscaling/v1) supports only CPU scaling, beta (autoscaling/v2beta1) supports both CPU and Memory and custom metrics.
 
 *Tip: To see which api versions your cluster supports run ```kubectl api-versions```*
 
