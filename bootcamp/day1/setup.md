@@ -82,13 +82,13 @@ After you have verified your subscription has the necessary providers registered
 * Create a resource group for your cluster
 
 ```sh
-az group create -n k8s-example -l canadaeast
+az group create -n <rg-name> -l <region>
 ```
 
 * Create the cluster
 
 ```sh
-az acs create -n test-cluster -g k8s-example --generate-ssh-keys --master-count 1 --agent-count 1 -t Kubernetes
+az acs create -n <cluster-name> -g <rg-name> --generate-ssh-keys --master-count 1 --agent-count 1 -t Kubernetes
 ```
 
 * After the cluster has been successfully created install kubectl
@@ -103,7 +103,7 @@ az acs kubernetes install-cli
 #this will download and install the certificates to access your cluster
 #in your ~/.kube/config file
 
-az acs kubernetes get-credentials -n test-cluster -g k8s-example
+az acs kubernetes get-credentials -n <cluster-name> -g <rg-name>
 ```
 
 * Verify your kubectl installation by listing the nodes in your cluster
