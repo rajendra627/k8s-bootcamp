@@ -22,7 +22,7 @@ spec:
   - name: nginx
     image: nginx
     #here we are saying create an environment variable
-    #named LOG_LEVEL with the value of the key named 'log_level'
+    #named LOG_LEVEL with the value of the key named 'LOG_LEVEL'
     #in the configMap named app-properties
     env:
     - name: LOG_LEVEL
