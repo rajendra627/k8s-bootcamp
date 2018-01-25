@@ -11,7 +11,7 @@ Please follow the documentation in the following links to create a repository an
 
 https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-azure-cli
 
-It is straight forward and now you take note of two pieces of information that we will use going forward  
+It is straight forward and now you take note of two pieces of information that we will use going forward
 *  *repository-name*
 *  *repository-resource-group*
 
@@ -49,8 +49,10 @@ Use _kubectl_ to create a secret "_acr-secret_" if your _repository-name_ was _t
 
 > kubectl create secret docker-registry acr-secret --docker-server=https://techdemoacr.azurecr.io --docker-username=acr_username --docker-password=acr_password --docker-email=anymail@company.com
 
-## Modify your deployment yaml files to include the _acr-secret_
+## Modify your deployment yaml files to include the _acr-secret_ ##
+_
 If your yaml file contains a reference to a container image such as
+
 ```yaml
 spec:
   containers:
@@ -61,6 +63,7 @@ spec:
 ```
 
 You modify that by adding the secret to the spec of the containers
+
 ```yaml
 spec:
   containers:

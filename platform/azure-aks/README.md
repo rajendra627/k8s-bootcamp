@@ -10,3 +10,7 @@ This provisioning script is here for future use/reference when Azure AKS becomes
 - AKS preview service needs to be enabled on your Azure subscription with the following command:
   `az provider register -n Microsoft.ContainerService`
 - Before executing any commands, you need to be logged in `az login`
+
+## References ##
+
+- [Azure Kubernetes Service](https://docs.microsoft.com/en-ca/azure/aks/intro-kubernetes)

@@ -11,7 +11,7 @@ To the containers, volumes are just directory on the disk.  The Docker image is 
 
 ## Persistent Volumes & Persistent Volume Claims ##
 
-With Volumes the life-cycle of the storage is tied to the pod.  This means the volume survives container restarts, however, if the pod is destroyed, the volume storage will be blown away. This is not appropriate for applications such as databases that require the data is saved even if the pod is rescheduled to another node.
+With Volumes the life-cycle of the storage is tied to the pod.  This means the volume survives container restarts, however, if the pod is destroyed, the volume storage will be blown away - not entirely true, this is the case for certain volume types e.g. emptyDir. This is not appropriate for applications such as databases that require the data is saved even if the pod is rescheduled to another node.
 
 Persistent Volumes (PV) are a volume type that is pre-provisioned/defined by the cluster admin - they can be provisioned statically or dynamically.  They support different storage services via plugins.  For example, there is a PV type for AzureFile, AzureDisk, NFS and more.
 
