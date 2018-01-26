@@ -1,0 +1,25 @@
+# You can use nip.io dynamic dns service to define your host
+# See http://nip.io for details
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: pod-details-ingress
+spec:
+  rules:
+  - host: pod-detail.192.168.3.138.nip.io
+    http:
+      paths:
+      - path: /v1
+        backend:
+          serviceName: pod-details-v1
+          servicePort: 8080
+      - path: /v2
+        backend:
+          serviceName: pod-details-v2
+          servicePort: 8080
+  #The service that will handle all other
+  #paths. e.g. return a 404 not found page.
+  backend:
+    serviceName: default-http-backend
+    servicePort: 80
