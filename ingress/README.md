@@ -25,4 +25,5 @@ kubectl create -f ingress-rule-single-host.yml
 * [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
 * [Simplifying advanced networking with Ingress](http://blog.kubernetes.io/2016/03/Kubernetes-1.2-and-simplifying-advanced-networking-with-Ingress.html)
 * [nginx Ingress Controller](https://github.com/kubernetes/ingress-nginx)
+* [nginx ingress controller examples](https://github.com/kubernetes/ingress-nginx/tree/master/docs/examples)
 * [nginx complete example](https://github.com/nginxinc/kubernetes-ingress/tree/master/examples/complete-example)
