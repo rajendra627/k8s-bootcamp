@@ -6,19 +6,27 @@ In order to expose your service externally we know that we can use NodePort and 
 
 We will deploy two versions of our pod-details api and configure the routing to a specific version by path.
 
-1. Deploy the two versions of the pod-details services
+1. Create a namespace to deploy the example
 
 ```sh
-kubectl create -f pod-details-service-v1.yml
-kubectl create -f pod-details-service-v2.yml
+kubectl create namespace ingress-example
+```
+
+2. Deploy the two versions of the pod-details services
+
+```sh
+kubectl create -f pod-details-service-v1.yml --namespace ingress-example
+kubectl create -f pod-details-service-v2.yml --namespace ingress-example
 ```
 
 3. Deploy the ingress controller and create an ingress rules
 
 ```sh
-kubectl create -f ingress-controller.yml
-kubectl create -f ingress-rule-single-host.yml
+kubectl create -f ingress-controller.yml --namespace ingress-example
+kubectl create -f ingress-rule-single-host.yml --namespace ingress-example
 ```
+
+*Note:  The nginx ingress controller accesses the API Server to read resources.  Hence, it must be authorized to access the API Server.  
 
 ## Reference ##
 

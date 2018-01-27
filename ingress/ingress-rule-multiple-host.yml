@@ -4,23 +4,21 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: pod-details-ingress
+  name: pod-details-ingress-multi
 spec:
   rules:
-  - host: v1.198.0.0.1.nip.io
+  - host: v1.192.168.99.100.nip.io
     http:
       paths:
-      - path: /
-        backend:
+      - backend:
           serviceName: pod-details-v1
-          servicePort: 8080
-  - host: v2.198.0.0.1.nip.io
+          servicePort: 8000
+  - host: v2.192.168.99.100.nip.io
     http:
       paths:
-      - path: /
-        backend:
+      - backend:
           serviceName: pod-details-v2
-          servicePort: 8080
+          servicePort: 8000
   #The service that will handle all other
   #paths. e.g. return a 404 not found page.
   backend:

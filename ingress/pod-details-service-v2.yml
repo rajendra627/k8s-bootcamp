@@ -9,7 +9,7 @@ spec:
   type:  ClusterIP
   ports:
   - name:  http
-    port:  8080
+    port:  8000
     targetPort:  pod-port
 ---
 apiVersion: extensions/v1beta1
@@ -19,7 +19,7 @@ metadata:
   labels:
     app: v2
 spec:
-  replicas: 5
+  replicas: 1
   strategy:
     rollingUpdate:
       maxSurge: 1
