@@ -1,7 +1,5 @@
-# You can use nip.io dynamic dns service to define your host
-# See http://nip.io for details
-# change the 
-
+# Note this example does not even specify a host. 
+# Instead, it defines paths that direct the request to specific service.
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
