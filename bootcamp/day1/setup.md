@@ -112,6 +112,18 @@ az acs kubernetes get-credentials -n <cluster-name> -g <rg-name>
 kubectl get nodes
 ```
 
+* Verify the status of the K8S components
+
+```sh
+kubectl get componentstatuses
+
+#you should see something like this...
+NAME                 STATUS    MESSAGE              ERROR
+controller-manager   Healthy   ok                   
+etcd-0               Healthy   {"health": "true"}   
+scheduler            Healthy   ok                   
+```
+
 * Start up proxy to tunnel to the Kubernetes Dashboard
 
 ```sh
@@ -140,7 +152,9 @@ az group delete -n k8s-example
 
 This part is only for the RBAC portion of the exercises.  Unfortunately, ACS currently does not support RBAC.  To enable RBAC on Azure, you will need to leverage [ACS Engine](https://github.com/Azure/acs-engine), however, that is an advanced topic so we will be using Minikube to demonstrate RBAC concepts.
 
-See the installation instructions for your OS [here](https://github.com/kubernetes/minikube).
+See the installation instructions for your OS [here](https://github.com/kubernetes/minikube/releases)
+
+*Use v0.24.1*
 
 *Note for Windows, you need to make a decision if you are going to use Hyper-V or Virtualbox for virtualization.  If you have installed Docker with Hyper-V then you have to choose Hyper-V for Minikube also to support both.*
 
