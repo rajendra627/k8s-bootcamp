@@ -33,7 +33,7 @@ spec:
         app: v1
     spec:
       containers:
-      - image:  architechbootcamp/pod-details:1.0.0
+      - image:  architechbootcamp/pod-details:1.0.1
         name:  pod-details
         imagePullPolicy: Always
         resources:
