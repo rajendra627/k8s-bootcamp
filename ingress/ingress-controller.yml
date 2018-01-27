@@ -55,8 +55,12 @@ spec:
         # See https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/cli-arguments.md
         - containerPort: 10254
         args:
+        # Note these args a specific to the ingress controller implementation
         - /nginx-ingress-controller
         - --default-backend-service=$(POD_NAMESPACE)/default-http-backend
+        # This flag forces the ingress controller to only care about ingress resources
+        # in the namespace defined in --watch-namespace
+        # This enables you to isolate ingress controllers and ingress rules to a given namespace
         - --force-namespace-isolation
         - --watch-namespace=$(POD_NAMESPACE)
         env:
