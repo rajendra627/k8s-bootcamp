@@ -1,8 +1,10 @@
 # Role Based Access Control #
 
-When you provision a K8S cluster on Azure Container Service using the az cli, RBAC is not enabled by default.  Therefore, everyone will have full read/write access.  But what happens if you need to provide other users/roles restricted access to the K8S cluster?  For example, you want "QA" roles having read/write access to only their environment, and "Dev" roles having read/write access to only their evironment. This is where RBAC comes into play.
+When you provision a K8S cluster on Azure Container Service using the az cli, RBAC is not enabled by default.  Therefore, everyone will have full read/write access.  But what happens if you need to provide other users/roles restricted access to the K8S cluster?  For example, you want "QA" roles having read/write access to only their environment, and "Dev" roles having read/write access to only their environment. This is where RBAC comes into play.  
 
-**Note: ACS currently does not support RBAC.  To enable RBAC in Azure, you need to use [ACS Engine](https://github.com/Azure/acs-engine).  However, this is an advanced topic so we will be using Minikube to demonstrate RBAC in K8S**
+**Note, you can also provision multiple clusters - a separate one for each environment that needs to be supported.  This is actually the simpler approach and used by many organizations.**
+
+**Note: ACS and AKS currently does not support RBAC.  To enable RBAC in Azure, you need to use [ACS Engine](https://github.com/Azure/acs-engine).  However, this is an advanced topic so we will be using Minikube to demonstrate RBAC in K8S**
 
 ## Objective ##
 
@@ -16,11 +18,6 @@ K8S supports a very flexible authentication/authorization model that is extensib
 
 You can configure multiple authentication modules to support different authentication scenarios within your cluster.  Each of the enabled authentication modules will be invoked and short-circuited when the first module authenticates the request.  If all the modules cannot authenticate then access is denied.  This is important to support both interactive and non-interactive authentication within the same cluster.
 
-For our purposes, we will be using two authentication strategies:
-
-- Azure OpenID Connect (to authenticate a human user)
-- HTTP Basic Auth with simple username/password (to authenticate the Jenkins server)
-
 See [Controlling access to the K8S API](https://kubernetes.io/docs/admin/accessing-the-api/) to set up HTTP Basic Auth authentication, and see [Azure Active Directory plugin for client authentication with OIDC](https://github.com/kubernetes/client-go/tree/master/plugin/pkg/client/auth/azure) to set up authentication with your Azure AD tenant.
 
 ## Enabling RBAC ##
@@ -29,8 +26,11 @@ See [Controlling access to the K8S API](https://kubernetes.io/docs/admin/accessi
 
 ```sh
 minikube start --extra-config=apiserver.Authorization.Mode=RBAC
-```
 
+# required to get the kube-dns and dashboard pods to run
+# See https://github.com/kubernetes/minikube/issues/1734
+kubectl create -f minikube-rbac-privileges.yaml
+```
 ## Reference ##
 
 - [Using RBAC Authorization](https://kubernetes.io/docs/admin/authorization/rbac/)
