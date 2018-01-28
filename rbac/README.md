@@ -31,9 +31,28 @@ minikube start --extra-config=apiserver.Authorization.Mode=RBAC
 # See https://github.com/kubernetes/minikube/issues/1734
 kubectl create -f minikube-rbac-privileges.yaml
 ```
+
+## Finding out what you can do ##
+
+To find what you can do:
+
+```sh
+kubectl auth can-i verb resource
+
+#can i create pods?
+kubectl auth can-i create pods
+
+#can i create pods in the kube-system namespace
+kubectl auth can-i create pods --namespace kube-system
+
+#can i create pods in the kube-system namespace as the default systemaccount user?
+kubectl auth can-i get configmaps --namespace kube-system --as system:serviceaccount:kube-system:default
+```
+
 ## Reference ##
 
 - [Using RBAC Authorization](https://kubernetes.io/docs/admin/authorization/rbac/)
 - [OpenID Connect Auth Flow on Azure AD](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-protocols-openid-connect-code)
 - [K8S Authentication with OpenID Connect tokens](https://kubernetes.io/docs/admin/authentication/#openid-connect-tokens)
 - [Excellent guide by Bitami](https://docs.bitnami.com/kubernetes/how-to/configure-rbac-in-your-kubernetes-cluster/)
+- [CNCF - Effective RBAC Youtube video](https://www.youtube.com/watch?v=Nw1ymxcLIDI)
