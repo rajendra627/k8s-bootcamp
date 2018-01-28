@@ -10,7 +10,7 @@ Why should you use Ingress when there already is the NodePort and Loadbalancer s
 
 ## Example ##
 
-We will deploy two versions of our pod-details api and deploy two different ingress objects.  One that routes based on host, and the other by path.  See [./create-ingress-example.sh](create-ingress-example.sh) for how to deploy the example.
+We will deploy two versions of our pod-details api and deploy two different ingress objects - one that routes based on host, and the other by path.  See [./create-ingress-example.sh](create-ingress-example.sh) for how to deploy the example.
 
 *Note:  The nginx ingress controller accesses the API Server to read resources.  Hence, it must be authorized to access the API Server.  
 
