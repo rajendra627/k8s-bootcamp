@@ -6,10 +6,6 @@ When you provision a K8S cluster on Azure Container Service using the az cli, RB
 
 **Note: ACS and AKS currently does not support RBAC.  To enable RBAC in Azure, you need to use [ACS Engine](https://github.com/Azure/acs-engine).  However, this is an advanced topic so we will be using Minikube to demonstrate RBAC in K8S**
 
-## Objective ##
-
-Provision a user with the "qa" role that will only have read/write permission to the "qa" namespace.  Provision a "jenkins" role to deploy to "qa" and "production" namespaces.  We also need to support both interactive (e.g. user enters credentials) and non-interactive scenarios (e.g. a CI/CD server needs to authenticate to deploy a new build).
-
 ## Authentication and Authorization in K8S ##
 
 K8S supports a very flexible authentication/authorization model that is extensible through plugins and modules.  There are different authentication and authorization modules to support different requirements - from simple username/password to x509 certificates to Open ID Connect with an external Identity Provider, and more.
