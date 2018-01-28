@@ -21,3 +21,4 @@ We will deploy two versions of our pod-details api and deploy two different ingr
 * [nginx Ingress Controller](https://github.com/kubernetes/ingress-nginx)
 * [nginx ingress controller examples](https://github.com/kubernetes/ingress-nginx/tree/master/docs/examples)
 * [nginx complete example](https://github.com/nginxinc/kubernetes-ingress/tree/master/examples/complete-example)
+* [Traefix Ingress Controller](https://docs.traefik.io/user-guide/kubernetes/)
