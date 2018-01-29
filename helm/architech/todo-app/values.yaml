@@ -3,7 +3,6 @@
 # Declare name/value pairs to be passed into your templates.
 # name: value
 
-
 General:
   Version : 1.0
   Environment: prod
@@ -15,7 +14,7 @@ WebUI:
   Name: web-ui
   ServiceName: todo-webui-service
   Image: "architechbootcamp/todo-ui"
-  ImageTag: "v0.7.ui.retry"
+  ImageTag: "latest"
   Replicas: 1
   ServicePort: 80
   ContainerPort: 80
@@ -26,7 +25,7 @@ TodoAPI:
   Name: todo-api
   ServiceName: todo-api
   Image: "architechbootcamp/todo-api"
-  ImageTag: "v0.7.ui.retry"
+  ImageTag: "latest"
   Replicas: 1
   ServicePort: 8080
   ContainerPort: 8080
@@ -45,7 +44,7 @@ UserAPI:
   Name: user-api
   ServiceName: user-api
   Image: "architechbootcamp/user-api"
-  ImageTag: "v0.7.ui.retry"
+  ImageTag: "latest"
   Replicas: 1
   ServicePort: 8082
   ContainerPort: 8082
