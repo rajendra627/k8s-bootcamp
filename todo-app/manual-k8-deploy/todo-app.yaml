@@ -7,22 +7,22 @@ spec:
   ports:
   - port: 27017
   selector:
-    app: mongo
+    app: mongodb
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: mongo
+  name: mongodb
   namespace: todo-app
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: mongo
+        app: mongodb
     spec:
       containers:
-        - name: mongo
+        - name: mongodb
           image: mongo
           ports:
            - containerPort: 27017
@@ -59,17 +59,17 @@ spec:
             - name: MONGODB_URL
               valueFrom:
                 configMapKeyRef:
-                  name: todoapp-config
+                  name: todo-api-config
                   key: db_url
             - name: SPRING_LOG_LEVEL
               valueFrom:
                 configMapKeyRef:
-                  name: todoapp-config
+                  name: todo-api-config
                   key: spring_log_level
             - name: APP_LOG_LEVEL
               valueFrom:
                 configMapKeyRef:
-                  name: todoapp-config
+                  name: todo-api-config
                   key: app_log_level
             - name: AZURE_APP_ID
               valueFrom:
@@ -87,52 +87,34 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: todo-web-ui
+  name: todo-app-ui
   namespace:
 spec:
   type: LoadBalancer
   ports:
   - port: 80
   selector:
-    app: web-ui
+    app: todo-app-ui
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: web-ui
+  name: todo-web-ui
   namespace: todo-app
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: web-ui
+        app: todo-web-ui
     spec:
       containers:
         - name: web
           image: architechbootcamp/todo-ui:latest
           ports:
             - containerPort: 80
----
-apiVersion: apps/v1beta1
-kind: Deployment
-metadata:
-  name: user-mongo
-  namespace: todo-app
-spec:
-  replicas: 1
-  minReadySeconds: 0
-  template:
-    metadata:
-      labels:
-        app:  user-mongo
-        tier: data-tier
-    spec:
-      containers:
-        - name:  user-mongo
-          image: mongo
-          ports:
-           - containerPort: 27017
+      imagePullSecrets:
+        - name: techdemosecret
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -157,17 +139,17 @@ spec:
             - name: MONGODB_URL
               valueFrom:
                 configMapKeyRef:
-                  name: userapi-config
+                  name: user-api-config
                   key: db_url
             - name: IS_TEST_MODE
               valueFrom:
                 configMapKeyRef:
-                  name: userapi-config
+                  name: user-api-config
                   key: is_test_mode
             - name: APP_LOG_LEVEL
               valueFrom:
                 configMapKeyRef:
-                  name: userapi-config
+                  name: user-api-config
                   key: app_log_level
             - name: AZURE_APP_ID
               valueFrom:
