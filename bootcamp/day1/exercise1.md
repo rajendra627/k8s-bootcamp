@@ -98,9 +98,9 @@ kubectl get deployment/todo-api-deployment
 Open up two shells.  In the first shell run the following command to update the image for the todo-api to a new version.:
 
 ```sh
-#we are setting the container image for the todo-api container to todo-api:v2
+#we are setting the container image for the todo-api container to architechbootcamp/todo-api:1.0.1
 #See spec.containers.image field of the deployment manifest
-kubectl set image deployment/todo-api-deployment todo-api=todo-api:v2
+kubectl set image deployment/todo-api-deployment todo-api=architechbootcamp/todo-api:1.0.1
 ```
 
 In the second shell we are going to watch the status of the rollout.
