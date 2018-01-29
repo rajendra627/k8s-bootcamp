@@ -6,6 +6,8 @@ You should have successfully set up your environment as outlined in [Day1/setup]
 
 ## Objective ##
 
+*Note: We are going to cover some advanced topics right away.  We know we have not covered these topics but we want you to experience the workflow first then we will dive into the details*
+
 Deploy the Todo Application using helm. We will then do the following:
 
 * list all deployments, services, pods
