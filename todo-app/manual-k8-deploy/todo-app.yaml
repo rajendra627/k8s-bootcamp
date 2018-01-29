@@ -1,7 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  namespace: todo-app
+spec:
+  ports:
+  - port: 27017
+  selector:
+    app: mongo
+---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: mongo
+  namespace: todo-app
 spec:
   replicas: 1
   template:
@@ -18,17 +30,19 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongodb
+  name: todo-api
+  namespace: todo-app
 spec:
   ports:
-  - port: 27017
+  - port: 8080
   selector:
-    app: mongo
+    app: todo-api
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: todo-api
+  namespace: todo-app
 spec:
   replicas: 1
   template:
@@ -38,7 +52,7 @@ spec:
     spec:
       containers:
         - name: todo-api
-          image: architechbootcamp/todo-api:v0.2
+          image: architechbootcamp/todo-api:latest
           ports:
             - containerPort: 8080
           env:
@@ -73,18 +87,20 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: todo-api
+  name: todo-web-ui
+  namespace:
 spec:
-  # type: LoadBalancer
+  type: LoadBalancer
   ports:
-  - port: 8080
+  - port: 80
   selector:
-    app: todo-api
+    app: web-ui
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: web-ui
+  namespace: todo-app
 spec:
   replicas: 1
   template:
@@ -94,17 +110,75 @@ spec:
     spec:
       containers:
         - name: web
-          image: architechbootcamp/todo-ui:v0.2
+          image: architechbootcamp/todo-ui:latest
           ports:
             - containerPort: 80
 ---
-apiVersion: v1
-kind: Service
+apiVersion: apps/v1beta1
+kind: Deployment
 metadata:
-  name: todo-web-ui
+  name: user-mongo
+  namespace: todo-app
 spec:
-  type: LoadBalancer
-  ports:
-  - port: 80
-  selector:
-    app: web-ui
+  replicas: 1
+  minReadySeconds: 0
+  template:
+    metadata:
+      labels:
+        app:  user-mongo
+        tier: data-tier
+    spec:
+      containers:
+        - name:  user-mongo
+          image: mongo
+          ports:
+           - containerPort: 27017
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: user-api
+  namespace: todo-app
+spec:
+  replicas:  2
+  minReadySeconds: 3
+  template:
+    metadata:
+      labels:
+        app: user-api
+        tier: backend
+    spec:
+      containers:
+        - name: user-api
+          image: architechbootcamp/user-api:latest
+          ports:
+            - containerPort: 8082
+          env:
+            - name: MONGODB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: userapi-config
+                  key: db_url
+            - name: IS_TEST_MODE
+              valueFrom:
+                configMapKeyRef:
+                  name: userapi-config
+                  key: is_test_mode
+            - name: APP_LOG_LEVEL
+              valueFrom:
+                configMapKeyRef:
+                  name: userapi-config
+                  key: app_log_level
+            - name: AZURE_APP_ID
+              valueFrom:
+                secretKeyRef:
+                  name: todoapp-secrets
+                  key: azure_app_id
+            - name: AZURE_IDENTITY_META_DATA
+              valueFrom:
+                secretKeyRef:
+                  name: todoapp-secrets
+                  key: ad_identity
+      imagePullSecrets:
+        - name: techdemosecret
+
