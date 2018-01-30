@@ -8,8 +8,7 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 ## Environment Variables ##
 
-The following environment variables need to be set to get the dependent microservices up and running:
-
+#### The following environment variables need to be set to get the dependent microservices up and running: ####
  * AZURE_APP_ID - (Required) This is the ID of the application registered in Azure AD
  * AZURE_CLIENT_SECRET - (Required) The value of a secret key inside the registered application in Azure AD
  * AZURE_IDENTITY_META_DATA - (Required) The URL to retrieve metadata from Azure AD. This will be unique to the Azure AD instance.
@@ -18,14 +17,14 @@ The following environment variables need to be set to get the dependent microser
 
 ## Running the app in development ##
 
-### Development Prerequisites ##
+### Development Prerequisites ###
 
  * Node 8.x
  * Yarn 1.x *Note*: npm should work here as well but we don't guarantee the package-lock.json is maintained.
 
 ### Development Environment Variables ###
 
-On top of [Environment Variables](#environment-variables) defined, the following are needed during development of the todo-ui:
+####On top of [Environment Variables](#environment-variables) defined, the following are needed during development of the todo-ui:####
 
  * REACT_APP_TEST_MODE (Optional; Defaults to false) - this will set the app in test mode and allow a user to login without AD (NOTE: API's must be in test mode as well)
  * REACT_APP_CLIENT_ID - (Required) This is the ID of the application registered in Azure AD. *Note*: This is the same value as AZURE_APP_ID
@@ -34,7 +33,7 @@ On top of [Environment Variables](#environment-variables) defined, the following
 
 These values of environment variables of the pattern REACT_APP_* are automatically injected into the application where ever `process.env.REACT_APP_*` is found.
 
-### Development Execution
+### Development Execution ###
 
 When the environment variables are set run the app:
 
