@@ -91,6 +91,11 @@ spec:
                 secretKeyRef:
                   name: todoapp-secrets
                   key: ad_identity
+            - name: AZURE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: todoapp-secrets
+                  key: azure_client_secret
       #imagePullSecrets:
       #  - name: registry_credentials
 ---
