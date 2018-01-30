@@ -29,6 +29,4 @@ You can set the following environment to customize how the API runs:
 
 ### Azure AD Setup ###
 
-> For more information on how to set up Azure AD authentication, please visit this
-[site](https://docs.microsoft.com/en-us/java/azure/spring-framework/configure-spring-boot-starter-java-app-with-azure-active-directory).
-Focus on the `Create and configure a new Azure Active Directory instance` section of the document.
+> See [Azure AD OpenID Connect Example](https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-protocols-openid-connect-code) for instructions on how to get these values for your Azure AD tenant.
