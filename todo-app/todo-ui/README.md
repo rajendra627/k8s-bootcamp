@@ -6,9 +6,7 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 # Running the App #
 
-## Environment Variables ##
-
-The following environment variables need to be set to get the dependent microservices up and running:
+## Environment Variables (The following environment variables need to be set to get the dependent microservices up and running) ##
 
  * AZURE_APP_ID - (Required) This is the ID of the application registered in Azure AD
  * AZURE_CLIENT_SECRET - (Required) The value of a secret key inside the registered application in Azure AD
@@ -18,7 +16,7 @@ The following environment variables need to be set to get the dependent microser
 
 ## Running the app in development ##
 
-### Development Prerequisites ##
+### Development Prerequisites ###
 
  * Node 8.x
  * Yarn 1.x *Note*: npm should work here as well but we don't guarantee the package-lock.json is maintained.
@@ -34,7 +32,7 @@ On top of [Environment Variables](#environment-variables) defined, the following
 
 These values of environment variables of the pattern REACT_APP_* are automatically injected into the application where ever `process.env.REACT_APP_*` is found.
 
-### Development Execution
+### Development Execution ###
 
 When the environment variables are set run the app:
 
