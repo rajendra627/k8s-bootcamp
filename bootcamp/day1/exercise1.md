@@ -21,18 +21,15 @@ Deploy the Todo Application using helm. We will then do the following:
 From within the [helm directory](../../helm/) run the following command:
 
 ```sh
-#1) create a namespace to deploy the application
 
-kubectl create namespace todo-app
-
-#2) create the secrets required by the application
+#1) create the secrets required by the application.  The script will also create a namespace called todo-app
 
 ./create_secrets.sh
 
-#3) do a dry run install to make sure everything is ok
+#2) do a dry run install to make sure everything is ok
 helm install --dry-run architech/todo-app
 
-#4) install the todo-app
+#3) install the todo-app
 helm install architech/todo-app
 
 #check that the app has been deployed.  You should see the todo-app has been deployed.
