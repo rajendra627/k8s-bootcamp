@@ -15,15 +15,3 @@ Application ID of the registered application under your Azure AD
 ### azure_client_secret ###
 
 Client secret of the registered application under your Azure AD
-
-### ui_ad_identity ###
-
-Application tenant url of the registered application under your Azure AD
-
-### ui_react_ad_identity ###
-
-Application tenant url of the registered application under your Azure AD
-
-### ui_react_app_id ###
-
-Application ID of the registered application under your Azure AD
