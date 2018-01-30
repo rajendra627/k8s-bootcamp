@@ -5,13 +5,13 @@
  
 ## Functionality ##
 
- -Utilize Azure Active Directory to Authenticate users.
- -Create new todos providing due dates and categories.
- -Update/complete todos.
- -Delete todos.
- -Filter todos by completion status.
- -Filter todos by category.
-
+ - Utilize Azure Active Directory to Authenticate users.
+ - Create new todos providing due dates and categories.
+ - Update/complete todos.
+ - Delete todos.
+ - Filter todos by completion status.
+ - Filter todos by category.
+ 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). 
 You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
