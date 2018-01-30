@@ -1,37 +1,49 @@
+# Todo-ui #
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+ This front end application was created to showcase the functionality behind the todo api, and user api microservices.  
+ The application ties the services together creating a seamless experience for the end user.
+ 
+## Functionality ##
 
-Below you will find some information on how to perform common tasks.<br>
+ - Utilize Azure Active Directory to Authenticate users.
+ - Create new todos providing due dates and categories.
+ - Update/complete todos.
+ - Delete todos.
+ - Filter todos by completion status.
+ - Filter todos by category.
+ 
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). 
 You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
 # Running the App #
 
 ## Environment Variables ##
 
-#### The following environment variables need to be set to get the dependent microservices up and running: ####
- * AZURE_APP_ID - (Required) This is the ID of the application registered in Azure AD
- * AZURE_CLIENT_SECRET - (Required) The value of a secret key inside the registered application in Azure AD
- * AZURE_IDENTITY_META_DATA - (Required) The URL to retrieve metadata from Azure AD. This will be unique to the Azure AD instance.
+ The following environment variables need to be set to get the dependent microservices up and running:
+
+ - AZURE_APP_ID - (Required) This is the ID of the application registered in Azure AD
+ - AZURE_CLIENT_SECRET - (Required) The value of a secret key inside the registered application in Azure AD
+ - AZURE_IDENTITY_META_DATA - (Required) The URL to retrieve metadata from Azure AD. This will be unique to the Azure AD instance.
  It is typically of the form: `https://login.microsoftonline.com/xxxxxxorg.onmicrosoft.com/v2.0/.well-known/openid-configuration`
- * IS_TEST_MODE - (Optional; Defaults to false) Whether to start the microservices in "Test Mode", meaning Azure AD is not required to login to the app.
+ - IS_TEST_MODE - (Optional; Defaults to false) Whether to start the microservices in "Test Mode", meaning Azure AD is not required to login to the app.
 
 ## Running the app in development ##
 
 ### Development Prerequisites ###
 
- * Node 8.x
- * Yarn 1.x *Note*: npm should work here as well but we don't guarantee the package-lock.json is maintained.
+ - Node 8.x
+ - Yarn 1.x *Note*: npm should work here as well but we don't guarantee the package-lock.json is maintained.
 
 ### Development Environment Variables ###
 
-####On top of [Environment Variables](#environment-variables) defined, the following are needed during development of the todo-ui:####
+ On top of [Environment Variables](#environment-variables) defined, the following are needed during development of the todo-ui:
 
- * REACT_APP_TEST_MODE (Optional; Defaults to false) - this will set the app in test mode and allow a user to login without AD (NOTE: API's must be in test mode as well)
- * REACT_APP_CLIENT_ID - (Required) This is the ID of the application registered in Azure AD. *Note*: This is the same value as AZURE_APP_ID
- * REACT_APP_TENANT - (Required) The tenant which owns the particular instance of Azure AD.
+ - REACT_APP_TEST_MODE (Optional; Defaults to false) - this will set the app in test mode and allow a user to login without AD (NOTE: API's must be in test mode as well)
+ - REACT_APP_CLIENT_ID - (Required) This is the ID of the application registered in Azure AD. *Note*: This is the same value as AZURE_APP_ID
+ - REACT_APP_TENANT - (Required) The tenant which owns the particular instance of Azure AD.
  This is typically of the form `xxxxxxxorg.onmicrosoft.com`. This should match the middle section of the URL found in the AZURE_IDENTITY_META_DATA variable.
 
-These values of environment variables of the pattern REACT_APP_* are automatically injected into the application where ever `process.env.REACT_APP_*` is found.
+ These values of environment variables of the pattern REACT_APP_* are automatically injected into the application where ever `process.env.REACT_APP_*` is found.
 
 ### Development Execution ###
 
@@ -56,8 +68,8 @@ On top of [Environment Variables](#environment-variables) defined, the following
 
 The Todo-UI container also utilizes the environment variables used in the other microservices:
 
- * AZURE_APP_ID - This would be the same value as REACT_CLIENT_SECRET in development mode
- * IS_TEST_MODE - This would be the same value as READT_APP_TEST_MODE in development mode
+ - AZURE_APP_ID - This would be the same value as REACT_CLIENT_SECRET in development mode
+ - IS_TEST_MODE - This would be the same value as READT_APP_TEST_MODE in development mode
 
 ### Building the Docker Container ###
 
