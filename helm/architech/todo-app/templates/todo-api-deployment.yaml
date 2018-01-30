@@ -66,17 +66,17 @@ spec:
             - name: AZURE_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{.Values.TodoAPI.SecretName}}
+                  name: {{.Values.Global.SecretName}}
                   key: azure_client_secret
             - name: AZURE_APP_ID
               valueFrom:
                 secretKeyRef:
-                  name: {{.Values.TodoAPI.SecretName}}
+                  name: {{.Values.Global.SecretName}}
                   key: azure_app_id
             - name: AD_IDENTITY_META_DATA_URL
               valueFrom:
                 secretKeyRef:
                   name: {{.Values.Global.SecretName}}
                   key: ad_identity
-      imagePullSecrets:
-        - name: techdemosecret
+      #imagePullSecrets:
+      #  - name: techdemosecret

@@ -4,6 +4,6 @@ metadata:
   name: {{.Values.UserAPI.ConfigName}}
   namespace: {{.Values.Global.NameSpace}}
 data:
-  db_url: "mongodb://{{.Values.TodoMongo.ServiceName}}:{{.Values.TodoMongo.ServicePort}}/user-api"
+  db_url: "mongodb://{{.Values.MongoDb.ServiceName}}:{{.Values.MongoDb.ServicePort}}/user-api"
   is_test_mode: "{{.Values.Global.IsTesting}}"
   app_log_level: {{.Values.Global.LogLevel}}

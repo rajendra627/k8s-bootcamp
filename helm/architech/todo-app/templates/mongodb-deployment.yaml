@@ -15,7 +15,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: {{.Values.MongoDb.Name}}
-  namespace: {{.Values.General.NameSpace}}
+  namespace: {{.Values.Global.NameSpace}}
 spec:
   replicas: {{.Values.MongoDb.Replicas}}
   minReadySeconds: 2
@@ -24,7 +24,7 @@ spec:
       labels:
         app:  {{ .Values.MongoDb.Name }}
         tier: data-tier
-        environment: {{.Values.General.Environment}}
+        environment: {{.Values.Global.Environment}}
     spec:
       containers:
         - name:  {{ .Values.MongoDb.Name }}

@@ -4,7 +4,7 @@ metadata:
   name: {{.Values.TodoAPI.ConfigName}}
   namespace: {{.Values.Global.NameSpace}}
 data:
-  db_url: {{.Values.TodoMongo.ServiceName}}:{{.Values.TodoMongo.ServicePort}}
+  db_url: {{.Values.MongoDb.ServiceName}}:{{.Values.MongoDb.ServicePort}}
   is_test_mode: "{{.Values.Global.IsTesting}}"
   app_log_level: {{.Values.Global.LogLevel}}
   spring_log_level: {{.Values.Global.LogLevel}}

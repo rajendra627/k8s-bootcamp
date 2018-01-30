@@ -27,24 +27,24 @@ spec:
         environment: {{.Values.Global.Environment}}
     spec:
       containers:
-        - name: {{.Values.WebUI.Name}}
-          image: {{.Values.WebUI.Image}}:{{.Values.WebUI.ImageTag}}
-          ports:
-            - containerPort: {{.Values.WebUI.ContainerPort}}
-          env:
-            - name: REACT_APP_TEST_MODE
-              valueFrom:
-                configMapKeyRef:
-                  name: {{.Values.WebUI.ConfigName}}
-                  key: is_test_mode
-            - name: REACT_APP_CLIENT_ID
-              valueFrom:
-                secretKeyRef:
-                  name: {{.Values.WebUI.SecretName}}
-                  key: azure_app_id
-            - name: REACT_APP_TENANT
-              valueFrom:
-                secretKeyRef:
-                  name: {{.Values.WebUI.SecretName}}
-                  key: ad_identity
+      - name: {{.Values.WebUI.Name}}
+        image: {{.Values.WebUI.Image}}:{{.Values.WebUI.ImageTag}}
+        ports:
+          - containerPort: {{.Values.WebUI.ContainerPort}}
+        env:
+        - name: REACT_APP_TEST_MODE
+          valueFrom:
+            configMapKeyRef:
+              name: {{.Values.WebUI.ConfigName}}
+              key: is_test_mode
+        - name: REACT_APP_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: {{.Values.Global.SecretName}}
+              key: azure_app_id
+        - name: REACT_APP_TENANT
+          valueFrom:
+            secretKeyRef:
+              name: {{.Values.Global.SecretName}}
+              key: ad_identity
 

@@ -5,10 +5,10 @@
 
 Global:
   Version : 1.0
-  Environment: prod
+  Environment: production
   NameSpace: todo-app
   IsTesting: false
-  LogLevel: DEBUG
+  LogLevel: INFO
   SecretName: todoapp-secrets
   ImagePullPolicy: Always
 
