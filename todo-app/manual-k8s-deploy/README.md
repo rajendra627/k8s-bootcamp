@@ -76,7 +76,7 @@ kubectl create --namespace=$todoapp_namespace -f todo-app.yaml
 
 This approach makes installing the application in different environments, with different docker repositories and a very complex process, as you can see from the multiple commands we had to issue, on top of that any error will require almost a surgical approach to remove the created resources and changes to the configuration require environment settings etc.
 
-This is where frameworks such as Helm comes to aid!
+Tools such as Helm help manage this complexity.  See an example of deploying the same application using Helm in [../../helm/architech](../../helm/architech)
 
 ## Cleaning up ##
 
