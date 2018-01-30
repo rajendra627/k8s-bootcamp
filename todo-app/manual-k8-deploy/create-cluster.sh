@@ -1,36 +1,24 @@
+#Example script to provision a K8S cluster on Azure Container Service
+#ACS supports multiple orchestrators so you need to specify --orchestrator-type Kubernetes
 
-basename=${1:-"techdemo"}
-rgname=$basename"-resource-group"
-storagename=$basename"storage"
-clustername=$basename"-k8"
+rg_name="todo-app-rg"
+cluster_name="todo-app-K8S"
 location="canadacentral"
-storage_type="Standard_LRS"
 # vm_size="Standard_A1"
 vm_size="Standard_D2_v3"
-account_id="f6de0a1c-8065-430a-92d0-2dd8fff759bf"
 
-echo " setting the account id to $account_id"
+echo "Creating $cluster_name Cluster in resource group $rg_name"
 
-az account set -s $account_id
-
-echo "Creating $clustername Cluster in resource group $rgname "
-
-echo "Creating the $rgname Resource group ..."
-az group create --name $rgname --location $location
+echo "Creating the $rg_name Resource group ..."
+az group create --name $rg_name --location $location
 echo "Done ..."
 
-echo "Creating the Kubernetes Cluster $clustername..."
-az acs create --orchestrator-type kubernetes --resource-group $rgname --name $clustername --generate-ssh-keys --agent-count 2 --agent-vm-size $vm_size
+echo "Creating the Kubernetes Cluster $cluster_name..."
+az acs create --orchestrator-type Kubernetes --resource-group $rg_name --name $cluster_name --generate-ssh-keys --master-count 1 --agent-count 2 --agent-vm-size $vm_size
 echo "Done ..."
 
 echo " Connecting to the cluster"
-az acs kubernetes get-credentials --resource-group $rgname --name $clustername
+az acs kubernetes get-credentials --resource-group $rg_name --name $cluster_name
 
 echo "You can now launch kubectl"
-kubectl get nodes
-
-
-
-
-
-#az webapp create --resource-group $basename --plan myAppServicePlan --name <app_name> --deployment-container-image-name <docker-ID>/mydockerimage:v1.0.0
+echo "Try running to verify the health of the cluster: kubectl get componentstatuses"

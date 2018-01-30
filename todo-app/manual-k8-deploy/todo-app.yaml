@@ -86,8 +86,8 @@ spec:
                 secretKeyRef:
                   name: todoapp-secrets
                   key: ad_identity
-      imagePullSecrets:
-        - name: techdemosecret
+      #imagePullSecrets:
+      #  - name: registry_credentials
 ---
 apiVersion: v1
 kind: Service
@@ -166,6 +166,6 @@ spec:
                 secretKeyRef:
                   name: todoapp-secrets
                   key: ad_identity
-      imagePullSecrets:
-        - name: techdemosecret
+      #imagePullSecrets:
+      #- name: registry_credentials
 

@@ -1,6 +1,6 @@
 # Manually deploying the Todo-App to Kubernetes
 
-In this section you will get a quick taste of all the manual steps needed to turn local application code into a an app running on a kubernetes cluster. this is not the most efficient or recommended way, but it is necessary if you need to gain deeper understanding into what tools such as Helm and Jenkins offer us when it comes to creating deployable apps and doing continuous delivery.
+In this section you will get a quick taste of all the manual steps needed to turn local application code into a an app running on a Kubernetes cluster. this is not the most efficient or recommended way, but it is necessary if you need to gain deeper understanding into what tools such as Helm and Jenkins offer us when it comes to creating deployable apps and doing continuous delivery.
 
 
 ## Overview of tasks
@@ -32,14 +32,13 @@ When prompted with the password, enter your DockerHub password and the images wi
 ## Creating Kubernetes Config maps , Secrets and application deployment
 
 **IMPORTANT** step first
-> Open the file todo-app.yaml using your editor and ensure the following lines
-```
-image: architechbootcamp/todo-api:stable
-&
-image: architechbootcamp/todo-ui:stable
-```
-> replacing the _architechbootcamp_ docker hub id with your own docker hub id from the previous step this is important so Kubernetes knows where to go to pull the images
+> Open the file todo-app.yaml using your editor and update the following lines with your docker id and image tag from the previous step.
 
+```yaml
+image: architechbootcamp/todo-ui:latest
+image: architechbootcamp/todo-api:latest
+image: architechbootcamp/user-api:latest
+```
 
 -----------------
 Run the command
@@ -49,19 +48,22 @@ Run the command
 Here is a description of what the script did
 
 First we create the name space in the cluster (defaults to _todoapp_)
+
 ```bash
 kubectl create namespace $todoapp_namespace
 ```
+
 Then we create a few secrets based on the _secrets_ directory, you can see that in this directory we store secrets such as the azure ad identity of the app, only the Ops team has access to this secured secret directory
 
 ```bash
 kubectl create secret generic todoapp-secrets --from-file=secrets --namespace=$todoapp_namespace
 ```
 
-The next line will create the configmap form the yaml file, you can check the yaml file to get an idea of the configuration environment variables passed to the application (such as log level and mongoDB url)
+The next line will create the configmap from the yaml file, you can check the yaml file to get an idea of the configuration environment variables passed to the application (such as log level and mongoDB url)
 
 ```bash
-kubectl create --namespace=$todoapp_namespace -f todo-config.yaml
+kubectl create --namespace=$todoapp_namespace -f todo-api-config.yaml
+kubectl create --namespace=$todoapp_namesapce -f user-api-config.yaml
 ```
 
 Finally we do install the application components using Deployments and Services declared in the todo-app.yaml
@@ -76,11 +78,12 @@ This approach makes installing the application in different environments, with d
 
 This is where frameworks such as Helm comes to aid!
 
-## Repo Helper files
+## Cleaning up ##
 
-All scripts here can help you achieve your previous tasks by changing the variable values in each script
+To blow everything away run:
 
-| FileName        | Usage           |
-| ------------- |:---------------------|
-| cleanup.sh   | Removes every configuration, secret, app definition and removes the full namespace afterwards      |
-| create-cluster.sh | A utility that will create a fresh cluster for you to experiment with as long as you modify the script with your own _**account_id**_ value , you can get that from Azure using the command _az account show_ and that will be the "id" field     |
+```sh
+kubectl delete namespace <namespace_name>
+```
+
+This will delete your namespace and all resources scoped to that namespace.
