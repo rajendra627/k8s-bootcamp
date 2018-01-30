@@ -20,7 +20,11 @@ Once the command is finished you can now run the command
 
 ```sh
 
-helm install --name <deployment_name> architech/todo-app
+#do a dry run first
+helm install --dry-run architech/todo-app
+
+#if no errors are reported install the chart
+helm install architech/todo-app
 
 ```
 
