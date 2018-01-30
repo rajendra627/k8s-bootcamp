@@ -62,6 +62,7 @@ kubectl create secret generic todoapp-secrets --from-file=secrets --namespace=$t
 The next line will create the configmap from the yaml file, you can check the yaml file to get an idea of the configuration environment variables passed to the application (such as log level and mongoDB url)
 
 ```bash
+kubectl create --namespace=$todoapp_namespace -f todo-ui-config.yaml
 kubectl create --namespace=$todoapp_namespace -f todo-api-config.yaml
 kubectl create --namespace=$todoapp_namesapce -f user-api-config.yaml
 ```
@@ -72,9 +73,9 @@ Finally we do install the application components using Deployments and Services 
 kubectl create --namespace=$todoapp_namespace -f todo-app.yaml
 ```
 
-## Why this approach is not very practical
+## Why this approach is not very practical ##
 
-This approach makes installing the application in different environments, with different docker repositories and a very complex process, as you can see from the multiple commands we had to issue, on top of that any error will require almost a surgical approach to remove the created resources and changes to the configuration require environment settings etc.
+This approach makes installing the application in different environments, with different docker repositories and a very complex process.  You have to execute multiple commands, many of them similar, there is configuration that is defined in different files but have the same values.  Hence, maintaining this deployment will be error prone and with more pods, services and deployments, the complexity will rapidly increase.
 
 Tools such as Helm help manage this complexity.  See an example of deploying the same application using Helm in [../../helm/architech](../../helm/architech)
 
