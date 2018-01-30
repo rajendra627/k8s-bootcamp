@@ -1,6 +1,6 @@
 # Todo-ui #
 
- This front end application was created to showcase the functionality behind the todo api, and user api microservices.  
+ This front end application was created in [React](https://reactjs.org/) / [Redux](https://redux.js.org/) to showcase the functionality behind the todo api, and user api microservices.  
  The application ties the services together creating a seamless experience for the end user.
  
 ## Functionality ##
@@ -11,6 +11,13 @@
  - Delete todos.
  - Filter todos by completion status.
  - Filter todos by category.
+ 
+After a user has successfully authenticated themselves with Azure AD, the app will save the token in the [localStorage Object](https://www.w3schools.com/html/html5_webstorage.asp).  
+The token is then added to the Authorization header of any request that is send to the api.
+
+The application is communicating with two services(user-api, todo-api).  We use NGINX as a proxy to these services.  
+When the app want to communicate with the user-api service it calls `/api/users/` and when it wants to 
+communicate with the todo-api it will call `/api/todos`.
  
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). 
 You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
