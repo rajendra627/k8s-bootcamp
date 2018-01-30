@@ -86,11 +86,11 @@ spec:
                 secretKeyRef:
                   name: todoapp-secrets
                   key: azure_app_id
-            - name: AD_IDENTITY_META_DATA_URL
+            - name: ad_tenant_META_DATA_URL
               valueFrom:
                 secretKeyRef:
                   name: todoapp-secrets
-                  key: ad_identity
+                  key: ad_tenant
             - name: AZURE_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
@@ -143,7 +143,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: todoapp-secrets
-                key: ad_identity
+                key: ad_tenant
       imagePullSecrets:
         - name: techdemosecret
 ---
@@ -202,7 +202,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: todoapp-secrets
-                key: ad_identity
+                key: ad_tenant
       #imagePullSecrets:
       #- name: registry_credentials
 
