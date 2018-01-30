@@ -1,29 +1,22 @@
-apiVersion: apps/v1beta1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  name: {{.Values.TodoMongo.Name}}
-  namespace: {{.Values.General.NameSpace}}
+  name: {{ .Values.TodoAPI.ServiceName }}
+  namespace: {{.Values.Global.NameSpace}}
 spec:
-  replicas: {{.Values.TodoMongo.Replicas}}
-  minReadySeconds: 2
-  template:
-    metadata:
-      labels:
-        app:  {{ .Values.TodoMongo.Name }}
-        tier: data-tier
-        environment: {{.Values.General.Environment}}
-    spec:
-      containers:
-        - name:  {{ .Values.TodoMongo.Name }}
-          image: {{ .Values.TodoMongo.Image }}
-          ports:
-           - containerPort: {{ .Values.TodoMongo.ContainerPort }}
+  type: LoadBalancer
+  ports:
+  - port: {{ .Values.TodoAPI.ServicePort }}
+  selector:
+    app: {{ .Values.TodoAPI.Name }}
+    tier: backend
+    environment: {{.Values.Global.Environment}}
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: {{ .Values.TodoAPI.Name }}
-  namespace: {{.Values.General.NameSpace}}
+  namespace: {{.Values.Global.NameSpace}}
 spec:
   replicas:  {{.Values.TodoAPI.Replicas}}
   minReadySeconds: 3
@@ -32,7 +25,7 @@ spec:
       labels:
         app: {{ .Values.TodoAPI.Name }}
         tier: backend
-        environment: {{.Values.General.Environment}}
+        environment: {{.Values.Global.Environment}}
     spec:
       containers:
         - name: {{.Values.TodoAPI.Name}}
@@ -83,7 +76,7 @@ spec:
             - name: AD_IDENTITY_META_DATA_URL
               valueFrom:
                 secretKeyRef:
-                  name: {{.Values.TodoAPI.SecretName}}
+                  name: {{.Values.Global.SecretName}}
                   key: ad_identity
       imagePullSecrets:
         - name: techdemosecret

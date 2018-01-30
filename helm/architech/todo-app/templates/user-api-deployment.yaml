@@ -1,29 +1,22 @@
-apiVersion: apps/v1beta1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  name: {{.Values.UserMongo.Name}}
-  namespace: {{.Values.General.NameSpace}}
+  name: {{ .Values.UserAPI.ServiceName }}
+  namespace: {{.Values.Global.NameSpace}}
 spec:
-  replicas: {{.Values.UserMongo.Replicas}}
-  minReadySeconds: 0
-  template:
-    metadata:
-      labels:
-        app:  {{ .Values.UserMongo.Name }}
-        tier: data-tier
-        environment: {{.Values.General.Environment}}
-    spec:
-      containers:
-        - name:  {{ .Values.UserMongo.Name }}
-          image: {{ .Values.UserMongo.Image }}
-          ports:
-           - containerPort: {{ .Values.UserMongo.ContainerPort }}
+  type: LoadBalancer
+  ports:
+  - port: {{ .Values.UserAPI.ServicePort }}
+  selector:
+    app: {{ .Values.UserAPI.Name }}
+    tier: backend
+    environment: {{.Values.Global.Environment}}
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: {{ .Values.UserAPI.Name }}
-  namespace: {{.Values.General.NameSpace}}
+  namespace: {{.Values.Global.NameSpace}}
 spec:
   replicas:  {{.Values.UserAPI.Replicas}}
   minReadySeconds: 3
@@ -32,7 +25,7 @@ spec:
       labels:
         app: {{ .Values.UserAPI.Name }}
         tier: backend
-        environment: {{.Values.General.Environment}}
+        environment: {{.Values.Global.Environment}}
     spec:
       containers:
         - name: {{.Values.UserAPI.Name}}
