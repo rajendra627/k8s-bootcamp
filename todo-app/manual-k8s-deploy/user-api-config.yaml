@@ -6,4 +6,4 @@ metadata:
 data:
   db_url: mongodb:27017
   app_log_level: INFO
-  is_test_mode: false
+  is_test_mode: "false"
