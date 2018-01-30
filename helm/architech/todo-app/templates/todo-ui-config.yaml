@@ -4,5 +4,5 @@ metadata:
   name: {{.Values.WebUI.ConfigName}}
   namespace: {{.Values.General.NameSpace}}
 data:
-  is_test_mode: "{{.Values.General.IsTesting}}"
+  is_test_mode: {{.Values.General.IsTesting}}
 
