@@ -1,6 +1,6 @@
 # Packaging and deploying K8S applications using Helm #
 
-todo-app is the helm chart for the Todo Application.  See [Day1/exercise1](../bootcamp/day1/exercise1.md) for instruction on how to deploy it to K8S.
+todo-app is the helm chart for the Todo Application.
 
 ## References ##
 
@@ -14,13 +14,13 @@ todo-app is the helm chart for the Todo Application.  See [Day1/exercise1](../bo
  ./create_secrets.sh todo-app
  ```
 
-This command will create the namespace _todoapp_ and will create the secrets required, Secrets are kept out of the Helm Chart, the helm chart is for distribution for your clients, secrets such usernames/passwords/identities, should be local to each environment
+This command will create the namespace _todo-app_ and will create the secrets required, Secrets are kept out of the Helm Chart, the helm chart is for distribution for your clients, secrets such usernames/passwords/identities, should be local to each environment
 
 Once the command is finished you can now run the command
 
 ```sh
 
-helm install --name my_dpeloyment_name architech/todo-app
+helm install --name <deployment_name> architech/todo-app
 
 ```
 
