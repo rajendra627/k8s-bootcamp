@@ -13,10 +13,10 @@
  - Filter todos by category.
  
 After a user has successfully authenticated themselves with Azure AD, the app will save the token in the [localStorage Object](https://www.w3schools.com/html/html5_webstorage.asp).  
-The token is then added to the Authorization header of any request that is send to the api.
+The token is then added to the Authorization header of any request that is sent to the api.
 
-The application is communicating with two services(user-api, todo-api).  We use NGINX as a proxy to these services.  
-When the app want to communicate with the user-api service it calls `/api/users/` and when it wants to 
+The application is communicating with two services(user-api, todo-api).  We use [NGINX](https://www.nginx.com) as a proxy to these services.  
+When the app communicates with the user-api service it calls `/api/users/` and when it wants to 
 communicate with the todo-api it will call `/api/todos`.
  
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). 
