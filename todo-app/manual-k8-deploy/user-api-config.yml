@@ -5,6 +5,5 @@ metadata:
   namespace: todo-app
 data:
   db_url: mongodb:27017
-  spring_log_level: INFO
   app_log_level: INFO
   is_test_mode: false

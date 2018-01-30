@@ -61,6 +61,11 @@ spec:
                 configMapKeyRef:
                   name: todo-api-config
                   key: db_url
+            - name: IS_TEST_MODE
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-api-config
+                  key: is_test_mode
             - name: SPRING_LOG_LEVEL
               valueFrom:
                 configMapKeyRef:
@@ -99,17 +104,17 @@ spec:
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: todo-web-ui
+  name: todo-app-ui
   namespace: todo-app
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: todo-web-ui
+        app: todo-app-ui
     spec:
       containers:
-        - name: web
+        - name: todo-app-ui
           image: architechbootcamp/todo-ui:latest
           ports:
             - containerPort: 80
