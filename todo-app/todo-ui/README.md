@@ -1,8 +1,18 @@
+# Todo-ui #
+ This front end application was created to showcase the functionality behind the todo api, and user api microservices.  
+ The application ties the services together creating a seamless experience for the end user.
+ 
+ ## Functionality ##
+ -Utilize Azure Active Directory to Authenticate users.
+ -Create new todos providing due dates and categories.
+ -Update/complete todos.
+ -Delete todos.
+ -Filter todos by completion status.
+ -Filter todos by category.
 
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-Below you will find some information on how to perform common tasks.  You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
-
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). 
+You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 # Running the App #
 
 ## Environment Variables ##
@@ -31,7 +41,7 @@ Below you will find some information on how to perform common tasks.  You can fi
  - REACT_APP_TENANT - (Required) The tenant which owns the particular instance of Azure AD.
  This is typically of the form `xxxxxxxorg.onmicrosoft.com`. This should match the middle section of the URL found in the AZURE_IDENTITY_META_DATA variable.
 
-These values of environment variables of the pattern REACT_APP_* are automatically injected into the application where ever `process.env.REACT_APP_*` is found.
+ These values of environment variables of the pattern REACT_APP_* are automatically injected into the application where ever `process.env.REACT_APP_*` is found.
 
 ### Development Execution ###
 
