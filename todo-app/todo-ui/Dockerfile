@@ -30,11 +30,11 @@ COPY ./nginx.conf /etc/nginx/conf.d/default.conf.template
 STOPSIGNAL SIGTERM
 
 # Empty config array
-ENV AZURE_APP_ID ""
-ENV AZURE_AD_TENANT ""
-ENV IS_TEST_MODE "false"
+ENV REACT_APP_CLIENT_ID ""
+ENV REACT_APP_TENANT ""
+ENV REACT_APP_TEST_MODE "false"
 
 # run nginx
-CMD envsubst '\$AZURE_APP_ID \$IS_TEST_MODE \$AZURE_AD_TENANT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
+CMD envsubst '\$REACT_APP_CLIENT_ID \$REACT_APP_TEST_MODE \$REACT_APP_TENANT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'
 
 
