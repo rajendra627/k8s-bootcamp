@@ -34,7 +34,7 @@ metadata:
   namespace: todo-app
 spec:
   ports:
-  - port: 8080
+  - port: 80
   selector:
     app: todo-api
 ---
@@ -76,6 +76,11 @@ spec:
                 configMapKeyRef:
                   name: todo-api-config
                   key: app_log_level
+            - name: USER_API_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: todo-api-config
+                  key: user_api_url
             - name: AZURE_APP_ID
               valueFrom:
                 secretKeyRef:
@@ -117,9 +122,36 @@ spec:
         - name: todo-app-ui
           image: architechbootcamp/todo-ui:latest
           ports:
-            - containerPort: 80
+          - containerPort: 80
+          env:
+          - name: REACT_APP_TEST_MODE
+            valueFrom:
+              configMapKeyRef:
+                name: todo-ui-config
+                key: is_test_mode
+          - name: REACT_APP_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: todoapp-secrets
+                key: azure_app_id
+          - name: REACT_APP_TENANT
+            valueFrom:
+              secretKeyRef:
+                name: todoapp-secrets
+                key: ad_identity
       imagePullSecrets:
         - name: techdemosecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-api
+  namespace: todo-app
+spec:
+  ports:
+  - port: 8082
+  selector:
+    app: user-api
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -141,31 +173,31 @@ spec:
           ports:
             - containerPort: 8082
           env:
-            - name: MONGODB_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: user-api-config
-                  key: db_url
-            - name: IS_TEST_MODE
-              valueFrom:
-                configMapKeyRef:
-                  name: user-api-config
-                  key: is_test_mode
-            - name: APP_LOG_LEVEL
-              valueFrom:
-                configMapKeyRef:
-                  name: user-api-config
-                  key: app_log_level
-            - name: AZURE_APP_ID
-              valueFrom:
-                secretKeyRef:
-                  name: todoapp-secrets
-                  key: azure_app_id
-            - name: AZURE_IDENTITY_META_DATA
-              valueFrom:
-                secretKeyRef:
-                  name: todoapp-secrets
-                  key: ad_identity
+          - name: MONGODB_URL
+            valueFrom:
+              configMapKeyRef:
+                name: user-api-config
+                key: db_url
+          - name: IS_TEST_MODE
+            valueFrom:
+              configMapKeyRef:
+                name: user-api-config
+                key: is_test_mode
+          - name: APP_LOG_LEVEL
+            valueFrom:
+              configMapKeyRef:
+                name: user-api-config
+                key: app_log_level
+          - name: AZURE_APP_ID
+            valueFrom:
+              secretKeyRef:
+                name: todoapp-secrets
+                key: azure_app_id
+          - name: AZURE_IDENTITY_META_DATA
+            valueFrom:
+              secretKeyRef:
+                name: todoapp-secrets
+                key: ad_identity
       #imagePullSecrets:
       #- name: registry_credentials
 

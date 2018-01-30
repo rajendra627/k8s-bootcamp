@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-ui-config
+  namespace: todo-app
+data:
+  #This value must be the same in ALL config.yaml files!
+  is_test_mode: false
