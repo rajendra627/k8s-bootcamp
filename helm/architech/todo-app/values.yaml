@@ -11,6 +11,7 @@ Global:
   LogLevel: INFO
   SecretName: todoapp-secrets
   ImagePullPolicy: Always
+  Host: 192.168.99.100.nip.io
 
 WebUI:
   Name: web-ui
