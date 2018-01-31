@@ -1,12 +1,14 @@
-# Note this example does not even specify a host.
 # Instead, it defines paths that direct the request to specific service.
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: todo-app-ingress
+annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
-  - http:
+  - host: 192.168.99.100.nip.io
+    http:
       paths:
       - path: /
         backend:
