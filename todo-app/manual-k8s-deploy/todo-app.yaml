@@ -143,7 +143,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: todoapp-secrets
-                key: ad_identity_meta_data
+                key: ad_tenant
       imagePullSecrets:
         - name: techdemosecret
 ---

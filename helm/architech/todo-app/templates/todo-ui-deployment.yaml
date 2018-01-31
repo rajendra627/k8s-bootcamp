@@ -46,5 +46,5 @@ spec:
           valueFrom:
             secretKeyRef:
               name: {{.Values.Global.SecretName}}
-              key: ad_identity_meta_data
+              key: ad_tenant
 
