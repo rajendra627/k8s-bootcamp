@@ -1,12 +1,17 @@
-# Note this example does not even specify a host. 
 # Instead, it defines paths that direct the request to specific service.
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: pod-details-ingress-single
+  namespace: ingress-example
+  annotations:
+    ingress.kubernetes.io/force-ssl-redirect: "false"
+    ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - http:
+    #IP is not allowed so I use nip.io DNS service
+  - host: 192.168.99.100.nip.io
+    http:
       paths:
       - path: /pod-details/v1
         backend:

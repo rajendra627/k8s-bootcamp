@@ -31,7 +31,7 @@ spec:
         app: v2
     spec:
       containers:
-      - image:  architechbootcamp/pod-details:1.0.1
+      - image:  architechbootcamp/pod-details:1.0.3
         name:  pod-details-v2
         imagePullPolicy: Always
         resources:
