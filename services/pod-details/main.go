@@ -19,12 +19,17 @@ import (
 func main() {
 	log.Println("Starting up pod-detail api...")
 	router := mux.NewRouter()
-	router.HandleFunc("/pod-details", getPodDetails).Methods("GET")
+	//router.PathPrefix("/pod-details").HandlerFunc(getPodDetails).Methods("GET")
+	router.PathPrefix("/").HandlerFunc(catchAllHandler).Methods("GET")
 	log.Fatal(http.ListenAndServe(":8000", router))
 }
 
-func getPodDetails(w http.ResponseWriter, r *http.Request) {
+func catchAllHandler(w http.ResponseWriter, r *http.Request) {
+	getPodDetails(w, r)
+}
 
+func getPodDetails(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Request URI was: %s\n", r.RequestURI)
 	log.Printf("Getting pod detail for request from %s\n", r.RemoteAddr)
 
 	now := time.Now()
