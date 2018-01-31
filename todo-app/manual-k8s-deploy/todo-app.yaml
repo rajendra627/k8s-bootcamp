@@ -33,8 +33,9 @@ metadata:
   name: todo-api
   namespace: todo-app
 spec:
+  type: LoadBalancer
   ports:
-  - port: 80
+  - port: 8080
   selector:
     app: todo-api
 ---
@@ -153,6 +154,7 @@ metadata:
   name: user-api
   namespace: todo-app
 spec:
+  type: LoadBalancer
   ports:
   - port: 8082
   selector:
