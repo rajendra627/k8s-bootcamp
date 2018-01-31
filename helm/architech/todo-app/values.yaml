@@ -21,6 +21,7 @@ WebUI:
   ServicePort: 80
   ContainerPort: 80
   ConfigName: webui-config
+  Path: /
 
 TodoAPI:
   Name: todo-api
@@ -31,6 +32,7 @@ TodoAPI:
   ServicePort: 80
   ContainerPort: 8080
   ConfigName: todoapi-config
+  Path: /api/todos
 
 UserAPI:
   Name: user-api
@@ -38,9 +40,10 @@ UserAPI:
   Image: "architechbootcamp/user-api"
   ImageTag: "latest"
   Replicas: 1
-  ServicePort: 8082
+  ServicePort: 80
   ContainerPort: 8082
   ConfigName: userapi-config
+  Path: /api/user
 
 MongoDb:
   Name: mongodb
@@ -49,3 +52,19 @@ MongoDb:
   Replicas: 1
   ServicePort: 27017
   ContainerPort: 27017
+
+IngressNginx:
+  Name: nginx-ingress
+  ServiceName: nginx-ingress
+  Image: "quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.10.2"
+  Replicas: 1
+  ServicePort: 80
+  ContainerPort: 80
+
+IngressDefaultBackend:
+  Name: default-http-backend
+  ServiceName: default-http-backend
+  Image: "gcr.io/google_containers/defaultbackend:1.4"
+  Replicas: 1
+  ServicePort: 80
+  ContainerPort: 8080

@@ -1,0 +1,27 @@
+# Note this example does not even specify a host.
+# Instead, it defines paths that direct the request to specific service.
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: todo-app-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: todo-app-ui
+          servicePort: 80
+      - path: /api/todos
+        backend:
+          serviceName: todo-api
+          servicePort: 80
+      - path: /api/user
+        backend:
+          serviceName: user-api
+          servicePort: 80
+  #The service that will handle all other
+  #paths. e.g. return a 404 not found page.
+  backend:
+    serviceName: default-http-backend
+    servicePort: 80

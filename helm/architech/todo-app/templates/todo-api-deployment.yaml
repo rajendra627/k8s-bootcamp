@@ -4,7 +4,6 @@ metadata:
   name: {{ .Values.TodoAPI.ServiceName }}
   namespace: {{.Values.Global.NameSpace}}
 spec:
-  type: LoadBalancer
   ports:
   - port: {{ .Values.TodoAPI.ServicePort }}
   selector:
