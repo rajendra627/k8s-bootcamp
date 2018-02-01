@@ -9,7 +9,7 @@ From within the helm directory run the following command:
 
 ./create_secrets.sh
 
-#2) do a dry run install to make sure everything is ok. Replace <your_ip> with the IP for your cluster loadbalancer.  The --set flag overrides values for specified keys in your values.yaml file.
+#2) do a dry run install to make sure everything is ok. Replace <your_ip> with the IP for your cluster loadbalancer.  The --set flag overrides values for specified keys in your values.yaml file.  This command will echo out the manifests that will be deployed. Review it carefully.
 helm install --dry-run --debug --set Global.Host=<your_ip>.nip.io architech/todo-app
 
 #3) install the todo-app
