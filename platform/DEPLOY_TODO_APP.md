@@ -21,8 +21,12 @@ Create namespaces and secrets using the following commands from `helm` folder:
 
 From `helm` folder run the following commands to deploy the application to the two environments. For reference, see [helm README](../helm/README.md).
 
-- `helm install --namespace qa-env --name todo-app-qa-deployment -f architech/todo-app/values-qa.yaml architech/todo-app`
-- `helm install --namespace prod-env --name todo-app-prod-deployment -f architech/todo-app/values-prod.yaml architech/todo-app`
+```sh
+#replace <your_ip.nip.io> with your cluster loadbalancer
+helm install --namespace qa-env --name todo-app-qa-deployment --set Global.Environtment=qa,Global.Host=<your_ip.nip.io> architech/todo-app
+
+helm install --namespace prod-env --name todo-app-prod-deployment --set Global.Environment=production,Global.Host=<your_ip.nip.io> architech/todo-app
+```
 
 ### 5. Configure Jenkins ###
 

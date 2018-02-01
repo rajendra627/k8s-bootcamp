@@ -2,13 +2,6 @@
 
 ## Deploying the Todo Application ##
 
-First update the helm [values.yaml](./architech/todo-app/values.yaml) to add your cluster hostname.  The values.yaml file contains values that will be used by the helm template engine to generate the necessary manifest files.
-
-```yaml
-  #replace just the IP porion with your IP.
-  Host: 192.168.99.100.nip.io
-```
-
 From within the helm directory run the following command:
 
 ```sh
@@ -16,11 +9,11 @@ From within the helm directory run the following command:
 
 ./create_secrets.sh
 
-#2) do a dry run install to make sure everything is ok.
-helm install --dry-run --debug architech/todo-app
+#2) do a dry run install to make sure everything is ok. Replace <your_ip> with the IP for your cluster loadbalancer.  The --set flag overrides values for specified keys in your values.yaml file.
+helm install --dry-run --debug --set Global.Host=<your_ip>.nip.io architech/todo-app
 
 #3) install the todo-app
-helm install --namespace todo-app architech/todo-app
+helm install --namespace todo-app --set Global.Host<your_ip>.nip.io architech/todo-app
 
 #check that the app has been deployed.  You should see the todo-app has been deployed.
 helm ls
