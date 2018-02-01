@@ -4,6 +4,7 @@ metadata:
   name: {{.Values.WebUI.ServiceName}}
   namespace: {{.Values.Global.NameSpace}}
 spec:
+  type: LoadBalancer
   ports:
   - port: {{ .Values.WebUI.ServicePort }}
   selector:
