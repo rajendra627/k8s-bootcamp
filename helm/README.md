@@ -1,55 +1,40 @@
 # Packaging and deploying K8S applications using Helm #
 
-todo-app is the helm chart for the Todo Application.
+## Deploying the Todo Application ##
 
-## References ##
+First update the helm [values.yaml](./architech/todo-app/values.yaml) to add your cluster hostname.  The values.yaml file contains values that will be used by the helm template engine to generate the necessary manifest files.
 
-- [Helm Documenation](https://docs.helm.sh/using_helm/)
-
-## Steps to install Application ##
-
-- Run Command
-
-```sh
- ./create_secrets.sh todo-app
- ```
-
-This command will create the namespace _todo-app_ and will create the secrets required, Secrets are kept out of the Helm Chart, the helm chart is for distribution for your clients, secrets such usernames/passwords/identities, should be local to each environment
-
-Once the command is finished you can now run the command
-
-```sh
-
-#do a dry run first
-helm install --dry-run architech/todo-app
-
-#if no errors are reported install the chart
-helm install architech/todo-app
-
+```yaml
+  #replace just the IP porion with your IP.
+  Host: 192.168.99.100.nip.io
 ```
 
-## Tips & trouble shooting ##
+From within the helm directory run the following command:
 
-I like to open a split terminal (or two terminal windows) with the following two commands running
+```sh
+#1) create the secrets required by the application.  The script will also create a namespace called todo-app
 
-- watch kubectl get pods --all-namespaces
-- watch kubectl get services --all-namespaces
+./create_secrets.sh
 
-The result is a screen like this that gives me constant feedback on the status of the pods as they are being created!
+#2) do a dry run install to make sure everything is ok.
+helm install --dry-run --debug architech/todo-app
 
-![Alt text](./readme-images/watch_kubectl.png?raw=true "Docker Hub Dashboard")
+#3) install the todo-app
+helm install --namespace todo-app architech/todo-app
 
----------------
+#check that the app has been deployed.  You should see the todo-app has been deployed.
+helm ls
+```
 
 If you get a message about the tiller versions incompatiblity you can use the following command to upgrade your cluster tiller
 
 ```sh
-
 helm init --upgrade
-
 ```
+
 > NOTE : You want to give Tiller a chance to upgrade a few seconds before trying to run the install command again, using the watches as recommended above will help you get a visual confirmation of when tiller is ready
 
 ## References ##
 
+- [Helm Documenation](https://docs.helm.sh/using_helm/)
 - [Debugging Templates](https://github.com/kubernetes/helm/blob/master/docs/chart_template_guide/debugging.md)

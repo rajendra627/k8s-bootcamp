@@ -16,33 +16,7 @@ Deploy the Todo Application using helm. We will then do the following:
 * scale up then scale down the number of todo-api services
 * deploy a different version of the todo-api service and do a rolling update
 
-### Deploying the Todo Application ###
-
-First update the helm [values.yaml](../../helm/architech/todo-app/values.yaml) to add your cluster hostname.  The values.yaml file contains values that will be used by the helm template engine to generate the necessary manifest files.
-
-```yaml
-  #replace just the IP porion with your IP.
-  Host: 192.168.99.100.nip.io
-```
-
-From within the [helm directory](../../helm/) run the following command:
-
-```sh
-#1) create the secrets required by the application.  The script will also create a namespace called todo-app
-
-./create_secrets.sh
-
-#2) do a dry run install to make sure everything is ok.
-helm install --dry-run --debug architech/todo-app
-
-#3) install the todo-app
-helm install --namespace todo-app architech/todo-app
-
-#check that the app has been deployed.  You should see the todo-app has been deployed.
-helm ls
-```
-
-Look in the helm/architech/todo-app/values.yml file
+See the [helm/README.md](../../helm/README.md) for instructions on how to deploy the app using helm.
 
 ### List all deployments, services, pods ###
 
