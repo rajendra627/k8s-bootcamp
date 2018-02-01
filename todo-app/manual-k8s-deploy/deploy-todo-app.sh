@@ -16,5 +16,5 @@ kubectl create --namespace=$todoapp_namespace -f todo-ui-config.yaml
 kubectl create --namespace=$todoapp_namespace -f todo-app.yaml
 
 #Now create the ingress controller and ingress
-kubectl create --namespace=$todoapp_namespace -f ingress-controller.yaml
-kubectl create --namespace=$todoapp_namespace -f ingress-rule.yaml
+#kubectl create --namespace=$todoapp_namespace -f ingress-controller.yaml
+#kubectl create --namespace=$todoapp_namespace -f ingress-rule.yaml
