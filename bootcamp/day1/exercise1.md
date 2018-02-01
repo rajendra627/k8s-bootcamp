@@ -26,11 +26,11 @@ From within the [helm directory](../../helm/) run the following command:
 
 ./create_secrets.sh
 
-#2) do a dry run install to make sure everything is ok
-helm install --dry-run architech/todo-app
+#2) do a dry run install to make sure everything is ok.
+helm install --dry-run --debug architech/todo-app
 
 #3) install the todo-app
-helm install architech/todo-app
+helm install --namespace todo-app architech/todo-app
 
 #check that the app has been deployed.  You should see the todo-app has been deployed.
 helm ls
