@@ -18,10 +18,16 @@ Deploy the Todo Application using helm. We will then do the following:
 
 ### Deploying the Todo Application ###
 
+First update the helm [values.yaml](../../helm/architech/todo-app/values.yaml) to add your cluster hostname.  The values.yaml file contains values that will be used by the helm template engine to generate the necessary manifest files.
+
+```yaml
+  #replace just the IP porion with your IP.
+  Host: 192.168.99.100.nip.io
+```
+
 From within the [helm directory](../../helm/) run the following command:
 
 ```sh
-
 #1) create the secrets required by the application.  The script will also create a namespace called todo-app
 
 ./create_secrets.sh
@@ -36,7 +42,7 @@ helm install --namespace todo-app architech/todo-app
 helm ls
 ```
 
-Open a browser and access the application at [http://host:8080](http://host:8080)
+Look in the helm/architech/todo-app/values.yml file
 
 ### List all deployments, services, pods ###
 
