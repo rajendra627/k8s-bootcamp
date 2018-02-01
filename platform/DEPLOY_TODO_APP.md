@@ -22,7 +22,9 @@ Create namespaces and secrets using the following commands from `helm` folder:
 From `helm` folder run the following commands to deploy the application to the two environments. For reference, see [helm README](../helm/README.md).
 
 ```sh
-#replace <your_ip.nip.io> with your cluster loadbalancer
+#replace <your_ip.nip.io> with your cluster loadbalancer.
+#This value CANNOT be an IP address, you need to provide a valid DNS name.  Use nip.io if you
+#have not defined a DNS name.
 helm install --namespace qa-env --name todo-app-qa-deployment --set Global.Environtment=qa,Global.Host=<your_ip.nip.io> architech/todo-app
 
 helm install --namespace prod-env --name todo-app-prod-deployment --set Global.Environment=production,Global.Host=<your_ip.nip.io> architech/todo-app
