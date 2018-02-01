@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{.Values.WebUI.ConfigName}}
-  namespace: {{.Values.Global.NameSpace}}
+  namespace: {{.Values.Global.Namespace}}
 data:
   is_test_mode: "{{.Values.Global.IsTesting}}"
 

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{.Values.UserAPI.ConfigName}}
-  namespace: {{.Values.Global.NameSpace}}
+  namespace: {{.Values.Global.Namespace}}
 data:
   db_url: "mongodb://{{.Values.MongoDb.ServiceName}}:{{.Values.MongoDb.ServicePort}}/user-api"
   is_test_mode: "{{.Values.Global.IsTesting}}"

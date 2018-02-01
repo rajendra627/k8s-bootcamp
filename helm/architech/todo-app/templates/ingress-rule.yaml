@@ -4,6 +4,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: todo-app-ingress
+  namespace: {{ .Values.Global.Namespace }}
   annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
 spec:

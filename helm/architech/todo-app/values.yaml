@@ -6,7 +6,7 @@
 Global:
   Version : 1.0
   Environment: production
-  NameSpace: todo-app
+  Namespace: todo-app
   IsTesting: true
   LogLevel: INFO
   SecretName: todoapp-secrets
