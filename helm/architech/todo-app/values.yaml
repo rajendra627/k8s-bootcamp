@@ -30,7 +30,7 @@ TodoAPI:
   Image: "architechbootcamp/todo-api"
   ImageTag: "latest"
   Replicas: 1
-  ServicePort: 80
+  ServicePort: 8080
   ContainerPort: 8080
   ConfigName: todoapi-config
   Path: /api/todos
@@ -41,7 +41,7 @@ UserAPI:
   Image: "architechbootcamp/user-api"
   ImageTag: "latest"
   Replicas: 1
-  ServicePort: 80
+  ServicePort: 8082
   ContainerPort: 8082
   ConfigName: userapi-config
   Path: /api/user
