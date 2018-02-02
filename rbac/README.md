@@ -35,7 +35,7 @@ kubectl config set-credentials user --client-certificate=./user.crt  --client-ke
 kubectl config set-context user-context --cluster=cluster --user=user
 
 #3.  Set the current context to the user-context
-kubectl config set-context user-context
+kubectl config use-context user-context
 
 #4.  Now try to do something
 kubectl get pods
