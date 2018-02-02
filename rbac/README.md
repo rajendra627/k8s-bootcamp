@@ -30,12 +30,11 @@ openssl req -new -key user.key -out user.csr -subj "/CN=user/O=organization"
 #CLUSTER_CA_LOCATION for minikube would be $HOME/.minikube
 openssl x509 -req -in user.csr -CA CLUSTER_CA_LOCATION/ca.crt -CAkey CLUSTER_CA_LOCATION/ca.key -CAcreateserial -out user.crt -days 500
 
-#2.  Create a new cluster/user context for kubectl using the user.crt that was just created
+#2.  Create a new cluster/user context for kubectl using the user.crt/key that was just created
 kubectl config set-credentials user --client-certificate=./user.crt  --client-key=./user.key
 kubectl config set-context user-context --cluster=cluster --user=user
 
-#3.  You can now access the cluster like so
-
+#3.  Set the current context to the user-context
 kubectl config set-context user-context
 
 #4.  Now try to do something
