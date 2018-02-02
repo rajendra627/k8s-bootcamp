@@ -12,7 +12,7 @@ kubectl create secret generic todoapp-secrets --from-file=secrets --namespace=$t
 
 #Create the configuration object for the todo and user APIs
 kubectl create --namespace=$todoapp_namespace -f todo-api-config.yaml
-kubectl create --namespace=$todoapp_namesapce -f user-api-config.yaml
+kubectl create --namespace=$todoapp_namespace -f user-api-config.yaml
 kubectl create --namespace=$todoapp_namespace -f todo-ui-config.yaml
 
 #Now create the application
