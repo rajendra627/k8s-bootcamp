@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.UserAPI.ConfigName }}
 data:
-  db_url: "{{.Values.MongoDb.ServiceName}}:{{.Values.MongoDb.ServicePort}}/user-api"
+  db_url: "mongodb://{{.Values.MongoDb.ServiceName}}:{{.Values.MongoDb.ServicePort}}/user-api"
   is_test_mode: "{{.Values.Global.IsTesting}}"
   app_log_level: {{ .Values.Global.LogLevel }}
