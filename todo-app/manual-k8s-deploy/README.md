@@ -40,20 +40,17 @@ image: architechbootcamp/todo-api:latest
 image: architechbootcamp/user-api:latest
 ```
 
------------------
-Run the command
-
-> ./config_deploy_app.sh
-
-Here is a description of what the script did
-
-First we create the name space in the cluster (defaults to _todoapp_)
-
 ```bash
-kubectl create namespace $todoapp_namespace
+#Create a namespace to deploy the application
+kubectl create namespace <namespace>
+
+#Run the command
+./config_deploy_app.sh <namespace>
 ```
 
-Then we create a few secrets based on the _secrets_ directory, you can see that in this directory we store secrets such as the azure ad identity of the app, only the Ops team has access to this secured secret directory
+Here is a description of what the script did.
+
+First we create a few secrets based on the _secrets_ directory, you can see that in this directory we store secrets such as the azure ad identity of the app, only the Ops team has access to this secured secret directory
 
 ```bash
 kubectl create secret generic todoapp-secrets --from-file=secrets --namespace=$todoapp_namespace
