@@ -19,7 +19,7 @@ kubectl logs <pod-name> -c <container-name>
 kubectl get events
 
 #access the running pod and verify the process is running
-#This assumes that the container has the bash shell
+#This assumes that the container has the bash shell, replace with another command as appropriate
 kubectl exec -ti <pod-name> -- bash
 
 ```

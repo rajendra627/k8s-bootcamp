@@ -4,6 +4,6 @@
 
 You should have successfully set up your environment as outlined in [Day1/setup](./setup.md)
 
-# Objective #
+## Objective ##
 
-Do the troubleshooting exercise in [trouble-shooting](./trouble-shooting)
+Do the troubleshooting exercise in [trouble-shooting](./trouble-shooting/README.md)
