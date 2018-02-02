@@ -16,6 +16,33 @@ You can configure multiple authentication modules to support different authentic
 
 See [Controlling access to the K8S API](https://kubernetes.io/docs/admin/accessing-the-api/) to set up HTTP Basic Auth authentication, and see [Azure Active Directory plugin for client authentication with OIDC](https://github.com/kubernetes/client-go/tree/master/plugin/pkg/client/auth/azure) to set up authentication with your Azure AD tenant.
 
+Below we will show setting up authentication and RBAC authorization using x509 certificates.
+
+## Authenticating using x509 certs ##
+
+See scripts to do this in the [certs](./certs) directory.
+
+```sh
+#1. Create credentials
+
+openssl genrsa -out user.key 2048
+openssl req -new -key user.key -out user.csr -subj "/CN=user/O=organization"
+#CLUSTER_CA_LOCATION for minikube would be $HOME/.minikube
+openssl x509 -req -in user.csr -CA CLUSTER_CA_LOCATION/ca.crt -CAkey CLUSTER_CA_LOCATION/ca.key -CAcreateserial -out user.crt -days 500
+
+#2.  Create a new cluster/user context for kubectl using the user.crt that was just created
+kubectl config set-credentials user --client-certificate=./user.crt  --client-key=./user.key
+kubectl config set-context user-context --cluster=cluster --user=user
+
+#3.  You can now access the cluster like so
+
+kubectl config set-context user-context
+
+#4.  Now try to do something
+kubectl get pods
+
+```
+
 ## Enabling RBAC ##
 
 - Start up minikube with the options to enable RBAC on the api-server.
