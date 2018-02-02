@@ -1,10 +1,10 @@
 # Role Based Access Control #
 
-When you provision a K8S cluster on Azure Container Service using the az cli, RBAC is not enabled by default.  Therefore, everyone will have full read/write access.  But what happens if you need to provide other users/roles restricted access to the K8S cluster?  For example, you want "QA" roles having read/write access to only their environment, and "Dev" roles having read/write access to only their environment. This is where RBAC comes into play.
-
-**Note, you can also provision multiple clusters - a separate one for each environment that needs to be supported.  This is actually the simpler approach and used by many organizations.**
+If you need to provide other users/roles restricted access to the K8S cluster, for example, you want "QA" roles having read/write access to only their environment, and "Dev" roles having read/write access to only their environment, then RBAC is the means to do so going forward.
 
 **Note: ACS and AKS currently does not support RBAC.  To enable RBAC in Azure, you need to use [ACS Engine](https://github.com/Azure/acs-engine).  However, this is an advanced topic so we will be using Minikube to demonstrate RBAC in K8S**
+
+**Note, you can also provision multiple clusters - a separate one for each environment that needs to be supported.  This is actually the simpler approach and used by many organizations.**
 
 ## Authentication and Authorization in K8S ##
 
