@@ -11,8 +11,7 @@ else
   cluster=$2
 
   echo "creating kubectl context for user '$user' for cluster '$cluster' using $user.crt/.key"
+  kubectl config set-credentials ${user} --client-certificate=./${user}.crt  --client-key=./${user}.key
+  kubectl config set-context ${user}-context --cluster=${cluster} --user=${user}
   exit 0
 fi
-
-kubectl config set-credentials ${user} --client-certificate=./${user}.crt  --client-key=./${user}.key
-kubectl config set-context ${user}-context --cluster=${cluster} --user=${user}
