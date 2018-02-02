@@ -24,7 +24,6 @@ See scripts to do this in the [certs](./certs) directory.
 
 ```sh
 #1. Create credentials
-
 openssl genrsa -out user.key 2048
 openssl req -new -key user.key -out user.csr -subj "/CN=user/O=organization"
 #CLUSTER_CA_LOCATION for minikube would be $HOME/.minikube
