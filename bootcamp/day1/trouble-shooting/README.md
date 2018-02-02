@@ -29,7 +29,10 @@ kubectl exec -ti <pod-name> -- bash
 Deploy the todo-app helm chart in [todo-app](./todo-app).  There is a small issue with this chart.  It will deploy but the application will fail to run.  Try to find out what the issue is and correct it.
 
 ```sh
-#first create the necessary secrets and namespace for the deployment
+#first create a namespace to work in
+kubectl create namespace troubleshooting
+
+#then create the necessary secrets and namespace for the deployment
 ./create_secrets trouble-shooting
 
 #deploy the helm chart

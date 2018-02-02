@@ -5,14 +5,16 @@
 From within the helm directory run the following command:
 
 ```sh
-#1) create the secrets required by the application.  The script will also create a namespace called todo-app
+#1) Create a namespace to deploy your app.
+kubectl create namespace <namespace>
 
-./create_secrets.sh
+#2) Create secrets required by the app in the same namespace
+./create_secrets.sh <namespace>
 
-#2) do a dry run install to make sure everything is ok. Replace <your_ip> with the IP for your cluster loadbalancer.  The --set flag overrides values for specified keys in your values.yaml file.  This command will echo out the manifests that will be deployed. Review it carefully.
+#3) do a dry run install to make sure everything is ok. Replace <your_ip> with the IP for your cluster loadbalancer.  The --set flag overrides values for specified keys in your values.yaml file.  This command will echo out the manifests that will be deployed. Review it carefully.
 helm install --dry-run --debug --set Global.Host=<your_ip>.nip.io architech/todo-app
 
-#3) install the todo-app
+#4) install the todo-app
 helm install --namespace todo-app --set Global.Host<your_ip>.nip.io architech/todo-app
 
 #check that the app has been deployed.  You should see the todo-app has been deployed.
