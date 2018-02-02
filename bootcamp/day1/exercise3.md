@@ -20,6 +20,3 @@ In this exercise you are going to be deploy a pod and expose it as a service.
 * Tag the image and push it to DockerHub or Azure Container Service
 * Deploy to K8S and test through a browser or curl
 * Bonus: Implement your service so that you can pass any stock symbol as query string parameter.
-
-
-
