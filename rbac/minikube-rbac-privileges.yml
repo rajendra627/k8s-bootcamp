@@ -1,5 +1,7 @@
-#When enabling RBAC on minikube the kube-dns and the dashboard will fail to start due to permission issues
-# with the default serviceaccount.  Create these ClusterRole/ClusterRoleBindings to add the necessary permissions.
+# When enabling RBAC on minikube v0.25.0 the kube-dns and the dashboard will fail to start due to permission issues
+# with the default serviceaccount.
+#
+# Create these ClusterRole/ClusterRoleBindings to add the necessary permissions.
 # See https://github.com/kubernetes/minikube/issues/1734
 
 # Wide open access for testing
