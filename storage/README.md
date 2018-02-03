@@ -10,7 +10,7 @@ Which volume type you use depends on your requirements:
 
 - emptyDir volume type uses either memory or local filesystem for storage.  It only should be used for temp data
 - hostPath volume maps the volume to a specific directory on the node.  This is useful if you have a daemonset that needs to access the same directory on all nodes.
-- nsf volume type uses network storage using the nfs protocol.  Note there are many volume types that support network storage.  For example, azureDisk, awsElasticBlockStore.  These are the volume types that you want to use so that when your pods are rescheduled to different nodes, the same volumes are still accessible.
+- nsf volume type uses network storage using the nfs protocol.  Note there are many volume types that support network.  For example, azureDisk, awsElasticBlockStore.  These are the volume types that you want to use so that when your pods are rescheduled to different nodes, the same volumes are still accessible.
 
 * See the [Volume reference at K8S.io](https://kubernetes.io/docs/concepts/storage/volumes/) for more details.
 * See [here](https://github.com/kubernetes/examples/blob/master/staging/volumes/azure_disk/azure.yaml) for an example of a pod that uses Azure Disk volumes.  Notice how you must first specify the volume, then mount the volume within your container specification.  How you specify the volume depends on the volume type.
@@ -19,7 +19,7 @@ Which volume type you use depends on your requirements:
 
 With Volumes the life-cycle of the storage is tied to the pod.  This means the volume survives container restarts, however, if the pod is destroyed, the volume storage will be blown away - not entirely true, this is the case for certain volume types e.g. emptyDir. This is not appropriate for applications such as databases that require the data is saved even if the pod is rescheduled to another node.
 
-Persistent Volumes (PV) are a volume type that is pre-provisioned/defined by the cluster admin - they can be provisioned statically or dynamically.  They support different storage services via plugins.  For example, there is a PV type for AzureFile, AzureDisk, NFS and more.
+Persistent Volumes (PV) are a volume type that is pre-provisioned/defined by the cluster admin - they can be provisioned statically or dynamically.  They support different storage services via plugins.  For example, there is a PV type for AzureFile, AzureDisk, NFS and more.  They differ from volumes in that the cluster admin can pre-create volumes as resources that can be used by creators of the pods. This is beneficial as the pod creators do not have to be aware of the implementation details of the volumes - e.g. credentials, access keys, etc.
 
 Persistent Volume Claims (PVC) are how pods "claim" the provisioned storage. In the claim is the request for amount of storage and access modes. A claim is fulfilled if there is a PV that meets the criteria specified in the claim.  Note this means that it is possible for a claim not to be fulfilled.  Once a PVC is bound to a PV, that relationship is one to one. What this means is that even if the Pod is rescheduled, the volume is not reallocated because there is a PVC that claims that volume.  The volume is only reallocated when the PVC is removed.
 
