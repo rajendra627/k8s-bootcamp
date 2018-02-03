@@ -15,7 +15,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   #when the PVC is released, retain the data.
-  #valid values are Retain (default) and Recycle.
+  #valid values are Retain (default), Recycle and Delete.
   #Not all volume plugins support Recycle. See the volume plugin for details.
   persistentVolumeReclaimPolicy: Retain
   # hostPath volume type so the volume is mapped to a path on the node
