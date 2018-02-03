@@ -20,10 +20,19 @@ spec:
         app: mongodb
     spec:
       containers:
-        - name: mongodb
-          image: mongo
-          ports:
-           - containerPort: 27017
+      - name: mongodb
+        image: mongo
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+        - name: mongodata
+          mountPath: /data/db
+      volumes:
+      - name: mongodata
+        #Only using emptyDir for this simple example. Because volume lifecycle is tied
+        #to the pod lifecycle, any data will be lost when the pod is shutdown.
+        #For databases, which require durable storage, use network storage volume types.
+        emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
