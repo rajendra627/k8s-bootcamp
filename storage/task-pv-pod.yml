@@ -7,17 +7,17 @@ metadata:
   name: task-pv-pod
 spec:
   volumes:
-    - name: task-pv-storage
-      persistentVolumeClaim:
-       claimName: task-pv-claim
+  - name: task-pv-storage
+    persistentVolumeClaim:
+      claimName: task-pv-claim
   containers:
-    - name: task-pv-container
-      image: nginx
-      ports:
-        - containerPort: 80
-          name: "http-server"
-      volumeMounts:
-        - mountPath: "/usr/share/nginx/html"
-          #here we mount the volume defined
-          #above in volumes
-          name: task-pv-storage
+  - name: task-pv-container
+    image: nginx
+    ports:
+    - containerPort: 80
+      name: "http-server"
+    volumeMounts:
+    - mountPath: "/usr/share/nginx/html"
+      #here we mount the volume defined
+      #above in volumes
+      name: task-pv-storage
