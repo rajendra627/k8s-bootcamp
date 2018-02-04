@@ -18,4 +18,6 @@ spec:
           name: "http-server"
       volumeMounts:
         - mountPath: "/usr/share/nginx/html"
+          #here we mount the volume defined
+          #above in volumes
           name: task-pv-storage

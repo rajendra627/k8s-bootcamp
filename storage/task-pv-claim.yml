@@ -1,10 +1,10 @@
-# From the task at K8S.io https://kubernetes.io/docs/tasks/configure-pod-container/configure-persistent-volume-storage/
-
+#An example of a PVC that claims a specific PV
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: task-pv-claim
 spec:
+  volumeName: task-pv-volume
   accessModes:
     - ReadWriteOnce
   resources:
