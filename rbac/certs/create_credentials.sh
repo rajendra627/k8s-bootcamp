@@ -15,4 +15,4 @@ fi
 
 openssl genrsa -out ${user}.key 2048
 openssl req -new -key ${user}.key -out ${user}.csr -subj "/CN=${user}/O=${organization}"
-openssl x509 -req -in ${user}.csr -CA ${ca_location}/ca.crt -CAkey ${ca_location}/ca.key -CAcreateserial -out ${user}.crt -days 500
+openssl x509 -req -in ${user}.csr -out ${user}.crt -days 500 -CA ${ca_location}/ca.crt -CAkey ${ca_location}/ca.key -CAcreateserial
