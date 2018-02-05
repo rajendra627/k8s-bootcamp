@@ -2,7 +2,7 @@
 #in K8S v1.9.x the apiVersion is apps/v1
 #v1.8.x the apiVersion is apps/v1beta2
 #v1.7.x the apiVersion is apps/v1beta1
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mysql
