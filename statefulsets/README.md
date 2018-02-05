@@ -63,7 +63,7 @@ kubectl get pvc --namespace mysql
 
 ## Headless Services ##
 
-A headless service is a service with the ClusterIP field set to None.  This results in no stable IP being created for the service.  Instead, when you do a DNS lookup for a headless service, multiple addresses are returned - one per pod that is part of the statefulset.  Your client logic would then connect directly to one of the pods.
+A headless service is a service with the ClusterIP field set to None.  This results in no stable IP being created for the service.  Instead, K8S creates SRV records to point to the pods backing the headless service. To see this, run the example below.
 
 ```sh
 #run a busybox pod in the same namespace then run nslookup with that pod to see what gets returned
