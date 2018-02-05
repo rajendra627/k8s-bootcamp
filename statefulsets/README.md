@@ -22,10 +22,31 @@ kubectl create -f mysql-configmap.yaml --namespace mysql
 #you must create the service first as the statefulset has a field called serviceName that must match
 #the name of the headless service.
 kubectl create -f mysql-services.yaml --namespace mysql
+
+#Note this example requires that you have default storageclass defined for your cluster
+kubectl get storageclasses
+
+#On my minikube this is what is displayed
+#NAME                 PROVISIONER
+#standard (default)   k8s.io/minikube-hostpath
+
 kubectl create -f mysql-statefulset.yaml --namespace mysql
 
 #once you have created the statefulset run:
 kubectl get pods --namespace mysql
+
+#Notice each pod has a unique id
+#NAME      READY     STATUS    RESTARTS   AGE
+#mysql-0   2/2       Running   0          1m
+#mysql-1   0/2       Pending   0          35s
+
+kubectl get pvc --namespace mysql
+
+#Notice each pvc has a unique name and is bound to its own volume
+#NAME           STATUS    VOLUME
+#data-mysql-0   Bound     pvc-0c585344-0aa5-11e8-a9a2-080027b8bd4d
+#data-mysql-1   Bound     pvc-353db378-0aa5-11e8-a9a2-080027b8bd4d
+
 ```
 
 ## References ##
