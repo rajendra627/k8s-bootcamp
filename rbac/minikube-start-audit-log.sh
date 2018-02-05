@@ -9,6 +9,4 @@ minikube start \
 --extra-config=apiserver.Audit.LogOptions.MaxAge=30 \
 --extra-config=apiserver.Audit.LogOptions.MaxSize=100 \
 --extra-config=apiserver.Audit.LogOptions.MaxBackups=5 \
---feature-gates=AdvanceAudit=true
-kubectl get pods
-minikube ssh cat /var/log/apiserver/audit.log
+--feature-gates=AdvancedAudit=true
