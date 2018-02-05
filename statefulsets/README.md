@@ -30,6 +30,16 @@ kubectl get storageclasses
 #NAME                 PROVISIONER
 #standard (default)   k8s.io/minikube-hostpath
 
+#On ACS this is what is displayed
+#NAME                PROVISIONER
+#azurefile           kubernetes.io/azure-file
+#default (default)   kubernetes.io/azure-disk
+#managed-premium     kubernetes.io/azure-disk
+#managed-standard    kubernetes.io/azure-disk
+
+#also note that depending on the version of the K8S cluster, you need to specify
+#different apiVersion values for StatefulSet
+#See mysql-statefulset.yaml
 kubectl create -f mysql-statefulset.yaml --namespace mysql
 
 #once you have created the statefulset run:
