@@ -47,15 +47,43 @@ kubectl get pods --namespace mysql
 
 #Notice each pod has a unique id
 #NAME      READY     STATUS    RESTARTS   AGE
-#mysql-0   2/2       Running   0          1m
-#mysql-1   0/2       Pending   0          35s
+#mysql-0   2/2       Running   0          10m
+#mysql-1   2/2       Running   0          7m
+#mysql-2   2/2       Running   0          2m
+
 
 kubectl get pvc --namespace mysql
 
 #Notice each pvc has a unique name and is bound to its own volume
 #NAME           STATUS    VOLUME
-#data-mysql-0   Bound     pvc-0c585344-0aa5-11e8-a9a2-080027b8bd4d
-#data-mysql-1   Bound     pvc-353db378-0aa5-11e8-a9a2-080027b8bd4d
+#data-mysql-0   Bound     pvc-914c3217-0ab8-11e8-b201-000d3af43898
+#data-mysql-1   Bound     pvc-fec6f2d7-0ab8-11e8-b201-000d3af43898
+#data-mysql-2   Bound     pvc-921a3858-0ab9-11e8-b201-000d3af43898
+```
+
+## Headless Services ##
+
+A headless service is a service with the ClusterIP field set to None.  This results in no stable IP being created for the service.  Instead, when you do a DNS lookup for a headless service, multiple addresses are returned - one per pod that is part of the statefulset.  Your client logic would then connect directly to one of the pods.
+
+```sh
+#run a busybox pod in the same namespace then run nslookup with that pod to see what gets returned
+kubectl run busybox --image busybox --namespace mysql --command -- sleep 50000
+
+#get the name of the pod that is deployed...
+kubectl get pods --namespace mysql
+
+#get shell access and run nslookup.  Notice, you get 3 addresses returned
+#and the FQDN is podname.servicename.namespace.svc.cluster.local
+kubectl exec -it busybox-fdsfs-sdfsd --namespace mysql -- sh
+
+$ nslookup mysql
+Server:    10.0.0.10
+Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
+
+Name:      mysql
+Address 1: 10.244.0.4 mysql-0.mysql.mysql.svc.cluster.local
+Address 2: 10.244.0.5 mysql-2.mysql.mysql.svc.cluster.local
+Address 3: 10.244.1.6 mysql-1.mysql.mysql.svc.cluster.local
 
 ```
 
