@@ -9,7 +9,7 @@ In this bootcamp, we will cover all the essential concepts in Kubernetes. We wil
 
 We will also actually deploy a microservice based [application](./todo-app/README.md) to K8S.  Using this reference application, we will learn K8S concepts in a more meaningful way - as if you were using K8S to deploy and manage a real application.  We will cover scenarios such as:
 
-- Continuous Integration/Continuous Deployment 
+- Continuous Integration/Continuous Deployment
 - Blue/Green deployments
 - Deploying multiple versions of your application to perform A/B testing
 - Auto-scaling your application to deal with peak traffic demand
@@ -19,7 +19,7 @@ We will also actually deploy a microservice based [application](./todo-app/READM
 
 By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 
-- [Pods - the unit of deployment on K8S](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) 
+- [Pods - the unit of deployment on K8S](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/)
 - [Services - how service discovery works in K8S](https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/)
 - [Deployments - doing rolling updates, rollbacks, scaling out](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 - [Storage - managing durable state with volumes, persistance volumes and persistent volume claims](https://kubernetes.io/docs/concepts/storage/volumes/)
@@ -35,16 +35,16 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 
 ### Day 1 Outline: ###
 
-- [Setting up your environment](./bootcamp/day1/setup.md)
-- The Todo list microservices application overview
-    - Deploying the application to K8S
-    - Making a change and doing a rolling-update
-    - Scaling out the application to deal with increased traffic
 - [Kubernetes Architecture](./bootcamp/day1/Architecture.md)
     - Key components and what role they serve
     - Key K8S resources and their purpose
     - Quick overview of Kubernetes networking
     - K8S as a dynamic platform and what that means
+- [Setting up your environment](./bootcamp/day1/setup.md)
+- The Todo list microservices application overview
+    - Deploying the application to K8S
+    - Making a change and doing a rolling-update
+    - Scaling out the application to deal with increased traffic
 - [Pods](./pods/README.md) - the unit of deployment in K8S
     - Defining the manifest
     - What to consider when decomposing your application into pods
@@ -54,7 +54,7 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
     - Using load-balancers and NodePorts to expose your pods to clients outside your cluster
     - Accessing services external to your cluster. e.g. Azure CosmosDB service
 - [Deployments](./deployments/README.md) - Deployments enable you to perform rolling upgrades, rollback, and scale up/scale down your services.
-- [Storage](./storage/README.md) - Volumes, Persistent Volumes, Persistence Volume Claims, Storage Classes. 
+- [Storage](./storage/README.md) - Volumes, Persistent Volumes, Persistence Volume Claims, Storage Classes.
 - [ConfigMaps](./configmaps/README.md) - ConfigMaps enable you to define configuration that is accessible as environment variables, files in a volume or command line arguments.
 
 ### Day 2 Outline: ###
