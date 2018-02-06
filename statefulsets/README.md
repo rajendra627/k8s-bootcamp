@@ -63,7 +63,7 @@ kubectl get pvc --namespace mysql
 
 ## Headless Services ##
 
-A headless service is a service with the ClusterIP field set to None.  This results in no stable IP being created for the service.  Instead, K8S creates SRV records to point to the pods backing the headless service. To see this, run the example below.
+A headless service is a service with the ClusterIP field set to None.  This results in no stable IP being created for the service.  Instead, K8S creates SRV records to point to the pods backing the headless service. Why is this required?  Remember the key aspect of statefulsets is *identity*, the pods in the stateful are not the same, therefore, you need to know which pod you are connecting to.  For example, in mysql, there would be a single master (that read/write to) and multiple slaves (that you only read from).  To see this, run the example below.
 
 ```sh
 #run a busybox pod in the same namespace then run nslookup with that pod to see what gets returned
