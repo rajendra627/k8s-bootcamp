@@ -25,7 +25,23 @@ spec:
         environment: {{.Values.Global.Environment}}
     spec:
       containers:
-        - name:  {{ .Values.MongoDb.Name }}
-          image: {{ .Values.MongoDb.Image }}
-          ports:
-           - containerPort: {{ .Values.MongoDb.ContainerPort }}
+      - name:  {{ .Values.MongoDb.Name }}
+        image: {{ .Values.MongoDb.Image }}
+        ports:
+        - containerPort: {{ .Values.MongoDb.ContainerPort }}
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ .Values.MongoDb.PVC }}
+apiVersion:
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.MongoDb.PVC }}
+  labels:
+    environment: {{ .Values.Global.Environment }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi

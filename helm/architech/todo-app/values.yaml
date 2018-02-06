@@ -52,6 +52,7 @@ MongoDb:
   Replicas: 1
   ServicePort: 27017
   ContainerPort: 27017
+  PVC: mongodb-pvc
 
 IngressNginx:
   Name: nginx-ingress
