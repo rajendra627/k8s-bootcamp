@@ -15,7 +15,8 @@ spec:
         app: batch-job
     spec:
       #restartPolicy is be default Always but that does not make sense
-      #for Jobs
+      #for Jobs so you must set this explicitly.
+      #If you need a job that run on a regular basis you a CronJob.
       restartPolicy: OnFailure
       containers:
       - name: batch-job
