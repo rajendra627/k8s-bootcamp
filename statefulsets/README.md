@@ -74,7 +74,7 @@ kubectl get pods --namespace mysql
 
 #get shell access and run nslookup.  Notice, you get 3 addresses returned
 #and the FQDN is podname.servicename.namespace.svc.cluster.local
-kubectl exec -it busybox-fdsfs-sdfsd --namespace mysql -- sh
+kubectl exec -it busybox-pod-name --namespace mysql -- sh
 
 $ nslookup mysql
 Server:    10.0.0.10
