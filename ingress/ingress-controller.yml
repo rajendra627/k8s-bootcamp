@@ -32,6 +32,7 @@ spec:
       labels:
         app: nginx-ingress
     spec:
+      serviceAccountName: default
       containers:
       - image:  quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.10.2
         name:  nginx-controller
