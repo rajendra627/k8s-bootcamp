@@ -29,6 +29,17 @@ helm init --upgrade
 
 > NOTE : You want to give Tiller a chance to upgrade a few seconds before trying to run the install command again, using the watches as recommended above will help you get a visual confirmation of when tiller is ready
 
+## Some Key Points ##
+
+Helm will deploy the resources in the templates directory in the order they are listed. This is key as in some cases, ordering does matter.  For example, notice I have some files prefixed with a number.
+
+```sh
+1.ingress-role.yaml
+2.ingress-role-binding.yaml
+```
+
+This is done because the role has to exist before the role can be bound to a subject.
+
 ## References ##
 
 - [Helm Documenation](https://docs.helm.sh/using_helm/)
