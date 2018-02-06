@@ -119,9 +119,9 @@ kubectl get componentstatuses
 
 #you should see something like this...
 NAME                 STATUS    MESSAGE              ERROR
-controller-manager   Healthy   ok                   
-etcd-0               Healthy   {"health": "true"}   
-scheduler            Healthy   ok                   
+controller-manager   Healthy   ok
+etcd-0               Healthy   {"health": "true"}
+scheduler            Healthy   ok
 ```
 
 * Start up proxy to tunnel to the Kubernetes Dashboard
@@ -154,7 +154,7 @@ This part is only for the RBAC portion of the exercises.  Unfortunately, ACS cur
 
 See the installation instructions for your OS [here](https://github.com/kubernetes/minikube/releases)
 
-*Use v0.24.1*
+*Use v0.25.0 as it supports K8S 1.9*
 
 *Note for Windows, you need to make a decision if you are going to use Hyper-V or Virtualbox for virtualization.  If you have installed Docker with Hyper-V then you have to choose Hyper-V for Minikube also to support both.*
 
