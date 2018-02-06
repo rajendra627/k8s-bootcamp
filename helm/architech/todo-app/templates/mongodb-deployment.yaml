@@ -33,6 +33,9 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: {{ .Values.MongoDb.PVC }}
+---
+#Note a default StorageClass needs to be available
+#On the cluster
 apiVersion:
 kind: PersistentVolumeClaim
 metadata:
