@@ -140,7 +140,7 @@ To install helm follow the instruction [here](https://github.com/kubernetes/helm
 helm init --upgrade
 ```
 
-## Bringing down you cluster ##
+## Bringing down your cluster ##
 
 In order to not incur Azure costs, you should tear down your cluster when not in use.  At the end of each day just delete the resource group.
 
