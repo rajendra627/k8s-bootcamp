@@ -22,7 +22,24 @@ Below we will show setting up authentication and RBAC authorization using x509 c
 
 ## Authenticating using x509 certs ##
 
-See scripts to do this in the [certs](./certs) directory.
+**MAKE SURE THE PROPER APIVERSION IS SET IN YOUR RESOURCES**
+
+The apiVersion for RBAC has changed since v1.7 as it was still Beta at that time. Make sure you have set the proper version in the following files.
+
+- production-role.yml
+- production-rolebinding.yml
+- qa-role.yml
+- qa-rolebinding.yml
+
+```yaml
+#for v1.8.0 and later
+apiVersion: rbac.authorization.k8s.io/v1
+
+#for v1.7.x
+apiVersion: rbac.authorization.k8s.io/v1beta1
+```
+
+Once the proper apiVersion has been set, see scripts to do this in the [certs](./certs) directory.
 
 ```sh
 #1. Create credentials
