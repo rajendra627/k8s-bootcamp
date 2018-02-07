@@ -50,7 +50,7 @@ helm init --upgrade
 
 ## Some Key Points ##
 
-Helm will deploy the resources in the templates directory in the order they are listed. This is key as in some cases, ordering does matter.  For example, notice I have some files prefixed with a number.
+Helm will deploy the resources in the templates directory in the order they are listed. In some cases, ordering does matter.  For example, notice I have some files prefixed with a number.
 
 ```sh
 1.ingress-role.yaml
