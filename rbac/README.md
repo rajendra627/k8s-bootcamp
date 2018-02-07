@@ -2,7 +2,7 @@
 
 If you need to provide other users/roles restricted access to the K8S cluster, for example, you want "QA" roles having read/write access to only their environment, and "Dev" roles having read/write access to only their environment, then RBAC is the means to do so going forward.
 
-**Note: ACS and AKS currently does not support RBAC.  To enable RBAC in Azure, you need to use [ACS Engine](https://github.com/Azure/acs-engine).  However, this is an advanced topic so we will be using Minikube to demonstrate RBAC in K8S**
+**Note: AKS currently does not support RBAC. It will support RBAC when it goes GA.  As of now, to use RBAC on Azure, you need to either use ACS (Azure Container Service), a customer cluster created using acs-engine, or a custom cluster created using kubespray.**
 
 **Note, you can also provision multiple clusters - a separate one for each environment that needs to be supported.  This is actually the simpler approach and used by many organizations.**
 
