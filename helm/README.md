@@ -2,6 +2,25 @@
 
 ## Deploying the Todo Application ##
 
+Before following the instructions below, you first need to know the version of K8S cluster.  To find out the version, run `kubectl version`.  It will show the client and server version.
+
+You then need to uncomment the apiVersion in the following files to reflect the server version:
+
+- [architech/todo-app/templates/1.ingress-role.yaml](./architech/todo-app/templates/1.ingress-role.yaml)
+- [architech/todo-app/templates/2.ingress-role-binding.yaml](./architech/todo-app/templates/1.ingress-role.yaml)
+
+```yaml
+#apiVersion: rbac.authorization.k8s.io/v1 #for v1.8.0++
+apiVersion: rbac.authorization.k8s.io/v1beta1 #for v1.7.x
+```
+
+You then need the IP to your K8S cluster.  How you do so depends on where you deployed the cluster.  
+
+- For minikube, just run `minikube ip`
+- For Azure, you need to log into the Azure Portal, go into the resource group for you cluster, and look for the `Public IP Address` resource.
+
+You will use this IP in step #3 below.
+
 From within the helm directory run the following command:
 
 ```sh
