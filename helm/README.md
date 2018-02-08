@@ -6,8 +6,8 @@ Before following the instructions below, you first need to know the version of K
 
 You then need to uncomment the apiVersion in the following files to reflect the server version:
 
-- [architech/todo-app/templates/1.ingress-role.yaml](./architech/todo-app/templates/1.ingress-role.yaml)
-- [architech/todo-app/templates/2.ingress-role-binding.yaml](./architech/todo-app/templates/1.ingress-role.yaml)
+- [architech/todo-app/templates/1-ingress-role.yaml](./architech/todo-app/templates/1-ingress-role.yaml)
+- [architech/todo-app/templates/2-ingress-role-binding.yaml](./architech/todo-app/templates/1-ingress-role.yaml)
 
 ```yaml
 #apiVersion: rbac.authorization.k8s.io/v1 #for v1.8.0++
