@@ -29,7 +29,7 @@ const findUserByEmail = async (email, res) => {
 
 /**
  * @swagger
- * /healthcheck:
+ * /user/healthcheck:
  *     get:
  *         tags:
  *             - Users
@@ -38,7 +38,10 @@ const findUserByEmail = async (email, res) => {
  *             200:
  *                 description: User API is running
  */
-router.get('/healthcheck', (req, res) => res.sendStatus(HttpStatus.OK));
+router.get('/healthcheck', (req, res) => {
+    logger.info('Received a health-check request from K8S.');
+    res.sendStatus(HttpStatus.OK);
+});
 
 /**
  * @swagger
