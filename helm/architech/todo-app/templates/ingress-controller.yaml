@@ -4,10 +4,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.IngressNginx.Name }}
+  name: {{ .Values.IngressNginx.Name | quote }}
 spec:
   selector:
-    app: {{ .Values.IngressNginx.Name }}
+    app: {{ .Values.IngressNginx.Name | quote }}
   type: LoadBalancer
   ports:
     - port: {{ .Values.IngressNginx.ServicePort }}
@@ -17,9 +17,9 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ .Values.IngressNginx.Name }}
+  name: {{ .Values.IngressNginx.Name | quote }}
   labels:
-    app: {{ .Values.IngressNginx.Name }}
+    app: {{ .Values.IngressNginx.Name | quote }}
 spec:
   replicas: {{ .Values.IngressNginx.Replicas }}
   strategy:
@@ -30,12 +30,12 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.IngressNginx.Name }}
+        app: {{ .Values.IngressNginx.Name | quote }}
     spec:
-      serviceAccountName: {{ .Values.IngressNginx.Name }}
+      serviceAccountName: default
       containers:
-      - image:  {{ .Values.IngressNginx.Image }}
-        name:  {{ .Values.IngressNginx.Name }}
+      - image:  {{ .Values.IngressNginx.Image | quote }}
+        name:  {{ .Values.IngressNginx.Name | quote }}
         imagePullPolicy: Always
         readinessProbe:
           httpGet:
@@ -77,37 +77,37 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.IngressDefaultBackend.ServiceName }}
+  name: {{ .Values.IngressDefaultBackend.ServiceName | quote }}
   labels:
-    app: {{ .Values.IngressDefaultBackend.Name }}
+    app: {{ .Values.IngressDefaultBackend.Name | quote }}
 spec:
   ports:
   - port: {{ .Values.IngressDefaultBackend.ServicePort }}
     targetPort: {{ .Values.IngressDefaultBackend.ContainerPort }}
   selector:
-    app: {{ .Values.IngressDefaultBackend.Name }}
+    app: {{ .Values.IngressDefaultBackend.Name | quote }}
 ---
 # default backend from https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/default-backend.yaml
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ .Values.IngressDefaultBackend.Name }}
+  name: {{ .Values.IngressDefaultBackend.Name | quote }}
   labels:
-    app: {{ .Values.IngressDefaultBackend.Name }}
+    app: {{ .Values.IngressDefaultBackend.Name | quote }}
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: {{ .Values.IngressDefaultBackend.Name }}
+        app: {{ .Values.IngressDefaultBackend.Name | quote }}
     spec:
       terminationGracePeriodSeconds: 60
       containers:
-      - name: {{ .Values.IngressDefaultBackend.Name }}
+      - name: {{ .Values.IngressDefaultBackend.Name | quote }}
         # Any image is permissable as long as:
         # 1. It serves a 404 page at /
         # 2. It serves 200 on a /healthz endpoint
-        image: {{ .Values.IngressDefaultBackend.Image }}
+        image: {{ .Values.IngressDefaultBackend.Image | quote }}
         livenessProbe:
           httpGet:
             path: /healthz
