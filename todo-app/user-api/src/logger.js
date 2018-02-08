@@ -14,7 +14,7 @@ const logger = new winston.Logger({
         }),
         new Console({
             handleExceptions: true,
-            json: false
+            json: true
         })
     ]
 });
