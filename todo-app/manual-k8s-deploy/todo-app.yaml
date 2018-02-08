@@ -60,6 +60,10 @@ spec:
       - name: todo-api
         image: architechbootcamp/todo-api:latest
         imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 8080
         ports:
         - containerPort: 8080
         env:
