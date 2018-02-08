@@ -10,7 +10,4 @@ describe('TODO Demo App', () => {
     expect(browser.getTitle()).toEqual('Todo React App');
   });
 
-  it('should be in test mode', () => {
-    expect(element(by.css('.test-mode-form')).isPresent()).toBeTruthy();
-  })
 });

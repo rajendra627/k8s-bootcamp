@@ -6,6 +6,7 @@ retrieve, update and delete Todo items. The user must be authenticated in order 
 ## Running the App ##
 
 ### Environment Variables ###
+
 The following environment variables need to be set to get the dependent microservices up and running:
 
 - `IS_TEST_MODE` = whether to run in test mode or not
