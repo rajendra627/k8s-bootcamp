@@ -4,8 +4,6 @@
 
 Before following the instructions below, you first need to know the version of K8S cluster.  To find out the version, run `kubectl version`.  It will show the client and server version.
 
-**NOTE: If you are deploying to AKS, move the files described below out of the templates directory prior to executing helm.  This is because AKS does not support RBAC.**
-
 You then need to uncomment the apiVersion in the following files to reflect the server version:
 
 - [architech/todo-app/templates/1-ingress-role.yaml](./architech/todo-app/templates/1-ingress-role.yaml)
@@ -15,6 +13,8 @@ You then need to uncomment the apiVersion in the following files to reflect the 
 #apiVersion: rbac.authorization.k8s.io/v1 #for v1.8.0++
 apiVersion: rbac.authorization.k8s.io/v1beta1 #for v1.7.x
 ```
+
+**NOTE: If you are deploying to AKS, move the above files out of the templates directory prior to executing helm.  This is because AKS does not support RBAC.**
 
 You then need the IP to your K8S cluster.  How you do so depends on where you deployed the cluster.
 
