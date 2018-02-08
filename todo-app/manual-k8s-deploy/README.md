@@ -3,13 +3,14 @@
 In this section you will get a quick taste of all the manual steps needed to turn local application code into a an app running on a Kubernetes cluster. this is not the most efficient or recommended way, but it is necessary if you need to gain deeper understanding into what tools such as Helm and Jenkins offer us when it comes to creating deployable apps and doing continuous delivery.
 
 
-## Overview of tasks
+## Overview of tasks ##
 
-#### 1. Build images from source code
-#### 2. Tag images and push them into docker hub (using your own repo)
-#### 3. Create Kubernetes Config Maps and Secrets for the Todo application
-#### 4. Create The todo App on the cluster
+1. Build images from source code
+2. Tag images and push them into docker hub (using your own repo)
+3. Create Kubernetes Config Maps and Secrets for the Todo application
+4. Create the Todo App on the cluster
 
+**Note: If you like, you can skip the first two steps and just use the image we have deployed to DockerHub.**
 
 ## Preparing your docker hub
 
@@ -41,11 +42,19 @@ image: architechbootcamp/user-api:latest
 ```
 
 ```bash
-#Create a namespace to deploy the application
-kubectl create namespace <namespace>
+#Create a namespace to deploy the application, we will use todo-app
+kubectl create namespace todo-app
 
 #Run the command
-./config_deploy_app.sh <namespace>
+./deploy-todo-app.sh todo-app
+
+#get the deployed services to get the external IP to the application
+#for ACS or AKS, the -w flag stands for watch; as ACS/AKS will provision 
+#a load-balancer, it can take some time for the external IP to be provided.
+kubectl get services --namespace todo-app -w
+
+#for minikube
+mk service list
 ```
 
 Here is a description of what the script did.
