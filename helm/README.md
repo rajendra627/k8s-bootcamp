@@ -56,7 +56,9 @@ nginx-ingress          LoadBalancer   10.0.155.10    52.235.38.16   80:30043/TCP
 todo-api               ClusterIP      10.0.85.46     <none>         8080/TCP       15m
 todo-webui-service     ClusterIP      10.0.43.113    <none>         80/TCP         15m
 user-api               ClusterIP      10.0.193.165   <none>         8082/TCP       15m
+
 ```
+
 Then update the ingress resource to reflect the external IP.
 
 ```sh
