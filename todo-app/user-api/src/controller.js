@@ -29,6 +29,19 @@ const findUserByEmail = async (email, res) => {
 
 /**
  * @swagger
+ * /healthcheck:
+ *     get:
+ *         tags:
+ *             - Users
+ *         description: Used to ping the User API
+ *         responses:
+ *             200:
+ *                 description: User API is running
+ */
+router.get('/healthcheck', (req, res) => res.sendStatus(HttpStatus.OK));
+
+/**
+ * @swagger
  * /user/{email}:
  *     get:
  *         tags:
