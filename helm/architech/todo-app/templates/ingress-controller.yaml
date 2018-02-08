@@ -32,7 +32,7 @@ spec:
       labels:
         app: {{ .Values.IngressNginx.Name }}
     spec:
-      serviceAccountName: {{ .Values.IngressNginx.Name }}
+      serviceAccountName: default
       containers:
       - image:  {{ .Values.IngressNginx.Image }}
         name:  {{ .Values.IngressNginx.Name }}

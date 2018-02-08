@@ -188,6 +188,10 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8082
+        livenessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 8082
         env:
         - name: MONGODB_URL
           valueFrom:
