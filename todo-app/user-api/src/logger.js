@@ -9,7 +9,8 @@ const logger = new winston.Logger({
     transports: [
         new Console({
             handleExceptions: true,
-            json: true
+            json: true,
+            stringify: true
         })
     ]
 });
