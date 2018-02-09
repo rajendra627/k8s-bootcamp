@@ -33,10 +33,10 @@ kubectl create namespace <namespace>
 ./create_secrets.sh <namespace>
 
 #3) do a dry run install to make sure everything is ok. Replace <your_ip> with the IP for your cluster loadbalancer.  The --set flag overrides values for specified keys in your values.yaml file.  This command will echo out the manifests that will be deployed. Review it carefully.
-helm install --dry-run --debug --set Global.Host=<your_ip>.nip.io architech/todo-app
+helm install --dry-run --debug architech/todo-app
 
 #4) install the todo-app
-helm install --namespace todo-app --set Global.Host=<your_ip>.nip.io architech/todo-app
+helm install architech/todo-app --namespace todo-app 
 
 #check that the app has been deployed.  You should see the todo-app has been deployed.
 helm ls
@@ -72,7 +72,9 @@ Update the `host:...` field with your `EXTERNAL-IP.nip.io` and save the file. ku
 
 ## Some Key Points ##
 
-Helm will deploy the resources in the templates directory in the order they are listed. In some cases, ordering does matter.  For example, notice I have some files prefixed with a number.
+Helm will deploy the resources in the templates directory in the order they are listed. In some cases, ordering does matter.  For example, notice I have some files prefixed with a number.  
+
+**Note this does not apply if you are using AKS as AKS does not support RBAC.**
 
 ```sh
 1.ingress-role.yaml

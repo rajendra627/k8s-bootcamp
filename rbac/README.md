@@ -20,6 +20,18 @@ Below we will show setting up authentication and RBAC authorization using x509 c
 
 ## Authenticating using x509 certs ##
 
+## Enabling RBAC on Minikube ##
+
+- Start up minikube with the options to enable RBAC on the api-server.
+
+```sh
+minikube start --extra-config=apiserver.Authorization.Mode=RBAC
+
+# required to get the kube-dns and dashboard pods to run
+# See https://github.com/kubernetes/minikube/issues/1734
+kubectl create -f minikube-rbac-privileges.yaml
+```
+
 **MAKE SURE THE PROPER APIVERSION IS SET IN YOUR RESOURCES**
 
 The apiVersion for RBAC has changed since v1.7 as it was still Beta at that time. Make sure you have set the proper version in the following files.
@@ -55,19 +67,6 @@ kubectl config use-context user-context
 
 #4.  Now try to do something
 kubectl get pods
-
-```
-
-## Enabling RBAC ##
-
-- Start up minikube with the options to enable RBAC on the api-server.
-
-```sh
-minikube start --extra-config=apiserver.Authorization.Mode=RBAC
-
-# required to get the kube-dns and dashboard pods to run
-# See https://github.com/kubernetes/minikube/issues/1734
-kubectl create -f minikube-rbac-privileges.yaml
 ```
 
 ## Finding out what you can do ##
