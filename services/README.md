@@ -10,7 +10,7 @@ See an excellent overview of how service discovery is implemented as well as the
 
 * See [pod-details-service](./pod-details-service.yml) that shows a service that routes to 5 instances of a pod.
 
-When you use services, you need to decide if they need to be exposed only internal to your K8S cluster or externally to clients outside your cluster (e.g. mobile apps).  In general, you should only publish services that need to be published to reduce coupling and security exposure.  How you define the way your services are exposed is through the service type.
+When you use services, you need to decide if they need to be exposed only internally to your K8S cluster or externally to clients outside your cluster (e.g. mobile apps).  In general, you should only publish services that need to be published to reduce coupling and security exposure.  How you define the way your services are exposed is through the service type.
 
 * ClusterIP - exposed only internally.  This is the default.
 * LoadBalancer - exposed externally using a load balancer provisioned by the cloud provider
@@ -19,7 +19,7 @@ When you use services, you need to decide if they need to be exposed only intern
 
 ## Services without label selectors ##
 
-Services are also helpful to serve as an abstraction to external services. Say a pod in your cluster need to access a database service that is external to your cluster.  For example, you have an existing production database on-premises.  Instead of codifying the endpoint details in code, you can create a service that exposes that external service to the pods within your cluster.  Your pods then look up the service just like any other service.  This is accomplished using services that do not have label selectors. This is very helpful because you can have a separate database for production and QA but within your application code, you would still use the same service name.
+Services are also helpful to serve as an abstraction to external services.  Say a pod in your cluster needs to access a database service that is external to your cluster.  For example, you have an existing production database on-premises.  Instead of codifying the endpoint details in code, you can create a service that exposes that external service to the pods within your cluster.  Your pods then look up the service just like any other service.  This is accomplished using services that do not have label selectors.  This is very helpful because you can have a separate database for production and QA but within your application code, you would still use the same service name.
 
 * See [external-name-service](./external-name-service.yml) that provides access to an external REST API as service within K8S.
 

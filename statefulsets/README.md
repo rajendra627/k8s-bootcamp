@@ -7,7 +7,7 @@ Statefulsets are similar to Deployments in that they enable you to define a pod 
 * Ordering of termination (one instance should be terminated before others)
 * Unique persistence stores per pod in the statefulset
 
-For example, certain databases, you need to access a specific node in the cluster and failover to a standby only when needed, hence, network identity is required.  In Kubernetes, the master node need to be up and available before the worker nodes can join the cluster, hence, ordering of deployment is required.
+For example, certain databases, you need to access a specific node in the cluster and failover to a standby only when needed, hence, network identity is required.  In Kubernetes, the master node needs to be up and available before the worker nodes can join the cluster, hence, ordering of deployment is required.
 
 When you have such requirements, then statefulsets are the way to go.  If you do not have such requirements, then Deployments with Persistent Volumes may be all you need.
 
