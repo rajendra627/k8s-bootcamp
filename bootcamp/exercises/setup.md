@@ -149,7 +149,7 @@ az group delete -n k8s-example
 
 ## Setting up Minikube ##
 
-This part is only for the RBAC portion of the exercises.  Unfortunately, ACS currently does not support RBAC.  To enable RBAC on Azure, you will need to leverage [ACS Engine](https://github.com/Azure/acs-engine), however, that is an advanced topic so we will be using Minikube to demonstrate RBAC concepts.
+This part is only for the RBAC portion of the exercises.  Unfortunately, AKS currently does not support RBAC.  To use RBAC on Azure, you will need to leverage ACS.  The alternative is [ACS Engine](https://github.com/Azure/acs-engine), however, that is an advanced topic so we will be using Minikube to demonstrate RBAC concepts.
 
 See the installation instructions for your OS [here](https://github.com/kubernetes/minikube/releases)
 
