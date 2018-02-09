@@ -54,7 +54,7 @@ kubectl create namespace todo-app
 kubectl get services --namespace todo-app -w
 
 #for minikube
-mk service list
+minikube service list
 ```
 
 Here is a description of what the script did.
