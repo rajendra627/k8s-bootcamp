@@ -29,10 +29,6 @@ spec:
         image: {{.Values.UserAPI.Image}}:{{.Values.UserAPI.ImageTag}}
         ports:
         - containerPort: {{.Values.UserAPI.ContainerPort}}
-        livenessProbe:
-          httpGet:
-            path: /healthcheck
-            port: {{.Values.UserAPI.ContainerPort}}
         env:
         - name: MONGODB_URL
           valueFrom:
