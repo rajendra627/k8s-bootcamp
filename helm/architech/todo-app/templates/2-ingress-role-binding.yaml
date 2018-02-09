@@ -9,4 +9,4 @@ roleRef:
   name: ingress
 subjects:
   - kind: ServiceAccount
-    name: {{ .Values.IngressNginx.Name }}
+    name: default
