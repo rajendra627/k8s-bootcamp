@@ -25,7 +25,6 @@ After you have installed docker and the azure cli, run the following commands to
 ```sh
 az --version
 docker version
-docker-compose version
 ```
 
 ## Install Visual Studio Code ##
