@@ -72,7 +72,9 @@ Update the `host:...` field with your `EXTERNAL-IP.nip.io` and save the file. ku
 
 ## Some Key Points ##
 
-Helm will deploy the resources in the templates directory in the order they are listed. In some cases, ordering does matter.  For example, notice I have some files prefixed with a number.
+Helm will deploy the resources in the templates directory in the order they are listed. In some cases, ordering does matter.  For example, notice I have some files prefixed with a number.  
+
+**Note this does not apply if you are using AKS as AKS does not support RBAC.**
 
 ```sh
 1.ingress-role.yaml
