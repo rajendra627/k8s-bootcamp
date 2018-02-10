@@ -32,7 +32,7 @@ helm install --namespace prod-env --name todo-app-prod-deployment --set Global.E
 
 ### 5. Configure Jenkins ###
 
-The following assumes, you are using Architech k8s-fundementals repo. If necessary, adjust file paths accordingly.
+The following assumes, you are using Architech k8s-bootcamp repo. If necessary, adjust file paths accordingly.
 
 1. Create a Pipelines Job for the QA-Prod Pipeline:
     1. Name must be `QA-Prod-Pipeline`
