@@ -35,12 +35,12 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 
 ### Day 1 Outline: ###
 
-- [Kubernetes Architecture](./bootcamp/day1/Architecture.md)
+- [Kubernetes Architecture](./bootcamp/exercises/Architecture.md)
     - Key components and what role they serve
     - Key K8S resources and their purpose
     - Quick overview of Kubernetes networking
     - K8S as a dynamic platform and what that means
-- [Setting up your environment](./bootcamp/day1/setup.md)
+- [Setting up your environment](./bootcamp/exercises/setup.md)
 - The Todo list microservices application overview
     - Deploying the application to K8S
     - Making a change and doing a rolling-update
