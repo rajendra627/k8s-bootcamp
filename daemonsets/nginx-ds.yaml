@@ -9,6 +9,7 @@ spec:
       system: DaemonSetOne
   template:
   #Note that there is no replica field
+  #With Daemonsets, a pod is deployed to EACH node
     metadata:
       labels:
         system: DaemonSetOne

@@ -4,6 +4,18 @@ With DaemonSets, K8S will deploy a single instance of your pod to EACH node - no
 
 Daemonsets are useful in those scenarios you need a daemon process to run on each node.  For example, a log aggregation daemon such as fluend or logstash.
 
+```sh
+#Deploy the nginx daemonset example
+kubectl create -f nginx-ds.yaml
+
+#get the pods and see what nodes it has been deployed to
+kubectl get pods -o wide
+
+#notice a pod has been deployed to each node
+NAME           READY     STATUS    RESTARTS   AGE       IP            NODE
+ds-one-kts9s   1/1       Running   0          1m        10.244.0.22   aks-nodepool1-26515506-1
+ds-one-l6lbk   1/1       Running   0          1m        10.244.1.16   aks-nodepool1-26515506-0
+
 ## Reference ##
 
 * [Kubernetes.io DaemonSets](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/)
