@@ -1,52 +1,33 @@
 # Packaging and deploying K8S applications using Helm #
+## Pre-Requisites ##
 
+You should have successfully set up your environment as outlined in [Day1/setup](../bootcamp/exercises/setup.md)
 ## Deploying the Todo Application ##
 
-Before following the instructions below, you first need to know the version of K8S cluster.  To find out the version, run `kubectl version`.  It will show the client and server version.
-
-You then need to uncomment the apiVersion in the following files to reflect the server version:
-
-- [architech/todo-app/templates/1-ingress-role.yaml](./architech/todo-app/templates/1-ingress-role.yaml)
-- [architech/todo-app/templates/2-ingress-role-binding.yaml](./architech/todo-app/templates/1-ingress-role.yaml)
-
-```yaml
-#apiVersion: rbac.authorization.k8s.io/v1 #for v1.8.0++
-apiVersion: rbac.authorization.k8s.io/v1beta1 #for v1.7.x
-```
-
-**NOTE: If you are deploying to AKS, move the above files out of the templates directory prior to executing helm.  This is because AKS does not support RBAC.**
-
-You then need the IP to your K8S cluster.  How you do so depends on where you deployed the cluster.
-
-- For minikube, just run `minikube ip`
-- For ACS or AKS, deploy as is then we will update the manifest after the external Loadbalancer IP is provided.
-
-You will use this IP in step #3 below.
-
-From within the helm directory run the following command:
+From within the helm directory run the following commands:
 
 ```sh
-#1) Create a namespace to deploy your app.
+#1) ensure the helm client version and the tiller version on the server are compatible.
+helm init --upgrade
+
+#2) Create a namespace to deploy your app. Replace <namespace> with whatever namespace you choose. 
 kubectl create namespace <namespace>
 
-#2) Create secrets required by the app in the same namespace
+#3) Create secrets required by the app in the same namespace
 ./create_secrets.sh <namespace>
 
-#3) do a dry run install to make sure everything is ok. Replace <your_ip> with the IP for your cluster loadbalancer.  The --set flag overrides values for specified keys in your values.yaml file.  This command will echo out the manifests that will be deployed. Review it carefully.
+#4) do a dry run install to make sure everything is ok. This command will echo out the manifests that will be deployed. Review it carefully.
 helm install --dry-run --debug architech/todo-app
 
-#4) install the todo-app
-helm install architech/todo-app --namespace todo-app 
+#5) install the todo-app
+helm install architech/todo-app --namespace <namespace>
 
-#check that the app has been deployed.  You should see the todo-app has been deployed.
+#6) check that the app has been deployed.  You should see the todo-app has been deployed.
 helm ls
 
-#If you get a message about the tiller versions incompatiblity you can use the following command to upgrade your cluster tiller
-
-helm init --upgrade
 ```
-
-If deploying to ACS or AKS, run `kubectl get services --namespace todo-app` to get the external IP of the nginx-ingress service.  Your output will look similar to mine.
+You now need to get the external IP of the Loadbalancer service that has been provisioned.
+Run `kubectl get services --namespace <namespace>` to get the external IP of the nginx-ingress service.  Your output will look similar to mine.
 
 ```sh
 NAME                   TYPE           CLUSTER-IP     EXTERNAL-IP    PORT(S)        AGE
@@ -66,22 +47,25 @@ Then update the ingress resource to reflect the external IP.
 kubectl edit ingress/todo-app-ingress --namespace todo-app
 ```
 
-Update the `host:...` field with your `EXTERNAL-IP.nip.io` and save the file. kubectl will update the ingress with the new value.  Note, the host field only accepts a valid DNS name, IP addresses are not allowed.
+Update the `host:` field with your `EXTERNAL-IP.nip.io` and save the file. kubectl will update the ingress with the new value.  Note, the host field only accepts a valid DNS name, IP addresses are not allowed.  To deal with this we will use a dynamnic DNS service called nip.io.
 
-> NOTE : You want to give Tiller a chance to upgrade a few seconds before trying to run the install command again, using the watches as recommended above will help you get a visual confirmation of when tiller is ready
+## Instructions for Minikube ##
 
-## Some Key Points ##
+You should have installed and started up minikube with RBAC enabled by falling the instructions in [setup](../bootcamp/exercises/setup.md).
 
-Helm will deploy the resources in the templates directory in the order they are listed. In some cases, ordering does matter.  For example, notice I have some files prefixed with a number.  
+Move the contents of [architech/todo-app/minikube](./architech/todo-app/minikube) directory to the architech/todo-app/templates directory.
 
-**Note this does not apply if you are using AKS as AKS does not support RBAC.**
+Deploy the helm chart using the instructions above.
+
+To get the IP of your nginx-ingress service, run:
 
 ```sh
-1.ingress-role.yaml
-2.ingress-role-binding.yaml
+minikube service list
 ```
 
-This is done because the role has to exist before the role can be bound to a subject.
+Update the ingress resource as described above.
+
+**With minikube, the external IP for the LoadBalancer service will always display as PENDING.  This is because minikube does not provision a LoadBalancer. Therefore, to access the application via your browser, you need to use the IP and port displayed.** 
 
 ## References ##
 

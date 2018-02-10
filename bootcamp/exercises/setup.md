@@ -1,5 +1,57 @@
 # Setting up your environment #
 
+## Setting up Minikube ##
+
+This part is only for the RBAC portion of the exercises.  Unfortunately, AKS currently does not support RBAC.  To use RBAC on Azure, you will need to leverage ACS.  The alternative is [ACS Engine](https://github.com/Azure/acs-engine), however, that is an advanced topic so we will be using Minikube to demonstrate RBAC concepts.
+
+See the installation instructions for your OS [here](https://github.com/kubernetes/minikube/releases)
+
+*Use v0.25.0 as it supports K8S 1.9*
+
+*Note for Windows, you need to make a decision if you are going to use Hyper-V or Virtualbox for virtualization.  If you have installed Docker with Hyper-V then you have to choose Hyper-V for Minikube also to support both.*
+
+*Note for Linux, if you have enabled Secure Boot in your BIOS, then you need to sign the virtualbox kernel modules. See this [article](https://askubuntu.com/questions/760671/could-not-load-vboxdrv-after-upgrade-to-ubuntu-16-04-and-i-want-to-keep-secur) The easiest is to just disable Secure Boot.*
+
+Once installed, run the following command to start up Minikube.  This will download the latest release of K8S and start a single node cluster locally.
+
+### Enabling RBAC on Minikube ###
+
+- Start up minikube with the options to enable RBAC on the api-server.
+
+```sh
+minikube start --extra-config=apiserver.Authorization.Mode=RBAC
+
+# required to get the kube-dns and dashboard pods to run
+# See https://github.com/kubernetes/minikube/issues/1734
+kubectl create -f minikube-rbac-privileges.yaml
+```
+
+To stop minikube and bring down the cluster:
+
+```sh
+minikube stop
+```
+
+Some useful minikube commands:
+
+```sh
+#to get the IP to your minikube master
+minikube ip
+
+#to get the URL of a service deployed to minikube
+minikube service <service-name>
+
+#to ssh into a pod
+minikube ssh <pod-name>
+
+#to delete the local K8S VM
+minikube delete
+```
+
+## Environment Set Up at Home ##
+
+You will be using the AKS environment set up for you by Microsoft.  However, if you want to work with your own cluster, below are instructions to set up your local dev environment, and also provision an ACS cluster.
+
 You will need the following tools installed:
 
 * Azure cli
@@ -145,54 +197,6 @@ In order to not incur Azure costs, you should tear down your cluster when not in
 
 ```sh
 az group delete -n k8s-example
-```
-
-## Setting up Minikube ##
-
-This part is only for the RBAC portion of the exercises.  Unfortunately, AKS currently does not support RBAC.  To use RBAC on Azure, you will need to leverage ACS.  The alternative is [ACS Engine](https://github.com/Azure/acs-engine), however, that is an advanced topic so we will be using Minikube to demonstrate RBAC concepts.
-
-See the installation instructions for your OS [here](https://github.com/kubernetes/minikube/releases)
-
-*Use v0.25.0 as it supports K8S 1.9*
-
-*Note for Windows, you need to make a decision if you are going to use Hyper-V or Virtualbox for virtualization.  If you have installed Docker with Hyper-V then you have to choose Hyper-V for Minikube also to support both.*
-
-*Note for Linux, if you have enabled Secure Boot in your BIOS, then you need to sign the virtualbox kernel modules. See this [article](https://askubuntu.com/questions/760671/could-not-load-vboxdrv-after-upgrade-to-ubuntu-16-04-and-i-want-to-keep-secur) The easiest is to just disable Secure Boot.*
-
-Once installed, run the following command to start up Minikube.  This will download the latest release of K8S and start a single node cluster locally.
-
-## Enabling RBAC on Minikube ##
-
-- Start up minikube with the options to enable RBAC on the api-server.
-
-```sh
-minikube start --extra-config=apiserver.Authorization.Mode=RBAC
-
-# required to get the kube-dns and dashboard pods to run
-# See https://github.com/kubernetes/minikube/issues/1734
-kubectl create -f minikube-rbac-privileges.yaml
-```
-
-To stop minikube and bring down the cluster:
-
-```sh
-minikube stop
-```
-
-Some useful minikube commands:
-
-```sh
-#to get the IP to your minikube master
-minikube ip
-
-#to get the URL of a service deployed to minikube
-minikube service <service-name>
-
-#to ssh into a pod
-minikube ssh <pod-name>
-
-#to delete the local K8S VM
-minikube delete
 ```
 
 ## Why AKS, ACS, and ACS Engine? ##
