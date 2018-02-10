@@ -161,6 +161,8 @@ spec:
       - name: config-map
         configMap:
           name: mysql
+  #this is a key difference with statefulsets
+  #A unique volume will be attached to each pod
   volumeClaimTemplates:
   - metadata:
       name: data
