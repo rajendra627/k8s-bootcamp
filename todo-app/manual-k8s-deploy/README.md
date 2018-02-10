@@ -2,6 +2,7 @@
 
 In this section you will get a quick taste of all the manual steps needed to turn local application code into a an app running on a Kubernetes cluster. this is not the most efficient or recommended way, but it is necessary if you need to gain deeper understanding into what tools such as Helm and Jenkins offer us when it comes to creating deployable apps and doing continuous delivery.
 
+**Note: You can skip the first two steps and just use the image we have deployed to DockerHub.**
 
 ## Overview of tasks ##
 
@@ -9,8 +10,6 @@ In this section you will get a quick taste of all the manual steps needed to tur
 2. Tag images and push them into docker hub (using your own repo)
 3. Create Kubernetes Config Maps and Secrets for the Todo application
 4. Create the Todo App on the cluster
-
-**Note: If you like, you can skip the first two steps and just use the image we have deployed to DockerHub.**
 
 ## Preparing your docker hub
 
