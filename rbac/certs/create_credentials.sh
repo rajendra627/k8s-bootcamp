@@ -3,13 +3,13 @@ user='qa'
 organization='architech'
 ca_location=${HOME}'/.minikube'
 
-if [ "$#" -lt 3 ]; then
+if [ "$#" -lt 2 ]; then
   echo "usage: $0 user organization ca_location"
   exit 1
 else
   user=$1
   organization=$2
-  ca_location=$3
+  ca_location=${3:-$HOME/.minikube}
   echo "generating credentials for user '$user' from '$organization' using CA located in '$ca_location'"
 fi
 
