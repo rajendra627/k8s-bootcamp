@@ -53,6 +53,8 @@ MongoDb:
   ServicePort: 27017
   ContainerPort: 27017
   PVC: mongodb-pvc
+  PV: mongodb-pv
+  HostPath: /tmp/data
 
 IngressNginx:
   Name: nginx-ingress
