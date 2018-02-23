@@ -69,7 +69,7 @@ A headless service is a service with the ClusterIP field set to None.  This resu
 #run a busybox pod in the same namespace then run nslookup within that pod to see what gets returned
 kubectl run busybox --image busybox --namespace mysql --command -- sleep 50000
 
-#get the name of the pod that is deployed...
+#get the name of the busybox pod that is deployed...
 kubectl get pods --namespace mysql
 
 #get shell access and run nslookup.  Notice, you get 3 addresses returned
