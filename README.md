@@ -30,7 +30,7 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - [Daemon Sets](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/)
 - [Ingress and Ingress Controllers - key to controlling how requests originating from outside the cluster is routed to your services](https://kubernetes.io/docs/concepts/services-networking/ingress/)
 - [RBAC - locking down your K8S environment](https://kubernetes.io/docs/admin/authorization/rbac/)
-- [Monitoring and log aggregation](/monitoring/README.md)
+- [Monitoring and log aggregation](./monitoring-logging/README.md)
 - [Helm - packaging and deploying your application to K8S](https://docs.helm.sh/)
 
 ### Day 1 Outline: ###
@@ -60,7 +60,7 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 ### Day 2 Outline: ###
 
 - [Statefulsets](./statefulsets/README.md) - Using statefulsets to deploy services that require long-lasting, durable state (e.g. databases)
-- [Jobs]()
+- [Jobs](./jobs/README.md)
 - [Daemonsets](./daemonsets/README.md) - Running pods that need to run on all or some nodes continuously e.g. for log aggregation.
 - [Ingress](./ingress/README.md) - Customizing the routing your published services.
     - Deploying the nginx ingress controller
@@ -70,7 +70,9 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
     - Roles and Role bindings
     - Integrating Azure AD for authn/authr
     - Creating custom roles and role bindings to only allow access to a specific namespace (e.g. qa or dev)
-- [Monitoring and Log Aggregation](./) - Deploying EFK (Elasticsearch, Fluentd, Kibana) for log aggregation, Prometheus and Grafana for monitoring
+- [Monitoring and Log Aggregation](./monitoring-logging/README.md)
+    - Deploying Azure Log Analytics and OMS
+    - Deploying EFK (Elasticsearch, Fluentd, Kibana) for log aggregation, Prometheus and Grafana for monitoring
 - [Introduction to Helm](./helm/README.md) - Package manager for K8S deployments.
     - What is it and why you need it
     - Deploying the Todo list application using Helm
