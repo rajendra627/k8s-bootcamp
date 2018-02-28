@@ -58,7 +58,7 @@ spec:
     spec:
       containers:
       - name: todo-api
-        image: architechbootcamp/todo-api:latest
+        image: architechbootcamp/todo-api:1.0.1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -109,29 +109,29 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: todo-app-ui
+  name: todo-ui
 spec:
   type: LoadBalancer
   ports:
   - port: 80
     targetPort: 80
   selector:
-    app: todo-app-ui
+    app: todo-ui
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: todo-app-ui
+  name: todo-ui
 spec:
   replicas: 2
   template:
     metadata:
       labels:
-        app: todo-app-ui
+        app: todo-ui
     spec:
       containers:
-      - name: todo-app-ui
-        image: architechbootcamp/todo-ui:latest
+      - name: todo-ui
+        image: architechbootcamp/todo-ui:1.0.1
         imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -180,7 +180,19 @@ spec:
     spec:
       containers:
       - name: user-api
-        image: architechbootcamp/user-api:latest
+        image: architechbootcamp/user-api:1.0.1
+        livenessProbe:
+          httpGet:
+            path: '/api/user/healthcheck'
+            port: 8082
+            scheme: HTTP
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: '/api/user/is-ready'
+            port: 8082
+            scheme: HTTP
+          timeoutSeconds: 5
         imagePullPolicy: Always
         ports:
         - containerPort: 8082
