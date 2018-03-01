@@ -5,3 +5,7 @@ In general, you won't care too much about how your pods are scheduled.  One of t
 1. Pin the Elasticsearch pods to specific node.  Do this via nodeSelectors if you want to be very specific.  In this scenario we do.
 2. Prevent other pods from being scheduled to the nodes that will be dedicated to the Elasticsearch pods.  Do this via taints and tolerations.
 
+## Taints and Tolerations ##
+
+## Critical Pods ##
+
