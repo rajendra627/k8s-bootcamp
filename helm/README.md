@@ -67,6 +67,10 @@ Update the ingress resource as described above.
 
 **With minikube, the external IP for the LoadBalancer service will always display as PENDING.  This is because minikube does not provision a LoadBalancer. Therefore, to access the application via your browser, you need to use the IP and port displayed.** 
 
+## Securing Helm/Tiller ##
+
+It is very, very important to follow security best-practices with Helm/Tiller.  Tiller by default will be deployed without any restriction.  Although, helm can only access Tiller after being authenticated by the API Server, Tiller can do anything on the cluster!!  Hence lock down your Tiller deployment using the best-practices list in the [docs](https://github.com/kubernetes/helm/blob/master/docs/securing_installation.md).
+
 ## References ##
 
 - [Helm Documenation](https://docs.helm.sh/using_helm/)
