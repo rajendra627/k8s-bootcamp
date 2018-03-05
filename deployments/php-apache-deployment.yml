@@ -13,7 +13,8 @@ spec:
     port:  80
     targetPort:  80
 ---
-apiVersion: extensions/v1beta1
+#apiVersion: apps/v1 #v1.9.x
+apiVersion: extensions/v1beta2 #v1.8.x
 kind: Deployment
 metadata:
   name: php-apache
