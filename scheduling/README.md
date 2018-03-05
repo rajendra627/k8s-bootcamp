@@ -65,8 +65,6 @@ Let's say you want certain pods to be scheduled together on a given node for per
 
 See [Assign pods to nodes](view-source:https://kubernetes.io/docs/concepts/configuration/assign-pod-node/) on K8S.io for examples.
 
-
-
 ## References ##
 
 * [Taints and Tolerations](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/)
