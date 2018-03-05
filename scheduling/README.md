@@ -25,6 +25,19 @@ kubectl taint nodes node1 dedicated:NoSchedule-
 kubectl get nodes -o go-template-file="./taints.tmpl"
 ```
 
+Tolerations are added to the pod.spec.tolerations section of the manifest.  It is an array of objects so you an add mutiple tolerations.  Here is an example of a toleration that tolerates the taint above.
+
+```sh
+#this says tolerate taints where the value for the 
+#key 'dedicated' is equal to 'nginx' AND effect is NoSchedule
+spec:  
+  tolerations:
+  - key: "dedicated"
+    operator: "Equal"
+    value: "nginx"
+    effect: "NoSchedule"
+```
+
 See [pods.yaml](./pods.yaml) for an example of using taints and tolerations.  See the comments in the file for instructions on how to deploy.
 
 ## Node Affinity/Anti-Affinity ##
