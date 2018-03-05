@@ -55,14 +55,15 @@ In the future one more will be added:
 
 The "DuringExecution" portions applies if the labels on the nodes change after the pods have been scheduled.  With "RequiredDuringExecution" if the labels change such that the pods' affinity changes, the pods will be evicted.
 
-See [node-affinity.yaml](./node-affinity.yaml) for example of node affinity.
+See [node-affinity.yaml](./node-affinity.yaml) for example of node affinity.  If any taints were added, remove them first.
 
 ## Pod Affinity/Anti-Affinity ##
 
-Let's say you want certain pods to be scheduled together on a given node for performance reasons - because they communicate with each other quite frequently.  In contrast, let's say you want certain pods to be kept away from other pods as they may impact each other.  This can be achieved using pod affinity/anti-affinity rules.
+Let's say you want certain pods to be scheduled together on a given node for performance reasons - because they communicate with each other quite frequently.  In contrast, let's say you want certain pods to be kept away from other pods as they may impact each other.  This can be achieved using pod affinity/anti-affinity rules.  Note, in contrast to node affinity, the pods are scheduled based on labels on pods that are already scheduled on a given node rather than labels on nodes.
 
-See [pods-affinity.yaml](./pods-affinity.yaml) for examples of pod affinity.
-See [pods-anti-affinity.yaml](./pods-anti-affinity.yaml) for example of pod anti-affinity.
+*Note: Pod affinity/anti-affinity should not be used on large clusters it can slow the scheduler down*
+
+See [Assign pods to nodes](view-source:https://kubernetes.io/docs/concepts/configuration/assign-pod-node/) on K8S.io for examples.
 
 
 
