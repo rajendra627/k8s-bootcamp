@@ -9,8 +9,17 @@
 #
 # 4. Deploy the pods: kubectl create -f pods.yaml
 # 
+# 5. Get the pods.  Notice to which nodes the pods were scheduled.
+#
+# kubectl get pods -o wide
+#
+# 6.  Add the following taint and observe what happens.
+# 
+# kubetcl taint nodes <node-name> dedicated=nginx:NoExecute
+# 
+
 # apiVersion: apps/v1 #v1.9.*
-apiVersion: extensions/v1beta2 #v1.8.*
+apiVersion: extensions/v1beta1 #v1.8.*
 kind: Deployment
 metadata:
   name: nginx-schedule-execute
@@ -27,6 +36,9 @@ spec:
       maxSurge: 1
       maxUnavailable: 1
   template:
+    metadata:
+      labels:
+        run: nginx-schedule-execute 
     spec:
       containers:
       - name: nginx-schedule-execute
@@ -45,7 +57,7 @@ spec:
         operator: "Exists"
         effect: "NoExecute"
 ---
-apiVersion: extensions/v1beta2
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: nginx-schedule
@@ -62,6 +74,9 @@ spec:
       maxSurge: 1
       maxUnavailable: 1
   template:
+    metadata:
+      labels:
+        run: nginx-schedule
     spec:
       containers:
       - name: nginx-schedule
@@ -72,7 +87,7 @@ spec:
         value: "nginx"
         effect: "NoSchedule"
 ---
-apiVersion: extensions/v1beta2
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: nginx-no-tolerations

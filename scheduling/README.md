@@ -15,7 +15,7 @@ Taints are a key/value pair with an "effect".  Possible effects are:
 ```sh
 #here we are adding a taint to node1
 #only pods that can tolerate this taint will be scheduled to this node
-kubectl taint nodes node1 dedicated=elasticsearch:NoSchedule
+kubectl taint nodes node1 dedicated=nginx:NoSchedule
 
 #To remove this taint, note the minus
 kubectl taint nodes node1 dedicated:NoSchedule-
