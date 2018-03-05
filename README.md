@@ -56,12 +56,18 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - [Deployments](./deployments/README.md) - Deployments enable you to perform rolling upgrades, rollback, and scale up/scale down your services.
 - [Storage](./storage/README.md) - Volumes, Persistent Volumes, Persistence Volume Claims, Storage Classes.
 - [ConfigMaps](./configmaps/README.md) - ConfigMaps enable you to define configuration that is accessible as environment variables, files in a volume or command line arguments.
+- [Daemonsets](./daemonsets/README.md) - Running pods that need to run on all or some nodes continuously e.g. for log aggregation.
+- [Jobs](./jobs/README.md) - Deploying jobs on K8S.
+- [Introduction to Helm](./helm/README.md) - Package manager for K8S deployments.
+    - What is it and why you need it
+    - Deploying the Todo list application using Helm
+    - Charts and templates
+    - Sharing your charts
 
 ### Day 2 Outline: ###
 
-- [Statefulsets](./statefulsets/README.md) - Using statefulsets to deploy services that require long-lasting, durable state (e.g. databases)
-- [Jobs](./jobs/README.md)
-- [Daemonsets](./daemonsets/README.md) - Running pods that need to run on all or some nodes continuously e.g. for log aggregation.
+- [Statefulsets](./statefulsets/README.md) - Using statefulsets to deploy services that require role differentiation across the cluster.  For example, mysql database with master and slaves.
+- [Advanced Scheduling](./scheduling/README.md) - Controlling how your pods are scheduled to the nodes.
 - [Ingress](./ingress/README.md) - Customizing the routing your published services.
     - Deploying the nginx ingress controller
     - Configuring routing to different version of your services
@@ -73,16 +79,15 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - [Monitoring and Log Aggregation](./monitoring-logging/README.md)
     - Deploying Azure Log Analytics and OMS
     - Deploying EFK (Elasticsearch, Fluentd, Kibana) for log aggregation, Prometheus and Grafana for monitoring
-- [Introduction to Helm](./helm/README.md) - Package manager for K8S deployments.
-    - What is it and why you need it
-    - Deploying the Todo list application using Helm
-    - Charts and templates
-    - Sharing your charts
+- [Cluster Administration](./cluster-admin/README.md) - Key cluster administration considerations.
+- [Advanced Secrets Management](./vault/README.md)
+    - Integrating Hashicorp Vault to support "zero-trust" deployments
+- [Extending K8S](./operators/README.md)
+    - We will create our own K8S resource type and implement a custom controller using the "Operator" pattern
 - Brief overview of other K8S tools and projects you should know about:
     - [Draft](https://github.com/Azure/draft) - Tool to help developers be productive building/testing applications on K8S
     - [Minikube](https://github.com/kubernetes/minikube) - Local single node K8S cluster for development and learning.
-    - [Istio](https://istio.io/docs/) - A microservices service mesh that can be deployed to K8S.  Provides fine-grained service to service authn/authr, intelligent load-balancing (via ingress and ingress controllers), telemetry and more!
-    - [Kompose](http://kompose.io/) - converts you docker compose yaml files to K8S manifests.  Very helpful if you start with docker compose.
+    - [Conduit](https://conduit.io/) - A lighweight microservices service mesh that can be deployed to K8S.  Provides intelligent load-balancing, telemetry and more!
     - [kubespray](https://github.com/kubernetes-incubator/kubespray) - Deploying K8S using ansible. Can be used to deploy on bare metal, on-premises VMs, various cloud providers.
 
 ### Interesting Links ###
