@@ -7,7 +7,7 @@
 #   
 #  kubectl get nodes -o go-template-file="./taints.tmpl"
 #
-# 4. Deploy the pods: kubectl create -f pods.yaml
+# 4. Deploy the pods: kubectl create -f pods-tolerations.yaml
 # 
 # 5. Get the pods.  Notice to which nodes the pods were scheduled.
 #

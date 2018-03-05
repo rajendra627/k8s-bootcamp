@@ -38,9 +38,33 @@ spec:
     effect: "NoSchedule"
 ```
 
-See [pods.yaml](./pods.yaml) for an example of using taints and tolerations.  See the comments in the file for instructions on how to deploy.
+See [pods-tolerations.yaml](./pods-tolerations.yaml) for an example of using taints and tolerations.  See the comments in the file for instructions on how to deploy.
 
-## Node Affinity/Anti-Affinity ##
+## Node Affinity ##
+
+Another way to control scheduling is using node affinity.  (Note this is a beta-feature).  They are similar to nodeSelector in that they rely on labels on the nodes and pods, but are much more expressive.  Eventually, they will replace nodeSelector.
+
+There are two types of node affinity:
+
+* requiredDuringSchedulingIgnoredDuringExecution
+* preferredDuringSchedulingIgnoredDuringExecution
+
+In the future one more will be added:
+
+* requiredDuringSchedulingRequiredDuringExecution
+
+The "DuringExecution" portions applies if the labels on the nodes change after the pods have been scheduled.  With "RequiredDuringExecution" if the labels change such that the pods' affinity changes, the pods will be evicted.
+
+See [node-affinity.yaml](./node-affinity.yaml) for example of node affinity.
+
+## Pod Affinity/Anti-Affinity ##
+
+Let's say you want certain pods to be scheduled together on a given node for performance reasons - because they communicate with each other quite frequently.  In contrast, let's say you want certain pods to be kept away from other pods as they may impact each other.  This can be achieved using pod affinity/anti-affinity rules.
+
+See [pods-affinity.yaml](./pods-affinity.yaml) for examples of pod affinity.
+See [pods-anti-affinity.yaml](./pods-anti-affinity.yaml) for example of pod anti-affinity.
+
+
 
 ## References ##
 
