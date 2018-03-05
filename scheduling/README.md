@@ -61,7 +61,7 @@ See [node-affinity.yaml](./node-affinity.yaml) for example of node affinity.  If
 
 Let's say you want certain pods to be scheduled together on a given node for performance reasons - because they communicate with each other quite frequently.  In contrast, let's say you want certain pods to be kept away from other pods as they may impact each other.  This can be achieved using pod affinity/anti-affinity rules.  Note, in contrast to node affinity, the pods are scheduled based on labels on pods that are already scheduled on a given node rather than labels on nodes.
 
-*Note: Pod affinity/anti-affinity should not be used on large clusters it can slow the scheduler down*
+*Note: Pod affinity/anti-affinity should not be used on large clusters as it requires a lot of processing on part of the scheduler and can slow down deployment of the pods.*
 
 See [Assign pods to nodes](view-source:https://kubernetes.io/docs/concepts/configuration/assign-pod-node/) on K8S.io for examples.
 
