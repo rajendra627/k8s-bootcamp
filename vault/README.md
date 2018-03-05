@@ -6,4 +6,4 @@ Kubernetes has a Secret resource type, however, it is essentially a ConfigMap th
 
 - [Vault and Secret Management in Kubernetes](https://www.youtube.com/watch?v=FhUJYwM_xy0)
 - [Kubernetes Auth Method](https://www.vaultproject.io/docs/auth/kubernetes.html)
--
+- [vault-plugin-auth-kubernetes](https://github.com/hashicorp/vault-plugin-auth-kubernetes)
