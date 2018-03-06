@@ -105,4 +105,4 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 
 ---
 
-[Copyright 2018 - Architech](./COPYRIGHT.md)
+[Copyright (c) 2018, Architech - All rights reserved.](./COPYRIGHT.md)
