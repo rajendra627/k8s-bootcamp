@@ -102,3 +102,7 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 
 * [kube-ps1 - displays your current K8S context and namespace in your shell prompt!](https://github.com/jonmosco/kube-ps1)
 * [kubens & kubectx - quickly set the working context/namespace!](https://github.com/ahmetb/kubectx)
+
+---
+
+[Copyright 2018 - Architech](./COPYRIGHT.md)
