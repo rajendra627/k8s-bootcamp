@@ -65,7 +65,7 @@ A headless service is a service with the ClusterIP field set to None.  This resu
 
 ```sh
 #run a busybox pod in the same namespace then run nslookup within that pod to see what gets returned
-kubectl run busybox --image busybox --command -- sleep 50000
+kubectl run busybox --image busybox -- sleep 50000
 
 #get the name of the busybox pod that is deployed...
 kubectl get pods 
@@ -82,8 +82,6 @@ Name:      mongo
 Address 1: 10.244.0.5 mongo-0.mongo.default.svc.cluster.local
 Address 2: 10.244.0.6 mongo-2.mongo.default.svc.cluster.local
 Address 3: 10.244.1.5 mongo-1.mongo.default.svc.cluster.local
-
-
 ```
 
 ## References ##
