@@ -9,6 +9,7 @@ spec:
   ports:
   - name: mongo
     port: 27017
+  #This is what makes this service headless
   clusterIP: None
   selector:
     app: mongo
