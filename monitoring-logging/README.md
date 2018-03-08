@@ -27,7 +27,7 @@ Custom Resource Defintions are a means for you to define your own resources in K
 
 We will be using the helm chart published by CoreOS to deploy the operator.  CoreOS provides excellent docs [here](https://coreos.com/operators/prometheus/docs/latest/user-guides/getting-started.html).
 
-**You must have RBAC enabled on your cluster to deploy these Operators**
+**You must have RBAC enabled on your cluster to deploy these Operators.  I will be using Minikube with RBAC enabled.**
 
 ```sh
 #1.  Add the coreos helm repo to get the Prometheus Operator chart
