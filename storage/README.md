@@ -29,9 +29,9 @@ Here is an excellent diagram from the [Kubernetes in Action](https://www.manning
 
 See the following example manifests from K8S.io:
 
-* [task-pv-volume.yml](./task-pv-volume.yml)
-* [task-pv-claim.yml](./task-pv-claim.yml)
-* [task-pv-pod.yml](./task-pv-pod.yml)
+* [persistent-volume.yml](./persistent-volume.yml)
+* [persistent-volume-claim.yml](./persistent-volume-claim.yml)
+* [pv-pod.yml](./pv-pod.yml)
 
 *Note: It is very important that you do not remove PVCs indiscriminantly!!! K8S 1.9 does have an alpha feature that will not remove PVCs that are in active use by a pod.  However, this needs to be enabled and prior versions do not have any such safety net.*
 
