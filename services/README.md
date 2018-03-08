@@ -32,3 +32,4 @@ Headless services are those that do not receive a stable virtual IP.  You want t
 
 * [Services docs at k8s.io](https://kubernetes.io/docs/concepts/services-networking/service/)
 * [Service Tutorial at k8s.io](https://kubernetes.io/docs/tasks/access-application-cluster/service-access-application-cluster/)
+* [Understanding Kubernetes Networking - Excellent articles by Mark Betz](https://medium.com/google-cloud/understanding-kubernetes-networking-pods-7117dd28727)
