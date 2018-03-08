@@ -2,6 +2,29 @@
 
 Almost all applications have a need to access other services using sensitive data such as credentials or keys.  For non-senstive configuration data, you can just you configmaps but for things like credentials or keys you should use secrets.
 
+** Note, K8S secrets base64 encodes the data and therefore, it is still fully accessible by users with access to the cluster.  For zero-trust environments, you should delegate secret management to solutions such as [Hashicorp Vault](https://www.vaultproject.io/) **
+
+```sh
+#here we are creating a secret named 'example-secrets' from all the files in the directory 'secrets'
+kubectl create secret generic example-secrets --from-file=secrets
+
+#get the secret, notice the data is base64 encoded
+kubectl get secrets/example-secrets -o yaml
+
+#deploy a pod that will use the secret
+kubectl create -f secret-pod.yaml
+
+#exec into the pod and see the secrets available as files in /etc/secrets
+kubectl exec -ti secret-pod -- sh
+
+#in the pod shell run the following command
+$ ls /etc/secrets
+some-credentials  some-key
+```
+
+## ImagePull Secrets ##
+
+
 ## References ##
 
 - [Secrets @ k8s.io](https://kubernetes.io/docs/concepts/configuration/secret/)
