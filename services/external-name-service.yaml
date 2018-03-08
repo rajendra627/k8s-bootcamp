@@ -5,8 +5,24 @@
 # just like any service - using the service name. See the source code of the API 
 # in the random-quote-api directory.
 # 
-# Deploy using 'kubectl create -f external-name-service.yml'
+# 1. Deploy the service and deployment.
+#
+#  kubectl create -f external-name-service.yml'
 # 
+# 2. Deploy busybox
+# 
+#  kubectl run buzybox --image busybox -- sleep 100000
+# 
+# 3. Get the name of the busybox pod and get access to its shell
+#
+#  kubectl get pods 
+#  kubectl exec -ti busybox-pod-name -- sh
+#
+# 4. From the shell run: 
+# 
+#  nslookup random-quote-service
+#  nslookup quotes.rest
+
 kind: Service
 apiVersion: v1
 metadata:
