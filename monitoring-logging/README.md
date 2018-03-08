@@ -27,7 +27,7 @@ Custom Resource Defintions are a means for you to define your own resources in K
 
 We will be using the helm chart published by CoreOS to deploy the operator.  CoreOS provides excellent docs [here](https://coreos.com/operators/prometheus/docs/latest/user-guides/getting-started.html).
 
-**Unfortunately, we cannot deploy this chart as is to AKS as AKS does not support RBAC.  Therefore, provision an ACS cluster to follow along with this example.**
+**You must have RBAC enabled on your cluster to deploy these Operators**
 
 ```sh
 #1.  Add the coreos helm repo to get the Prometheus Operator chart
