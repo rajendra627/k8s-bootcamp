@@ -22,8 +22,22 @@ $ ls /etc/secrets
 some-credentials  some-key
 ```
 
-## ImagePull Secrets ##
+## ImagePullSecrets ##
 
+You also use secrets to pull images from your private registry.  
+
+```sh
+#note the secret type is docker-registry
+kubectl create secret docker-registry $secretname --docker-server=$server --docker-username=$username --docker-password=$password --docker-email=$email
+```
+
+You then reference the docker-registry secret from your pod manifest.
+
+```yaml
+spec:
+  imagePullSecrets:
+    name: "secret-name"
+```
 
 ## References ##
 
