@@ -1,10 +1,9 @@
-#An example of a PVC that claims a specific PV using volumeName and labels
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: task-pv-claim
+  name: pv-claim-03
 spec:
-  volumeName: task-pv-volume
+  volumeName: pv-volume
   selector: 
     matchLabels:
        type: local
@@ -12,4 +11,4 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 3Gi
+      storage: 4Gi

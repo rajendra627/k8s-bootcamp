@@ -4,14 +4,14 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: task-pv-pod
+  name: pv-pod-03
 spec:
   volumes:
-  - name: task-pv-storage
+  - name: pv-storage
     persistentVolumeClaim:
-      claimName: task-pv-claim
+      claimName: pv-claim-03
   containers:
-  - name: task-pv-container
+  - name: pv-container
     image: nginx
     ports:
     - containerPort: 80
@@ -20,4 +20,4 @@ spec:
     - mountPath: "/usr/share/nginx/html"
       #here we mount the volume defined
       #above in volumes
-      name: task-pv-storage
+      name: pv-storage
