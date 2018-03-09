@@ -36,7 +36,7 @@ If and when you should define liveness and readiness probes depends on the conta
 
 ## Running as Non-Root ##
 
-Part of safe and secure docker practices is running as non-root.  Far too many containers in production are running as privileged users.  There are multiple ways to do this:
+Part of safe and secure docker practices is running as non-root.  Far too many containers in production are running as privileged users when there is no need to, and as a result dramatically increases the security exposure of your system.   There are multiple ways to not run as a privileged user:
 
 * When creating your images, use the Docker USER instruction to set the user/group to run as
 * set the securityContext for your container in the Pod template
