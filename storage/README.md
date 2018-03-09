@@ -75,9 +75,27 @@ To get the details in yaml format run:
 kubectl get storageclass/managed-premium -o=yaml
 ```
 
+##  Understand The Constraints Of The Underlying Storage Implementation ##
+
+It is very important to understand the constraints imposed by the underlying storage implementation.  For example, on Azure there are two provisioners - azureDisk and azureFile.  azureDisk comes in standard (e.g. spinning, magnetic disks) and premium (.e.g SSD), they are disks that are mounted onto a specific node and Azure has fixed limits on how many data disks can be mounted onto a given VM size.  Furthermore, azureDisk only supports ReadWriteOnce access mode.  What this means is that only one pod can have read/write access to a given disk.  Therefore, for stateful applications, you need to think hard about how many replicas you need to determine how many data disks you need, and hence the appropriate VM size for the node.  
+
+Azure also has the azureFile provisioner.  This provisioner essentially mounts a CIFS/Samba fileshare.  This has some limitations in that even though the cluster may be Linux, the underlying storage implementation will CIFS and hence does not support all Linux filesystem capabilities (e.g. symlinks)  It is also significantly slower than azureDisk.  On the other hand, AzureFile does support more access modes than Azure Disk.
+
+So you need to consider you use-cases and provisioner constraints to make the right decision.  In general:
+
+* For fast performance and restrictive access modes e.g. databases use AzureDisk Premium
+* For storage requirements for data that does not change often, e.d. static html, pre-rendered javascript, etc, that needs to be accessed by many pods then use AzureFile.
+
+## Other Limitations To Be Aware of ##
+
+Currently, the volumes that are mounted on a node require root permissions to access.  This is a major problem because the best practices with Docker images is to NOT run in privileged mode.  As much as possible, the process in the container should run as a specific UID/GID that is not root.  There are different way to deal with this depending on the volume implementation, however, the most standard way right now is use to initContainers.  An initContainer is a container that does some initialization work that must complete successfully prior to the primary container starting.  You can have the init container start up as root but then run chown -R UID:GID to the UID:GID the primary container should run as.
+
+https://github.com/kubernetes/kubernetes/issues/2630
 ## References ##
 
 * [Volumes](https://kubernetes.io/docs/concepts/storage/volumes/)
 * [Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 * [Storage Classes](https://kubernetes.io/docs/concepts/storage/storage-classes/)
 * [Dynamic Volume Provisioning](https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/)
+* [Persistent Volumes with Azure Disk](https://docs.microsoft.com/en-us/azure/aks/azure-disks-dynamic-pv)
+* [Persistent Volumes with Azure File](https://docs.microsoft.com/en-us/azure/aks/azure-files-dynamic-pv)
