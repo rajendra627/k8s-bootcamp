@@ -36,7 +36,7 @@ helm repo add coreos https://s3-eu-west-1.amazonaws.com/coreos-charts/stable/
 #2. We will deploy everything to the monitoring namespace
 kubectl create namespace monitoring
 
-#3 Install the helm chart
+#3 Install the helm chart for the operator
 helm install coreos/prometheus-operator --name prometheus-operator --namespace monitoring
 
 #4. Install the actual Prometheus and Grafana pods.
@@ -62,4 +62,5 @@ This is simple deployment of Elasticsearch and Kibana to K8S.  You still have to
 
 - [Elasticsearch Operator](https://github.com/upmc-enterprises/elasticsearch-operator)
 - [Prometheus Operator](https://github.com/coreos/prometheus-operator/)
+- [kube-prometheus](https://github.com/coreos/prometheus-operator/tree/master/contrib/kube-prometheus)
 - [Awesome Kubernetes Extensions](https://github.com/coreos/awesome-kubernetes-extensions)
