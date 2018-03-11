@@ -4,10 +4,10 @@ There are multiple options for provisioning a K8S cluster.  For our purposes, we
 
 You will need the following tools installed:
 
-* Azure cli
-* docker (only required if you will be building images)
-* Helm
-* kubectl
+* Azure CLI
+* docker (only required if you will be building the docker images)
+* Helm (a package management tool for Kubernetes applications)
+* kubectl (The kubernetes CLI)
 * Visual Studio Code
 
 ## Installing Azure CLI ##
@@ -78,32 +78,41 @@ After you have verified your subscription has the necessary providers registered
 * Create a resource group for your cluster. Note you have to be logged in via az cli.
 
 ```sh
-az group create -n <rg-name> -l <region>
+#For region use canadacentral, replace <rg-name> with your desired resource group name
+#You will need to use this resource group in later steps
+az group create -n <rg-name> -l canadacentral
 ```
 
-* Create the cluster.  
+* Create the Kubernetes cluster.  
 
 ```sh
 #this will create a cluster with 1 master node, 2 worker nodes with Kubernetes version 1.8.1
+#replace <cluster-name> with the desired name for your cluster, replace <rg-group> with you resource group name
 az acs create -n <cluster-name> -g <rg-name> -t Kubernetes --orchestrator-version 1.8.1 --master-count 1 --agent-count 2 --generate-ssh-keys
 
 
 #list your AKS cluster
 az acs list -o table
 
-#install the kubectl cli
-az acs kubernetes install-cli
-
 #The result will be a table with your ACS cluster name, location, ResourceGroup...
 Location       Name         ProvisioningState    ResourceGroup
 -------------  -----------  -------------------  --------------
 canadacentral  cluster-name  Succeeded            rg-name
+```
+
+* Install the kubectl cli, if on linux, or macOS, you may have to run as sudo
+
+```sh
+az acs kubernetes install-cli
 
 #Get credentials for your cluster so you can authenticate using kubectl
-#If on linux, you may have to run as sudo
 az acs kubernetes get-credentials -n cluster-name -g rg-name
+```
 
-#verify you can access the cluster
+* Verify you can access the cluster
+
+```sh
+
 kubectl get nodes
 
 #you should see something like this
@@ -111,7 +120,6 @@ NAME                        STATUS    ROLES     AGE       VERSION
 k8s-agentpool0-12035791-0   Ready     agent     1h        v1.8.1
 k8s-agentpool0-12035791-1   Ready     agent     1h        v1.8.1
 k8s-master-12035791-0       Ready     master    1h        v1.8.1
-
 ```
 
 * Start up proxy to tunnel to the Kubernetes Dashboard
