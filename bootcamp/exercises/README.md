@@ -1,11 +1,11 @@
 # Setting up your environment #
 
-There are multiple options for provisioning a K8S cluster.  For our purposes, we will use AKS, which is a managed Kubernetes service from Microsoft, and Minikube, which is single node cluster that can run locally on your machine.
+There are multiple options for provisioning a K8S cluster.  For our purposes, we will use ACS as it supports RBAC.  For local development, you can set up Minikube, which provides you a single node K8S cluster.  An alternative is [bootkube](https://github.com/kubernetes-incubator/bootkube/tree/master/hack/multi-node) which provides you a local, multi-node cluster to test multi-node scenarios.  I provide you instructions below to provision an ACS cluster and also setting up Minikube.
 
 You will need the following tools installed:
 
 * Azure cli
-* docker
+* docker (only required if you will be building images)
 * Helm
 * kubectl
 * Visual Studio Code
@@ -32,24 +32,22 @@ docker version
 
 Download and install VS Code for your OS.  [https://code.visualstudio.com/](https://code.visualstudio.com/)
 
-Install the following extensions (search in the extensions tab):
+Optionally, install the following extensions (search in the extensions tab):
 
-* Kubernetes Support
-* vs-kubernetes
+* Kubernetes (from Microsoft)
+* Kubernetes Support (provides snippets for authoring manifests)
 * vscode-helm
 * Docker
 
-These extensions provide syntax highlighting, code snippets and more for working with Docker, Kubernetes and Helm artefacts.
-
 ## Verify your Azure subscription ##
 
-Make sure all the required resource providers are registered in your Azure subscription.  As you will be creating network, compute and storage resources on Azure, and you will be using Azure Container Service and Azure Container Service, you need to ensure you have the following providers registered in your Azure subscription:
+Make sure all the required resource providers are registered in your Azure subscription.  As you will be creating network, compute and storage resources on Azure, and you will be using Azure Container Service, you need to ensure you have the following providers registered in your Azure subscription:
 
 * Microsoft.Network
 * Microsoft.Storage
 * Microsoft.Compute
 * Microsoft.ContainerService
-* Microsoft.ContainerRegistry
+* Microsoft.ContainerRegistry (If you will be using Azure Container Registry)
 
 To determine which providers are registered run this command:
 
@@ -64,7 +62,7 @@ az provider list -o table | less
 The registration state of each of the providers above should be 'Registered'.  If not, you need to register the provider using the following command:
 
 ```sh
-az provider register -n <provider>
+az provider register -n <provider-name>
 ```
 
 For example,
@@ -77,39 +75,43 @@ az provider register -n Microsoft.ContainerService
 
 After you have verified your subscription has the necessary providers registered, create a test K8S cluster on Azure. To do so, run the following commands (you already have to be logged into Azure via the CLI). Note, I use the resource group name ``k8s-example`` and cluster name ``test-cluster`` but you can name them what you want.
 
-* Create a resource group for your cluster
+* Create a resource group for your cluster. Note you have to be logged in via az cli.
 
 ```sh
 az group create -n <rg-name> -l <region>
 ```
 
-* Create the cluster.  Note you have to be logged in via az cli.
+* Create the cluster.  
 
 ```sh
-#this will create a cluster with 2 worker nodes with Kubernetes version 1.8.1
-az aks create -n test-cluster -g k8s-example -c 2 -k "1.8.1" --generate-ssh-keys
+#this will create a cluster with 1 master node, 2 worker nodes with Kubernetes version 1.8.1
+az acs create -n <cluster-name> -g <rg-name> -t Kubernetes --orchestrator-version 1.8.1 --master-count 1 --agent-count 2 --generate-ssh-keys
+
 
 #list your AKS cluster
-az aks list -o table
+az acs list -o table
 
 #install the kubectl cli
-az aks install-cli
+az acs kubernetes install-cli
 
-#The result will be a table with your AKS cluster name, location, ResourceGroup...
-Name         Location       ResourceGroup    KubernetesVersion    ProvisioningState
------------  -------------  ---------------  -------------------  -------------------
-test-cluster  canadacentral  k8s-example     1.8.1                Succeeded
+#The result will be a table with your ACS cluster name, location, ResourceGroup...
+Location       Name         ProvisioningState    ResourceGroup
+-------------  -----------  -------------------  --------------
+canadacentral  cluster-name  Succeeded            rg-name
 
 #Get credentials for your cluster so you can authenticate using kubectl
-az aks get-credentials -n test-cluster -g k8s-example
+#If on linux, you may have to run as sudo
+az acs kubernetes get-credentials -n cluster-name -g rg-name
 
 #verify you can access the cluster
 kubectl get nodes
 
 #you should see something like this
-NAME                       STATUS    ROLES     AGE       VERSION
-aks-nodepool1-30106593-0   Ready     agent     28m       v1.8.1
-aks-nodepool1-30106593-1   Ready     agent     28m       v1.8.1
+NAME                        STATUS    ROLES     AGE       VERSION
+k8s-agentpool0-12035791-0   Ready     agent     1h        v1.8.1
+k8s-agentpool0-12035791-1   Ready     agent     1h        v1.8.1
+k8s-master-12035791-0       Ready     master    1h        v1.8.1
+
 ```
 
 * Start up proxy to tunnel to the Kubernetes Dashboard
@@ -133,11 +135,11 @@ helm init --upgrade
 In order to not incur Azure costs, you should tear down your cluster when not in use.  At the end of each day just delete the resource group.
 
 ```sh
-az group delete -n k8s-example
+az group delete -n <rg-name>
 ```
 ## Setting up Minikube ##
 
-This part is only for the RBAC portion of the exercises.  Unfortunately, AKS currently does not support RBAC.  To use RBAC on Azure, you will need to leverage ACS.  The alternative is [ACS Engine](https://github.com/Azure/acs-engine), however, that is an advanced topic so we will be using Minikube to demonstrate RBAC concepts.
+This part is only for those of you who want to work on a local cluster with the latest version of Kubernetes.
 
 See the installation instructions for your OS [here](https://github.com/kubernetes/minikube/releases)
 
@@ -183,7 +185,7 @@ minikube ssh <pod-name>
 minikube delete
 ```
 
-## Why AKS, ACS, and ACS Engine? ##
+## What is AKS, ACS, and ACS Engine? ##
 
 AKS is a new fully managed service that frees you from worrying about managing the underlying VM, storage, and network resources.  With ACS, you are responsible for patching the OS etc, while with AKS you do not need to worry about these operational tasks.  Eventually, AKS will be replacing ACS.
 
