@@ -1,0 +1,20 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: pod-non-root
+spec:
+  volumes:
+  - name: pv-storage
+    persistentVolumeClaim:
+      claimName: pv-claim
+  containers:
+  - name: simple-http
+    image: architechbootcamp/simple-http-server:1.0.0
+    ports:
+    - containerPort: 80
+      name: "http-server"
+    volumeMounts:
+    - mountPath: "/usr/share/simple-http"
+      #here we mount the volume defined
+      #above in volumes
+      name: pv-storage

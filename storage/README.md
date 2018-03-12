@@ -90,6 +90,8 @@ So you need to consider you use-cases and provisioner constraints to make the ri
 
 Currently, the volumes that are mounted on a node require root permissions to access. This is a major problem because the best practices with Docker images is to NOT run in privileged mode.  As much as possible, the process in the container should run as a specific UID/GID that is not root.  There are different way to deal with this depending on the volume implementation, however, the most standard way right now is use to initContainers.  An initContainer is a container that does some initialization work that must complete successfully prior to the primary container starting.  You can have the init container start up as root but then run `chown -R UID:GID path` to change owner and hence permissions to the UID:GID the primary container will run as.
 
+See [pod-non-root](./pod-non-root/README.md) for an example.
+
 Here is the issue that describes the problem - https://github.com/kubernetes/kubernetes/issues/2630.  Note, this issue is scheduled to be addressed in the next major milestone.
 
 ## References ##
