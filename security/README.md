@@ -1,10 +1,22 @@
-# Role Based Access Control #
+# Security #
+
+Securing your Kubernetes cluster is a large topic.  Here we discuss Kubernetes native means to securing your cluster.  
+
+The primary K8S capabilities for securing your workloads are:
+
+- RBAC (Role-Based Access Control)
+- Pod Security Policy
+- Network Security Policy
+
+**Of course, there are many other considerations to securing your cluster depending on how it is deployed. For example, key management, patching your OS, process, and many more.  Here we only cover the main K8S considerations for securing your cluster**
+
+## RBAC ##
 
 If you need to provide other users/roles restricted access to the K8S cluster, for example, you want "QA" roles having read/write access to only their environment, and "Dev" roles having read/write access to only their environment, then RBAC is the means to do so going forward.
 
 **Note: AKS currently does not support RBAC. It will support RBAC when it goes GA.  As of now, to use RBAC on Azure, you need to either use ACS (Azure Container Service), a custom cluster created using acs-engine, or a custom cluster created using kubespray.**
 
-## Authentication and Authorization in K8S ##
+### Authentication and Authorization in K8S ###
 
 K8S supports a very flexible authentication/authorization model that is extensible through plugins and modules.  There are different authentication and authorization modules to support different requirements - from simple username/password to x509 certificates to Open ID Connect with an external Identity Provider, and more.
 
@@ -18,9 +30,9 @@ See [Controlling access to the K8S API](https://kubernetes.io/docs/admin/accessi
 
 Below we will show setting up authentication and RBAC authorization using x509 certificates.
 
-## Authenticating using x509 certs ##
+### Authenticating using x509 certs ###
 
-## Enabling RBAC on Minikube ##
+#### Enabling RBAC on Minikube ####
 
 - Start up minikube with the options to enable RBAC on the api-server.
 
@@ -69,7 +81,7 @@ kubectl config use-context user-context
 kubectl get pods
 ```
 
-## Finding out what you can do ##
+### Finding out what you can do ###
 
 To find what you can do:
 
@@ -86,6 +98,13 @@ kubectl auth can-i create pods --namespace kube-system
 kubectl auth can-i get configmaps --namespace kube-system --as system:serviceaccount:kube-system:default
 ```
 
+## Pod Security Policies ##
+
+## Network Security Policies ##
+
+## Encrypting Secrets At Rest ##
+
+
 ## Reference ##
 
 - [Using RBAC Authorization](https://kubernetes.io/docs/admin/authorization/rbac/)
@@ -94,3 +113,5 @@ kubectl auth can-i get configmaps --namespace kube-system --as system:serviceacc
 - [Excellent guide by Bitami](https://docs.bitnami.com/kubernetes/how-to/configure-rbac-in-your-kubernetes-cluster/)
 - [CNCF - Effective RBAC Youtube video](https://www.youtube.com/watch?v=Nw1ymxcLIDI)
 - [Autogenerating RBAC manifests from K8S audit logs](https://github.com/liggitt/audit2rbac)
+- [Encrypting Secrets at Rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/)
+- [Network Security Policy](https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/)
