@@ -1,20 +1,40 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: pod-non-root
+  name: pod-root
 spec:
   volumes:
-  - name: pv-storage
+  - name: storage
     persistentVolumeClaim:
       claimName: pv-claim
+  initContainers:
+  - name: busybox
+    image: busybox
+    volumeMounts:
+    - mountPath: "/usr/share/simple-http"
+      name: storage
+    command:
+    - 'sh'
+    - '-c'
+    - |
+    adduser -u 1000 simple-http
+    addgroup -g 1000 simple-http http
+    echo "Kubernetes is awesome!" > /usr/share/simple-http/index.html
+    chown -R simple-http:http /usr/share/simple-http
+    chmod 700 /usr/share/simple-http
   containers:
   - name: simple-http
     image: architechbootcamp/simple-http-server:1.0.0
     ports:
-    - containerPort: 80
+    - containerPort: 8080
       name: "http-server"
+    env:
+    - name: "HTML_DIR"
+      value: "/usr/share/simple-http"
+    securityContext:
+      runAsUser: 1000
     volumeMounts:
     - mountPath: "/usr/share/simple-http"
       #here we mount the volume defined
       #above in volumes
-      name: pv-storage
+      name: storage
