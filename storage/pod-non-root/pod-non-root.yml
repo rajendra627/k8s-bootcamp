@@ -17,8 +17,10 @@ spec:
     - 'sh'
     - '-c'
     - |
-    adduser -u 1000 simple-http
-    addgroup -g 1000 simple-http http
+    #create non-root user and change ownership/permissions to mountpath
+    #note the initContainer will run as root
+    adduser -DH simple-http
+    addgroup -g simple-http http
     echo "Kubernetes is awesome!" > /usr/share/simple-http/index.html
     chown -R simple-http:http /usr/share/simple-http
     chmod 700 /usr/share/simple-http
@@ -32,7 +34,7 @@ spec:
     - name: "HTML_DIR"
       value: "/usr/share/simple-http"
     securityContext:
-      runAsUser: 1000
+      runAsNonRoot: true
     volumeMounts:
     - mountPath: "/usr/share/simple-http"
       #here we mount the volume defined

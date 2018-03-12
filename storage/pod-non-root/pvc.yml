@@ -1,3 +1,4 @@
+#This PVC will request storage from the default storage class
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:

@@ -1,5 +1,4 @@
 # Storage #
-
 ## Volumes ##
 
 For those applications that need to manage durable state, particularly, state that survives across container restarts, K8S provides the volume resource - there are multiple volume types such as NFS, [Azure Disk](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_disk), [Azure File](https://github.com/kubernetes/examples/blob/master/staging/volumes/azure_file/README.md), and more.
@@ -10,7 +9,7 @@ Which volume type you use depends on your requirements:
 
 - emptyDir volume type uses either memory or local filesystem for storage.  It only should be used for temp data
 - hostPath volume maps the volume to a specific directory on the node.  This is useful if you have a daemonset that needs to access the same directory on all nodes.
-- nsf volume type uses network storage using the nfs protocol.  Note there are many volume types that support network storage.  For example, azureDisk, awsElasticBlockStore.  These are the volume types that you want to use so that when your pods are rescheduled to different nodes, the same volumes are still accessible.
+- nsf volume type uses network storage using the nfs protocol.  Note there are many volume types that support network storage.  For example, azureDisk, azureFile, awsElasticBlockStore.  These are the volume types that you want to use so that when your pods are rescheduled to different nodes, the same volumes are still accessible.
 
 * See the [Volume reference at K8S.io](https://kubernetes.io/docs/concepts/storage/volumes/) for more details.
 * See [here](https://github.com/kubernetes/examples/blob/master/staging/volumes/azure_disk/azure.yaml) for an example of a pod that uses Azure Disk volumes.  Notice how you must first specify the volume, then mount the volume within your container specification.  How you specify the volume depends on the volume type.
@@ -27,11 +26,46 @@ Here is an excellent diagram from the [Kubernetes in Action](https://www.manning
 
 ![PV and PVC](./pv_and_pvc.png)
 
-See the following example manifests from K8S.io:
+### Running the Example ###
 
-* [persistent-volume.yml](./persistent-volume.yml)
-* [pvc-01.yml](./pvc-01.yml)
-* [pv-pod-01.yml](./pv-pod-01.yml)
+To run the example you will need to do the following:
+
+1. Create an Azure File share to mount onto the hosts
+
+```sh
+#You must create the storage account in the same resource group as your ACS cluster.
+#The name of the storage account must be globally unique.  To get the name of your 
+#resource group run:
+
+az group list -o table
+
+#This is the output for my cluster. The resource group to use is the second one.
+Name                                   Location       Status
+-------------------------------------  -------------  ---------
+k8s-cluster                            canadacentral  Succeeded
+k8s-cluster_acs-cluster_canadacentral  canadacentral  Succeeded
+
+#set some env variables
+export AZURE_STORAGE_ACCOUNT=architechbootcamp
+export AZURE_RESOURCE_GROUP=k8s-cluster_acs-cluster_canadacentral
+
+#create the storage account and file share
+#the name of the storage account can only have alphnumeric characters
+az storage account create -n $AZURE_STORAGE_ACCOUNT \ 
+  -g k8s-cluster_acs-cluster_canadacentral \
+  -l canadacentral --sku Standard_LRS
+
+#export the access key for the storage account, used when creating the fileshare
+export AZURE_STORAGE_KEY=$(az storage account keys list -g k8s-cluster_acs-cluster_canadacentral --account-name $AZURE_STORAGE_ACCOUNT --query "[0].value" -o tsv)
+
+#create the file share, choose your own name
+az storage share create -n architech-share
+
+#get the keys to access the share
+
+```
+
+
 
 *Note: It is very important that you do not remove PVCs indiscriminantly!!! K8S 1.9 does have an alpha feature that will not remove PVCs that are in active use by a pod.  However, this needs to be enabled and prior versions do not have any such safety net.*
 

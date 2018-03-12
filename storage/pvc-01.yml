@@ -4,10 +4,8 @@ apiVersion: v1
 metadata:
   name: pv-claim-01
 spec:
-  volumeName: pv-volume
-  selector: 
-    matchLabels:
-       type: local
+  #volumeName: pv-volume
+  storageClassName: architech-sc
   accessModes:
     - ReadWriteOnce
   resources:

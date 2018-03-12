@@ -1,0 +1,19 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-volume
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  #when the PVC is released, retain the data.
+  #valid values are Retain (default), Recycle and Delete.
+  #Not all volume plugins support Recycle. See the volume plugin for details.
+  persistentVolumeReclaimPolicy: Retain
+  azureFile:
+    diskName: azure-disk
+    #Get the access URI for your disk from the azure portal
+    diskURI: <add your disk uri>
+
+
