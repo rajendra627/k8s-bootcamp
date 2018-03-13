@@ -61,5 +61,5 @@ This is simple deployment of Elasticsearch and Kibana to K8S.  You still have to
 - [Elasticsearch Operator](https://github.com/upmc-enterprises/elasticsearch-operator)
 - [Prometheus Operator](https://github.com/coreos/prometheus-operator/)
 - [kube-prometheus](https://github.com/coreos/prometheus-operator/tree/master/contrib/kube-prometheus)
-- [Awesome Kubernetes Extensions](https://github.com/coreos/awesome-kubernetes-extensions
+- [Awesome Kubernetes Extensions](https://github.com/coreos/awesome-kubernetes-extensions)
 - [ELK on Azure Container Service](https://github.com/Microsoft/elk-acs-kubernetes)
