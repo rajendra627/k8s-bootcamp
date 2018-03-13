@@ -18,11 +18,12 @@ spec:
     - 'sh'
     - '-c'
     - |
-    if echo "writing to /mnt/data" > /mnt/data/message; then
-      echo "successfully wrote to /mnt/data"
-    else
-      echo "FAILED TO WRITE TO /mnt/data"
-    fi
+        if echo "writing to /mnt/data" > /mnt/data/message; then
+          echo "successfully wrote to /mnt/data"
+        else
+          echo "FAILED TO WRITE TO /mnt/data"
+        fi
+        sleep 1000
     volumeMounts:
     - mountPath: "/mnt/data"
       #here we mount the volume defined

@@ -10,6 +10,21 @@ spec:
   - name: pv-storage
     persistentVolumeClaim:
       claimName: pv-claim-01
+  initContainers:
+  - name: busybox
+    image: busybox
+    volumeMounts:
+    - mountPath: "/mnt/data"
+      name: pv-storage
+      command:
+      - sh
+      - "-c"
+      - |
+          #create non-root user and change ownership/permissions to mountpath
+          #note the initContainer will run as root
+          adduser -DH non-root
+          chown -R non-root /mnt/data
+          chmod 700 /mnt/data
   containers:
   - name: busybox-root
     image: busybox
@@ -25,6 +40,7 @@ spec:
         else
           echo "FAILED TO WRITE TO /mnt/data"
         fi
+        sleep 1000
     volumeMounts:
     - mountPath: "/mnt/data"
       #here we mount the volume defined
@@ -32,4 +48,4 @@ spec:
       name: pv-storage
   securityContext:
     #Run as user with UID 1000 e.g. non-root
-    runAsUser: 1000
+    runAsNonRoot: true
