@@ -3,7 +3,7 @@
 
 For those applications that need to manage durable state, particularly, state that survives across container restarts, K8S provides the volume resource - there are multiple volume types such as NFS, [Azure Disk](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_disk), [Azure File](https://github.com/kubernetes/examples/blob/master/staging/volumes/azure_file/README.md), and more.
 
-To the containers, volumes are just directory on the disk.  The Docker image is at the root of the file system, and you can mount multiple volumes at specified paths within the image.  Each container in the pod must independently specify where to mount each volume.
+To the containers, volumes are just a directory on the file system.  The Docker image is at the root of the file system, and you can mount multiple volumes at specified paths within the image.  Each container in the pod must independently specify where to mount each volume.
 
 Which volume type you use depends on your requirements:
 
@@ -16,15 +16,15 @@ Which volume type you use depends on your requirements:
 
 ## Persistent Volumes & Persistent Volume Claims ##
 
-With Volumes the life-cycle of the storage is tied to the pod.  This means the volume survives container restarts, however, if the pod is destroyed, the volume storage will be blown away - not entirely true, this is the case for certain volume types e.g. emptyDir. This is not appropriate for applications such as databases that require the data is saved even if the pod is rescheduled to another node.  In addition, with volumes Developers has to be aware of the underlying storage implementation.  For example, if you used an nsf volume type, the Developer would need to know about the nsf server, or if you used azureFile, you would have to know the url to the azure storage and storage account details.  Developers should not have to be aware of these infrastructure level details.  Persistent Volumes, Persistent Volume Claims and Storage Classes abstract away much of these details from the Developers.
+With Volumes the life-cycle of the storage is tied to the pod.  This means the volume survives container restarts, however, if the pod is destroyed, the volume storage will be blown away - not entirely true, this is the case for certain volume types e.g. emptyDir. This is not appropriate for applications such as databases that require the data is saved even if the pod is removed.  In addition, with volumes, Developers have to be aware of the underlying storage implementation.  For example, if you used an nsf volume type, the Developer would need to know about the nsf server, or if you used azureFile, you would have to know the url to the azure storage and storage account details.  Developers should not have to be aware of these infrastructure level details.  Persistent Volumes, Persistent Volume Claims and Storage Classes abstract away much of these details from the Developers.
 
-Persistent Volumes (PV) are a volume type that is pre-provisioned/defined by the cluster admin - they can be provisioned statically or dynamically.  They support different storage services via plugins.  For example, there is a PV type for AzureFile, AzureDisk, NFS and more.  They differ from volumes in that the cluster admin can pre-create volumes as resources that can be used by creators of the pods. This is beneficial as the pod creators do not have to be aware of the implementation details of the volumes - e.g. credentials, access keys, etc.
+Persistent Volumes (PV) are a volume type that is provisioned/defined by the cluster admin - they can be provisioned statically or dynamically.  They support different storage services via plugins.  For example, there is a PV type for AzureFile, AzureDisk, NFS and more.  They differ from volumes in that the cluster admin can pre-create volumes as resources that can be used by creators of the pods. This is beneficial as the pod creators do not have to be aware of the implementation details of the volumes - e.g. credentials, access keys, etc.
 
 Persistent Volume Claims (PVC) are how pods "claim" the provisioned storage. In the claim is the request for amount of storage and access modes. A claim is fulfilled if there is a PV that meets the criteria specified in the claim.  Note this means that it is possible for a claim not to be fulfilled.  
 
 **IMPORTANT: Once a PVC is bound to a PV, that relationship is one to one.** 
 
-This is very important to understand as you can have a PV that is 10G and a PVC that only needs 3G can claim it and not make the rest of the storage available.  This is obviously wasteful. 
+It is very important to understand that you can have a PV that is 10G and a PVC that only needs 3G can claim it, and not make the rest of the storage available.  This is obviously wasteful. 
 
 Here is an excellent diagram from the [Kubernetes in Action](https://www.manning.com/books/kubernetes-in-action) book from Manning that describes this concept.
 
@@ -35,7 +35,7 @@ Here is an excellent diagram from the [Kubernetes in Action](https://www.manning
 To run the example you will need to do the following:
 
 ```sh
-#we will run this example in minikube
+#we will run this example in minikube as it is faster.
 minikube start 
 
 kubectl create -f pv-hostpath.yml
@@ -137,11 +137,17 @@ So you need to consider you use-cases and provisioner constraints to make the ri
 
 ## Other Limitations To Be Aware of ##
 
-Currently, the volumes that are mounted on a node require root permissions to access. This is a major problem because the best practices with Docker images is to NOT run in privileged mode.  As much as possible, the process in the container should run as a specific UID/GID that is not root.  There are different way to deal with this depending on the volume implementation, however, the most standard way right now is use to initContainers.  An initContainer is a container that does some initialization work that must complete successfully prior to the primary container starting.  You can have the init container start up as root but then run `chown -R UID:GID path` to change owner and hence permissions to the UID:GID the primary container will run as.
+When volumes are mounted onto a node, that volume is mounted with root ownership. This is a major problem because the best practices with Docker images is to NOT run in privileged mode.  As much as possible, the process in the container should run as a specific UID/GID that is not root.  There are different way to deal with this depending on the volume implementation, however, the most standard way right now is use to initContainers.  An initContainer is a container that does some initialization work that must complete successfully prior to the primary container starting.  You can have the init container start up as root but then run `chown -R UID path` to change owner and hence permissions to the UID:GID the primary container will run as.
 
-See [pod-non-root](./pod-non-root/README.md) for an example.
+See [non-root-pod-correct.yml](./non-root-pod-correct.yml) for an example.
 
 Here is the issue that describes the problem - https://github.com/kubernetes/kubernetes/issues/2630.  Note, this issue is scheduled to be addressed in the next major milestone.
+
+Some proposed approaches to address this issue without using initContainers are:
+
+- Using [mountOptions](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options), however, this is not supported by all volume types and it is not supported on Azure prior to version 1.8.5 of Kubernetes.
+- Using [pod.spec.securityContext.fsGroup](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/). This changes the owning GID of the volume to the GID set in fsGroup. Again, not supported by all volume types.
+- Using supplementalGroups.  See [security/pod-security-policies.yml](../security/pod-security-policies.yml)
 
 ## References ##
 
