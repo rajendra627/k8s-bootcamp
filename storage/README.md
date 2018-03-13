@@ -16,11 +16,15 @@ Which volume type you use depends on your requirements:
 
 ## Persistent Volumes & Persistent Volume Claims ##
 
-With Volumes the life-cycle of the storage is tied to the pod.  This means the volume survives container restarts, however, if the pod is destroyed, the volume storage will be blown away - not entirely true, this is the case for certain volume types e.g. emptyDir. This is not appropriate for applications such as databases that require the data is saved even if the pod is rescheduled to another node.  In addition, with volumes Developers has to be aware of the underlying storage implementation.  For example, if you used an nsf volume type, the Developer would need to know about the nsf server, or if you used azureDisk, you would have to know the url to the azure storage and storage account details.  Developers should not have to be aware of these infrastructure level details.  Persistent Volumes, Persistent Volume Claims and Storage Classes abstract away much of these details from the Developers.
+With Volumes the life-cycle of the storage is tied to the pod.  This means the volume survives container restarts, however, if the pod is destroyed, the volume storage will be blown away - not entirely true, this is the case for certain volume types e.g. emptyDir. This is not appropriate for applications such as databases that require the data is saved even if the pod is rescheduled to another node.  In addition, with volumes Developers has to be aware of the underlying storage implementation.  For example, if you used an nsf volume type, the Developer would need to know about the nsf server, or if you used azureFile, you would have to know the url to the azure storage and storage account details.  Developers should not have to be aware of these infrastructure level details.  Persistent Volumes, Persistent Volume Claims and Storage Classes abstract away much of these details from the Developers.
 
 Persistent Volumes (PV) are a volume type that is pre-provisioned/defined by the cluster admin - they can be provisioned statically or dynamically.  They support different storage services via plugins.  For example, there is a PV type for AzureFile, AzureDisk, NFS and more.  They differ from volumes in that the cluster admin can pre-create volumes as resources that can be used by creators of the pods. This is beneficial as the pod creators do not have to be aware of the implementation details of the volumes - e.g. credentials, access keys, etc.
 
-Persistent Volume Claims (PVC) are how pods "claim" the provisioned storage. In the claim is the request for amount of storage and access modes. A claim is fulfilled if there is a PV that meets the criteria specified in the claim.  Note this means that it is possible for a claim not to be fulfilled.  Once a PVC is bound to a PV, that relationship is one to one. What this means is that even if the Pod is rescheduled, the volume is not reallocated because there is a PVC that claims that volume.  The volume is only reallocated when the PVC is removed.
+Persistent Volume Claims (PVC) are how pods "claim" the provisioned storage. In the claim is the request for amount of storage and access modes. A claim is fulfilled if there is a PV that meets the criteria specified in the claim.  Note this means that it is possible for a claim not to be fulfilled.  
+
+**IMPORTANT: Once a PVC is bound to a PV, that relationship is one to one.** 
+
+This is very important to understand as you can have a PV that is 10G and a PVC that only needs 3G can claim it and not make the rest of the storage available.  This is obviously wasteful. 
 
 Here is an excellent diagram from the [Kubernetes in Action](https://www.manning.com/books/kubernetes-in-action) book from Manning that describes this concept.
 
@@ -30,42 +34,37 @@ Here is an excellent diagram from the [Kubernetes in Action](https://www.manning
 
 To run the example you will need to do the following:
 
-1. Create an Azure File share to mount onto the hosts
-
 ```sh
-#You must create the storage account in the same resource group as your ACS cluster.
-#The name of the storage account must be globally unique.  To get the name of your 
-#resource group run:
+#we will run this example in minikube
+minikube start 
 
-az group list -o table
+kubectl create -f pv-hostpath.yml
 
-#This is the output for my cluster. The resource group to use is the second one.
-Name                                   Location       Status
--------------------------------------  -------------  ---------
-k8s-cluster                            canadacentral  Succeeded
-k8s-cluster_acs-cluster_canadacentral  canadacentral  Succeeded
+kubectl get pv/pv-volume
 
-#set some env variables
-export AZURE_STORAGE_ACCOUNT=architechbootcamp
-export AZURE_RESOURCE_GROUP=k8s-cluster_acs-cluster_canadacentral
+#you should see something like this, note 5Gi is available
+NAME        CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM     STORAGECLASS   REASON    AGE
+pv-volume   5Gi        RWO            Retain           Available             standard                 43s
 
-#create the storage account and file share
-#the name of the storage account can only have alphnumeric characters
-az storage account create -n $AZURE_STORAGE_ACCOUNT \ 
-  -g k8s-cluster_acs-cluster_canadacentral \
-  -l canadacentral --sku Standard_LRS
+#create a pvc 
+kubectl create -f pvc-01.yml
 
-#export the access key for the storage account, used when creating the fileshare
-export AZURE_STORAGE_KEY=$(az storage account keys list -g k8s-cluster_acs-cluster_canadacentral --account-name $AZURE_STORAGE_ACCOUNT --query "[0].value" -o tsv)
+kubectl get pvc/pv-claim-01
 
-#create the file share, choose your own name
-az storage share create -n architech-share
+#Notice the pvc is bound, I asked for 1Gi but I got 5Gi because PVC to PV is one to one
+NAME          STATUS    VOLUME      CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+pv-claim-01   Bound     pv-volume   5Gi        RWO            standard       8s
 
-#get the keys to access the share
+#try to create another pvc
+kubectl create -f pvc-02.yml
+
+kubectl get pvc/pv-claim-02
+
+#Notice it is pending.  It will stay that way forever because the PV is already bound to pv-claim-01
+NAME          STATUS    VOLUME      CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+pv-claim-02   Pending   pv-volume   0                         standard       5s
 
 ```
-
-
 
 *Note: It is very important that you do not remove PVCs indiscriminantly!!! K8S 1.9 does have an alpha feature that will not remove PVCs that are in active use by a pod.  However, this needs to be enabled and prior versions do not have any such safety net.*
 
@@ -73,13 +72,13 @@ az storage share create -n architech-share
 
 ## Storage Classes ##
 
-*Note: You only need to be aware of storage classes if you are a cluster admin.*
+Creating Persistent Volumes statically requires the cluster admin to understand how many pods that require storage will be deployed and how much storage each will need.  However, what if you could dynamically provision persistent volumes when the pods are deployed?  That is the role of StorageClasses. 
 
-Storage classes enable cluster admins to define different classes of persistent volumes.  These classes could vary by access modes, reclaim policy, storage provider (e.g. Azure, AWS, NFS, etc) and more.  The cluster admin can also specify a default storage class for those PVCs that do not specify a storage class.  If the cluster admin wants to enable dynamic provisioning of the underlying storage, then they must define storage classes.
+Storage classes enable cluster admins to define different "classes" of persistent volumes.  These classes could vary by access modes, reclaim policy, storage provider (e.g. Azure, AWS, NFS, etc) and more.  The cluster admin can also specify a default storage class for those PVCs that do not specify a storage class.  
 
 *Note: All cloud providers provide pre-defined storage classes.  You can define others as you see fit for your requirements*
 
-Storage classes also serves to abstract away the underlying storage implementation from the pod. This is beneficial when you have developers using a tool like minikube for development and production uses K8S on a cloud provider like Azure.  Instead of the pod definition being aware of the underlying storage implementation, it can use a PVC that specifies a storage class that uses the same name but different implementation across environments.
+PersistentVolumes also serves to abstract away the underlying storage implementation from the pod. This is beneficial when you have developers using a tool like minikube for development and production uses K8S on a cloud provider like Azure.  Instead of the pod definition being aware of the underlying storage implementation, it can use a PVC that specifies a storage class that uses the same name but different implementation across environments.
 
 To find out what storage classes have been defined for you cluster run:
 
@@ -107,6 +106,22 @@ To get the details in yaml format run:
 
 ```sh
 kubectl get storageclass/managed-premium -o=yaml
+```
+
+### Running the Example ###
+
+```sh
+kubectl create -f default-class-pvc.yml
+
+kubectl get pvc
+
+#you should see something similar.  Note several things:
+# 1. I did not pre-create a Persistent Volume
+# 2. A PV was dynamically created and the PVC was immediately bound.
+# 3. The size of the PV is exactly what I requested in the PVC.
+NAME                STATUS    VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+pvc-default-class   Bound     pvc-7fe2dac2-265a-11e8-a59b-080027a22b9d   3Gi        RWO            standard       4s
+
 ```
 
 ##  Understand The Constraints Of The Underlying Storage Implementation ##

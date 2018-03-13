@@ -3,10 +3,9 @@ apiVersion: v1
 metadata:
   name: pv-claim-02
 spec:
-  #volumeName: pv-volume
-  storageClassName: architech-sc
+  volumeName: pv-volume
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 4Gi
+      storage: 2Gi
