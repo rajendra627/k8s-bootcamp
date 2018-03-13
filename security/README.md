@@ -101,7 +101,31 @@ kubectl auth can-i get configmaps --namespace kube-system --as system:serviceacc
 
 ## Pod Security Policies ##
 
-PodSecurityPolicy resources enable the cluster admin to specify security contraints cluster wide for all pods.  The polices can not only set constraints on what the pods can do, but also specify who is authorized to deploy pods with certain privileges.
+PodSecurityPolicy (PSP) resources enable the cluster admin to specify security contraints cluster wide for all pods.  In order for a Pod to be deployed onto the cluster, the pod template must meet the requirements specified in the PSP.
+
+See [here](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#what-is-a-pod-security-policy) for examples of what constraints can be specified. 
+
+The PSPs can not only set constraints on what the pods can do, but also specify who is authorized to deploy pods with certain privileges.  For example, you can specify that only certain users can deploy pods that share the [host network namespace](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#host-namespaces).
+
+In order to leverage PSPs, you need to enable it on the cluster.  The quickest way to determine if PSPs are enabled is to run the following command:
+
+```sh
+kubectl get psp
+
+#This means PSP is enabled
+No resources found.
+
+#This means PSP is not enabled
+the server doesn't have a resource type "psp"
+```
+If PSP is not enabled, you will need to enable the PodSecurityPolicy AdmissionController on your cluster.  This is done by passing an option to the kube-apiserver.  On ACS, ssh into each of the masters and update the kube-apiserver.yaml located at /etc/kubernetes/manifests directory.  Look for the `args:` field and update the following arg by adding `,PodSecurityPolicy` to the end.
+
+```yaml
+--admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass...
+```
+Once all the masters are updated, reboot the master nodes.
+
+See [restrict-hostport.yaml](./restrict-hostport.yaml) and [restrict-root.yaml](./restrict-root.yaml) for examples.
 
 ## Network Security Policies ## 
 
@@ -116,5 +140,6 @@ PodSecurityPolicy resources enable the cluster admin to specify security contrai
 - [Excellent guide by Bitami](https://docs.bitnami.com/kubernetes/how-to/configure-rbac-in-your-kubernetes-cluster/)
 - [CNCF - Effective RBAC Youtube video](https://www.youtube.com/watch?v=Nw1ymxcLIDI)
 - [Autogenerating RBAC manifests from K8S audit logs](https://github.com/liggitt/audit2rbac)
+- [Excellent guide by Bitami on Pod Security Policies](https://docs.bitnami.com/kubernetes/how-to/secure-kubernetes-cluster-psp/)
 - [Encrypting Secrets at Rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/)
 - [Network Security Policy](https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/)
