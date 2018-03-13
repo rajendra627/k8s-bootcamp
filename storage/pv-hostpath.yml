@@ -6,7 +6,7 @@ spec:
   capacity:
     storage: 5Gi
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   #when the PVC is released, retain the data.
   #valid values are Retain (default), Recycle and Delete.
   #Not all volume plugins support Recycle. See the volume plugin for details.

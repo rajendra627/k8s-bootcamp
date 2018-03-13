@@ -76,7 +76,7 @@ Creating Persistent Volumes statically requires the cluster admin to understand 
 
 Storage classes enable cluster admins to define different "classes" of persistent volumes.  These classes could vary by access modes, reclaim policy, storage provider (e.g. Azure, AWS, NFS, etc) and more.  The cluster admin can also specify a default storage class for those PVCs that do not specify a storage class.  
 
-*Note: All cloud providers provide pre-defined storage classes.  You can define others as you see fit for your requirements*
+**Note: All cloud providers provide pre-defined storage classes.  You can define others as you see fit for your requirements**
 
 PersistentVolumes also serves to abstract away the underlying storage implementation from the pod. This is beneficial when you have developers using a tool like minikube for development and production uses K8S on a cloud provider like Azure.  Instead of the pod definition being aware of the underlying storage implementation, it can use a PVC that specifies a storage class that uses the same name but different implementation across environments.
 
@@ -126,9 +126,9 @@ pvc-default-class   Bound     pvc-7fe2dac2-265a-11e8-a59b-080027a22b9d   3Gi    
 
 ##  Understand The Constraints Of The Underlying Storage Implementation ##
 
-It is very important to understand the constraints imposed by the underlying storage implementation.  For example, on Azure there are two provisioners - azureDisk and azureFile.  azureDisk comes in standard (e.g. spinning, magnetic disks) and premium (.e.g SSD), they are disks that are mounted onto a specific node and Azure has fixed limits on how many data disks can be mounted onto a given VM size.  Furthermore, azureDisk only supports ReadWriteOnce access mode.  What this means is that only one pod can have read/write access to a given disk.  Therefore, for stateful applications, you need to think hard about how many replicas you need to determine how many data disks you need, and hence the appropriate VM size for the node.  
+It is very important to understand the constraints imposed by the underlying storage implementation.  For example, on Azure there are two provisioners - azureDisk and azureFile.  azureDisk comes in standard (e.g. spinning, magnetic disks) and premium (.e.g SSD), they are disks that are mounted onto a specific node and Azure has fixed limits on how many data disks can be mounted onto a given VM size.  Furthermore, azureDisk only supports ReadWriteOnce access mode. Therefore, for stateful applications, you need to think hard about how many pod instances you need to determine how many data disks you need, and hence the appropriate VM size for the node.  
 
-Azure also has the azureFile provisioner.  This provisioner essentially mounts a CIFS/Samba fileshare.  This has some limitations in that even though the cluster may be Linux, the underlying storage implementation will CIFS and hence does not support all Linux filesystem capabilities (e.g. symlinks)  It is also significantly slower than azureDisk.  On the other hand, AzureFile does support more access modes than Azure Disk.
+Azure also has the azureFile provisioner.  This provisioner essentially mounts a CIFS/Samba fileshare.  This has some limitations in that even though the cluster may be Linux, the underlying storage implementation will CIFS and hence does not support all Linux filesystem capabilities (e.g. symlinks)  It is also significantly slower than azureDisk.  On the other hand, AzureFile does support more access modes than Azure Disk.  This means, multiple pods can reference the SAME PVC that is bound to the same PV.
 
 So you need to consider you use-cases and provisioner constraints to make the right decision.  In general:
 
