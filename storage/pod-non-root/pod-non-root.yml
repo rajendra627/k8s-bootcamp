@@ -17,13 +17,13 @@ spec:
     - sh
     - "-c"
     - |
-      #create non-root user and change ownership/permissions to mountpath
-      #note the initContainer will run as root
-      adduser -DH simple-http
-      addgroup -g simple-http http
-      echo "Kubernetes is awesome!" > /usr/share/simple-http/index.html
-      chown -R simple-http:http /usr/share/simple-http
-      chmod 700 /usr/share/simple-http
+        #create non-root user and change ownership/permissions to mountpath
+        #note the initContainer will run as root
+        adduser -DH simple-http
+        addgroup -g simple-http http
+        echo "Kubernetes is awesome!" > /usr/share/simple-http/index.html
+        chown -R simple-http:http /usr/share/simple-http
+        chmod 700 /usr/share/simple-http
   containers:
   - name: simple-http
     image: architechbootcamp/simple-http-server:1.0.0
