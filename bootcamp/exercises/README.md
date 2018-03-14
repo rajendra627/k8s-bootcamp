@@ -4,18 +4,18 @@ There are multiple options for provisioning a K8S cluster.  For our purposes, we
 
 You will need the following tools installed:
 
-* [Azure CLI](#az)
-* [docker (only required if you will be building the docker images)](#d)
-* [Helm (a package management tool for Kubernetes applications)](#helm)
-* [kubectl (The kubernetes CLI)](#k)
-* [Visual Studio Code](#code)
-* [Minikube (optional, only if you want to run all the exercises)](#mk)
+* [Azure CLI](#markdown-header-installing-azure-cli)
+* [docker (only required if you will be building the docker images)](#markdown-header-install-docker)
+* [Helm (a package management tool for Kubernetes applications)](#markdown-header-install-helm)
+* [kubectl (The kubernetes CLI)](#markdown-header-create-a-k8s-cluster-on-azure-and-install-kubectl)
+* [Visual Studio Code](#markdown-header-install-visual-studio-code)
+* [Minikube (optional, only if you want to run all the exercises)](#markdown-header-setting-up-minikube)
 
-## <a id="az"></a>Installing Azure CLI
+## Installing Azure CLI
 
 Install the latest version of azure cli for your operating system from [here](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest).
 
-## <a id="d"></a>Install Docker
+## Install Docker
 
 Install docker for your operating system.
 
@@ -29,7 +29,7 @@ After you have installed docker and the azure cli, run the following commands to
 az --version
 docker version
 ```
-## <a id="code"></a>Install Visual Studio Code
+## Install Visual Studio Code
 
 Download and install VS Code for your OS.  [https://code.visualstudio.com/](https://code.visualstudio.com/)
 
@@ -72,7 +72,7 @@ For example,
 az provider register -n Microsoft.ContainerService
 ```
 
-## <a id="k"></a>Create a K8S cluster on Azure and install kubectl ##
+## Create a K8S cluster on Azure and install kubectl ##
 
 After you have verified your subscription has the necessary providers registered, create a test K8S cluster on Azure. To do so, run the following commands (you already have to be logged into Azure via the CLI). Note, I use the resource group name ``k8s-example`` and cluster name ``test-cluster`` but you can name them what you want.
 
@@ -131,7 +131,7 @@ kubectl proxy
 
 Open a brower and navigate to ```http://127.0.0.1:8001/ui``` and you will see the dashboard.
 
-## <a id="helm"></a>Install Helm
+## Install Helm
 
 To install helm follow the instruction [here](https://github.com/kubernetes/helm/blob/master/docs/install.md).  Note that to install the server side of Helm (tiller), you need the K8S cluster running.
 
@@ -146,7 +146,7 @@ In order to not incur Azure costs, you should tear down your cluster when not in
 ```sh
 az group delete -n <rg-name>
 ```
-## <a id="mk"></a>Setting up Minikube
+## Setting up Minikube
 
 This part is only for those of you who want to work on a local cluster with the latest version of Kubernetes.
 
