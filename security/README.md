@@ -118,16 +118,12 @@ No resources found.
 #This means PSP is not enabled
 the server doesn't have a resource type "psp"
 ```
-If PSP is not enabled, you will need to enable the PodSecurityPolicy AdmissionController on your cluster.  This is done by passing an option to the kube-apiserver.  On ACS, ssh into each of the masters and update the kube-apiserver.yaml located at /etc/kubernetes/manifests directory.  Look for the `args:` field and update the following arg by adding `,PodSecurityPolicy` to the end.
-
-```yaml
---admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass...
-```
-Once all the masters are updated, reboot the master nodes.
+If PSP is not enabled, you will need to enable the PodSecurityPolicy AdmissionController on your cluster.  This is done by passing an option to the kube-apiserver.  Unfortunately, this is not possible on AKS as you do not have access to the master nodes.  On ACS, the approach is to use [acs-engine](https://github.com/Azure/acs-engine) to create a custom cluster with it enabled.  Note, you also need to enable AppArmor on all your nodes.  You can do this via acs-engine.
 
 See [restrict-hostport.yaml](./restrict-hostport.yaml) and [restrict-root.yaml](./restrict-root.yaml) for examples.
 
 ## Network Security Policies ## 
+
 
 ## Encrypting Secrets At Rest ##
 
