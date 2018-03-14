@@ -1,4 +1,4 @@
-#This is the most standard way of dealing with the volumes being mounted as root.
+#This example demonstrates one strategy for dealing with the volumes being mounted as root.
 #Have an initContainer that runs in privileged mode.  Add a user and chown the mount
 #to that user.  In the main container, runAsUser with the GID of the user.
 kind: Pod
