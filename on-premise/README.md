@@ -1,6 +1,10 @@
-# Deploying Kubernetes On-premise #
+# Deploying Kubernetes On-premise
 
-Although cloud in most cases is the way to go, there will be situations that Kubernetes must be deployed on-premise.  There are many options to deploy Kubernetes on-premises.  Here we list some different options as well as links to resources. *Note, this is not a definitive list!  I only list distributions I have experience with.*  I will then deploy a K8S cluster using kubeadm.
+Although cloud in most cases is the way to go, there will be situations that Kubernetes must be deployed on-premise.  There are many options to deploy Kubernetes on-premises.  Here we list some different options as well as links to resources. 
+
+**Note, this is not a definitive list! I only list distributions I have experience with.**  
+
+Which option is best for you depends on your objectives.  In general, each solution sits on multiple axes of *flexibilty/control*, *ease of management/deployment*, *license cost*.  
 
 - [Kubeadm](#ka)
 - [Kubespray](#ks)
