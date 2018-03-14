@@ -2,10 +2,10 @@
 
 Here we will cover some fundamental cluster administration considerations on Azure.  We will focus on Azure specific concerns and leave the more general overview to the [excellent docs](https://kubernetes.io/docs/tasks/) at K8S.io. 
 
-- [Resource Quotas](#Resource-Quotas)
-- [Limit Ranges](#Limit-Ranges)
-- [Container Network Interface](#cni)
-- [Upgrading the Cluster](#upgrading)
+- [Resource Quotas](##Resource-Quotas)
+- [Limit Ranges](##Limit-Ranges)
+- [Container Network Interface](##Container-Network-Interface)
+- [Upgrading the Cluster](##Upgrading-the-Cluster)
 - [Backup And Disaster Recovery](#backup)
 
 ## Resource Quotas
