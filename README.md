@@ -71,11 +71,13 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - [Ingress](./ingress/README.md) - Customizing the routing your published services.
     - Deploying the nginx ingress controller
     - Configuring routing to different version of your services
-- [RBAC - Role Based Access Control](./rbac/README.md) - Controlling access to your K8S cluster.
+- [Securing your cluster](./security/README.md) - Controlling access to your K8S cluster.
     - K8S authn/authr model
-    - Roles and Role bindings
-    - Integrating Azure AD for authn/authr
-    - Creating custom roles and role bindings to only allow access to a specific namespace (e.g. qa or dev)
+    - RBAC
+        - Roles and Role bindings
+        - Creating custom roles and role bindings to only allow access to a specific namespace (e.g. qa or dev)
+    - Pod Security Policies
+    - Encrypting secrets at rest
 - [Monitoring and Log Aggregation](./monitoring-logging/README.md)
     - Deploying Azure Log Analytics and OMS
     - Deploying EFK (Elasticsearch, Fluentd, Kibana) for log aggregation, Prometheus and Grafana for monitoring
