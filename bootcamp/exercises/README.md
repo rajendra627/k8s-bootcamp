@@ -1,20 +1,21 @@
-# Setting up your environment #
+# Setting up your environment
 
 There are multiple options for provisioning a K8S cluster.  For our purposes, we will use ACS as it supports RBAC.  For local development, you can set up Minikube, which provides you a single node K8S cluster.  An alternative is [bootkube](https://github.com/kubernetes-incubator/bootkube/tree/master/hack/multi-node) which provides you a local, multi-node cluster to test multi-node scenarios.  I provide you instructions below to provision an ACS cluster and also setting up Minikube.
 
 You will need the following tools installed:
 
-* Azure CLI
-* docker (only required if you will be building the docker images)
-* Helm (a package management tool for Kubernetes applications)
-* kubectl (The kubernetes CLI)
-* Visual Studio Code
+* [Azure CLI](#az)
+* [docker (only required if you will be building the docker images)](#d)
+* [Helm (a package management tool for Kubernetes applications)](#helm)
+* [kubectl (The kubernetes CLI)](#k)
+* [Visual Studio Code](#code)
+* [Minikube (optional, only if you want to run all the exercises)](#mk)
 
-## Installing Azure CLI ##
+## <a id="az"></a>Installing Azure CLI
 
 Install the latest version of azure cli for your operating system from [here](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest).
 
-## Install Docker ##
+## <a id="d"></a>Install Docker
 
 Install docker for your operating system.
 
@@ -28,7 +29,7 @@ After you have installed docker and the azure cli, run the following commands to
 az --version
 docker version
 ```
-## Install Visual Studio Code ##
+## <a id="code"></a>Install Visual Studio Code
 
 Download and install VS Code for your OS.  [https://code.visualstudio.com/](https://code.visualstudio.com/)
 
@@ -71,7 +72,7 @@ For example,
 az provider register -n Microsoft.ContainerService
 ```
 
-## Create a K8S cluster on Azure and install kubectl ##
+## <a id="k"></a>Create a K8S cluster on Azure and install kubectl ##
 
 After you have verified your subscription has the necessary providers registered, create a test K8S cluster on Azure. To do so, run the following commands (you already have to be logged into Azure via the CLI). Note, I use the resource group name ``k8s-example`` and cluster name ``test-cluster`` but you can name them what you want.
 
@@ -130,7 +131,7 @@ kubectl proxy
 
 Open a brower and navigate to ```http://127.0.0.1:8001/ui``` and you will see the dashboard.
 
-## Install Helm ##
+## <a id="helm"></a>Install Helm
 
 To install helm follow the instruction [here](https://github.com/kubernetes/helm/blob/master/docs/install.md).  Note that to install the server side of Helm (tiller), you need the K8S cluster running.
 
@@ -138,14 +139,14 @@ To install helm follow the instruction [here](https://github.com/kubernetes/helm
 helm init --upgrade
 ```
 
-## Bringing down your cluster ##
+## Bringing down your cluster
 
 In order to not incur Azure costs, you should tear down your cluster when not in use.  At the end of each day just delete the resource group.
 
 ```sh
 az group delete -n <rg-name>
 ```
-## Setting up Minikube ##
+## <a id="mk"></a>Setting up Minikube
 
 This part is only for those of you who want to work on a local cluster with the latest version of Kubernetes.
 
@@ -159,7 +160,7 @@ See the installation instructions for your OS [here](https://github.com/kubernet
 
 Once installed, run the following command to start up Minikube.  This will download the latest release of K8S and start a single node cluster locally.
 
-### Enabling RBAC on Minikube ###
+### Enabling RBAC on Minikube
 
 - Start up minikube with the options to enable RBAC on the api-server.
 
@@ -193,17 +194,17 @@ minikube ssh <pod-name>
 minikube delete
 ```
 
-## What is AKS, ACS, and ACS Engine? ##
+## What is AKS, ACS, and ACS Engine?
 
 AKS is a new fully managed service that frees you from worrying about managing the underlying VM, storage, and network resources.  With ACS, you are responsible for patching the OS etc, while with AKS you do not need to worry about these operational tasks.  Eventually, AKS will be replacing ACS.
 
 ACS Engine is an open source project that allows you to customize your K8S deployment on Azure.  It generates the ARM (Azure Resource Manager) templates to provision the virtual machines, the storage, network, and then the K8S cluster.  It is much more flexible in terms of K8S features you can enable.  For example, if you need to enable features such as AdvancedAuditing, then you need to use ACS Engine.  However, you are responsible for maintaining ALL the resources and hence you will need to have the processes and skillset to do so.  In a nutshell, you can think of ACS Engine as *IaaS* and AKS as *PaaS* versions of Kubernetes on Azure.
 
-## Next... ##
+## Next...
 
 Go to [Exercise 1](./exercise1.md)
 
-## References ##
+## References
 
 * [Kubectl Cheatsheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
 * [Kubectl Command Reference](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#-strong-getting-started-strong-)
