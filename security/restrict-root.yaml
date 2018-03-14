@@ -7,11 +7,15 @@ spec:
   privileged: false
   runAsUser:
     rule: MustRunAsNonRoot
+  #SELinux must be enabled on the nodes
   seLinux:
     rule: RunAsAny
+  #The allowable GID that can be set by the pod/container to access a volume
   fsGroup:
     rule: RunAsAny
+  #The additional GID that can be set by the pod/container
   supplementalGroups:
     rule: RunAsAny
+  #what types of volumes that are allowed
   volumes:
   - '*'
