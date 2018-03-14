@@ -2,19 +2,19 @@
 
 Here we will cover some fundamental cluster administration considerations on Azure.  We will focus on Azure specific concerns and leave the more general overview to the [excellent docs](https://kubernetes.io/docs/tasks/) at K8S.io. 
 
-- [Resource Quotas](#rq)
-- [Limit Ranges](#lr)
-- [Container Network Interface](#cni)
-- [Upgrading the Cluster](#upgrading)
-- [Backup And Disaster Recovery](#dr)
+- [Resource Quotas](#markdown-header-resource-quotas)
+- [Limit Ranges](#markdown-header-limit-ranges)
+- [Container Network Interface](#markdown-header-container-network-interface)
+- [Upgrading the Cluster](#markdown-header-upgrading-the-cluster)
+- [Backup And Disaster Recovery](#markdown-header-backup-and-disaster-recovery)
 
-## <a name="rq"></a>Resource Quotas
+## Resource Quotas
 
-## <a name="lr"></a>Limit Ranges
+## Limit Ranges
 
-## <a name="cni"></a>Container Network Interface
+## Container Network Interface
 
-## <a name="upgrading"></a>Upgrading the Cluster
+## Upgrading the Cluster
 
 The steps to upgrade your cluster depends on how it was deployed.  If you are on AKS, then the az cli has a command that will upgrade the cluster `az aks upgrade`.  Just provide the name of your current cluster, the K8S version to upgrade to.  Note, your cluster will be unavailable during an upgrade.
 
@@ -26,7 +26,7 @@ For clusters that were deployed using `kubeadm` then follow these [instructions]
 
 If your cluster is based on [CoreOS Tectonic](https://coreos.com/tectonic/) or [Rancher](http://rancher.com/kubernetes/), then look at the docs for those distributions.
 
-## <a name="dr"></a>Backup And Disaster Recovery
+## Backup And Disaster Recovery
 
 At any point, you need to be able to re-create your environment to a well-known state.  There are 4 key areas of focus:
 1. The infrastructure.  Whether deployed to the cloud or on-premise, you should have fully automated scripts to be able re-provision the environment including network, compute, storage resources, identity etc.
