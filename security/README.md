@@ -4,10 +4,10 @@ Securing your Kubernetes cluster is a large topic.  Here we discuss Kubernetes n
 
 The primary K8S capabilities for securing your workloads are:
 
-- RBAC (Role-Based Access Control)
-- Pod Security Policy
-- Network Security Policy
-- Encrypting Secrets At Rest
+- [RBAC (Role-Based Access Control)](#markdown-header-rbac)
+- [Pod Security Policy](#markdown-header-pod-security-policy)
+- [Network Security Policy](#markdown-header-network-security-policy)
+- [Encrypting Secrets At Rest](#encryption-at-rest)
 
 **Of course, there are many other considerations to securing your cluster depending on how it is deployed. For example, key management, patching your OS, process, and many more.  Here we only cover the main K8S considerations for securing your cluster**
 
