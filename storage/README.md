@@ -135,17 +135,17 @@ So you need to consider you use-cases and provisioner constraints to make the ri
 * For fast performance and restrictive access modes e.g. databases use AzureDisk Premium
 * For storage requirements for data that does not change often, e.d. static html, pre-rendered javascript, etc, that needs to be accessed by many pods then use AzureFile.
 
-## Other Limitations To Be Aware of ##
+## Non-Root Containers and Volumes ##
 
-When volumes are mounted onto a node, that volume is mounted with root ownership. This is a major problem because the best practices with Docker images is to NOT run in privileged mode.  As much as possible, the process in the container should run as a specific UID/GID that is not root.  There are different way to deal with this depending on the volume implementation, however, the most standard way right now is use to initContainers.  An initContainer is a container that does some initialization work that must complete successfully prior to the primary container starting.  You can have the init container start up as root but then run `chown -R UID path` to change owner and hence permissions to the UID:GID the primary container will run as.
+When volumes are mounted onto a node, that volume is mounted with root ownership. This poses a challenge because the best practices with Docker images is to NOT run in privileged mode.  As much as possible, the process in the container should run as a specific UID/GID that is not root.  There are different way to deal with this depending on the volume implementation, however, the most standard way right now is use to initContainers.  An initContainer is a container that does some initialization work that must complete successfully prior to the primary container starting.  You can have the init container start up as root then `chown` and `chmod` to change owner and permissions to the UID:GID the primary container will run as.
 
 See [non-root-pod-correct.yml](./non-root-pod-correct.yml) for an example.
 
 Here is the issue that describes the problem - https://github.com/kubernetes/kubernetes/issues/2630.  Note, this issue is scheduled to be addressed in the next major milestone.
 
-Some proposed approaches to address this issue without using initContainers are:
+Other approaches to address this issue without using initContainers are:
 
-- Using [mountOptions](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options), however, this is not supported by all volume types and it is not supported on Azure prior to version 1.8.5 of Kubernetes.
+- Using [mountOptions](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options), however, this is not supported by all volume types and it is not supported on Azure prior to version 1.8.5 of Kubernetes which as of now is only available through ACS Engine.
 - Using [pod.spec.securityContext.fsGroup](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/). This changes the owning GID of the volume to the GID set in fsGroup. Again, not supported by all volume types.
 - Using supplementalGroups.  See [security/pod-security-policies.yml](../security/pod-security-policies.yml)
 
