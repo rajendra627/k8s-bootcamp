@@ -1,6 +1,6 @@
 # Secrets Management with Hashicorp Vault #
 
-Kubernetes has a Secret resource type, however, it is essentially a ConfigMap that base64 encodes the values.  In order to support a true "zero-trust" model, you should use a robust key management solutions such as Vault or Azure's own KeyVault.  Here we will deploy Vault as it supports native integration with K8S via the ServiceAccount model.
+Kubernetes has a Secret resource type, however, it is essentially a ConfigMap with base64 encoded values.  Furthermore, with secrets alone, there is no built-in means to manage key revocation, auditing etc.  In order to support a true "zero-trust" model, you should use a robust key management solutions such as Vault or Azure's own KeyVault.  Here we will deploy Vault as it supports native integration with K8S via the ServiceAccount model.
 
 ## Reference ##
 
