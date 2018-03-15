@@ -18,9 +18,9 @@ minikube addons enable ingress
 
 Then run the script `./init-draft.sh`.  This script will initilize helm, and draft with all the necessary permissions to deploy resources to the draft namespace.
 
-After you have initialized helm and draft, run the commands below.
+After you have initialized helm and draft, run the commands below. 
 
 ```sh
-draft create --draft-namespace draft todo-ui
+draft create todo-ui
 ```
 
