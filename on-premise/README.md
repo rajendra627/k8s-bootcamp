@@ -11,7 +11,6 @@ Which option is best for you depends on your objectives.  In general, each solut
 - [CoreOS Tectonic](#markdown-header-coreos-tectonic)
 - [Rancher](#markdown-header-rancher)
 - [Redhat Openshift](#markdown-header-redhat-openshift)
-- [Kubernetes The Hard Way on Azure](#kubernetes-the-hard-way-on-azure)
 
 ## Kubeadm 
 
@@ -34,7 +33,3 @@ See [kubeadm overview](https://kubernetes.io/docs/reference/setup-tools/kubeadm/
 ## Redhat Openshift Container Platform
 
 [Redhat OCP](https://www.openshift.com/container-platform/index.html) is probably one of the most widely deploy Kubernetes distribution in large enterprises.  It can be deployed on-premise as well as in the cloud.  Redhat also provides a cloud managed solution on AWS called [Openshift Online](https://www.openshift.com/pricing/index.html).  Organizations like OCP because it is a PaaS platform built on top of Kubernetes, and it comes with integrated CI/CD based on Jenkins, monitoring/log aggregation using Prometheus/Fluentd/Graphana, project-based RBAC and more.  OCP is very security focused out of the box.  It will not allow you to deploy privileged containers so many of the images in DockerHub will not work.  This is actually a good thing!  Note, OCP is very much RH oriented.  This means it deploys to RHEL.  It supports other Linux OS if you are deploying the open source version of Openshift.  
-
-## Kubernetes The Hard Way on Azure 
-
-The [Kubernetes The Hard Way on Azure](https://github.com/ivanfioravanti/kubernetes-the-hard-way-on-azure) is based on Kelsey Hightower's excellent [tutorial](https://github.com/kelseyhightower/kubernetes-the-hard-way) by the same name deployed to GCP.  This tutorial walks you through deploying an HA cluster on Azure entirely manually - no scripts.  It is helpful for learning but it is not appropriate for production deployments, which should be automated.
