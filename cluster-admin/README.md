@@ -12,13 +12,23 @@ Here we will cover some fundamental cluster administration considerations on Azu
 
 ## Limit Ranges
 
-## Container Network Interface
+## Container Network Interface 
+
+CNI is the network plugin model used by Kubernetes to abstract away the underlying pod network implementation.  Usually, you do not need to be aware of CNI unless you wish to enable [network policies].(https://kubernetes.io/docs/concepts/services-networking/network-policies/). 
+
+Network policies enable you to specify how a group of pods communicate with each other.  For example, let's say you want to ensure pods can only communicate with other pods in the same namespace, you can achieve this with network policies.
+
+To enable network policies, you need to enable CNI on the cluster.  This is done by passing the `--network-plugin=cni` option to the kubelets.  Note, this is done by default on AKS, ACS and ACS Engine.
+
+**Note, not all CNI plugins support network policies.**
+
+See [installing addons](https://kubernetes.io/docs/concepts/cluster-administration/addons/) for instructions for different CNI plugins. Please note, depending on your K8S deployment, not all CNI plugins will be supported. AKS supports CNI but only the azure-cni plugin for now.  For acs-engine, see [CNI support on Azure](https://github.com/Azure/acs-engine/tree/master/examples/networkpolicy).  On ACS engine, only calico supports network policies.
 
 ## Upgrading the Cluster
 
 The steps to upgrade your cluster depends on how it was deployed.  If you are on AKS, then the az cli has a command that will upgrade the cluster `az aks upgrade`.  Just provide the name of your current cluster, the K8S version to upgrade to.  Note, your cluster will be unavailable during an upgrade.
 
-If you deployed using ACS Engine, then then you would upgrade using the command `acs-engine upgrade`.  See details [here](https://github.com/Azure/acs-engine/tree/master/examples/k8s-upgrade)
+If you deployed using ACS Engine, then you would upgrade using the command `acs-engine upgrade`.  See details [here](https://github.com/Azure/acs-engine/tree/master/examples/k8s-upgrade)
 
 If you are on ACS then you will have to upgrade manually - or use a configuration management tool.  ACS uses `hyperkube` (an all-in-one binary of K8S components) to bootstrap the cluster, so you will need to upgrade the hyperkube images on all the nodes and then the manifests to reflect the new version.  The manifests are located in `/etc/kubernetes/manifests/` directory of the master nodes.
 
@@ -34,4 +44,4 @@ At any point, you need to be able to re-create your environment to a well-known 
 3. The data.  The cluster configuration is stored in etcd and any persistent volumes.  This data needs to be backedup on a scheduled basis.  There should be a process and scripts to restore the etc cluster from the snapshot.  
 4. The application containers that are deployed to kubernetes.  This is the easiest part as your containers will be in a container registry and the desired state is in etcd.
 
-There are multiple means to achieve this, from custom scripting (you don't want to do this!!) to using available products.  If you are deploying to Azure, GCP, AWS or on-premise, you can use [Heptio Ark](https://heptio.com/products/#heptio-ark) for steps 2, 3, 4.
+There are multiple means to achieve this, from custom scripting to using available products.  If you are deploying to Azure, GCP, AWS or on-premise, you can use [Heptio Ark](https://heptio.com/products/#heptio-ark) for steps 2, 3, 4.
