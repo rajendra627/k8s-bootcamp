@@ -24,6 +24,29 @@ To enable network policies, you need to enable CNI on the cluster.  This is done
 
 See [installing addons](https://kubernetes.io/docs/concepts/cluster-administration/addons/) for instructions for different CNI plugins. Please note, depending on your K8S deployment, not all CNI plugins will be supported. AKS supports CNI but only the azure-cni plugin for now.  For acs-engine, see [CNI support on Azure](https://github.com/Azure/acs-engine/tree/master/examples/networkpolicy).  On ACS engine, only calico supports network policies.
 
+Here is an example of a Network Policy that prevents ingress access to the database pods from anything except pods with the label `access=true`.  Note, Network Policies are applied at the namespace level.
+
+```yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: db-access
+spec:
+  #This policy applies to those pods with label 'service=database'
+  podSelector:
+    matchLabels:
+      service: 'database'
+  #This is the ingress rule.  It will only allow ingress from those
+  #pods that have the label 'access=true'
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          access: 'true'
+```
+
+See this this [blog post on k8s.io](http://blog.kubernetes.io/2017/10/enforcing-network-policies-in-kubernetes.html) for more info on Network Policies.  See also the excellent [Network Policy Recipes](https://github.com/ahmetb/kubernetes-network-policy-recipes) for some in-depth examples of policies.
+
 ## Upgrading the Cluster
 
 The steps to upgrade your cluster depends on how it was deployed.  If you are on AKS, then the az cli has a command that will upgrade the cluster `az aks upgrade`.  Just provide the name of your current cluster, the K8S version to upgrade to.  Note, your cluster will be unavailable during an upgrade.
