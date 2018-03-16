@@ -81,7 +81,7 @@ See the following references for more details:
 
 ## Container Network Interface 
 
-CNI is the network plugin model used by Kubernetes to abstract away the underlying pod network implementation.  Usually, you do not need to be aware of CNI unless you wish to enable [network policies].(https://kubernetes.io/docs/concepts/services-networking/network-policies/). 
+CNI is the network plugin model used by Kubernetes to abstract away the underlying pod network implementation.  Usually, you do not need to be aware of CNI unless you wish to enable [network policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/). 
 
 Network policies enable you to specify how a group of pods communicate with each other.  For example, let's say you want to ensure pods can only communicate with other pods in the same namespace, you can achieve this with network policies.
 
