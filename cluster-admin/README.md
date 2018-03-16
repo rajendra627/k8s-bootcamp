@@ -10,7 +10,42 @@ Here we will cover some fundamental cluster administration considerations on Azu
 
 ## Resource Quotas
 
-[ResourceQuotas](https://kubernetes.io/docs/concepts/policy/resource-quotas/) are a means for the cluster admin to control how much resources are consumed by pods within a given namespace. For storage, you can specify the following:
+[ResourceQuotas](https://kubernetes.io/docs/concepts/policy/resource-quotas/) are a means for the cluster admin to contrain how much resources (cpu/memory/storage) are consumed by pods, in AGGREGATE, within a given namespace.  Here is an example RC for cpu/memory:
+
+```yaml
+#Resource quota
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: mem-cpu-demo
+spec:
+  #note, there is no 'soft'
+  hard:
+# See https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
+# for explanation of the units used for cpu/memory.  A more detailed explanation is here:  
+# https://blog.digilentinc.com/mib-vs-mb-whats-the-difference/  
+    requests.cpu: "1"
+    requests.memory: 1Gi
+    limits.cpu: "2"
+    limits.memory: 2Gi
+```
+
+Here is an example RC for storage:
+
+```yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: storagequota
+spec:
+  hard:
+   #The max number of PVC that can be created
+    persistentvolumeclaims: "5"
+    #The max storage that can be consumed
+    limits.storage: "5Gi"
+```
+
+For storage, you can specify the following:
 
 - How many PVCs are created
 - How much storage is consumed across all PVCs
@@ -28,8 +63,21 @@ kubectl get resourcequotas
 No resources found.
 ```
 
-
 ## Limit Ranges
+
+LimitRanges are resources that provide cluster admins a means to contrain how much resources are consumed by a GIVEN pod within a given namespace. They differ from ResourceQuotas which contrains the aggregate resource consumption by all pods in the given namespace.  For cpu and memory resources, you can do the following:
+
+- Set the default cpu/memory/storage request/limits for pods.  If the pod does not specify limits/requests, and LimitRanges are defined, the LimitRange Admission Controller sets the defaults.  See [default-cpu-memory.yaml](./default-cpu-memory.yaml)
+- Set the min/max range that can be consumed by a pod. See [min-max-cpu-memory.yaml](./min-max-cpu-memory.yaml)
+
+For storage resources, you can specify:
+
+- The min/max storage that can be requested in a PersistentVolumeClaim. See [min-max-storage.yaml](./min-max-storage.yaml)
+
+See the following references for more details:
+- [Memory](https://kubernetes.io/docs/tasks/administer-cluster/memory-default-namespace/)
+- [CPU](https://kubernetes.io/docs/tasks/administer-cluster/cpu-default-namespace/) 
+- [Storage](https://kubernetes.io/docs/tasks/administer-cluster/limit-storage-consumption/)
 
 ## Container Network Interface 
 
