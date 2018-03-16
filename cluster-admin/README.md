@@ -10,6 +10,25 @@ Here we will cover some fundamental cluster administration considerations on Azu
 
 ## Resource Quotas
 
+[ResourceQuotas](https://kubernetes.io/docs/concepts/policy/resource-quotas/) are a means for the cluster admin to control how much resources are consumed by pods within a given namespace. For storage, you can specify the following:
+
+- How many PVCs are created
+- How much storage is consumed across all PVCs
+- How much storage of a given storage class is consumed
+- The much ephermeral storage can be requested and consumed.  
+
+ResourceQuotas will only measure usage for a resource that matches the scope specified by the cluster admin.  If a scope is not defined, all resources are in scope.  See [Quota Scopes](https://kubernetes.io/docs/concepts/policy/resource-quotas/)
+
+To verify if ResourceQuotas have been enabled on your cluster, run:
+
+```sh
+kubectl get resourcequotas
+
+#You should get a response similar to this:
+No resources found.
+```
+
+
 ## Limit Ranges
 
 ## Container Network Interface 
