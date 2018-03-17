@@ -146,8 +146,10 @@ Here is the issue that describes the problem - https://github.com/kubernetes/kub
 Other approaches to address this issue without using initContainers are:
 
 - Using [mountOptions](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options), however, this is not supported by all volume types and it is not supported on Azure prior to version 1.8.5 of Kubernetes which as of now is only available through ACS Engine.
-- Using [pod.spec.securityContext.fsGroup](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/). This changes the owning GID of the volume to the GID set in fsGroup. Again, not supported by all volume types.
-- Using supplementalGroups.  See [security/pod-security-policies.yml](../security/pod-security-policies.yml)
+- Using [pod.spec.securityContext.fsGroup](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/). This changes the owning GID of the volume to the GID set in fsGroup. Again, not supported by all volume types.  
+- Using [pod.spec.securityContext.supplementalGroups](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#users-and-groups). Enables you to specify additional linux supplementary groups for the process at runtime. Again, not supported by all volume types.
+
+For supplementalGroups, the cluster admin needs to be aware of the permissions set in the target source.  For example, when an NFS share is mounted, the permissions and ownership of the target share is known, add the GID to the supplementalGroups.  
 
 ## References ##
 
