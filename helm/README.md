@@ -44,7 +44,7 @@ Then update the ingress resource to reflect the external IP.
 
 ```sh
 #this will load the yaml manifest in your editor.
-kubectl edit ingress/todo-app-ingress --namespace todo-app
+kubectl edit ingress/todo-app-ingress --namespace <namespace>
 ```
 
 Update the `host:` field with your `EXTERNAL-IP.nip.io` and save the file. kubectl will update the ingress with the new value.  Note, the host field only accepts a valid DNS name, IP addresses are not allowed.  To deal with this we will use a dynamnic DNS service called nip.io.
