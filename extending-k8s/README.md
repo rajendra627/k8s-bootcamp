@@ -6,15 +6,75 @@ Kubernetes is highly extensible, and it provides well-defined extension points. 
 - [API Aggregation](#markdown-header-api-aggregation-advanced)
 - [Service Catalog](#markdown-service-catalog) 
 
-The first two extension points enable you to extend K8S with new resource types and components that act on those resources types.  The types of resource types you can create is only limited by your imagination.  At a high-level, how the two approaches differ is on along the axes of simplicity and flexibility.  The CRD approach is simpler but less flexible, the Aggregated API approach is more complicated but more flexible.  See the differences [here](https://www.openservicebrokerapi.org/).  
+The first two extension points enable you to extend K8S with new resource types and components that act on those resources types.  This enables you to create higher levels of abstraction on top of native Kubernetes primitives.  For example, you could create a `MySQLDatabase` resource to simplify the deployment of an HA MySQL cluster on Kubernetes.  You would then create a custom controller that would watch for these resources and programmatically create/update/delete K8S Statefulsets, PersistentVolumes, etc to deploy the MySQL cluster.  The resources you can create is only limited by your imagination!  
+
+At a high-level, how the two approaches differ is on along the axes of simplicity and flexibility.  The CRD approach is simpler but less flexible, the Aggregated API approach is more complicated but more flexible.  See the differences [here](https://www.openservicebrokerapi.org/).  
 
 Service Catalog enables you to expose external services, including provisioning and binding to those external services via the [Open Service Broker API](https://www.openservicebrokerapi.org/).   For example, let's say you want to provision and bind to the Azure CosmosDB database service in a declarative manner?  You can do so through Service Catalog.
 
 ## Custom Resource Definitions
 
-Custom Resource Definitions is the simpler approach to introduce new resources to K8S.  The CRD resource specifies your custom resource in a declarative manner.  As of version 1.8, you specify a validation schema in your CRD and have the kube-apiserver validate instances of your resource that is submitted to by clients.  
+Custom Resource Definitions is the simpler approach to introduce new resources to K8S.  As of version 1.8, you can specify a validation schema in your CRD and have the kube-apiserver validate instances of your resource that is submitted to by clients.  
 
-**Note custom resource validation is alpha in v1.8 and needs to be [enabled](https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)** 
+**Note, custom resource validation is alpha in v1.8 and needs to be [enabled](https://kubernetes.io/docs/tasks/access-kubernetes-api/extend-api-custom-resource-definitions/)** 
+
+**Note, when you look at documentation, you may come across "Third Party Resources".  CRDs are replacement for TPRs as of version 1.7.**
+
+To check if CRDs are supported on your cluster, run the following command.
+
+```sh
+kubectl get customresourcedefinitions
+
+#you should see something like this
+No resources found.
+```
+
+### Example 
+
+To demonstrate the process of creating a CRD, I am going to use the simple but excellent example from the book [Kubernetes in Action](https://www.manning.com/books/kubernetes-in-action) by Manning.
+
+**Note, this is an EXCELLENT book on Kubernetes and I highly recommend you read it!**
+
+The scenario is as follows:
+
+We want to create a new resource called `WebSite`.  When we create this resource, a new WebSite based on the source code located at the specified git repo will be deployed and exposed in Kubernetes.  This will require a Deployment and Service resources to be created.
+
+1. First step is to define our Website CustomResource.  You do so by creating a CustomResourceDefinition resource. 
+
+```sh
+
+#We have a CRD defined in Website-crd.yaml, create it like any other resource
+kubectl create -f website-crd.yaml
+
+#Verify it has been created
+kubectl get customresourcedefinitions
+
+NAME                              AGE
+websites.extensions.example.com   16s
+
+```
+
+2. Now that the CRD has been created, create an instance of our Website resource.
+
+```sh
+kubectl create -f website.yaml
+
+#Verify it has been created
+kubectl get ws
+
+NAME      AGE
+kubia     4s
+
+```
+3. At this point, nothing happens because there is no controller that watches for the Website resource.  So we need to deploy a custom controller.  The source code for the controller is [here](https://github.com/luksa/k8s-website-controller)
+
+```sh
+
+```
+
+Below is a diagram from [Kubernetes in Action] book that describes the series of events that occur when the Website custom resource is deployed.
+
+![Website Controller](website-controller.png "Website Controller")
 
 ## API Aggregation - ADVANCED
 
@@ -65,4 +125,5 @@ If apiextensions is not enabled, then see [configure aggregation layer](https://
 - [Aggregation Layer](https://kubernetes.io/docs/concepts/api-extension/apiserver-aggregation/)
 - [Custom Resources](https://kubernetes.io/docs/concepts/api-extension/custom-resources/)
 - [Azure Open Service Broker](https://azure.microsoft.com/en-us/blog/connect-your-applications-to-azure-with-open-service-broker-for-azure/)
+- [Example creating CRDs with code-generator](https://github.com/kubernetes/sample-controller)
 
