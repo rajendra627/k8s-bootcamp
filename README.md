@@ -100,6 +100,10 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 * [12 Factor Application Principles](https://12factor.net/)
 * [Kubernetes Case Studies](https://kubernetes.io/case-studies/)
 
+### Recommended Books ###
+* [Kubernetes in Action - Fantastic book!  I use some diagrams and examples from this book.](https://www.manning.com/books/kubernetes-in-action)
+* [Kubernetes: Up And Running. Dive into the Future of Infrastructure - Excellent book by Kelsey Hightower and two of the creators of K8S, Brendan Burns & Joe Beda](https://www.amazon.ca/Kubernetes-Running-Dive-Future-Infrastructure/dp/1491935677/ref=sr_1_1?ie=UTF8&qid=1521570189&sr=8-1&keywords=kubernetes+up+and+running)
+
 ### Very Helpful Utilities ###
 
 * [kube-ps1 - displays your current K8S context and namespace in your shell prompt!](https://github.com/jonmosco/kube-ps1)
