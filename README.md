@@ -56,8 +56,9 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - [Deployments](./deployments/README.md) - Deployments enable you to perform rolling upgrades, rollback, and scale up/scale down your services.
 - [Storage](./storage/README.md) - Volumes, Persistent Volumes, Persistence Volume Claims, Storage Classes.
 - [ConfigMaps](./configmaps/README.md) - ConfigMaps enable you to define configuration that is accessible as environment variables, files in a volume or command line arguments.
-- [Daemonsets](./daemonsets/README.md) - Running pods that need to run on all or some nodes continuously e.g. for log aggregation.
-- [Jobs](./jobs/README.md) - Deploying jobs on K8S.
+- [Ingress](./ingress/README.md) - Customizing the routing your published services.
+    - Deploying the nginx ingress controller
+    - Configuring routing to different version of your services
 - [Introduction to Helm](./helm/README.md) - Package manager for K8S deployments.
     - What is it and why you need it
     - Deploying the Todo list application using Helm
@@ -66,11 +67,10 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 
 ### Day 2 Outline: ###
 
+- [Daemonsets](./daemonsets/README.md) - Running pods that need to run on all or some nodes continuously e.g. for log aggregation.
+- [Jobs](./jobs/README.md) - Deploying jobs on K8S.
 - [Statefulsets](./statefulsets/README.md) - Using statefulsets to deploy services that require role differentiation across the cluster.  For example, mysql database with master and slaves.
 - [Advanced Scheduling](./scheduling/README.md) - Controlling how your pods are scheduled to the nodes.
-- [Ingress](./ingress/README.md) - Customizing the routing your published services.
-    - Deploying the nginx ingress controller
-    - Configuring routing to different version of your services
 - [Securing your cluster](./security/README.md) - Controlling access to your K8S cluster.
     - K8S authn/authr model
     - RBAC
@@ -84,10 +84,11 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - [Cluster Administration](./cluster-admin/README.md) - Key cluster administration considerations.
 - [Advanced Secrets Management](./vault/README.md)
     - Integrating Hashicorp Vault to support "zero-trust" deployments
-- [Extending K8S](./operators/README.md)
+- [Extending K8S](./extending-k8s/README.md)
     - We will create our own K8S resource type and implement a custom controller using the "Operator" pattern
 - Brief overview of other K8S tools and projects you should know about:
     - [Draft](./draft/README.md) - Tool to help developers be productive building/testing applications on K8S
+    - [Skaffold](https://github.com/GoogleCloudPlatform/skaffold) - Similar to Draft but takes different approach.  Skaffold also supports multi-component apps which is very nice.
     - [Minikube](https://github.com/kubernetes/minikube) - Local single node K8S cluster for development and learning.
     - [Conduit](https://conduit.io/) - A lighweight microservices service mesh that can be deployed to K8S.  Provides intelligent load-balancing, telemetry and more!
     - [kubespray](https://github.com/kubernetes-incubator/kubespray) - Deploying K8S using ansible. Can be used to deploy on bare metal, on-premises VMs, various cloud providers.
