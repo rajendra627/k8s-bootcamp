@@ -124,6 +124,32 @@ See [restrict-hostport.yaml](./restrict-hostport.yaml) and [restrict-root.yaml](
 
 ## Network Security Policies ## 
 
+By default, any pod can communicate with any other pod in the cluster.  However, what about if you wanted so control what pods can communicate with other pods?  What would be the equivalent to Azure [network security groups](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-nsg) in Kubernetes?  That would be [Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/).
+
+Network policies enable you to specify how a group of pods communicate with each other. For example, let's say you want to ensure pods can only communicate with other pods in the same namespace, you can achieve this with network policies.
+
+Here is an example of a Network Policy that prevents ingress access to the database pods from anything except pods with the label `access=true`.  Note, Network Policies are applied at the namespace level.
+
+```yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: db-access
+spec:
+  #This policy applies to those pods with label 'service=database'
+  podSelector:
+    matchLabels:
+      service: 'database'
+  #This is the ingress rule.  It will only allow ingress from those
+  #pods that have the label 'access=true'
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          access: 'true'
+```
+
+See this this [blog post on k8s.io](http://blog.kubernetes.io/2017/10/enforcing-network-policies-in-kubernetes.html) for more info on Network Policies.  See also the excellent [Network Policy Recipes](https://github.com/ahmetb/kubernetes-network-policy-recipes) for some in-depth examples of policies.
 
 ## Encrypting Secrets At Rest ##
 
