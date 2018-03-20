@@ -69,10 +69,24 @@ kubia     4s
 3. At this point, nothing happens because there is no controller that watches for the Website resource.  So we need to deploy a custom controller.  The source code for the controller is [here](https://github.com/luksa/k8s-website-controller)
 
 ```sh
+#The website-controller will need a serviceAccount with sufficient privileges to access the kube-apiserver
+kubectl create serviceaccount website-controller
+kubectl create clusterrolebinding website-controller --clusterrole=cluster-admin --serviceaccount=default:website-controller
+
+#create the website-controller as a deployment
+kubectl create -f website-controller.yaml
+
+#see what pods get deployed
+kubectl get pods
+
+#Notice the kubia-website pod has been deployed
+NAME                                  READY     STATUS    RESTARTS   AGE
+kubia-website-5645d5dc9-np68m         2/2       Running   0          3m
+website-controller-84f9785c68-lzgmn   2/2       Running   1          3m
 
 ```
 
-Below is a diagram from [Kubernetes in Action] book that describes the series of events that occur when the Website custom resource is deployed.
+Below is a diagram from [Kubernetes in Action](https://www.manning.com/books/kubernetes-in-action) book that describes the series of events that occur when the Website custom resource is deployed.
 
 ![Website Controller](website-controller.png "Website Controller")
 
