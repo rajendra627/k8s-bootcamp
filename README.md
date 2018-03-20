@@ -98,7 +98,7 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 * [Borg, Omega and Kubernetes](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/44843.pdf)
 * [12 Factor Application Principles](https://12factor.net/)
 * [Kubernetes Case Studies](https://kubernetes.io/case-studies/)
-
+* [Gremlin](https://www.gremlin.com/) - Chaos Engineering for Kubernetes
 ### Recommended Books ###
 * [Kubernetes in Action](https://www.manning.com/books/kubernetes-in-action)  - Fantastic book!  I use some diagrams and examples from this book.
 * [Kubernetes: Up And Running. Dive into the Future of Infrastructure](https://www.amazon.ca/Kubernetes-Running-Dive-Future-Infrastructure/dp/1491935677/ref=sr_1_1?ie=UTF8&qid=1521570189&sr=8-1&keywords=kubernetes+up+and+running) - Excellent book by Kelsey Hightower and two of the creators of K8S, Brendan Burns & Joe Beda
