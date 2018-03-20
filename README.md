@@ -82,6 +82,8 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
     - Deploying Azure Log Analytics and OMS
     - Deploying EFK (Elasticsearch, Fluentd, Kibana) for log aggregation, Prometheus and Grafana for monitoring
 - [Cluster Administration](./cluster-admin/README.md) - Key cluster administration considerations.
+- [Advanced Secrets Management](./vault/README.md)
+    - Integrating Hashicorp Vault to support "zero-trust" deployments
 - [Extending K8S](./extending-k8s/README.md)
     - We will create our own K8S resource type and implement a custom controller using the "Operator" pattern
 - Brief overview of other K8S tools and projects you should know about:
