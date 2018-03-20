@@ -86,9 +86,25 @@ website-controller-84f9785c68-lzgmn   2/2       Running   1          3m
 
 ```
 
-Below is a diagram from [Kubernetes in Action](https://www.manning.com/books/kubernetes-in-action) book that describes the series of events that occur when the Website custom resource is deployed.
+Below is a diagram from the [Kubernetes in Action](https://www.manning.com/books/kubernetes-in-action) book that describes the series of events that occur when the Website custom resource is deployed.
 
-![Website Controller](website-controller.png "Website Controller")
+![Website Controller](./images/website-controller.png "Website Controller")
+
+The website-controller pod contains 2 containers.
+
+1. The controller itself that watches for 'Website' resources and deploys the website pod (which is just an nginx container that serves a static page)
+2. A kubectl-proxy container as a 'side-car' container.  
+
+The controller needs to communicate with the kube-apiserver in an authenticated manner.  The simplest way is to start up kubectl in proxy mode.  Since containers within the same pod share the same network namespace, the controller container can access the proxy via 'localhost'.  On start up, the controller gets a list of all 'Website' resource by sending a GET request like so:
+
+```sh
+#Notice the api path is group/version/resource as defined in the CRD
+http://localhost:8001/apis/extensions.example.com/v1/websites?watch=true
+```
+
+See the following diagram from the [Kubernetes in Action](https://www.manning.com/books/kubernetes-in-action) book.
+
+![Controller Pod](./images/controller-pod.png)
 
 ## API Aggregation - ADVANCED
 
