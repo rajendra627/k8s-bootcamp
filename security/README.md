@@ -41,7 +41,7 @@ minikube start --extra-config=apiserver.Authorization.Mode=RBAC
 
 # required to get the kube-dns and dashboard pods to run
 # See https://github.com/kubernetes/minikube/issues/1734
-kubectl create -f minikube-rbac-privileges.yaml
+kubectl create -f minikube-rbac-privileges.yml
 ```
 
 **MAKE SURE THE PROPER APIVERSION IS SET IN YOUR RESOURCES**
