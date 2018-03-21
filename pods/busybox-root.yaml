@@ -8,7 +8,7 @@
 #
 # 3) from the shell run:
 # 
-# id -u `whoami`
+# id
 #
 # 4) uncomment the sections below and redeploy:
 #
