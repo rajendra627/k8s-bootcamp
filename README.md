@@ -77,7 +77,6 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
         - Roles and Role bindings
         - Creating custom roles and role bindings to only allow access to a specific namespace (e.g. qa or dev)
     - Pod Security Policies
-    - Encrypting secrets at rest
 - [Monitoring and Log Aggregation](./monitoring-logging/README.md)
     - Deploying Azure Log Analytics and OMS
     - Deploying EFK (Elasticsearch, Fluentd, Kibana) for log aggregation, Prometheus and Grafana for monitoring
