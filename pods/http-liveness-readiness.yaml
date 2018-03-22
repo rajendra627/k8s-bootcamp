@@ -49,5 +49,5 @@ spec:
     # If Always, OnFailure, kubectl will retry with exponential backoff delay up 
     # to 5 mins and is reset after 10 mins of successful execution.
     # See https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
-    restartPolicy: OnFailure
+#    restartPolicy: OnFailure
 
