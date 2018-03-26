@@ -156,4 +156,5 @@ If apiextensions is not enabled, then see [configure aggregation layer](https://
 - [Custom Resources](https://kubernetes.io/docs/concepts/api-extension/custom-resources/)
 - [Azure Open Service Broker](https://azure.microsoft.com/en-us/blog/connect-your-applications-to-azure-with-open-service-broker-for-azure/)
 - [Example creating CRDs with code-generator](https://github.com/kubernetes/sample-controller)
+- [Excellent overview of K8S APIs](https://medium.com/programming-kubernetes/building-stuff-with-the-kubernetes-api-toc-84d751876650)
 
