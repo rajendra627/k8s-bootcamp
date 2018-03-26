@@ -13,6 +13,11 @@ If you do not specify a namespace, the default will be todo-app.  make sure you 
 
 After you have deployed the application with conduit, execute `conduit dashboard` to access the conduit dashboard and view which pods have been instrumented by Conduit.
 
+## Linkerd ##
+
+Linkerd is another service-mesh from Bouyant that supports Kubernetes.  It is production ready, whereas, Conduit is very new.  So why Conduit when there is already Linkerd?  Conduit is K8S native whereas Linkerd is designed to be a more generic service-mesh.  Linkerd is also more heavy-weight.  However, if you want to use a service-mesh today, you should use Linkerd.
+
+See the following series of articles on how to [deploy linkerd to Kubernetes](https://buoyant.io/2016/10/04/a-service-mesh-for-kubernetes-part-i-top-line-service-metrics/)
 ## References ##
 
 - [Linkerd service-mesh](https://linkerd.io)
