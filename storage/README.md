@@ -66,7 +66,7 @@ pv-claim-02   Pending   pv-volume   0                         standard       5s
 
 ```
 
-*Note: It is very important that you do not remove PVCs indiscriminantly!!! K8S 1.9 does have an alpha feature that will not remove PVCs that are in active use by a pod.  However, this needs to be enabled and prior versions do not have any such safety net.*
+*Note: It is very important that you do not remove PVCs indiscriminantly!!! K8S 1.10 does have an beta feature that will not remove PVCs that are in active use by a pod, or a PV that is bound to a PVC.  However, this needs to be enabled and prior versions do not have any such safety net.*
 
 *Note: How a PV is reclaimed after a PVC is removed depends on the reclaim policy - Retain, Recycle, Delete. Delete is the most destructive as it also deletes the PV and the underlying backing storage.  Not all storage providers support all policies. See [reclaim policies](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#reclaiming) for details*
 
@@ -126,7 +126,7 @@ pvc-default-class   Bound     pvc-7fe2dac2-265a-11e8-a59b-080027a22b9d   3Gi    
 
 ##  Understand The Constraints Of The Underlying Storage Implementation ##
 
-It is very important to understand the constraints imposed by the underlying storage implementation.  For example, on Azure there are two provisioners - azureDisk and azureFile.  azureDisk comes in standard (e.g. spinning, magnetic disks) and premium (.e.g SSD), they are disks that are mounted onto a specific node and Azure has fixed limits on how many data disks can be mounted onto a given VM size.  Furthermore, azureDisk only supports ReadWriteOnce access mode. Therefore, for stateful applications, you need to think hard about how many pod instances you need to determine how many data disks you need, and hence the appropriate VM size for the node.  
+It is very important to understand the constraints imposed by the underlying storage implementation.  For example, on Azure there are two provisioners - azureDisk and azureFile.  azureDisk comes in standard and premium, they are virtual hard disks (.vhd files) stored as page blogs in your Azure Storage account. These .vhds are mounted onto a specific VM, and Azure has fixed limits on how many data disks can be mounted onto a given VM size.  Furthermore, azureDisk only supports ReadWriteOnce access mode. Therefore, for stateful applications, you need to think hard about how many pod instances you need to determine how many data disks you need, and hence the appropriate VM size for the node.  
 
 Azure also has the azureFile provisioner.  This provisioner essentially mounts a CIFS/Samba fileshare.  This has some limitations in that even though the cluster may be Linux, the underlying storage implementation will CIFS and hence does not support all Linux filesystem capabilities (e.g. symlinks)  It is also significantly slower than azureDisk.  On the other hand, AzureFile does support more access modes than Azure Disk.  This means, multiple pods can reference the SAME PVC that is bound to the same PV.
 
