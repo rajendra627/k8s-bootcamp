@@ -160,4 +160,6 @@ See this this [blog post on k8s.io](http://blog.kubernetes.io/2017/10/enforcing-
 - [Autogenerating RBAC manifests from K8S audit logs](https://github.com/liggitt/audit2rbac)
 - [Excellent guide by Bitami on Pod Security Policies](https://docs.bitnami.com/kubernetes/how-to/secure-kubernetes-cluster-psp/)
 - [Encrypting Secrets at Rest](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/)
-- [Network Security Policy](https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/)
+- [Network Security Policy]
+(https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/)
+- [Building Container Images Securely on Kubernetes](https://blog.jessfraz.com/post/building-container-images-securely-on-kubernetes/)
