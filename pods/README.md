@@ -55,3 +55,4 @@ It is important to note that you will rarely define pod manifests directly excep
 * [Top Level API Objects](https://htmlpreview.github.io/?https://github.com/kubernetes/kubernetes/blob/HEAD/docs/api-reference/v1/definitions.html)
 * [API Conventions](https://github.com/kubernetes/community/blob/master/contributors/devel/api-conventions.md)
 * [Manage compute resources for containers](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/)
+* [Linux Namespaces](http://man7.org/linux/man-pages/man7/namespaces.7.html)
