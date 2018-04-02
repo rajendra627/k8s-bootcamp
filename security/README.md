@@ -150,6 +150,22 @@ spec:
 
 See this this [blog post on k8s.io](http://blog.kubernetes.io/2017/10/enforcing-network-policies-in-kubernetes.html) for more info on Network Policies.  See also the excellent [Network Policy Recipes](https://github.com/ahmetb/kubernetes-network-policy-recipes) for some in-depth examples of policies.
 
+## pod.spec.securityContext ##
+
+The pod specification enables you to set security constraints at the pod level (applies to all containers) and at the container level.  
+
+```sh
+#with an active kubectl config run
+kubectl explain pods.spec.securityContext
+
+#Or run
+kubectl explain pods.spec.containers.securityContext
+```
+
+Reviewing your pod spec from the security perspective should be part of your code review!  Here is a tool you can use, https://kubesec.io/, to scan your specification, and it will make recommendations. Very helpful!
+
+
+
 ## Reference ##
 
 - [Using RBAC Authorization](https://kubernetes.io/docs/admin/authorization/rbac/)
