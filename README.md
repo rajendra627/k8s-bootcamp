@@ -84,8 +84,8 @@ By the end of this 2-day bootcamp, you will learn the following K8S concepts:
 - [Extending K8S](./extending-k8s/README.md)
     - We will create our own K8S resource type and implement a custom controller using the "Operator" pattern
 - Brief overview of other K8S tools and projects you should know about:
-    - [Draft](./draft/README.md) - Tool to help developers be productive building/testing applications on K8S
-    - [Skaffold](https://github.com/GoogleCloudPlatform/skaffold) - Similar to Draft but takes different approach.  Skaffold also supports multi-component apps which is very nice.
+    - [Draft](./app-dev/README.md) - Tool to help developers be productive building/testing applications on K8S
+    - [Skaffold](./app-dev/README.md) - Similar to Draft but takes different approach.  Skaffold also supports multi-component apps which is very nice.
     - [Minikube](https://github.com/kubernetes/minikube) - Local single node K8S cluster for development and learning.
     - [Conduit](https://conduit.io/) - A lighweight microservices service mesh that can be deployed to K8S.  Provides intelligent load-balancing, telemetry and more!
     - [kubespray](https://github.com/kubernetes-incubator/kubespray) - Deploying K8S using ansible. Can be used to deploy on bare metal, on-premises VMs, various cloud providers.

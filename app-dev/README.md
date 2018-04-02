@@ -38,3 +38,7 @@ draft create todo-ui
 
 ## Skaffold ##
 
+[Skaffold](https://github.com/GoogleCloudPlatform/skaffold) is a tool from Google that is similar to Draft, however, it takes a different approach.
+
+## Telepresence ##
+
