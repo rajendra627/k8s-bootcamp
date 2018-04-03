@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 deployWithConduit=false
-namespace='todo-app'
+namespace='default'
 
 function checkConduitInstalled {
     if conduit version
