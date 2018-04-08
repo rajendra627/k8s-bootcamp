@@ -179,3 +179,5 @@ Reviewing your pod spec from the security perspective should be part of your cod
 - [Network Security Policy]
 (https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/)
 - [Building Container Images Securely on Kubernetes](https://blog.jessfraz.com/post/building-container-images-securely-on-kubernetes/)
+- [SSO for K8S](https://thenewstack.io/kubernetes-single-sign-one-less-identity/)
+- [OICD Helper for K8S](https://github.com/negz/kuberos)

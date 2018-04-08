@@ -69,9 +69,10 @@ Update the ingress resource as described above.
 
 ## Securing Helm/Tiller ##
 
-It is very, very important to follow security best-practices with Helm/Tiller.  Tiller by default will be deployed without any restriction.  Although, helm can only access Tiller after being authenticated by the API Server, Tiller can do anything on the cluster!!  Hence lock down your Tiller deployment using the best-practices list in the [docs](https://github.com/kubernetes/helm/blob/master/docs/securing_installation.md).
+It is very, very important to follow security best-practices with Helm/Tiller.  Tiller by default will be deployed without any restriction.  Although, helm can only access Tiller after being authenticated by the API Server, Tiller can do anything on the cluster!!  Hence lock down your Tiller deployment using the best-practices list in the [docs](https://github.com/kubernetes/helm/blob/master/docs/securing_installation.md).  Also see this excellent [article](https://engineering.bitnami.com/articles/helm-security.html) from Bitami.
 
 ## References ##
 
 - [Helm Documenation](https://docs.helm.sh/using_helm/)
 - [Debugging Templates](https://github.com/kubernetes/helm/blob/master/docs/chart_template_guide/debugging.md)
+- [Using SSL Between Helm & Tiller](https://github.com/kubernetes/helm/blob/master/docs/tiller_ssl.md)
