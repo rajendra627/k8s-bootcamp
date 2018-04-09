@@ -106,7 +106,7 @@ See [here](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#what-
 
 The PSPs can not only set constraints on what the pods can do, but also specify who is authorized to deploy pods with certain privileges.  For example, you can specify that only certain users can deploy pods that share the [host network namespace](https://kubernetes.io/docs/concepts/policy/pod-security-policy/#host-namespaces).
 
-In order to leverage PSPs, you need to enable it on the cluster.  The quickest way to determine if PSPs are enabled is to run the following command:
+In order to leverage PSPs, it needs to be enabled on the cluster. The quickest way to determine if PSPs are enabled is to run the following command:
 
 ```sh
 kubectl get psp
@@ -117,7 +117,9 @@ No resources found.
 #This means PSP is not enabled
 the server doesn't have a resource type "psp"
 ```
-If PSP is not enabled, you will need to enable the PodSecurityPolicy AdmissionController on your cluster.  This is done by passing an option to the kube-apiserver.  Unfortunately, this is not possible on AKS as you do not have access to the master nodes.  On ACS, the approach is to use [acs-engine](https://github.com/Azure/acs-engine) to create a custom cluster with it enabled.  Note, you also need to enable AppArmor on all your nodes.  You can do this via acs-engine.
+If PSP is not enabled, you will need to enable the PodSecurityPolicy AdmissionController on your cluster.  This is done by passing an option to the kube-apiserver.  Unfortunately, this is not possible on AKS as you do not have access to the master nodes.  On ACS, the approach is to ssh into the master nodes, and update the kube-apiserver manifest and add the option.  The manifests are located in the `/etc/kubernetes/manifests` directory.  Once the manifest is updated, you need to restart the kubectl with `sudo systemctl restart kubelet`.  
+
+The other alternative is to use [acs-engine](https://github.com/Azure/acs-engine) to create a custom cluster with it enabled.  Note, you also need to enable AppArmor on all your nodes. 
 
 See [restrict-hostport.yaml](./restrict-hostport.yaml) and [restrict-root.yaml](./restrict-root.yaml) for examples.
 
