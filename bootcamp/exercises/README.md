@@ -37,7 +37,6 @@ Optionally, install the following extensions (search in the extensions tab):
 
 * Kubernetes (from Microsoft)
 * Kubernetes Support (provides snippets for authoring manifests)
-* vscode-helm
 * Docker
 
 ## Verify your Azure subscription ##
