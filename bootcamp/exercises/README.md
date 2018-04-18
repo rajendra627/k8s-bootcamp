@@ -78,7 +78,7 @@ After you have verified your subscription has the necessary providers registered
 * Create a resource group for your cluster. Note you have to be logged in via az cli.
 
 ```sh
-#For region use canadacentral, replace <rg-name> with your desired resource group name
+#For region use canadaeast, replace <rg-name> with your desired resource group name
 #You will need to use this resource group in later steps
 az group create -n <rg-name> -l canadacentral
 ```
