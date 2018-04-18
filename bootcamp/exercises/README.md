@@ -97,7 +97,7 @@ az acs list -o table
 #The result will be a table with your ACS cluster name, location, ResourceGroup...
 Location       Name         ProvisioningState    ResourceGroup
 -------------  -----------  -------------------  --------------
-canadacentral  cluster-name  Succeeded            rg-name
+canadaeast  cluster-name  Succeeded            rg-name
 ```
 
 * Install the kubectl cli, if on linux, or macOS, you may have to run as sudo
