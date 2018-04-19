@@ -17,7 +17,7 @@ Name                                                       CloudName    Subscrip
 ---------------------------------------------------------  -----------  ------------------------------------  -------  -----------
 Learning - Jungho Kim                                      AzureCloud   f6de0a1c-8065-430a-92d0-2dd8fff75     Enabled  True
 
-#3 Generate and deploy the ARM template.  This command will create a resource group with the same name as your dns-prefix then deploy the IaaS resources into the RG.  It will also generate the ARM templates, the certs/keys for all the control plane components, the kubectl client, as well as kubeconfig files to access each Azure region.  Look at the contents of the _output directory.
+#3 Generate and deploy the ARM template.  This command will create a resource group with the same name as your dns-prefix then deploy the IaaS resources into the RG.  It will also generate the ARM templates, the certs/keys for all the control plane components, the kubectl client, as well as kubeconfig files to access each Azure region.  Look at the contents of the _output directory.  Note, if you want to just generate the output, replace deploy with generate.
 
 acs-engine deploy --subscription-id <sub-id> --dns-prefix <your-dns-prefix> --location <region e.g. canadaeast> --api-model <your-api-model-json>
 
@@ -36,10 +36,6 @@ kubernetes-dashboard is running at https://architech-k8s2.eastus2.cloudapp.azure
 tiller-deploy is running at https://architech-k8s2.eastus2.cloudapp.azure.com/api/v1/namespaces/kube-system/services/tiller-deploy:tiller/proxy
 
 ```
-
-
-
-
 
 ## References ##
 
