@@ -1,4 +1,4 @@
-# App Dev Workflow on Kubernetes #
+# App Dev Workflow on Kubernetes - WIP #
 
 Deploying your applications to Kubernetes once it is fully tested is one thing, what about when you are actively developing your applications and they require multiple dependencies?  Ideally, the developer experience should not require the developers to be experts in Kubernetes and the deployment knowledge is codified into a CI/CD pipeline.  This is an area that is actively being explored and there are many tools that are being developed to address this.  The challenge, however, is that there are 1) many tools! 2) there is often overlap in the tools 3) there is no clear end-to-end guidance.  This results in many development groups coming up with different processes.  The good thing is that this is a very active area of [research by the community](https://groups.google.com/forum/#!msg/kubernetes-dev/YcjXRDrCdbI/LKmUJX6YBgAJ).
 
